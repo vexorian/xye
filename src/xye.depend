@@ -1,0 +1,175 @@
+# depslib dependency file v1.0
+1182086836 source:/home/vx/Desktop/xyedev/src/browser.cpp
+	"browser.h"
+	<errno.h>
+	<stdio.h>
+	<stdlib.h>
+	<string>
+
+1143377076 /home/vx/Desktop/xyedev/src/browser.h
+	<stdio.h>
+	<dirent.h>
+
+1182639843 source:/home/vx/Desktop/xyedev/src/font.cpp
+	"font.h"
+	<stdexcept>
+	"gen.h"
+
+1182562621 /home/vx/Desktop/xyedev/src/font.h
+	"vxsdl.h"
+	<SDL/SDL_ttf.h>
+	<stdio.h>
+	<string>
+
+1182091865 /home/vx/Desktop/xyedev/src/vxsdl.h
+	<stdio.h>
+	<string>
+	<SDL/SDL.h>
+	<SDL/SDL_image.h>
+
+1144602988 /home/vx/Desktop/xyedev/src/gen.h
+	<stdio.h>
+	<string>
+
+1144104936 source:/home/vx/Desktop/xyedev/src/gen.cpp
+	"gen.h"
+	"vxsdl.h"
+
+1185058340 source:/home/vx/Desktop/xyedev/src/kye_script.cpp
+	"xye.h"
+	"gen.h"
+	<iostream>
+	<fstream>
+	"xye_script.h"
+	"kye_script.h"
+
+1185058178 /home/vx/Desktop/xyedev/src/xye.h
+	"vxsdl.h"
+	"font.h"
+	"levels.h"
+	<string>
+	"gen.h"
+
+1182561206 /home/vx/Desktop/xyedev/src/levels.h
+	"vxsdl.h"
+
+1147967194 /home/vx/Desktop/xyedev/src/xye_script.h
+	"tinyxml/xye_tinyxml.h"
+
+1144554376 /home/vx/Desktop/xyedev/src/tinyxml/xye_tinyxml.h
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<windows.h>
+	<string>
+	<iostream>
+	"xye_tinystr.h"
+
+1129722714 /home/vx/Desktop/xyedev/src/tinyxml/xye_tinystr.h
+	<assert.h>
+	<string.h>
+
+1147967080 /home/vx/Desktop/xyedev/src/kye_script.h
+	<string>
+
+1142089196 source:/home/vx/Desktop/xyedev/src/list.cpp
+	<vector>
+
+1184592162 source:/home/vx/Desktop/xyedev/src/main.cpp
+	"xye.h"
+	"xyedit.h"
+	"xye_script.h"
+	"options.h"
+	"browser.h"
+	<sys/types.h>
+	<sys/stat.h>
+
+1184592120 /home/vx/Desktop/xyedev/src/options.h
+	"tinyxml/xye_tinyxml.h"
+	"vxsdl.h"
+
+1184592118 source:/home/vx/Desktop/xyedev/src/options.cpp
+	"options.h"
+	"gen.h"
+	<iostream>
+	<fstream>
+
+1148045120 source:/home/vx/Desktop/xyedev/src/record.cpp
+	"xye.h"
+	"record.h"
+	<iostream>
+	<fstream>
+
+1148044416 /home/vx/Desktop/xyedev/src/record.h
+
+1144554106 source:/home/vx/Desktop/xyedev/src/tinyxml/xye_tinystr.cpp
+	"xye_tinystr.h"
+
+1144554187 source:/home/vx/Desktop/xyedev/src/tinyxml/xye_tinyxml.cpp
+	<ctype.h>
+	"xye_tinyxml.h"
+	<sstream>
+
+1144554207 source:/home/vx/Desktop/xyedev/src/tinyxml/xye_tinyxmlerror.cpp
+	"xye_tinyxml.h"
+
+1144554231 source:/home/vx/Desktop/xyedev/src/tinyxml/xye_tinyxmlparser.cpp
+	"xye_tinyxml.h"
+	<ctype.h>
+	<stddef.h>
+
+1182112505 source:/home/vx/Desktop/xyedev/src/vxsdl.cpp
+	"vxsdl.h"
+
+1185058340 source:/home/vx/Desktop/xyedev/src/xye_script.cpp
+	"xye.h"
+	"options.h"
+	"xye_script.h"
+	"kye_script.h"
+	"xsb_level.h"
+	"gen.h"
+	"string"
+
+1147967084 /home/vx/Desktop/xyedev/src/xsb_level.h
+	<string>
+
+1182562139 source:/home/vx/Desktop/xyedev/src/levels.cpp
+	"xye.h"
+	"xye_script.h"
+	"levels.h"
+	"options.h"
+	"vxsdl.h"
+	"browser.h"
+
+1185058264 source:/home/vx/Desktop/xyedev/src/xye.cpp
+	"xye.h"
+	<stdio.h>
+	"xye_script.h"
+	"options.h"
+	"record.h"
+
+1184593961 /home/vx/Desktop/xyedev/src/xyedit.h
+	"vxsdl.h"
+	"font.h"
+	<string>
+
+1185058063 source:/home/vx/Desktop/xyedev/src/xyedit.cpp
+	"xyedit.h"
+	"xye.h"
+	<stdio.h>
+	"xye_script.h"
+	"options.h"
+	<stdlib.h>
+
+1185058124 source:/home/vx/Desktop/xyedev/src/editorload.cpp
+	"xyedit.h"
+	"tinyxml/xye_tinyxml.h"
+	<iostream>
+
+1185057974 source:/home/vx/Desktop/xyedev/src/editorsave.cpp
+	"xyedit.h"
+	<iostream>
+	<fstream>
+
