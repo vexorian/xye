@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Xye" />
+		<Option pch_mode="0" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="win32">
+				<Option output="xye.exe" prefix_auto="0" extension_auto="0" />
+				<Option working_dir=".\" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Option projectResourceIncludeDirsRelation="0" />
+				<Linker>
+					<Add library="mingw32" />
+				</Linker>
+			</Target>
+			<Target title="linux">
+				<Option output="xye" prefix_auto="0" extension_auto="0" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option projectResourceIncludeDirsRelation="0" />
+			</Target>
+			<Target title="ubuntu_debug">
+				<Option output="xye" prefix_auto="0" extension_auto="0" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option projectResourceIncludeDirsRelation="1" />
+			</Target>
+		</Build>
+		<VirtualTargets>
+			<Add alias="All" targets="win32;linux;ubuntu_debug;" />
+		</VirtualTargets>
+		<ResourceCompiler>
+			<Add directory="V:\VxDocs\cpp\xye\" />
+		</ResourceCompiler>
+		<Linker>
+			<Add library="SDLmain" />
+			<Add library="SDL" />
+			<Add library="SDL_image" />
+			<Add library="SDL_ttf" />
+		</Linker>
+		<Unit filename="browser.cpp" />
+		<Unit filename="browser.h" />
+		<Unit filename="command.cpp" />
+		<Unit filename="command.h" />
+		<Unit filename="dialogs.cpp" />
+		<Unit filename="dialogs.h" />
+		<Unit filename="editorload.cpp" />
+		<Unit filename="editorsave.cpp" />
+		<Unit filename="font.cpp" />
+		<Unit filename="font.h" />
+		<Unit filename="gen.cpp" />
+		<Unit filename="gen.h" />
+		<Unit filename="kye_script.cpp" />
+		<Unit filename="kye_script.h" />
+		<Unit filename="levels.cpp" />
+		<Unit filename="levels.h" />
+		<Unit filename="list.cpp" />
+		<Unit filename="list.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="options.cpp" />
+		<Unit filename="options.h" />
+		<Unit filename="record.cpp" />
+		<Unit filename="record.h" />
+		<Unit filename="resource.rc">
+			<Option compilerVar="WINDRES" />
+			<Option target="win32" />
+		</Unit>
+		<Unit filename="tinyxml\xye_tinystr.cpp" />
+		<Unit filename="tinyxml\xye_tinystr.h" />
+		<Unit filename="tinyxml\xye_tinyxml.cpp" />
+		<Unit filename="tinyxml\xye_tinyxml.h" />
+		<Unit filename="tinyxml\xye_tinyxmlerror.cpp" />
+		<Unit filename="tinyxml\xye_tinyxmlparser.cpp" />
+		<Unit filename="vxsdl.cpp" />
+		<Unit filename="vxsdl.h" />
+		<Unit filename="window.cpp" />
+		<Unit filename="window.h" />
+		<Unit filename="xsb_level.cpp" />
+		<Unit filename="xsb_level.h" />
+		<Unit filename="xye.cpp" />
+		<Unit filename="xye.h" />
+		<Unit filename="xye_script.cpp" />
+		<Unit filename="xye_script.h" />
+		<Unit filename="xyedit.cpp" />
+		<Unit filename="xyedit.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

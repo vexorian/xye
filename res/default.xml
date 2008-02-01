@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!---xyeskin, specify an image file (which must be in the same folder and be of png format) and the size of the grid-->
+<!---You can also customize the font for some reason.-->
+<!--- You can use the bitmaps fonts, this way you may remove the SDL_ttf requirement but also remove the international
+  compatibility, bitmap fonts must be bmp, and there are samples in this folder, do not specify truetypesize if you
+  do not want a truetype font-->
+<xyeskin
+sprites="xye.png"
+size='20'
+fontfile="DejaVuSans.ttf"
+boldfontfile="DejaVuSans-Bold.ttf"
+
+truetypesize='12'
+>
+
+<!-- The select level menu colors, you may try making it combine with your system if you want -->
+<levelmenu>
+    <info          red='231' green='231' blue='231' />
+    <selected      red='52' green='151' blue='209' />
+    <selectederror red='255' green='93' blue='0' />
+    <menu          red='255' green='255' blue='255' />
+    <menutext      red='0' green='0' blue='0' />
+    <selectedtext  red='255' green='255' blue='255' />
+    <infotext      red='0' green='0' blue='0' />
+</levelmenu>
+
+<!--Color schemes are optional, left as an example:-->
+
+<!-- main "B" colors , shouldn't change them too much, maybe the tone, but: (red blocks are supposed to be red blocks)-->
+<color type="B" bc="Y" red='255' green='255' blue='0'/>
+<color type="B" bc="R" red='255' green='0' blue='0'/>
+<color type="B" bc="B" red='0' green='0' blue='255'/>
+<color type="B" bc="G" red='0' green='170' blue='0'/>
+
+<!-- secondary "F" colors , these are the colors used by symbols / secondary art of the different blocks
+feel free to change them, just keep good contrast-->
+
+<color type="F" bc="Y" red='255' green='0' blue='0'/>
+<color type="F" bc="R" red='255' green='255' blue='0'/>
+<color type="F" bc="B" red='0' green='255' blue='255'/>
+<color type="F" bc="G" red='255' green='255' blue='255'/>
+
+</xyeskin>
