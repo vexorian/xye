@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="linux" />
+	<File name="browser.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="2406" topLine="106" />
+	</File>
+	<File name="editorload.cpp" open="1" top="0" tabpos="16">
+		<Cursor position="5904" topLine="222" />
+	</File>
+	<File name="editorsave.cpp" open="1" top="0" tabpos="14">
+		<Cursor position="4154" topLine="147" />
+	</File>
+	<File name="font.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="6374" topLine="246" />
+	</File>
+	<File name="font.h" open="0" top="0" tabpos="8">
+		<Cursor position="173" topLine="0" />
+	</File>
+	<File name="gen.cpp" open="0" top="0" tabpos="17">
+		<Cursor position="3094" topLine="117" />
+	</File>
+	<File name="kye_script.cpp" open="1" top="0" tabpos="18">
+		<Cursor position="6502" topLine="264" />
+	</File>
+	<File name="levels.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="12870" topLine="573" />
+	</File>
+	<File name="levels.h" open="1" top="0" tabpos="2">
+		<Cursor position="44" topLine="0" />
+	</File>
+	<File name="list.cpp" open="0" top="0" tabpos="11">
+		<Cursor position="527" topLine="13" />
+	</File>
+	<File name="main.cpp" open="1" top="0" tabpos="9">
+		<Cursor position="5803" topLine="65" />
+	</File>
+	<File name="options.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="14243" topLine="581" />
+	</File>
+	<File name="options.h" open="1" top="0" tabpos="5">
+		<Cursor position="2154" topLine="43" />
+	</File>
+	<File name="record.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="39" topLine="0" />
+	</File>
+	<File name="tinyxml/xye_tinyxml.h" open="1" top="0" tabpos="17">
+		<Cursor position="24258" topLine="659" />
+	</File>
+	<File name="vxsdl.cpp" open="1" top="0" tabpos="7">
+		<Cursor position="841" topLine="0" />
+	</File>
+	<File name="vxsdl.h" open="0" top="0" tabpos="7">
+		<Cursor position="201" topLine="0" />
+	</File>
+	<File name="xye.cpp" open="1" top="1" tabpos="11">
+		<Cursor position="166658" topLine="7392" />
+	</File>
+	<File name="xye.h" open="1" top="0" tabpos="8">
+		<Cursor position="3342" topLine="153" />
+	</File>
+	<File name="xye_script.cpp" open="1" top="0" tabpos="10">
+		<Cursor position="21997" topLine="912" />
+	</File>
+	<File name="xye_script.h" open="1" top="0" tabpos="15">
+		<Cursor position="650" topLine="33" />
+	</File>
+	<File name="xyedit.cpp" open="1" top="0" tabpos="12">
+		<Cursor position="2096" topLine="66" />
+	</File>
+	<File name="xyedit.h" open="1" top="0" tabpos="13">
+		<Cursor position="3458" topLine="16" />
+	</File>
+</CodeBlocks_layout_file>

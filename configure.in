@@ -1,0 +1,102 @@
+# $Id$
+
+# Process this file with autoconf to produce a configure script.
+PROJ_NAME=xye
+PROJ_VERSION=0.8.0
+
+
+
+
+AC_INIT(xye,0.8.0,vexorian@gmail.com)
+
+# Setup for automake
+AM_INIT_AUTOMAKE
+
+# Detect the canonical host and target build environment
+AC_CANONICAL_HOST
+AC_CANONICAL_TARGET
+
+# Check for tools
+AC_PROG_CC
+AC_PROG_CXX
+
+# Check for compiler environment
+AC_C_CONST
+
+
+# Check for SDL
+SDL_VERSION=1.2.7
+AM_PATH_SDL($SDL_VERSION, :,
+            AC_MSG_ERROR([*** SDL version $SDL_VERSION not found!]))
+CFLAGS="$CFLAGS $SDL_CFLAGS"
+CXXFLAGS="$CXXFLAGS $SDL_CFLAGS"
+LIBS="$LIBS $SDL_LIBS"
+
+
+# Check for SDL_image library
+AC_CHECK_LIB(SDL_image, IMG_LoadPNG_RW, , AC_MSG_ERROR([
+*** Unable to find SDL_image libary with PNG support
+(http://www.libsdl.org/projects/SDL_image/)
+]))
+
+
+# Check for SDL_font library
+AC_CHECK_LIB(SDL_ttf, TTF_GlyphMetrics, , AC_MSG_ERROR([
+*** Unable to find SDL_ttf libary
+(http://www.libsdl.org/projects/SDL_ttf/)
+]))
+
+
+data_path="$datadir/xye/"
+data_path_flag="-DDATA_PATH=\\\"$data_path\\\""
+AC_SUBST(data_path_flag)
+
+
+dnl documentation path
+doc_dir="/usr/doc"
+dnl check if manually overwriting doc path
+AC_ARG_WITH( docdir,
+[  --with-docdir=DPATH       Directory where documentation is saved.],
+doc_dir="$withval",)
+AC_SUBST(doc_dir)
+
+
+
+
+
+
+#Is openGL required by XyE?
+# Check for OpenGL
+#AC_MSG_CHECKING(for OpenGL support)
+#HAVE_OPENGL=no
+#AC_TRY_COMPILE([
+ #include <GL/gl.h>
+#],[
+#],[
+#HAVE_OPENGL=yes
+#])
+#AC_MSG_RESULT($HAVE_OPENGL)
+#if test x$HAVE_OPENGL = xyes; then
+#    CFLAGS="$CFLAGS -DHAVE_OPENGL"
+#    GL_LIBS="$SYS_GL_LIBS"
+#else
+#    GL_LIBS=""
+#fi
+#AC_SUBST(GL_LIBS)
+
+# Check for standard C++ library
+#AC_CHECK_LIB(stdc++, main)
+
+# Finally create all the generated files
+AC_OUTPUT(Makefile src/Makefile)
+
+
+
+
+
+echo
+echo The xye binary will be installed in $prefix/bin
+echo Documentation and icon will be found on $doc_dir/xye
+echo
+echo Configure complete, now type \'make\' and hope for the best.
+echo

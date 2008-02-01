@@ -1,0 +1,31 @@
+Author of Kye for windows 3.11 (1992)
+==============================
+ Colin Garbutt
+
+Author of Xye
+=============
+  Víctor Hugo Solíz Kuncar (Vexorian) vexorian@gmail.com 
+
+
+Levels
+======
+- Vexorian : Tutorials , 5levels.xye and tour.xye
+
+- David W. Skinner (http://users.bentonrea.com/~sasquatch/sokoban/index.html )
+      microban.xsb 
+
+- tjyorkshire : training.kye
+- phyrex1an : pxlevels.xye
+- Mc ! : mic4.xye
+
+
+Base of build system
+- David Philips (http://david.acz.org)
+
+Special thanks
+===========================
+ - http://www.codeblocks.org/ - Code::blocks is a cross platform c++ IDE completelly free and also works like a charm!
+ - http://www.libsdl.org - SDL It is a wonderful cross platform library for game creation.
+ - Jim Babcock , the creator of SKye for helping with a lot of information about kye rules, specially timing and the rules for auto sliders/ rockies.
+- The Ultimate Packer for eXecutables : Copyright (c) 1996-2002 Markus Oberhumer & Laszlo Molnar  http://upx.sourceforge.net Mantains the win32 executable small.
+- Sourceforge.net for the hosting.

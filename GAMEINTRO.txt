@@ -1,0 +1,112 @@
+
+Xye
+====
+   The funny name comes from Kye, the name of the original game, but I replaced the K with an X because this is not really a clone. It is not an acronym although X-Y-E sounds cool.
+ 
+   The objective is as easy as it can get, you just have to get all the gems. The only problem are the obstacles, traps and monsters
+ that you will find in your path.
+
+Controls
+========
+
+* Use the keyboard's direction arrows to control kye, which is that green circle.
+* You can use the mouse to move kye by drag and drop or simple clicks to the game squares you want kye to go.
+* Use shift to show arrows pointing at XYE so you can locate it.
+* Use ctrol as your fast forward button.
+* Use [enter] to restart the level.
+* Use + or N to get to the next level (Note: the level file might just have one level so + / N will just restart it)
+* Use - or P to get to the previous level ( Identical note )
+* Use H to read the level's hint (Levels with hints show a hint symbol at the bottom panel).
+* Use S to play the level's solution (Levels that include their solution show a film icon with an S at the bottom panel).
+* Press DELETE to UNDO your last GROUP of moves
+* During the game, press Backspace to get back to the level file browser.
+* Pressing c enables coordinate mode that shows the game coordinates of the mouse cursor (useful for level makers until we have an editor)
+
+The gameplay
+============
+ For a start, ground portions marked with a '?' mark are hints, then just play the tutorial levels and read the hints they should allow you to understand the game's objects.
+
+ Other levels have the '?' mark in the bottom bar in that case press H to read the hint.
+
+ Xye comes with 10 official (tutorial) levels and many other level files are included, each version will come with more and more levels.
+ 
+ All the tutorials include their solutions, so when playing the level you can press S to see a demonstration.
+
+Pausing the game
+================
+Pausing the game is possible simply by minimizing xye's window.
+
+About the levels
+================
+ You don't really have to completelly finish a tutorial level, most of them are divided in parts, the first is introductory and then a challenge, once you feel that you understood all the concepts a tutorial introduced you can always skip it using [+] or [N] , so you can beat it later. You can also surrender and press [S] to see the tutorial's solution. Notice that figuring out the solution yourself is the fun way to play xye and pressing [S] is only for emergencies.
+
+
+
+Other level files
+=================
+
+   * kye.xye : These are the levels that came originally with kye.
+
+   * tour.xye : 11 levels (The other official levels)
+
+   * logo.xye : A promotional level, the level itself is perfectly beatable.
+   
+   * 5levels.xye : 5 levels I made a long ago for kye and adapted to xye. 
+   
+   * pxlevels.xye, Mic4.xye : some levels made for xye by other users.
+   
+   * training.kye : a .kye file consisting on some basic instructions for original kye.
+
+   * You can make your own levels with some xml skill and knowledge on the format, soon the specs for the .xye will be released at the home page.
+
+   * An editor is also coming soon.
+
+   * For More information / Updates about levels check the levels section in xye's homepage.
+
+
+Kye Levels
+==========
+   You can google for kye levels and you will find plenty of .kye level files. I have most of the ones available in the web and most of them work correctly in xye.
+
+Sokoban Levels
+==============
+   Levels in the standard sokoban format can be used in Xye, only one condition apply: the level file must end with .xsb
+
+   The standard sokoban format is not really standard and there are a lot of variations, I focused on just loading the levels, because the standard does not really mention information or anything, a sokoban level file might have description and names of the levels but the game will ignore them.
+
+   Also, very big sokoban levels (bigger than the space the game provides) will be ignored by the game. So a level pack with 150 levels might figure as having 147 levels, that's perfectly normal.
+
+
+
+Important gameplay differences between Xye and Kye
+==================================================
+
+ It is important to know these differences, xye can open .kye files but they might fail.
+
+
+* Xye does not have a level secuence, you don't have to beat a level in order to play next, in the final version there will be a list showing the available levels, but currently you can use + or N to navigate the levels. For the windows version with the .net environment xyegui allows you to choose an specific level.
+
+* Round objects have another option, if you push a round object and another round object is blocking the path they will behave as "rockies" on kye did. This is a major change that makes some levels designed for kye easier than how they are supposed to be but it is a logical and useful adition in my opinion. If it is an arrow block (rocky) this does not happen and because of this many levels are not broken.
+
+* Auto sliders/rockies are now called clock auto arrows, behave slightly different from the Kye ones, their timing and rules for initial direction / shooting time are kind of the same but they are somehow much more predictable than Kye ones.
+
+* Many things are more predictable in xye than kye, for example the way blackies handle their busy state.
+
+* Pressing the direction arrows WILL NOT cause a new cycle, Kye will have to wait till next cycle to move. This is more of a decorative difference, you can always press ctrol in order to speed up the game's clock.
+
+* There is no random factor: In kye many things depended on random numbers like the movement of monsters and rockies. In Xye random is eliminated from gameplay, although that does not mean that monsters and rockies are predictable. If you make the exact same movements in the same level you should always get the same results (unless there is a bug somewhere)
+
+* Another difference is that kye does not move once per cycle but once per 2 cycles (all the relative timing of the other Kye objects was doubled too) Some objects like red arrow blocks may move faster than kye. This affects somehow the behaviour of old arrow blocks, or sliders / rockies as they were called in Kye. It does not seem to cause much trouble though.
+
+* There is no diagonal movement, and this will make some levels to be impossible (although the only level I've seen where you actually had to use diagonal movement was one of the levels included in shareware kye.
+
+* Xye allows undo, so many levels have became much easier, but remember that if you can't beat a level without using undo you didn't really beat it in my opinion.
+
+About UNDO
+==========
+ Xye is a real time, game so adding an UNDO option consisted on just making XYE restart the level and repeat all the previous moves but the last step in a silent way without delays / drawing of the screen. If you were playing a level for too long, then undo might take some time depending on the computer you are using. It will never take much more than the time you spent on the level already, it shouldn't really take more than 1/100 that time no matter what computer is. The most intensive processor operations in the game are after all drawing. Followed by the monster AI (some of the monsters have really smart AIs and those will use a lot of processor power). 
+
+ In other words UNDO might take some time so don't get desperate if in some situations you have to wait 5 seconds after pressing the undo button. (5 seconds is an extreme value)
+
+ As of version 0.8.0.0 undo was converted into a "cheat code". You must add undo="yes" to xyeconf.xml , see the readme for more info.
+
