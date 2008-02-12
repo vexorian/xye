@@ -1336,10 +1336,12 @@ bool game::TryMoveXye(char dx, char dy, edir dir)
         }
     if (go)
     {
+        XYE->moved=true;
         gobj* gobject=sq->gobject;
         if ((gobject==NULL) || (gobject->CanEnter(XYE,dir)))
         {
             XYE->move(dx,dy);
+            XYE->lastdir=dir;
             LastXyeDir=dir;
             return (true);
         }
@@ -2504,6 +2506,7 @@ xye::xye(square* sq)
     type=OT_XYE;
     checkpoint=sq;
     deadtic=0;
+    moved=false;
     ObjectConstruct(sq);
 }
 
@@ -2511,8 +2514,18 @@ void xye::Draw(unsigned int x, unsigned int y)
 {
     if (lives>0)
     {
-        Uint8 tx,ty;
-        DaVinci D(game::sprites,0,0,sz,sz);
+        Uint8 tx=0,ty=0;
+        
+        if(moved) switch(lastdir)
+        {
+            case D_UP: tx=11,ty=19; break;
+            case D_DOWN: tx=10,ty=19; break;
+            case D_LEFT: tx=11,ty=18; break;
+            case D_RIGHT: tx=10,ty=18; break;
+        }
+        
+        
+        DaVinci D(game::sprites,tx*sz,ty*sz,sz,sz);
 
         D.SetColors( &game::PlayerColor,alpha);
 
