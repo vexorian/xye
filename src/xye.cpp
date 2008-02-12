@@ -4574,7 +4574,7 @@ void surprise::Draw(unsigned int x, unsigned int y)
                     if (b6) b6->IntelligentUpdateCorners(wl);
 
 
-                wl->ChangeColor(SprColor.r,SprColor.g,SprColor.b);
+                wl->ChangeColor(SprColor.r+(255-SprColor.r)/2,SprColor.g+(255-SprColor.g)/2,SprColor.b+(255-SprColor.b)/2);
                 wl->Draw(x,y);
                 break;
 
