@@ -36,10 +36,10 @@ using std::string;
 enum edir { D_UP=0,D_DOWN=1,D_LEFT=2,D_RIGHT=3};
 enum blockcolor
 {
-	B_YELLOW=0,
-	B_RED=1,
-	B_BLUE=2,
-	B_GREEN=3
+    B_YELLOW=0,
+    B_RED=1,
+    B_BLUE=2,
+    B_GREEN=3
 };
 enum roundcorner { RC_1,RC_7,RC_9,RC_3 };
 
@@ -56,61 +56,61 @@ unsigned int BC2Color(blockcolor bc);
 
 enum otype
 {
-	OT_XYE,
-	OT_ROBOXYE,
-	OT_WALL,
-	OT_BLOCK,
-	OT_TRICKDOOR,
-	OT_HINT,
-	OT_WARNING,
-	OT_EARTH,
-	OT_GEM,
-	OT_TELEPORT,
-	OT_BLACKHOLE,
-	OT_MINE,
-	OT_FIREBALL,
-	OT_SURPRISE,
-	OT_PUSHER,
-	OT_ARROW,
-	OT_TURNER,
-	OT_LOWDENSITY,
-	OT_AUTO,
-	OT_FACTORY,
-	OT_SNIPER,
-	OT_FILLER,
-	OT_NUMBER,
-	OT_MAGNETIC,
-	OT_BLOCKDOOR,
-	OT_MARKEDAREA,
-	OT_GEMBLOCK,
-	OT_KEY,
-	OT_LOCK,
-	OT_PORTAL,
-	OT_TOGGLE,
-	OT_EXIT,
+    OT_XYE,
+    OT_ROBOXYE,
+    OT_WALL,
+    OT_BLOCK,
+    OT_TRICKDOOR,
+    OT_HINT,
+    OT_WARNING,
+    OT_EARTH,
+    OT_GEM,
+    OT_TELEPORT,
+    OT_BLACKHOLE,
+    OT_MINE,
+    OT_FIREBALL,
+    OT_SURPRISE,
+    OT_PUSHER,
+    OT_ARROW,
+    OT_TURNER,
+    OT_LOWDENSITY,
+    OT_AUTO,
+    OT_FACTORY,
+    OT_SNIPER,
+    OT_FILLER,
+    OT_NUMBER,
+    OT_MAGNETIC,
+    OT_BLOCKDOOR,
+    OT_MARKEDAREA,
+    OT_GEMBLOCK,
+    OT_KEY,
+    OT_LOCK,
+    OT_PORTAL,
+    OT_TOGGLE,
+    OT_EXIT,
     OT_BEAST,
     OT_RATTLER,
     OT_RATTLERNODE,
     OT_RATTLERFOOD,
     OT_FIREPAD,
     OT_PIT,
-	OT_WILDCARD,
-	OT_WINDOW,
-	OT_SCROLLBLOCK,
-	OT_METALBLOCK
+    OT_WILDCARD,
+    OT_WINDOW,
+    OT_SCROLLBLOCK,
+    OT_METALBLOCK
 };
 
 enum btype
 {
-	BT_GNASHER=0,
-	BT_BLOB=1,
-	BT_VIRUS=2,
-	BT_SPIKE=3,
-	BT_TWISTER=4,
-	BT_DARD=5,
-	BT_WARD=6,
-	BT_SPINNER=7,
-	BT_ASPINNER=8,
+    BT_GNASHER=0,
+    BT_BLOB=1,
+    BT_VIRUS=2,
+    BT_SPIKE=3,
+    BT_TWISTER=4,
+    BT_DARD=5,
+    BT_WARD=6,
+    BT_SPINNER=7,
+    BT_ASPINNER=8,
     BT_PATIENCE=9,
     BT_BLOBBOSS=10,
     BT_STATIC=11,
@@ -156,13 +156,13 @@ class ent
 /** Object Interface**/
 class obj: public ent
 {
-	protected:
+    protected:
      void ObjectConstruct(square* sq);
      bool trypush_common(edir dir,obj* pusher,bool AsRoundObject, bool* died);
      bool KilledByBlackHole;
      bool Magnetism(char ox, char oy, char mx, char my, bool rSticky, bool rHorz, edir godir);
 
-	public:
+    public:
      bool GoFindXye(edir res[], int &resn, bool &foundpath, bool ignoreloopingedge, bool ignoreSp, bool considerTeleports, bool considerStickies, unsigned int range, bool Randomize=true );
      bool GoFindASquare(bool (*cond)(square* sq), edir res[], int &resn, bool &foundpath, bool ignoreloopingedge, bool ignoreSp, bool considerTeleports, bool considerStickies, unsigned int range, bool Randomize=true );
      unsigned int tic;
@@ -188,14 +188,14 @@ bool ObjectResistsFire(obj * o);
 // a ground square may only have one normal object and one ground object
 class gobj: public ent
 {
-	protected:
+    protected:
      unsigned int id;
      char x;
      char y;
      void GObjectConstruct(square* sq);
 
 
-	public:
+    public:
      char X();
      char Y();
 
@@ -241,13 +241,13 @@ class explosion
 /**Square Struct**/
 struct square
 {
-	obj* object;
-	gobj* gobject;
-	explosion *ex;
-	int x;
-	int y;
-	char sqx;
-	char sqy;
+    obj* object;
+    gobj* gobject;
+    explosion *ex;
+    int x;
+    int y;
+    char sqx;
+    char sqy;
     groundskin gs;
     Uint8 R;
     Uint8 G;
@@ -265,6 +265,7 @@ class xye : public obj
      unsigned char lives;
      square* checkpoint;
      void OnDeath() { throw "Xye Should not die this way"; }
+     
  public:
      Uint8 alpha;
      xye(square* sq);
@@ -279,6 +280,10 @@ class xye : public obj
      unsigned int deadtic;
      bool HasBlockColor(blockcolor bc);
      void Kill();
+
+     bool moved;
+     edir lastdir;
+
 };
 
 
@@ -1034,7 +1039,7 @@ enum tdtype { td_HORZ,td_VERT,td_SUPER, td_FORCEARROW_UP,td_FORCEARROW_DOWN,td_F
 
 class tdoor: public gobj
 {
-	protected:
+    protected:
       tdtype tt;
       bool ALLOW_UP,  ALLOW_RIGHT,ALLOW_DOWN,ALLOW_LEFT;
       bool ALLOW_NONXYE;
@@ -1048,9 +1053,9 @@ class tdoor: public gobj
       Uint8 B;
 
 
-	public:
-	 tdoor(square* sq,tdtype t,bool up, bool right, bool down, bool left);
-	 void Loop() {}
+    public:
+     tdoor(square* sq,tdtype t,bool up, bool right, bool down, bool left);
+     void Loop() {}
      void Draw(unsigned int x, unsigned int y);
      void OnEnter(obj *entering);
      void OnLeave(obj *entering);
@@ -1067,7 +1072,7 @@ class tdoor: public gobj
 /** Marked Area**/
 class marked: public gobj
 {
-	protected:
+    protected:
      bool active;
      unsigned char anim;
      void OnDeath();
@@ -1075,9 +1080,9 @@ class marked: public gobj
      static unsigned int activeN[4];
 
 
-	public:
+    public:
      blockcolor c;
-	 marked(square* sq, blockcolor bc);
+     marked(square* sq, blockcolor bc);
 
      void Draw(unsigned int x, unsigned int y);
      void Loop() {}
@@ -1095,13 +1100,13 @@ class marked: public gobj
 /** FirePAd **/
 class firepad: public gobj
 {
-	protected:
+    protected:
      unsigned char anim;
      void OnDeath();
      edir D;
 
-	public:
-	 firepad(square* sq);
+    public:
+     firepad(square* sq);
 
      void Draw(unsigned int x, unsigned int y);
      void Loop() {}
@@ -1115,16 +1120,16 @@ class firepad: public gobj
 /** Pit **/
 class pit: public gobj
 {
-	protected:
-	 bool end;
-	 bool dis;
-	 Uint8 dec;
-	 Uint8 alpha;
+    protected:
+     bool end;
+     bool dis;
+     Uint8 dec;
+     Uint8 alpha;
      void OnDeath();
      SDL_Surface * sur;
 
-	public:
-	 pit(square* sq);
+    public:
+     pit(square* sq);
 
      void Draw(unsigned int x, unsigned int y);
      void Loop();
@@ -1141,19 +1146,19 @@ class pit: public gobj
 /** Block Door**/
 class blockdoor: public gobj
 {
-	protected:
+    protected:
 
      unsigned char anim;
      blockcolor c;
      void OnDeath() {}
-	 bool mode;
-	 bool trap;
+     bool mode;
+     bool trap;
      bool IsOpen();
 
 
-	public:
+    public:
 
-	 blockdoor(square* sq, bool AsTrap, bool startopen, blockcolor bc);
+     blockdoor(square* sq, bool AsTrap, bool startopen, blockcolor bc);
 
      void Draw(unsigned int x, unsigned int y);
      void Loop();
@@ -1172,7 +1177,7 @@ class blockdoor: public gobj
 /** Hint **/
 class hint: public gobj
 {
-	protected:
+    protected:
        SDL_Color bcolor;
        SDL_Color fcolor;
        bool xcla;
@@ -1181,9 +1186,9 @@ class hint: public gobj
        void OnDeath() {}
        static hint* active;
 
-	public:
-	 hint(square* sq,string ihint,bool warning);
-	 void Loop() {}
+    public:
+     hint(square* sq,string ihint,bool warning);
+     void Loop() {}
      void Draw(unsigned int x, unsigned int y);
      static void Draw(unsigned int x, unsigned int y,bool xcla);
      void OnEnter(obj *entering);
@@ -1209,18 +1214,18 @@ class hint: public gobj
 /** Portal **/
 class portal: public gobj
 {
-	protected:
-	    Uint8 R;
-	    Uint8 G;
-	    Uint8 B;
-	    Uint8 xyealpha;
-	    char canim;
+    protected:
+        Uint8 R;
+        Uint8 G;
+        Uint8 B;
+        Uint8 xyealpha;
+        char canim;
         void OnDeath() {}
         square *target;
         static bool ignore;
 
-	public:
-	 portal(square* sq,Uint8 cR, Uint8 cG, Uint8 cB, signed int TargetX, signed int TargetY);
+    public:
+     portal(square* sq,Uint8 cR, Uint8 cG, Uint8 cB, signed int TargetX, signed int TargetY);
      void Draw(unsigned int x, unsigned int y);
      void Loop();
      void OnEnter(obj *entering);
@@ -1407,10 +1412,10 @@ public:
 /** Kill Zone Queue **/
 struct killzone
 {
-	char x;
-	char y;
-	killtype kt;
-	killzone *next;
+    char x;
+    char y;
+    killtype kt;
+    killzone *next;
 };
 
 class deathqueue
@@ -1420,9 +1425,9 @@ class deathqueue
     static killzone* current;
 
  public:
-	static void reset();
-	static void add(char ax, char ay, killtype t);
-	static bool KillNow();
+    static void reset();
+    static void add(char ax, char ay, killtype t);
+    static bool KillNow();
     static signed char incx[5];
     static signed char incy[5];
 
@@ -1434,7 +1439,7 @@ class sqMem
 {
  public:
     static bool mem[XYE_HORZ][XYE_VERT];
-	static void reset( bool val);
+    static void reset( bool val);
 };
 
 
