@@ -28,6 +28,7 @@ namespace Command
            if(wait) do
            {
                GetExitCodeProcess(piProcessInfo.hProcess, &dwExitCode);
+               Sleep(1);
            } while (dwExitCode==STILL_ACTIVE);
 
         }
