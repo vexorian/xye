@@ -2500,6 +2500,8 @@ void gobj::Kill()
 
 
 /**Class xye**/
+bool xye::useDirectionSprites = false;
+
 xye::xye(square* sq)
 {
     alpha=255;
@@ -2517,12 +2519,12 @@ void xye::Draw(unsigned int x, unsigned int y)
     {
         Uint8 tx=0,ty=0;
         
-        if(moved) switch(lastdir)
+        if(moved && xye::useDirectionSprites) switch(lastdir)
         {
-            case D_UP: tx=11,ty=19; break;
-            case D_DOWN: tx=10,ty=19; break;
-            case D_LEFT: tx=11,ty=18; break;
-            case D_RIGHT: tx=10,ty=18; break;
+            case D_UP: tx=9,ty=19; break;
+            case D_DOWN: tx=7,ty=19; break;
+            case D_LEFT: tx=8,ty=19; break;
+            case D_RIGHT: tx=6,ty=19; break;
         }
         
         
