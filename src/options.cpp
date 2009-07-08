@@ -73,6 +73,7 @@ SDL_Color options::LevelMenu_menu;
 SDL_Color options::LevelMenu_menutext;
 SDL_Color options::LevelMenu_selectedtext;
 SDL_Color options::LevelMenu_infotext;
+bool options::xyeDirectionSprites = false;
 
 
 bool options::Error(const char* msg)
@@ -304,6 +305,12 @@ void options::Init()
                  strcat(Texture,tm);
 
              }
+
+             if (tm=ele->Attribute("xyedirections"))
+             {
+                 xyeDirectionSprites = ( (strlen(tm) >= 1) && ((tm[0]=='y') || (tm[0]=='Y') ));
+             }
+
 
              if (tm=ele->Attribute("fontfile"))
              {
