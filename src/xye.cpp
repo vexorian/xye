@@ -720,6 +720,7 @@ void game::start(bool undotime)
     toggle::Reset(); //Reset state of toggle blocks
     surprise::Reset(); //Reset state of remaining surprise blocks to morph.
     gem::ResetCounts(); //reset gem counts
+    star::ResetCounts(); //reset star counts
     key::ResetCounts(); //reset key counts
     wall::ResetDefaults();
     earth::ResetDefaults();
@@ -6627,6 +6628,81 @@ inline bool gem::HasBlockColor(blockcolor bc) { return false; }
 /**End Class Gem**/
 
 
+/**Start Class Gem**/
+
+unsigned int star::count, star::acquired;
+
+star::star(square* sq)
+{
+    count++;
+    type=OT_STAR;
+    anim=!(Chance(0.5));
+    ObjectConstruct(sq);
+}
+
+void star::ResetCounts()
+{
+    count=acquired=0;
+}
+
+int star::GetRemaining()
+{
+    return (count-acquired);
+}
+
+int star::GetAcquired()
+{
+    return (acquired);
+}
+
+bool star::Loop(bool* died)
+{
+    *died=false;
+    if ((game::Mod4()) && (Chance(0.04)))
+    {
+        UpdateSquare();
+        anim=! anim;
+    }
+    return false;
+}
+
+
+void star::Draw(unsigned int x, unsigned int y)
+{
+    Uint8 tx,ty;
+    tx=9;
+    if (anim) ty=12;
+    else ty=13;
+    DaVinci D(game::sprites,tx*sz,ty*sz,sz,sz);
+    D.Draw(game::screen,x,y);
+}
+
+bool star::trypush(edir dir,obj* pusher)
+{
+    if (pusher->GetType()==OT_XYE)
+    {
+        gobj* gobject;
+        if (gobject=game::Square(x,y)->gobject)
+        {
+            if (! gobject->CanEnter(pusher,dir))
+                return false;
+        }
+
+
+        game::Square(x,y)->object=NULL;
+        acquired++;
+        recycle::add(this);
+        return true;
+    }
+    return false;
+}
+
+inline bool star::HasRoundCorner(roundcorner rnc) { return false; }
+inline bool star::HasBlockColor(blockcolor bc) { return false; }
+
+/**End Class Gem**/
+
+
 /**Begin Trick Door Class**/
 
 /** Trick Door**/
@@ -6687,7 +6763,7 @@ void tdoor::Draw(unsigned int x, unsigned int y)
             ty=11;
     }
 
-    if (game::counter7==0) anim=!anim;
+    if ((game::counter7==0)) anim=!anim;
     DaVinci D(game::sprites,tx*sz,ty*sz,sz,sz);
     D.SetColors(R,G,B,255);
     D.Draw(game::screen,x,y);

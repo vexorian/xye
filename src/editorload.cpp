@@ -361,12 +361,14 @@ bool editor_LoadObjects(TiXmlElement* el)
         else if (v=="teleport") { if (! editor_LoadGenD(ch,EDOT_TELEPORT)) return false; }
 
         else if (v=="bot")  { if (! editor_LoadGen(ch,EDOT_BOT,0)) return false; }
+        else if (v=="star")  { if (! editor_LoadGen(ch,EDOT_STAR,0)) return false; }
         else if (v=="rfood")  { if (! editor_LoadGen(ch,EDOT_FOOD,0)) return false; }
         else if (v=="wild")  { if (! editor_LoadGenR(ch,EDOT_WILDCARD,0)) return false; }
         else if (v=="metalblock")  { if (! editor_LoadGenR(ch,EDOT_METAL,0)) return false; }
         else if (v=="window")  { if (! editor_LoadGenC(ch,EDOT_COLORSYSTEM,5)) return false; }
         else if (v=="lock")  { if (! editor_LoadGenC(ch,EDOT_KEYSYSTEM,1)) return false; }
         else if (v=="key")  { if (! editor_LoadGenC(ch,EDOT_KEYSYSTEM,0)) return false; }
+        
         else if (v=="timer")  { if (! editor_LoadTimer(ch)) return false; }
 
         else if (v=="toggle") { if (! editor_LoadToggle(ch)) return false; }
