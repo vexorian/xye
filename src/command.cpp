@@ -1,9 +1,8 @@
 #include "command.h"
-
+#include <cstdlib>
 
 #ifdef _WIN32
     #include <windows.h>
-    #include <cstdlib>
 #endif
 
 namespace Command
