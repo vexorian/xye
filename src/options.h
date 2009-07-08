@@ -19,6 +19,7 @@ class options
     static char* FontBold;
     static bool  enundo;
 
+
     static int GridSize;
     static unsigned int lvnum;
     static bool Error(const char* msg);
@@ -30,6 +31,7 @@ class options
     static TiXmlDocument* defaultxyeconf(const char* path,TiXmlElement *&options);
 
  public:
+    static bool  xyeDirectionSprites;
     static string Dir;
     options() {}
     static string GetDir();

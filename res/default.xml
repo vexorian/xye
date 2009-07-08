@@ -10,6 +10,7 @@ size='20'
 fontfile="DejaVuSans.ttf"
 boldfontfile="DejaVuSans-Bold.ttf"
 
+xyedirections ='yes'
 truetypesize='12'
 >
 
