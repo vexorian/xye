@@ -563,83 +563,86 @@ editorbuttons::editorbuttons(int sx, int sy, int sw, int sh)
     direction=0;
     text="Welcome to xyedit!";
 
-    buttons[0][1].content=CONTENT_CHANGEOBJECT;
-    buttons[0][1].type=EDOT_XYE;
+    int bp=-1;
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_XYE;
 
-    buttons[1][1].content=CONTENT_CHANGEOBJECT;
-    buttons[1][1].type=EDOT_GEM;
-    buttons[1][1].color=EDCO_BLUE;
-
-
-    buttons[2][1].content=CONTENT_CHANGEOBJECT;
-    buttons[2][1].type=EDOT_WALL;
-
-    buttons[3][1].content=CONTENT_CHANGEOBJECT;
-    buttons[3][1].type=EDOT_BLOCK;
-
-    buttons[4][1].content=CONTENT_CHANGEOBJECT;
-    buttons[4][1].type=EDOT_SPECIALBLOCKS;
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_GEM;
+    buttons[bp][1].color=EDCO_BLUE;
 
 
-    buttons[5][1].content=CONTENT_CHANGEOBJECT;
-    buttons[5][1].type=EDOT_EARTH;
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_WALL;
 
-    buttons[6][1].content=CONTENT_CHANGEOBJECT;
-    buttons[6][1].type=EDOT_GEMBLOCK;
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_BLOCK;
 
-    buttons[7][1].content=CONTENT_CHANGEOBJECT;
-    buttons[7][1].type=EDOT_MAGNET;
-
-
-    buttons[8][1].content=CONTENT_CHANGEOBJECT;
-    buttons[8][1].type=EDOT_PUSHER;
-
-    buttons[9][1].content=CONTENT_CHANGEOBJECT;
-    buttons[9][1].type=EDOT_ARROWMAKER;
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_SPECIALBLOCKS;
 
 
-    buttons[10][1].content=CONTENT_CHANGEOBJECT;
-    buttons[10][1].type=EDOT_HAZARD;
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_EARTH;
 
-    buttons[11][1].content=CONTENT_CHANGEOBJECT;
-    buttons[11][1].type=EDOT_ONEDIRECTION;
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_GEMBLOCK;
 
-    buttons[12][1].content=CONTENT_CHANGEOBJECT;
-    buttons[12][1].type=EDOT_BEAST;
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_MAGNET;
 
-    buttons[13][1].content=CONTENT_CHANGEOBJECT;
-    buttons[13][1].type=EDOT_TELEPORT;
 
-    buttons[14][1].content=CONTENT_CHANGEOBJECT;
-    buttons[14][1].type=EDOT_TURNER;
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_PUSHER;
 
-    buttons[15][1].content=CONTENT_CHANGEOBJECT;
-    buttons[15][1].type=EDOT_COLORSYSTEM;
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_ARROWMAKER;
 
-    buttons[16][1].content=CONTENT_CHANGEOBJECT;
-    buttons[16][1].type=EDOT_BOT;
 
-    buttons[17][1].content=CONTENT_CHANGEOBJECT;
-    buttons[17][1].type=EDOT_WILDCARD;
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_HAZARD;
 
-    buttons[18][1].content=CONTENT_CHANGEOBJECT;
-    buttons[18][1].type=EDOT_KEYSYSTEM;
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_ONEDIRECTION;
 
-    buttons[19][1].content=CONTENT_CHANGEOBJECT;
-    buttons[19][1].type=EDOT_NUMBER;
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_BEAST;
 
-    buttons[20][1].content=CONTENT_CHANGEOBJECT;
-    buttons[20][1].type=EDOT_FIREPAD;
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_TELEPORT;
 
-    buttons[21][1].content=CONTENT_CHANGEOBJECT;
-    buttons[21][1].type=EDOT_RATTLERHEAD;
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_TURNER;
 
-    buttons[22][1].content=CONTENT_CHANGEOBJECT;
-    buttons[22][1].type=EDOT_FOOD;
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_COLORSYSTEM;
 
-    buttons[23][1].content=CONTENT_CHANGEOBJECT;
-    buttons[23][1].type=EDOT_METAL;
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_BOT;
 
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_WILDCARD;
+
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_KEYSYSTEM;
+
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_NUMBER;
+
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_FIREPAD;
+
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_RATTLERHEAD;
+
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_FOOD;
+
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_METAL;
+
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_STAR;
 
     SelectedObjectType= EDOT_NONE;
     Eraser=true;
@@ -1019,6 +1022,9 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
             }
             break;       
         
+        case EDOT_STAR:
+            text="Star";
+            break;
         case EDOT_PUSHER:
             switch(color)
             {
@@ -1840,6 +1846,12 @@ void drawFirePad( SDL_Surface * target, int x, int y)
     D.Draw(target,x,y);
 }
 
+void drawStar( SDL_Surface * target, int x, int y)
+{
+    DaVinci D(editor::sprites,9*sz,13*sz,sz,sz);
+    D.Draw(target,x,y);
+}
+
 void drawFood( SDL_Surface * target, int x, int y)
 {
     DaVinci D(editor::sprites,11*sz,13*sz,sz,sz);
@@ -2009,6 +2021,7 @@ void drawObjectBySpecs( SDL_Surface * target, int x, int y, editorobjecttype ot,
         case EDOT_FOOD: drawFood(target,x,y); break;
         case EDOT_WILDCARD: drawWildCard(target,x,y,round); break;
         case EDOT_FIREPAD: drawFirePad(target,x,y); break;
+        case EDOT_STAR: drawStar(target,x,y); break;
 
 
 

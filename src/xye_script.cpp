@@ -107,7 +107,7 @@ void LevelPack::Restart()
     else if (xsbmode)
         XsbLevelPack::Restart();
     else
-	    LoadLevel(CurrentLevel);
+        LoadLevel(CurrentLevel);
 }
 
 bool LevelPack::HasSolution()
@@ -117,7 +117,7 @@ bool LevelPack::HasSolution()
 
 void  LevelPack::LoadInformation()
 {
-	int a,b,c;
+    int a,b,c;
     a=0;
 
     //Number of levels (count)
@@ -236,10 +236,10 @@ return true;*/
     if (fil.LoadFile())
     {
         pack=fil.FirstChildElement("pack");
-		if (pack!=NULL)
-		{
+        if (pack!=NULL)
+        {
 
-			el= pack->FirstChildElement("name");
+            el= pack->FirstChildElement("name");
 
             if (el)
                 ti= el->GetText();
@@ -268,10 +268,10 @@ return true;*/
             }
 
 
-		}
-		else if (pack=fil.FirstChildElement("xyereplay"))
-		    {
-		        leveln=0;
+        }
+        else if (pack=fil.FirstChildElement("xyereplay"))
+            {
+                leveln=0;
                 au="";
                 ds="Level:";
                 ds+=pack->Attribute("levelfile");
@@ -281,20 +281,20 @@ return true;*/
 
                 ti="Replay";
                 val=true;
-		    }
+            }
     }
 
     if (! val)
     {
 
-    	au="Invalid File";
-    	ds="This file is not a valid XYE level file";
-    	int L=strlen(fil.ErrorDesc());
-    	char* err=new char[L+40];
-    	sprintf(err,"\n\n(Error: %s at line: %d col: %d)",fil.ErrorDesc(),fil.ErrorRow(),fil.ErrorCol());
+        au="Invalid File";
+        ds="This file is not a valid XYE level file";
+        int L=strlen(fil.ErrorDesc());
+        char* err=new char[L+40];
+        sprintf(err,"\n\n(Error: %s at line: %d col: %d)",fil.ErrorDesc(),fil.ErrorRow(),fil.ErrorCol());
         ds+=err;
         delete[] err;
-    	ti="Invalid File";
+        ti="Invalid File";
     }
 
 
@@ -308,15 +308,15 @@ void LevelPack::Load(const char *filename, unsigned int ln, const char* replay)
 
     OpenFile=filename;
     OpenFileLn=ln;
-	if (Doc!=NULL)
-	{
+    if (Doc!=NULL)
+    {
 
-		pack=NULL;
-		CurrentLevel=NULL;
-		delete Doc;
-		Doc=NULL;
-	}
-	int L=strlen(filename);
+        pack=NULL;
+        CurrentLevel=NULL;
+        delete Doc;
+        Doc=NULL;
+    }
+    int L=strlen(filename);
 
 
 
@@ -330,7 +330,7 @@ void LevelPack::Load(const char *filename, unsigned int ln, const char* replay)
         LevelPack::Desc="";
         xsbmode=!(kyemode=true);
         KyeLevelPack::Load(filename,ln);
-		if (replay)
+        if (replay)
             game::PlayRecording(replay);
 
         return;
@@ -343,22 +343,22 @@ void LevelPack::Load(const char *filename, unsigned int ln, const char* replay)
         LevelPack::Desc="";
         kyemode=!(xsbmode=true);
         XsbLevelPack::Load(filename,ln);
-		if (replay)
+        if (replay)
             game::PlayRecording(replay);
 
         return;
     }
     kyemode=xsbmode=false;
-	Doc= new TiXmlDocument(filename);
+    Doc= new TiXmlDocument(filename);
 
-	if (Doc->LoadFile())
-	{
+    if (Doc->LoadFile())
+    {
 
-		pack=Doc->FirstChildElement("pack");
+        pack=Doc->FirstChildElement("pack");
 
-		if (pack==NULL)
-		{
-		    pack=Doc->FirstChildElement("xyereplay");
+        if (pack==NULL)
+        {
+            pack=Doc->FirstChildElement("xyereplay");
             if (pack) //It is a replay file!
             {
                 const char * bf=pack->Attribute("levelfile");
@@ -386,19 +386,19 @@ void LevelPack::Load(const char *filename, unsigned int ln, const char* replay)
                 fprintf(stderr,"Can't find pack element!");
                 game::Error("Can't find pack element!");
             }
-		}
-		LoadInformation();
-		LoadNthLevel(ln);
-		if (replay)
+        }
+        LoadInformation();
+        LoadNthLevel(ln);
+        if (replay)
             game::PlayRecording(replay);
 
-	}
-	else
-	{
+    }
+    else
+    {
         fprintf(stderr,"Invalid / Missing Level xml file [%s]", filename);
 
         game::Error(Doc->ErrorDesc());
-	}
+    }
 
 
 }
@@ -415,16 +415,16 @@ void LevelPack::Next()
         XsbLevelPack::Next();
         return;
     }
-	TiXmlElement* nx= (CurrentLevel->NextSiblingElement("level"));
-	if (nx)
-	{
+    TiXmlElement* nx= (CurrentLevel->NextSiblingElement("level"));
+    if (nx)
+    {
         CurrentLevel=nx;
         OpenFileLn++;
-	}
+    }
     else
     {
-		CurrentLevel=FirstLevel;
-		OpenFileLn=1;
+        CurrentLevel=FirstLevel;
+        OpenFileLn=1;
     }
     LoadLevel(CurrentLevel);
 }
@@ -444,11 +444,11 @@ void LevelPack::Last()
     TiXmlNode * nd=CurrentLevel->PreviousSibling("level");
     while ((nd) && (! nd->ToElement() )) nd=nd->PreviousSibling("level");
 
-	if (nd)
-	{
+    if (nd)
+    {
         CurrentLevel=nd->ToElement();
         OpenFileLn--;
-	}
+    }
     else
     {
 
@@ -593,10 +593,10 @@ void Load_Wall(TiXmlElement* el, bool defround)
 
     for (i=LastX;i<=x2;i++) for (j=LastY;j<=y2;j++)
     {
-    	sq=game::Square(i,j);
-    	wall* wl;
-    	if (t>=0) wl=new wall(sq,t);
-    	else wl=new wall(sq);
+        sq=game::Square(i,j);
+        wall* wl;
+        if (t>=0) wl=new wall(sq,t);
+        else wl=new wall(sq);
         if (round) wl->SetRoundCorners(
             (r7 && (i==LastX) && (j==y2)),
             (r1 && (i==LastX) && (j==LastY)),
@@ -621,12 +621,23 @@ void Load_Gem(TiXmlElement* el)
 
 }
 
+/* Load Star*/
+void Load_Star(TiXmlElement* el)
+{
+        el->QueryIntAttribute("x",&LastX);
+        el->QueryIntAttribute("y",&LastY);
+
+    star* gm=new star(game::SquareN(LastX,LastY) );
+
+}
+
+
 
 /* Load Number*/
 void Load_Number(TiXmlElement* el)
 {
-	int v=0,round=0;
-	unsigned char cv;
+    int v=0,round=0;
+    unsigned char cv;
         el->QueryIntAttribute("x",&LastX);
         el->QueryIntAttribute("y",&LastY);
         el->QueryIntAttribute("val",&v);
@@ -641,8 +652,8 @@ void Load_Number(TiXmlElement* el)
 /* Load Robot*/
 void Load_Robot(TiXmlElement* el)
 {
-	int v=0;
-	unsigned char cv;
+    int v=0;
+    unsigned char cv;
         el->QueryIntAttribute("x",&LastX);
         el->QueryIntAttribute("y",&LastY);
 
@@ -738,7 +749,7 @@ void Load_Rattler(TiXmlElement* el)
         nd->QueryIntAttribute("x",&LastX);
         nd->QueryIntAttribute("y",&LastY);
         rt->Node(game::SquareN(LastX,LastY));
-    	nd= nd->NextSiblingElement("body");
+        nd= nd->NextSiblingElement("body");
     }
 
 }
@@ -1283,9 +1294,9 @@ void Load_TrickDoor(TiXmlElement* el, int opt)
 //
 blockcolor GetElementBlockColor(TiXmlElement* el, blockcolor def)
 {
-	char x='\0';
-	const char* at=el->Attribute ("bc");
-	if (at!=NULL) x=at[0];
+    char x='\0';
+    const char* at=el->Attribute ("bc");
+    if (at!=NULL) x=at[0];
     switch(x)
     {
         case('B'): case('b'): return (B_BLUE);
@@ -1294,14 +1305,14 @@ blockcolor GetElementBlockColor(TiXmlElement* el, blockcolor def)
         case('Y'): case('y'): return (B_YELLOW);
     }
 
-	return (def);
+    return (def);
 }
 
 edir GetElementDir(TiXmlElement* el, edir def,const char * tag)
 {
-	char x='\0';
-	const char* at=el->Attribute (tag);
-	if (at!=NULL) x=at[0];
+    char x='\0';
+    const char* at=el->Attribute (tag);
+    if (at!=NULL) x=at[0];
     switch(x)
     {
         case('U'): case('u'): return (D_UP);
@@ -1310,7 +1321,7 @@ edir GetElementDir(TiXmlElement* el, edir def,const char * tag)
         case('R'): case('r'): return (D_RIGHT);
     }
 
-	return (def);
+    return (def);
 
 }
 
@@ -1319,26 +1330,27 @@ edir GetElementDir(TiXmlElement* el, edir def,const char * tag)
 otype GetOTFromXmlElement(TiXmlElement* x, unsigned int *extra)
 {
 
-	strcpy(TempCharA,x->Value());
+    strcpy(TempCharA,x->Value());
 
-	if (strcmp(TempCharA,"wall")==0) { *extra=0; return OT_WALL; }
-	else if (strcmp(TempCharA,"roundwall")==0) { *extra=1; return OT_WALL; }
-	else if (strcmp(TempCharA,"block")==0) return OT_BLOCK;
-	else if (strcmp(TempCharA,"window")==0) return OT_WINDOW;
-	else if (strcmp(TempCharA,"rattler")==0) return OT_RATTLER;
-	else if (strcmp(TempCharA,"rfood")==0) return OT_RATTLERFOOD;
+    if (strcmp(TempCharA,"wall")==0) { *extra=0; return OT_WALL; }
+    else if (strcmp(TempCharA,"roundwall")==0) { *extra=1; return OT_WALL; }
+    else if (strcmp(TempCharA,"block")==0) return OT_BLOCK;
+    else if (strcmp(TempCharA,"window")==0) return OT_WINDOW;
+    else if (strcmp(TempCharA,"rattler")==0) return OT_RATTLER;
+    else if (strcmp(TempCharA,"rfood")==0) return OT_RATTLERFOOD;
 
-	else if (strcmp(TempCharA,"toggle")==0) return OT_TOGGLE;
-	else if (strcmp(TempCharA,"auto")==0) return OT_AUTO;
-	else if (strcmp(TempCharA,"factory")==0) return OT_FACTORY;
+    else if (strcmp(TempCharA,"toggle")==0) return OT_TOGGLE;
+    else if (strcmp(TempCharA,"auto")==0) return OT_AUTO;
+    else if (strcmp(TempCharA,"factory")==0) return OT_FACTORY;
     else if (strcmp(TempCharA,"surprise")==0) return OT_SURPRISE;
-	else if (strcmp(TempCharA,"filler")==0) return OT_FILLER;
-	else if (strcmp(TempCharA,"sniper")==0) return OT_SNIPER;
-	else if (strcmp(TempCharA,"earth")==0) return OT_EARTH;
+    else if (strcmp(TempCharA,"filler")==0) return OT_FILLER;
+    else if (strcmp(TempCharA,"sniper")==0) return OT_SNIPER;
+    else if (strcmp(TempCharA,"earth")==0) return OT_EARTH;
     else if (strcmp(TempCharA,"gemblock")==0) return OT_GEMBLOCK;
     else if (strcmp(TempCharA,"lock")==0) return OT_LOCK;
     else if (strcmp(TempCharA,"key")==0) return OT_KEY;
     else if (strcmp(TempCharA,"wild")==0) return OT_WILDCARD;
+    else if (strcmp(TempCharA,"star")==0) return OT_STAR;
     else if (strcmp(TempCharA,"metalblock")==0) return OT_METALBLOCK;
     else if (strcmp(TempCharA,"arrow")==0) return OT_ARROW;
     else if (strcmp(TempCharA,"scroll")==0) return OT_SCROLLBLOCK;
@@ -1355,19 +1367,20 @@ otype GetOTFromXmlElement(TiXmlElement* x, unsigned int *extra)
     else if (strcmp(TempCharA,"aclocker")==0) { *extra=1; return OT_TURNER; }
 
      //ground:
-	else if (strcmp(TempCharA,"blockdoor")==0) { *extra=0; return OT_BLOCKDOOR; }
-	else if (strcmp(TempCharA,"blocktrap")==0) { *extra=1; return OT_BLOCKDOOR; }
-	else if (strcmp(TempCharA,"hint")==0) return OT_HINT;
-	else if (strcmp(TempCharA,"warning")==0) return OT_WARNING;
-	else if (strcmp(TempCharA,"portal")==0) return OT_PORTAL;
-	else if (strcmp(TempCharA,"firepad")==0) return OT_FIREPAD;
-	else if (strcmp(TempCharA,"pit")==0) return OT_PIT;
+    else if (strcmp(TempCharA,"blockdoor")==0) { *extra=0; return OT_BLOCKDOOR; }
+    else if (strcmp(TempCharA,"blocktrap")==0) { *extra=1; return OT_BLOCKDOOR; }
+    else if (strcmp(TempCharA,"hint")==0) return OT_HINT;
+    else if (strcmp(TempCharA,"warning")==0) return OT_WARNING;
+    else if (strcmp(TempCharA,"portal")==0) return OT_PORTAL;
+    else if (strcmp(TempCharA,"firepad")==0) return OT_FIREPAD;
+    else if (strcmp(TempCharA,"pit")==0) return OT_PIT;
     else if (strcmp(TempCharA,"oneway")==0) { *extra=0; return OT_TRICKDOOR; }
     else if (strcmp(TempCharA,"hiddenway")==0) { *extra=1; return OT_TRICKDOOR; }
     else if (strcmp(TempCharA,"force")==0) { *extra=2; return OT_TRICKDOOR; }
     else if (strcmp(TempCharA,"marked")==0) { *extra=0; return OT_MARKEDAREA; }
+    
 
-	return OT_GEM; //Default "gem"
+    return OT_GEM; //Default "gem"
 }
 
 
@@ -1379,41 +1392,42 @@ void LoadObjects(TiXmlElement* normal)
 {
     TiXmlElement* pEChild= normal->FirstChildElement();
     unsigned int x=0;
-	while (pEChild)
-	{
+    while (pEChild)
+    {
         switch(GetOTFromXmlElement(pEChild,&x))
         {
-        	case(OT_WALL): Load_Wall(pEChild,x); break;
-        	case(OT_GEM): Load_Gem(pEChild); break;
-        	case(OT_AUTO): Load_Auto(pEChild); break;
-        	case(OT_FACTORY): Load_Factory(pEChild); break;
-        	case(OT_SURPRISE): Load_Surprise(pEChild); break;
-        	case(OT_FILLER): Load_Filler(pEChild); break;
-        	case(OT_SNIPER): Load_Sniper(pEChild); break;
-        	case(OT_EARTH): Load_Earth(pEChild); break;
-        	case(OT_GEMBLOCK): Load_GemBlock(pEChild); break;
-        	case(OT_WILDCARD): Load_WildCard(pEChild); break;
-        	case(OT_METALBLOCK): Load_MetalBlock(pEChild); break;
-        	case(OT_ARROW): Load_Arrow(pEChild); break;
-        	case(OT_SCROLLBLOCK): Load_ScrollBlock(pEChild); break;
+            case(OT_WALL): Load_Wall(pEChild,x); break;
+            case(OT_GEM): Load_Gem(pEChild); break;
+            case(OT_STAR): Load_Star(pEChild); break;
+            case(OT_AUTO): Load_Auto(pEChild); break;
+            case(OT_FACTORY): Load_Factory(pEChild); break;
+            case(OT_SURPRISE): Load_Surprise(pEChild); break;
+            case(OT_FILLER): Load_Filler(pEChild); break;
+            case(OT_SNIPER): Load_Sniper(pEChild); break;
+            case(OT_EARTH): Load_Earth(pEChild); break;
+            case(OT_GEMBLOCK): Load_GemBlock(pEChild); break;
+            case(OT_WILDCARD): Load_WildCard(pEChild); break;
+            case(OT_METALBLOCK): Load_MetalBlock(pEChild); break;
+            case(OT_ARROW): Load_Arrow(pEChild); break;
+            case(OT_SCROLLBLOCK): Load_ScrollBlock(pEChild); break;
 
-        	case(OT_MAGNETIC): Load_Magnet(pEChild); break;
-        	case(OT_PUSHER): Load_Pusher(pEChild); break;
-        	case(OT_BEAST): Load_Beast(pEChild); break;
-        	case(OT_LOWDENSITY): Load_LowDensity(pEChild); break;
-        	case(OT_BLACKHOLE): Load_Blackhole(pEChild); break;
-        	case(OT_MINE): Load_Mine(pEChild); break;
-        	case(OT_NUMBER): Load_Number(pEChild); break;
-        	case(OT_TELEPORT): Load_Teleport(pEChild); break;
-        	case(OT_TURNER): Load_Turner(pEChild,x); break;
-        	case(OT_ROBOXYE): Load_Robot(pEChild); break;
-        	case(OT_TOGGLE): Load_Toggle(pEChild); break;
-        	case(OT_LOCK): Load_Lock(pEChild); break;
-        	case(OT_KEY): Load_Key(pEChild); break;
-        	case(OT_RATTLER): Load_Rattler(pEChild); break;
-        	case(OT_RATTLERFOOD):Load_RFood(pEChild); break;
-        	case(OT_WINDOW):Load_WindowBlock(pEChild); break;
-        	case(OT_BLOCK): Load_Block(pEChild); break;
+            case(OT_MAGNETIC): Load_Magnet(pEChild); break;
+            case(OT_PUSHER): Load_Pusher(pEChild); break;
+            case(OT_BEAST): Load_Beast(pEChild); break;
+            case(OT_LOWDENSITY): Load_LowDensity(pEChild); break;
+            case(OT_BLACKHOLE): Load_Blackhole(pEChild); break;
+            case(OT_MINE): Load_Mine(pEChild); break;
+            case(OT_NUMBER): Load_Number(pEChild); break;
+            case(OT_TELEPORT): Load_Teleport(pEChild); break;
+            case(OT_TURNER): Load_Turner(pEChild,x); break;
+            case(OT_ROBOXYE): Load_Robot(pEChild); break;
+            case(OT_TOGGLE): Load_Toggle(pEChild); break;
+            case(OT_LOCK): Load_Lock(pEChild); break;
+            case(OT_KEY): Load_Key(pEChild); break;
+            case(OT_RATTLER): Load_Rattler(pEChild); break;
+            case(OT_RATTLERFOOD):Load_RFood(pEChild); break;
+            case(OT_WINDOW):Load_WindowBlock(pEChild); break;
+            case(OT_BLOCK): Load_Block(pEChild); break;
             case(OT_BLOCKDOOR): Load_BlockDoor(pEChild,x); break;
             case(OT_MARKEDAREA): Load_Marked(pEChild); break;
             case(OT_HINT): Load_Hint(pEChild,false); break;
@@ -1424,7 +1438,7 @@ void LoadObjects(TiXmlElement* normal)
             case(OT_TRICKDOOR): Load_TrickDoor(pEChild,x);
         }
         pEChild= pEChild->NextSiblingElement(); //Next normal object
-	}
+    }
 
 
 
@@ -1439,10 +1453,10 @@ void LoadPalette(TiXmlElement* pal)
     int r,g,b;
 
     while (pEChild)
-	{
+    {
 
-		//Load a color
-		id=r=g=b=0;
+        //Load a color
+        id=r=g=b=0;
 
         pEChild->QueryIntAttribute("id",&id);
         pEChild->QueryIntAttribute("red",&r);
@@ -1454,7 +1468,7 @@ void LoadPalette(TiXmlElement* pal)
 
 
         pEChild= pEChild->NextSiblingElement("color"); //Next color element
-	}
+    }
 
 }
 
@@ -1468,7 +1482,7 @@ void LoadDefaults_Wall(TiXmlElement* el)
         el->QueryIntAttribute("type",&t);
 
     if (cid)
-    	palette::GetColor(cid,wall::DefaultColor.r,wall::DefaultColor.g,wall::DefaultColor.b);
+        palette::GetColor(cid,wall::DefaultColor.r,wall::DefaultColor.g,wall::DefaultColor.b);
 
 
     if (t) wall::SetDefaultType(t);
@@ -1483,9 +1497,9 @@ void LoadDefaults_Tdoor(TiXmlElement* el)
 
     if (cid)
     {
-    	Uint8 r,g,b;
-    	palette::GetColor(cid,r,g,b);
-    	tdoor::ChangeDefaultColor(r,g,b);
+        Uint8 r,g,b;
+        palette::GetColor(cid,r,g,b);
+        tdoor::ChangeDefaultColor(r,g,b);
     }
 
 }
@@ -1499,9 +1513,9 @@ void LoadDefaults_ForceArrow(TiXmlElement* el)
 
     if (cid)
     {
-    	Uint8 r,g,b;
-    	palette::GetColor(cid,r,g,b);
-    	tdoor::ChangeForceArrowDefaultColor(r,g,b);
+        Uint8 r,g,b;
+        palette::GetColor(cid,r,g,b);
+        tdoor::ChangeForceArrowDefaultColor(r,g,b);
     }
 
 }
@@ -1514,9 +1528,9 @@ void LoadDefaults_Earth(TiXmlElement* el)
 
     if (cid)
     {
-    	Uint8 r,g,b;
-    	palette::GetColor(cid,r,g,b);
-    	earth::SetDefaultColor(r,g,b);
+        Uint8 r,g,b;
+        palette::GetColor(cid,r,g,b);
+        earth::SetDefaultColor(r,g,b);
     }
 
 }
@@ -1528,8 +1542,8 @@ void LoadDefaults(TiXmlElement* def)
 
 
 
-	while (pEChild)
-	{
+    while (pEChild)
+    {
 
         strcpy(TempCharA,pEChild->Value());
         if (strcmp(TempCharA,"wall")==0) LoadDefaults_Wall(pEChild);
@@ -1538,7 +1552,7 @@ void LoadDefaults(TiXmlElement* def)
         else if (strcmp(TempCharA,"earth")==0) LoadDefaults_Earth(pEChild);
 
         pEChild= pEChild->NextSiblingElement(); //Next element
-	}
+    }
 
 }
 
@@ -1553,18 +1567,18 @@ void LoadDefaults(TiXmlElement* def)
 
 void LoadFloor(TiXmlElement* floor)
 {
-	int i,j;
-	int x2=0,y2=0;
-	int cid=0;
-	unsigned int c=0;
-	int skn=0;
+    int i,j;
+    int x2=0,y2=0;
+    int cid=0;
+    unsigned int c=0;
+    int skn=0;
     TiXmlElement* area= floor->FirstChildElement("area");
     square* sq;
     Uint8 R,G,B;
 
     while (area)
     {
-    	x2=y2=cid=skn=0;
+        x2=y2=cid=skn=0;
             area->QueryIntAttribute("x",&LastX);
             area->QueryIntAttribute("y",&LastY);
             area->QueryIntAttribute("x2",&x2);
@@ -1583,20 +1597,20 @@ void LoadFloor(TiXmlElement* floor)
 
         //Load color from palette:
         if (cid)
-        	palette::GetColor(cid,R,G,B);
+            palette::GetColor(cid,R,G,B);
 
 
         //Change squares:
         for (i=LastX;i<=x2;i++) for (j=LastY;j<=y2;j++)
         {
-        	sq=game::Square(i,j);
-        	if (skn) sq->gs=GROUND_2;
-        	if (cid)
-        	{
-        		sq->R=R;
-        		sq->G=G;
-        		sq->B=B;
-        	}
+            sq=game::Square(i,j);
+            if (skn) sq->gs=GROUND_2;
+            if (cid)
+            {
+                sq->R=R;
+                sq->G=G;
+                sq->B=B;
+            }
         }
 
         //Next
@@ -1623,9 +1637,9 @@ TiXmlElement* pEChild;
         const char *cntd=pEChild->GetText();
         if (cntd)
         {
-        	int L=strlen(cntd),i;
-        	char * str = new char[L+7];
-        	if (LevelPack::CurrentLevelTitle!=NULL) delete[] LevelPack::CurrentLevelTitle;
+            int L=strlen(cntd),i;
+            char * str = new char[L+7];
+            if (LevelPack::CurrentLevelTitle!=NULL) delete[] LevelPack::CurrentLevelTitle;
             LevelPack::CurrentLevelTitle= str;
             str[0]='\0';
             strcpy(str,cntd);
@@ -1682,34 +1696,34 @@ TiXmlElement* pEChild;
     //And people can just change the color value of multiple elements without effort.
     palette::Clear();
     pEChild= level->FirstChildElement("palette");
-	while (pEChild)
-	{
+    while (pEChild)
+    {
         LoadPalette(pEChild);
 
         pEChild= pEChild->NextSiblingElement("palette");
-	}
+    }
 
     //Load default values, these are really helpful:
     pEChild= level->FirstChildElement("default");
-	while (pEChild)
-	{
+    while (pEChild)
+    {
         LoadDefaults(pEChild);
 
         pEChild= pEChild->NextSiblingElement("default");
-	}
+    }
 
 
 
     //Now load the floor:
 
     pEChild= level->FirstChildElement("floor");
-	while (pEChild)
-	{
+    while (pEChild)
+    {
 
         LoadFloor(pEChild);
 
         pEChild= pEChild->NextSiblingElement("floor");
-	}
+    }
 
     bool KyeLoaded=false;
     //kyeformat allows to embed .kye levels in .xye files
@@ -1729,32 +1743,32 @@ TiXmlElement* pEChild;
 
     //<compatibility>
     pEChild= ( level->FirstChildElement("ground"));
-	while (pEChild)
-	{
+    while (pEChild)
+    {
         LoadObjects(pEChild);
         pEChild= ( pEChild->NextSiblingElement("ground"));
-	}
+    }
     pEChild= ( level->FirstChildElement("normal"));
-	while (pEChild)
-	{
+    while (pEChild)
+    {
         LoadObjects(pEChild);
         pEChild= ( pEChild->NextSiblingElement("normal"));
-	}
-	//</compatibility>
+    }
+    //</compatibility>
     pEChild= ( level->FirstChildElement("objects"));
-	while (pEChild)
-	{
+    while (pEChild)
+    {
         LoadObjects(pEChild);
         pEChild= ( pEChild->NextSiblingElement("objects"));
-	}
+    }
 
 
-	//There can only be one Xye
+    //There can only be one Xye
     pEChild= ( level->FirstChildElement("xye"));
     if (pEChild)
         Load_Xye(pEChild,KyeLoaded);
     else if (! KyeLoaded)
-    	game::XYE= new xye(game::Square(0,0));
+        game::XYE= new xye(game::Square(0,0));
 
 
 
@@ -1841,9 +1855,9 @@ bool palette::ready=false;
 
 void palette::Clear()
 {
-	int i;
-	colorentry* tm,*c;
-	for (i=0;i<PALETTE_BASE_SIZE;i++)
+    int i;
+    colorentry* tm,*c;
+    for (i=0;i<PALETTE_BASE_SIZE;i++)
         if (ready)
         {
             tm=ls[i];
@@ -1866,18 +1880,18 @@ void palette::Clear()
 //
 colorentry* palette::GetEntry(int id, bool create)
 {
-	unsigned int indx=id % PALETTE_BASE_SIZE;
-	colorentry* tm=ls[indx], *last=NULL;
-	while (tm)
-	{
-		if (tm->id==id) return (tm);
-		last=tm;
-		tm=tm->next;
-	}
-	if (create)
-	{
+    unsigned int indx=id % PALETTE_BASE_SIZE;
+    colorentry* tm=ls[indx], *last=NULL;
+    while (tm)
+    {
+        if (tm->id==id) return (tm);
+        last=tm;
+        tm=tm->next;
+    }
+    if (create)
+    {
         tm=new colorentry;
-		if (last)
+        if (last)
             last->next=tm;
         else
             ls[indx]=tm;
@@ -1885,34 +1899,34 @@ colorentry* palette::GetEntry(int id, bool create)
         tm->color=0xFFFFFFFF;
         tm->id=id;
         return(tm);
-	}
+    }
  return (NULL);
 }
 
 void palette::SetColor(int id, unsigned int color)
 {
-	colorentry *ce=GetEntry(id,true);
-	ce->color=color;
-	ce->R=255;
-	ce->G=255;
-	ce->B=255;
+    colorentry *ce=GetEntry(id,true);
+    ce->color=color;
+    ce->R=255;
+    ce->G=255;
+    ce->B=255;
 
 }
 
 void palette::SetColor(int id, int r,int  g,int b)
 {
-	colorentry *ce=GetEntry(id,true);
-	ce->color=  (0xFF000000) | (r << 16) | (g << 8) | (b)  ;
-	ce->R=r;
-	ce->G=g;
-	ce->B=b;
+    colorentry *ce=GetEntry(id,true);
+    ce->color=  (0xFF000000) | (r << 16) | (g << 8) | (b)  ;
+    ce->R=r;
+    ce->G=g;
+    ce->B=b;
 }
 
 unsigned int palette::GetColor(int id)
 {
 
-	colorentry *ce=GetEntry(id,false);
-	if (ce) return ce->color;
+    colorentry *ce=GetEntry(id,false);
+    if (ce) return ce->color;
     return 0xFFFFFFFF;
 }
 
@@ -1920,14 +1934,14 @@ unsigned int palette::GetColor(int id)
 void palette::GetColor(int id, Uint8 &R, Uint8 &G,Uint8 &B)
 {
 
-	colorentry *ce=GetEntry(id,false);
-	if (ce)
-	{
+    colorentry *ce=GetEntry(id,false);
+    if (ce)
+    {
         R=ce->R;
         G=ce->G;
         B=ce->B;
-	}
-	else
+    }
+    else
         R=G=B=255;
 
 }

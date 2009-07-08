@@ -265,7 +265,12 @@ void saveNormalObject(std::ofstream &file, boardelement &o, int x, int y)
             savePosition(file,x,y);
             file << "/>\n";
             break;
-
+        
+        case EDOT_STAR:
+            file<<"\t\t<star ";
+            savePosition(file,x,y);
+            file << "/>\n";
+            break;
     }
 }
 
