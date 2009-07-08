@@ -151,6 +151,8 @@ int game::Init(const char* levelfile)
     int ix,iy;
     FastForward=false;
     started=false;
+    
+    xye::useDirectionSprites = options::xyeDirectionSprites;
 
     PlayerColor.r=options::Red();
     PlayerColor.g=options::Green();
