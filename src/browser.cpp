@@ -22,6 +22,7 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
+#include <cstring>
 
 
 
@@ -43,31 +44,31 @@ class Folder
 
 Folder::Folder(const char* dirname)
 {
-	strcpy(Folder::dirname,dirname);
-	D=NULL;
+    strcpy(Folder::dirname,dirname);
+    D=NULL;
 }
 
 bool Folder::Open()
 {
-	return (D=opendir(dirname));
+    return (D=opendir(dirname));
 }
 
 
 void Folder::Close()
 {
-	closedir(D);
-	D=NULL;
+    closedir(D);
+    D=NULL;
 }
 
 bool Folder::Reset()
 {
-	closedir(D);
-	return (D=opendir(dirname));
+    closedir(D);
+    return (D=opendir(dirname));
 }
 
 Folder::~Folder()
 {
-	if(D) closedir(D);
+    if(D) closedir(D);
 }
 
 
@@ -80,101 +81,101 @@ const char* Folder::NextFile()
 
 bool HasExtension(const char* n, const char* ext )
 {
-	int l1=strlen(n) ,l2=strlen(ext);
-	int i=l1-1,j=l2-1;
-	while ((i>=0) && (j>=0) && (n[i]==ext[j]))
-	{ i--; j--; }
-	return ((i>=0) && (j<0) && (n[i]=='.'));
+    int l1=strlen(n) ,l2=strlen(ext);
+    int i=l1-1,j=l2-1;
+    while ((i>=0) && (j>=0) && (n[i]==ext[j]))
+    { i--; j--; }
+    return ((i>=0) && (j<0) && (n[i]=='.'));
 
 
 }
 
 void ToLowerCase(char* n)
 {
-	for (int i=0;n[i]!='0';i++)
-		if ((n[i]>=65) && (n[i]<=90)) n[i]+=32;
+    for (int i=0;n[i]!='0';i++)
+        if ((n[i]>=65) && (n[i]<=90)) n[i]+=32;
 }
 
 const char* Folder::NextFileOfType(const char* ext)
 {
-	dirent *ent;
-	DIR* tm;
-	const char * r;
-	int L=strlen(dirname),L2;
-	char realpath[FILENAME_MAX];
-	while (ent=readdir(D))
-	{
-		r=ent->d_name;
-		errno=0;
-		L2=strlen(r);
-		strcpy(realpath,dirname);
-		strcat(realpath,r);
+    dirent *ent;
+    DIR* tm;
+    const char * r;
+    int L=strlen(dirname),L2;
+    char realpath[FILENAME_MAX];
+    while (ent=readdir(D))
+    {
+        r=ent->d_name;
+        errno=0;
+        L2=strlen(r);
+        strcpy(realpath,dirname);
+        strcat(realpath,r);
 
-		tm=opendir(realpath);
-		if (tm)
-		   closedir(tm);
+        tm=opendir(realpath);
+        if (tm)
+           closedir(tm);
         else if (HasExtension(r,ext))
             return(r);
 
-	}
+    }
  return NULL;
 
 }
 
 const char* Folder::NextFileMatching(  bool (*cond)(const char*)    )
 {
-	dirent *ent;
-	DIR* tm;
-	const char * r;
-	int L=strlen(dirname),L2;
-	char realpath[FILENAME_MAX];
-	while (ent=readdir(D))
-	{
-		r=ent->d_name;
-		errno=0;
-		L2=strlen(r);
-		strcpy(realpath,dirname);
-		strcat(realpath,r);
+    dirent *ent;
+    DIR* tm;
+    const char * r;
+    int L=strlen(dirname),L2;
+    char realpath[FILENAME_MAX];
+    while (ent=readdir(D))
+    {
+        r=ent->d_name;
+        errno=0;
+        L2=strlen(r);
+        strcpy(realpath,dirname);
+        strcat(realpath,r);
 
-		tm=opendir(realpath);
-		if (tm)
-		   closedir(tm);
+        tm=opendir(realpath);
+        if (tm)
+           closedir(tm);
         else if (cond(r) )
             return(r);
 
-	}
+    }
  return NULL;
 }
 
 const char* Folder::NextSubFolder()
 {
-	dirent *ent;
-	DIR* tm;
-	const char * r;
-	int L=strlen(dirname),L2;
-	char realpath[FILENAME_MAX];
-	while (ent=readdir(D))
-	{
+    dirent *ent;
+    DIR* tm;
+    const char * r;
+    int L=strlen(dirname),L2;
+    char realpath[FILENAME_MAX];
+    while (ent=readdir(D))
+    {
 
 
-		r=ent->d_name;
+        r=ent->d_name;
 
-		if ((! strcmp(r,".")) || (! strcmp(r,"..")))
-		    continue;
+        if ((! strcmp(r,".")) || (! strcmp(r,"..")))
+            continue;
 
-		errno=0;
-		L2=strlen(r);
-		strcpy(realpath,dirname);
-		strcat(realpath,r);
+        errno=0;
+        L2=strlen(r);
+        strcpy(realpath,dirname);
+        strcat(realpath,r);
 
-		tm=opendir(realpath);
-		if (tm)
-		{
-		   closedir(tm);
-		   return(r);
-		}
+        tm=opendir(realpath);
+        if (tm)
+        {
+           closedir(tm);
+           return(r);
+        }
 
-	}
+    }
  return NULL;
 }
 
