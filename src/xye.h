@@ -284,6 +284,7 @@ class xye : public obj
 
      bool moved;
      edir lastdir;
+     static bool useDirectionSprites;
 
 };
 
