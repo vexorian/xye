@@ -97,7 +97,8 @@ enum otype
     OT_WILDCARD,
     OT_WINDOW,
     OT_SCROLLBLOCK,
-    OT_METALBLOCK
+    OT_METALBLOCK,
+    OT_STAR
 };
 
 enum btype
@@ -1033,6 +1034,27 @@ class gem : public obj
      static bool GetRemanents(unsigned int &yl,unsigned int &rd,unsigned int &bl,unsigned int &gr);
 };
 
+/** Star **/
+class star : public obj
+{
+ private:
+     bool anim;
+     void OnDeath() {}
+     static unsigned int count;
+     static unsigned int acquired;
+ public:
+     star(square* sq);
+     void Draw(unsigned int x, unsigned int y);
+     bool trypush(edir dir,obj* pusher);
+     bool HasRoundCorner(roundcorner rnc);
+     bool Loop(bool* died);
+     bool HasBlockColor(blockcolor bc);
+
+
+     static int GetRemaining();
+     static int GetAcquired();
+     static void ResetCounts();
+};
 
 /** Trick Door**/
 enum tdtype { td_HORZ,td_VERT,td_SUPER, td_FORCEARROW_UP,td_FORCEARROW_DOWN,td_FORCEARROW_LEFT,td_FORCEARROW_RIGHT };
