@@ -467,7 +467,7 @@ void editor::Init(const string &path, const string &file)
 
 void editor::Error(const char* msg)
 {
-    fprintf(stderr,msg);
+    fprintf(stderr,"%s", msg);
     fprintf(stderr,"\n");
     throw (msg);
 }
@@ -642,7 +642,12 @@ editorbuttons::editorbuttons(int sx, int sy, int sw, int sh)
     buttons[bp][1].type=EDOT_METAL;
 
     buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_LARGEBLOCK;
+    buttons[bp][1].variation = 4;
+
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
     buttons[bp][1].type=EDOT_STAR;
+
 
     SelectedObjectType= EDOT_NONE;
     Eraser=true;
@@ -1025,6 +1030,20 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
         case EDOT_STAR:
             text="Star";
             break;
+
+        case EDOT_LARGEBLOCK:
+            switch(variation)
+            {
+                case 0: text="Large block (1-0-0-0)"; break;
+                case 1: text="Large block (1-1-0-0)"; break;
+                case 2: text="Large block (1-0-1-0)"; break;
+                case 3: text="Large block (1-1-1-0)"; break;
+                case 4: text="Large block (1-1-1-1)"; break;               
+            }
+            
+            break;
+
+
         case EDOT_PUSHER:
             switch(color)
             {
@@ -1104,6 +1123,8 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
             }
 
             break;
+        default:
+            text = "unknown";
     }
 }
 
@@ -1149,6 +1170,8 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
         case EDOT_HAZARD: maxvariations=3; break;
         case EDOT_ONEDIRECTION: maxvariations=2; break;
         case EDOT_BEAST: maxvariations=14; break;
+        
+        case EDOT_LARGEBLOCK: maxvariations=5; colorchoice=2;  break;
 
         //default : //EDOT_TELEPORT,EDOT_BOT,EDOT_FIREPAD, EDOT_FOOD
     }
@@ -1183,14 +1206,16 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
         int o=3;
         if (colorchoice == 2) o=4;
 
-        if (roundstart+o>=EDITORBUTTONS_COUNTX) colorstart=EDITORBUTTONS_COUNTX-o-1;
+        if (colorstart+o>=EDITORBUTTONS_COUNTX)
+            colorstart=EDITORBUTTONS_COUNTX-o-1;
 
     }
 
     if(maxvariations)
     {
         variationstart=lastclickedx;
-        if (variationstart+maxvariations-1>=EDITORBUTTONS_COUNTX) variationstart=EDITORBUTTONS_COUNTX-maxvariations;
+        if (variationstart+maxvariations-1>=EDITORBUTTONS_COUNTX)
+            variationstart=EDITORBUTTONS_COUNTX-maxvariations;
     }
 
     if(roundchoice)
@@ -1430,6 +1455,7 @@ void editorboard::drawRoundWall(SDL_Surface*target,int ox,int oy, int x, int y, 
 
 }
 
+
 void editorboard::draw(SDL_Surface* target)
 {
     int i,j;
@@ -1441,6 +1467,8 @@ void editorboard::draw(SDL_Surface* target)
         {
             if (( o.type==EDOT_WALL) && (o.round))
                 drawRoundWall(target,i,j,x+i*sz,y+j*sz,o.variation);
+            else if ( o.type == EDOT_LARGEBLOCK )
+                drawLargeBlockInBoard(target,i,j,x+i*sz,y+j*sz,o.color, o.variation, o.direction);
             else
                 drawObjectBySpecs(target,x+i*sz,y+j*sz, o.type, o.color, o.round, o.variation, o.direction);
         }
@@ -1480,6 +1508,7 @@ void editorboard::applyFromButtons(int x, int y)
     o.variation=editor::buttons->SelectedVariation;
     o.round=editor::buttons->SelectedRound;
     o.direction=editor::buttons->direction;
+    o.parentx = o.parenty = -1;
 }
 
 /****** object drawing, Very painful ****/
@@ -1721,6 +1750,202 @@ void drawTurner( SDL_Surface * target, int x, int y, bool round, editorcolor col
     if(color!=EDCO_WHITE) D.SetColors(&options::BFColor[color],255);
     else D.SetColors(0,0,0,255);
     D.Draw(target,x,y);
+}
+
+/*
+ *   0 | 1 | 2
+ *   7 -   - 3
+ *   6 | 5 | 4
+ * 
+ * */
+void drawLargeBlockByFlags( SDL_Surface * target, int x, int y, editorcolor color, Uint8 flags, bool doalpha=false)
+{
+    Uint8 tx,ty;
+    Uint8 sz2 = sz>>1;
+    
+    //flags = 0b1101;
+    
+    
+    Uint8 up = (flags>>1)&1;
+    Uint8 right = (flags>>3)&1;
+    Uint8 down = (flags>>5)&1;
+    Uint8 left = (flags>>7)&1;
+    
+    Uint8 upleft = (flags>>0)&1;
+    Uint8 upright = (flags>>2)&1;
+    Uint8 downright = (flags>>4)&1;
+    Uint8 downleft = (flags>>6)&1;
+    
+    //top left corner:   
+    Uint8 var = 0;
+    if( up&&left&&upleft) var=4;
+    else if( up&&left) var = 3;
+    else if(up) var = 2;
+    else if(left) var = 1;
+    
+    tx = 10;
+    ty = var + 15;
+    DaVinci D(editor::sprites, tx*sz,  ty*sz,sz2,sz2);
+    Uint8 alpha = 255, white=255;
+    if( doalpha) alpha = 128;
+    if(editor::buttons->SelectedObjectType == EDOT_LARGEBLOCK) white = 220;
+    
+    if(color!=EDCO_WHITE) D.SetColors(&options::BKColor[color],alpha);
+    else D.SetColors(white,white,white,alpha);
+    D.Draw(target,x,y);
+
+    //top right corner:   
+    var = 0;
+    if( up&&right&&upright) var=4;
+    else if( up&&right) var = 3;
+    else if(up) var = 2;
+    else if(right) var = 1;
+
+    tx = 10;
+    ty = var + 15;
+    D.ChangeRect(tx*sz+sz2, ty*sz, sz2,sz2);
+    D.Draw(target,x+sz2,y);
+
+    //bottom left corner:   
+    var = 0;
+    if( down&&left&&downleft) var=4;
+    else if( down&&left) var = 3;
+    else if(down) var = 2;
+    else if(left) var = 1;
+    
+    tx = 10;
+    ty = var + 15;
+    D.ChangeRect(tx*sz,  ty*sz + sz2,sz2,sz2);
+    D.Draw(target,x,y+sz2);
+
+    //bottom right corner:   
+    var = 0;
+    if( down&&right&& downright) var=4;
+    else if( down&&right) var = 3;
+    else if(down) var = 2;
+    else if(right) var = 1;
+
+    tx = 10;
+    ty = var + 15;
+    D.ChangeRect(tx*sz+sz2, ty*sz +sz2, sz2,sz2);
+    D.Draw(target,x+sz2,y+sz2);
+
+}
+
+Uint8 getLargeBlockFlagsByVarDir( int variation, int direction)
+{
+    /*     |0|
+     *    -   -
+     *    3   1
+     *    -|2|  */
+    Uint8 flags = 0;
+    
+    switch(variation)
+    {
+        case 0: flags = 0b0001; break;
+        case 1: flags = 0b0011; break;
+        case 2: flags = 0b0101; break;
+        case 3: flags = 0b1011; break;
+        case 4: flags = 0b1111; break;
+    }
+    switch(direction)
+    {
+        case EDITORDIRECTION_DOWN: //bit 0 to 2
+            flags = ( ((flags<<2)&0b1111) | (flags>>2) );
+            break;
+        case EDITORDIRECTION_UP: //bit 0 to 0
+            break;
+        case EDITORDIRECTION_LEFT: //bit 0 to 3
+            flags = ( ((flags<<3)&0b1111) | (flags>>1) );
+            break;
+        case EDITORDIRECTION_RIGHT: //bit 0 to 1
+            flags = ( ((flags<<1)&0b1111) | (flags>>3) );
+            break;
+    }
+    Uint8 up = flags&1;
+    Uint8 right = (flags>>1)&1;
+    Uint8 down = (flags>>2)&1;
+    Uint8 left = (flags>>3)&1;
+    Uint8 nflags = (up<<1)|(right<<3)|(down<<5)|(left<<7);
+    return nflags;
+}
+
+void drawLargeBlock( SDL_Surface * target, int x, int y, editorcolor color, int variation, int direction)
+{
+    Uint8 nflags = getLargeBlockFlagsByVarDir(variation, direction);
+    drawLargeBlockByFlags( target, x,y, color, nflags);
+}
+
+Uint8 largeBlockDFS[XYE_HORZ][XYE_VERT] = {};
+
+void dfsLargeBlocks(int x, int y, editorcolor color, int px, int py, editorboard* eb)
+{
+   
+    if(largeBlockDFS[x][y] != editor::tic4)
+    {
+        
+        largeBlockDFS[x][y] = editor::tic4;
+        boardelement &o=eb->objects[x][y];
+        Uint8 nflags = getLargeBlockFlagsByVarDir(o.variation, o.direction);
+        
+
+        o.parentx = px,
+        o.parenty = py;
+        int dx[4] = { 0, 1, 0, -1};
+        int dy[4] = { -1, 0, 1, 0};
+        int df[4] = { 1, 3, 5, 7};
+        int dop[4] = { 5, 7, 1, 3};
+        for (int r=0; r<4; r++)
+        {
+            int nx = dx[r]+x, ny = dy[r]+y;
+            if( (nx<0) || (ny<0) || (nx>=XYE_HORZ) || (ny>=XYE_VERT) )
+                continue;
+            boardelement &o2 = eb->objects[nx][ny];
+            Uint8 nflags2 = getLargeBlockFlagsByVarDir(o2.variation, o2.direction);
+            
+            if( ((nflags &( 1<<df[r]) ) || (nflags2 &( 1<<dop[r]) ) ) && (o2.type==EDOT_LARGEBLOCK ) && (o2.color==color )  )
+            {
+                dfsLargeBlocks(nx,ny, color,px,py, eb);
+            }
+        }
+        
+    }
+}
+
+void editorboard::drawLargeBlockInBoard(SDL_Surface * target, int ox,int oy, int x, int y, editorcolor color, int variation, int direction)
+{
+    Uint8 flags = getLargeBlockFlagsByVarDir(variation, direction);
+    Uint8 nflags = 0;
+    {
+        dfsLargeBlocks(ox,oy, color, ox,oy, this);
+        boardelement &o = objects[ox][oy];
+        int dy[8] = {-1,-1,-1, 0, 1,1, 1, 0};
+        int dx[8] = {-1, 0, 1, 1, 1,  0,-1, -1};
+        for (int r=0; r<8; r++)
+        {
+            int nx = dx[r]+ox, ny = dy[r]+oy;
+            if( (nx<0) || (ny<0) || (nx>=XYE_HORZ) || (ny>=XYE_VERT) )
+                continue;
+            boardelement &o2 = objects[nx][ny];
+            if( (o2.type==EDOT_LARGEBLOCK) && (o2.parentx == o.parentx) && (o.parenty==o2.parenty)) {
+                nflags|=(1<<r);
+            }
+        }
+        
+    }
+    bool doalpha = false;
+    if( /*( editor::tic4 > 1) &&*/ ( editor::buttons->SelectedObjectType == EDOT_LARGEBLOCK) )
+    {
+        if ( flags - (flags&nflags) )
+        {
+            doalpha = true;
+            nflags |= flags;
+        }
+    }
+
+
+    
+    drawLargeBlockByFlags( target, x,y, color, nflags , doalpha);
 }
 
 void drawMagnet( SDL_Surface * target, int x, int y, int variation, int direction)
@@ -2001,6 +2226,7 @@ void drawObjectBySpecs( SDL_Surface * target, int x, int y, editorobjecttype ot,
         case EDOT_GEM: drawGem(target,x,y,color); break;
         case EDOT_WALL: drawWall(target,x,y,round,variation); break;
         case EDOT_BLOCK: drawBlock(target,x,y,round,color); break;
+        case EDOT_LARGEBLOCK: drawLargeBlock(target,x,y,color,variation, direction); break;
         case EDOT_METAL: drawMetalBlock(target,x,y,round); break;
         case EDOT_TURNER: drawTurner(target,x,y,round,color,variation); break;
 

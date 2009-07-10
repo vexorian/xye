@@ -162,6 +162,8 @@ enum editorobjecttype
     EDOT_RATTLERHEAD,
     EDOT_FOOD,
     EDOT_METAL,
+    
+    EDOT_LARGEBLOCK,
 
 
     EDOT_NONE
@@ -270,6 +272,10 @@ struct boardelement
     bool             round;
     int              direction;
     Uint8 r1mem,r3mem,r7mem,r9mem;
+    int              parentx;
+    int              parenty;
+    
+    boardelement() { parentx=parenty = -1; };
 
 };
 
@@ -284,6 +290,7 @@ class editorboard: public control
  private:
     void applyFromButtons(int x, int y);
     void drawRoundWall(SDL_Surface*target,int ox,int oy, int x,int y, int variation);
+    void drawLargeBlockInBoard(SDL_Surface * target, int ox,int oy, int x, int y, editorcolor color, int variation, int direction);
 
  public:
     bool clicked;
@@ -316,3 +323,5 @@ class editorboard: public control
 
 
 };
+
+Uint8 getLargeBlockFlagsByVarDir( int variation, int direction);

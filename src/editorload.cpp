@@ -236,6 +236,116 @@ bool editor_LoadToggle(TiXmlElement * el)
     return true;
 }
 
+void AssignLargeBLockVarDirFromFlags( Uint8 flags , int &variation, int &direction)
+{
+    variation = 4;
+    direction = EDITORDIRECTION_UP;
+    //I can't think of something better, sorry.
+    cout<<"\t"<<(int)flags<<endl;
+    
+    assert( (flags!=13) || (flags==0b1101) );
+    switch(flags)
+    {
+        case 0b0001:
+            variation = 0;
+            direction = EDITORDIRECTION_UP;
+            break;
+        case 0b0010:
+            variation = 0;
+            direction = EDITORDIRECTION_RIGHT;
+            break;
+        case 0b0100:
+            variation = 0;
+            direction = EDITORDIRECTION_DOWN;
+            break;
+        case 0b1000:
+            variation = 0;
+            direction = EDITORDIRECTION_LEFT;
+            break;
+
+        case 0b0011:
+            variation = 1;
+            direction = EDITORDIRECTION_UP;
+            break;
+        case 0b0110:
+            variation = 1;
+            direction = EDITORDIRECTION_RIGHT;
+            break;
+        case 0b1100:
+            variation = 1;
+            direction = EDITORDIRECTION_DOWN;
+            break;
+        case 0b1001:
+            variation = 1;
+            direction = EDITORDIRECTION_LEFT;
+            break;
+
+        case 0b0101:
+            variation = 2;
+            direction = EDITORDIRECTION_UP;
+            break;
+        case 0b1010:
+            variation = 2;
+            direction = EDITORDIRECTION_RIGHT;
+            break;
+
+        case 0b1110:
+            variation = 3;
+            direction = EDITORDIRECTION_DOWN;
+            break;
+        case 0b1101:
+            variation = 3;
+            direction = EDITORDIRECTION_LEFT;
+            break;
+        case 0b1011:
+            variation = 3;
+            direction = EDITORDIRECTION_UP;
+            break;
+        case 0b0111:
+            variation = 3;
+            direction = EDITORDIRECTION_RIGHT;
+            break;
+
+            
+        case 0b1111:
+            variation = 4;
+            direction = EDITORDIRECTION_UP;
+            break;
+
+    }
+}
+
+bool editor_LoadLargeBlock(TiXmlElement * el)
+{
+    int x,y; if(!getElementPosition(el,x,y)) return false;
+
+    editorcolor col=getElementColor(el);
+    
+    const char * ptr=el->Attribute("sharededges");
+    if(! ptr)
+    {
+        ptr="UDRL";
+        cout << "Notice: using default edges for a large block part element\n";
+    }
+    string v=ptr;
+    Uint8 flags = 0;
+    cout<<v<<endl;
+    const char * dirs = "URDL";
+    for (int i=0; i<v.length(); i++)
+        for (int j=0; j<4; j++)
+            if(dirs[j] == v[i])
+                flags |= (1<<j);
+
+    boardelement &o=editorload_objects[x][y];
+    o.round=false;
+    o.type=EDOT_LARGEBLOCK;
+    o.color=col;
+    AssignLargeBLockVarDirFromFlags( flags , o.variation, o.direction);
+
+    return true;
+}
+
+
 bool editor_LoadBeast(TiXmlElement * el)
 {
     int x,y; if(!getElementPosition(el,x,y)) return false;
@@ -377,6 +487,8 @@ bool editor_LoadObjects(TiXmlElement* el)
         else if (v=="surprise") { if (! editor_LoadGenRC(ch,EDOT_SPECIALBLOCKS,5)) return false;}
 
         else if (v=="rattler") { if (! editor_LoadRattler(ch)) return false; }
+        
+        else if (v=="largeblockpart") { if (! editor_LoadLargeBlock(ch)) return false; }
 
 
 
