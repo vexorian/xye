@@ -303,9 +303,12 @@ void window::loop(double fps)
 
 void window::deleteControls()
 {
-    int i;
-    if(i!=curcontrol) controls[curcontrol]->onMouseOut();
-    for (i=0;i<controln;i++) delete controls[i];
+    for (int i=0;i<controln;i++)
+    {
+        if(i==curcontrol) 
+            controls[curcontrol]->onMouseOut();
+        delete controls[i];
+    }
     controln=0;
 }
 
