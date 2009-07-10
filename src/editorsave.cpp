@@ -53,6 +53,21 @@ void savePosition(std::ofstream &file, int x ,int y)
     file << "x='"<<x<<"' y='"<<y<<"' ";
 }
 
+void saveLargeBlock(std::ofstream &file, boardelement &o, int x ,int y)
+{
+    file <<"<largeblockpart ";
+    savePosition(file,x,y);
+    saveColor(file,o, true);
+    Uint8 flags = getLargeBlockFlagsByVarDir(o.variation, o.direction);
+    const char* dirs = "-U-R-D-L";
+    file<<"sharededges = '";
+    for (int i=1; i<9; i++)
+        if(flags&(1<<i))
+            file<<dirs[i];
+    file<<"' />";
+    
+    
+}
 
 
 
@@ -271,6 +286,11 @@ void saveNormalObject(std::ofstream &file, boardelement &o, int x, int y)
             savePosition(file,x,y);
             file << "/>\n";
             break;
+            
+        case EDOT_LARGEBLOCK:
+            file<<"\t\t";
+            saveLargeBlock(file, o, x,y);
+            file<<"\n";
     }
 }
 
