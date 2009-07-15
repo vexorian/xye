@@ -241,9 +241,6 @@ void AssignLargeBLockVarDirFromFlags( Uint8 flags , int &variation, int &directi
     variation = 4;
     direction = EDITORDIRECTION_UP;
     //I can't think of something better, sorry.
-    cout<<"\t"<<(int)flags<<endl;
-    
-    assert( (flags!=13) || (flags==0b1101) );
     switch(flags)
     {
         case 0b0001:
@@ -329,7 +326,7 @@ bool editor_LoadLargeBlock(TiXmlElement * el)
     }
     string v=ptr;
     Uint8 flags = 0;
-    cout<<v<<endl;
+
     const char * dirs = "URDL";
     for (int i=0; i<v.length(); i++)
         for (int j=0; j<4; j++)

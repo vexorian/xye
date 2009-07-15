@@ -98,6 +98,7 @@ enum otype
     OT_WINDOW,
     OT_SCROLLBLOCK,
     OT_METALBLOCK,
+    OT_LARGEBLOCK,
     OT_STAR
 };
 
@@ -391,6 +392,41 @@ class block : public obj
      bool Loop(bool* died);
      bool HasBlockColor(blockcolor bc);
 };
+
+struct largeblockroot
+{
+    int children;
+    largeblockroot() { children=0; }
+};
+
+/** "Large" Block **/
+class largeblock : public obj
+{
+ private:
+
+     blockcolor c;
+     void OnDeath();
+     Uint8 flags;
+     largeblockroot *root;
+     void setupBlock();
+     
+     
+     void blockDFS( largeblockroot* root);
+     static largeblock* getPart( obj* object, largeblockroot* root);
+     bool pushingBlocks(edir dir, int ix, int x0, int x1, int iy, int y0, int y1, int dx ,int dy);
+
+ public:
+     bool colorless;
+     largeblock(square* sq,blockcolor tc, bool up, bool right, bool down, bool left );
+     void Draw(unsigned int x, unsigned int y);
+     bool trypush(edir dir,obj* pusher);
+
+     bool HasRoundCorner(roundcorner rnc);
+     bool Loop(bool* died);
+     bool HasBlockColor(blockcolor bc);
+     bool isReallyASmallBlock();
+};
+
 
 /** Block (metal) **/
 class metalblock : public obj
