@@ -2086,18 +2086,7 @@ bool obj::Magnetism(char ox, char oy, char mx, char my, bool rSticky, bool rHorz
     //We have found a valid magnetic block, let's see if it is possible to move the object to
     // the desired point.
 
-    if (! rSticky) return trypush(godir,mg);
-
-
-
-    square *sq=game::SquareN(ox,oy);
-    if (sq->object!=NULL) return false;
-    gobj* gobject=sq->gobject;
-    if ((gobject!=NULL) && (! (gobject->CanEnter(this,godir))  )) return false;
-
-    //Everything is OK, move the object:
-    move(sq->sqx, sq->sqy);
-    return true;
+    return trypush(godir,mg);
 }
 
 
@@ -3004,6 +2993,7 @@ square* RoundAdvance(obj* ToMove,edir dir,char i, char j)
 
 /**(Round alg end)**/
 
+
 /**Start Class Block**/
 block::block(square* sq,blockcolor tc,bool makeround)
 {
@@ -3051,6 +3041,295 @@ bool block::Loop(bool* died)
 inline bool block::HasBlockColor(blockcolor bc) { return ((! colorless) && (c==bc)); }
 
 /**End Class Block**/
+
+/**Start Class Large Block**/
+largeblock::largeblock(square* sq,blockcolor tc, bool up, bool right, bool down, bool left )
+{
+    type=OT_LARGEBLOCK;
+    c=tc;
+    colorless=false;
+    ObjectConstruct(sq);
+    flags = (up<<1)|(right<<3)|(down<<5)|(left<<7) ;
+    root = NULL;
+}
+
+
+void largeblock::Draw(unsigned int x, unsigned int y)
+{
+    Uint8 tx,ty;
+    Uint8 sz2 = sz>>1;
+    //flags = 0b1101;
+    
+    
+    Uint8 up = (flags>>1)&1;
+    Uint8 right = (flags>>3)&1;
+    Uint8 down = (flags>>5)&1;
+    Uint8 left = (flags>>7)&1;
+    
+    Uint8 upleft = (flags>>0)&1;
+    Uint8 upright = (flags>>2)&1;
+    Uint8 downright = (flags>>4)&1;
+    Uint8 downleft = (flags>>6)&1;
+    
+    //top left corner:   
+    Uint8 var = 0;
+    if( up&&left&&upleft) var=4;
+    else if( up&&left) var = 3;
+    else if(up) var = 2;
+    else if(left) var = 1;
+    
+    tx = 10;
+    ty = var + 15;
+    DaVinci D(game::sprites, tx*sz,  ty*sz,sz2,sz2);
+    Uint8 alpha = 255, white=255;   
+    if(! colorless) D.SetColors(&options::BKColor[(int)(c)],alpha);
+    else D.SetColors(white,white,white,alpha);
+    D.Draw(game::screen,x,y);
+
+    //top right corner:   
+    var = 0;
+    if( up&&right&&upright) var=4;
+    else if( up&&right) var = 3;
+    else if(up) var = 2;
+    else if(right) var = 1;
+
+    tx = 10;
+    ty = var + 15;
+    D.ChangeRect(tx*sz+sz2, ty*sz, sz2,sz2);
+    D.Draw(game::screen,x+sz2,y);
+
+    //bottom left corner:   
+    var = 0;
+    if( down&&left&&downleft) var=4;
+    else if( down&&left) var = 3;
+    else if(down) var = 2;
+    else if(left) var = 1;
+    
+    tx = 10;
+    ty = var + 15;
+    D.ChangeRect(tx*sz,  ty*sz + sz2,sz2,sz2);
+    D.Draw(game::screen,x,y+sz2);
+
+    //bottom right corner:   
+    var = 0;
+    if( down&&right&& downright) var=4;
+    else if( down&&right) var = 3;
+    else if(down) var = 2;
+    else if(right) var = 1;
+
+    tx = 10;
+    ty = var + 15;
+    D.ChangeRect(tx*sz+sz2, ty*sz +sz2, sz2,sz2);
+    D.Draw(game::screen,x+sz2,y+sz2);
+
+}
+
+inline bool largeblock::HasRoundCorner(roundcorner rnc) { return false; }
+
+#include<queue>
+#include<iostream>
+using std::cout;
+using std::endl;
+std::queue<largeblock* > foundLargeBlocks;
+
+void largeblock::blockDFS( largeblockroot* aroot)
+{
+    
+    if( root != NULL) return;
+    root = aroot;
+    root->children ++;
+    foundLargeBlocks.push(this);
+    int dy[4] = {1,0,-1,0};
+    int dx[4] = {0,1,0,-1};
+    int dd[4] = {1,3,5,7};
+    int dr[4] = {5,7,1,3};
+    for (int i=0; i<4; i++)
+    {
+        int nx = x+dx[i], ny=y+dy[i];
+        if(nx<0) nx = XYE_HORZ-1;
+        if(ny<0) ny = XYE_VERT-1;
+        if(ny>=XYE_VERT) ny = 0;
+        if(nx>=XYE_HORZ) nx = 0;
+        square* sq= game::Square(nx,ny);
+        obj* ob = sq->object;
+        if( (ob == NULL)  || (ob->GetType() != OT_LARGEBLOCK) )
+            continue;
+        largeblock* lb = static_cast<largeblock*>(ob);
+        Uint8 nflags = lb->flags;
+        if( ( (flags&(1<<dd[i])) && (nflags&(1<<dr[i])) ) && ( (lb->colorless==colorless) && (lb->c == c) ) )
+        {
+            lb->blockDFS(root);
+        }
+        
+    }
+}
+void largeblock::setupBlock()
+{
+    largeblockroot* troot = new largeblockroot();
+    troot->children =0;
+    blockDFS(troot);
+    while( !foundLargeBlocks.empty() )
+    {
+        largeblock* lb = foundLargeBlocks.front();
+        
+        foundLargeBlocks.pop();
+        int x= lb->x, y=lb->y;
+        game::Square(x,y)->Update=true;
+        int dy[8] = { 1,1,1,0,-1,-1,-1, 0};
+        int dx[8] = {-1,0,1,1, 1, 0,-1,-1};
+        lb->flags = 0;
+        for (int i=0;i<8; i++)
+        {
+            int nx = x+dx[i], ny=y+dy[i];
+            if(nx<0) nx = XYE_HORZ-1;
+            if(ny<0) ny = XYE_VERT-1;
+            if(ny>=XYE_VERT) ny = 0;
+            if(nx>=XYE_HORZ) nx = 0;
+            square* sq= game::Square(nx,ny);
+            obj* ob = sq->object;
+            if( (ob == NULL)  || (ob->GetType() != OT_LARGEBLOCK) )
+                continue;
+            largeblock* lb2 = static_cast<largeblock*>(ob);
+            if( (lb->root == lb2->root) && ( (lb2->colorless==lb->colorless) && (lb->c == lb2->c) )  )
+            {               
+                lb->flags |= (1<<i);
+            }
+            
+        }
+        
+    }
+}
+
+bool largeblock::Loop(bool* died)
+{
+    if(root == NULL)
+    {
+        setupBlock();       
+    }
+
+    if( !game::Mod5() || !game::Mod2() ) return false;
+    *died=false;
+
+    bool Moved=false;
+    if  (DoMagnetism(true,true,&Moved))
+        return Moved;
+        edir go;
+
+    return false;
+}
+largeblock* largeblock::getPart( obj* object, largeblockroot* root)
+{
+    if(object == NULL) return NULL;
+    if(object->GetType() != OT_LARGEBLOCK) return NULL;
+    largeblock* lb = static_cast<largeblock*>(object);
+    if (lb->root == root) return lb;
+    return NULL;
+    
+}
+
+bool largeblock::pushingBlocks(edir dir, int ix, int x0, int x1, int iy, int y0, int y1, int dx ,int dy)
+{
+    bool doable = true;
+    for (int i=x0; (i-ix!= x1) && doable; i+=ix)
+        for (int j=y0; (j-iy!=y1)  && doable ; j+=iy)
+        {
+            largeblock * lb = getPart( game::Square(i,j)->object, root);
+            if(lb==NULL) continue;
+            gobj* gobject = game::Square(i,j)->gobject;
+            if( (gobject!=NULL) && (! gobject->CanLeave(lb, dir)) ) doable=false;
+            
+            if(lb->tic == game::Counter())
+                doable=false;
+           
+            Sint8 nx = lb->x + dx, ny = lb->y + dy;
+            /*if(nx<0) nx=XYE_HORZ-1;
+            if(ny<0) ny=XYE_VERT-1;
+            if(nx>=XYE_HORZ) nx = 0;
+            if(ny>=XYE_VERT) ny = 0;*/
+            if(nx<0) doable=false;
+            if(ny<0) doable=false;
+            if(nx>=XYE_HORZ) doable=false;
+            if(ny>=XYE_VERT) doable=false;
+            if(! doable) break;
+            obj * object = game::Square(nx,ny)->object;
+
+            if( (object!=NULL) && (getPart(object,root)==NULL) )
+                doable=false;
+                
+            gobject = game::Square(nx,ny)->gobject;
+            if( (gobject!=NULL) && (! gobject->CanEnter(lb, dir)) ) doable=false;
+
+
+        }
+    if(! doable) return false;
+
+    for (int i=x0; i-ix!= x1; i+=ix)
+        for (int j=y0; j-iy!=y1; j+=iy)
+        {
+            largeblock * lb = getPart( game::Square(i,j)->object, root);
+            if(lb==NULL) continue;
+            if(lb->tic == game::Counter() ) continue;
+            Sint8 nx = lb->x + dx, ny = lb->y + dy;
+            
+            if(nx<0) nx=XYE_HORZ-1;
+            if(ny<0) ny=XYE_VERT-1;
+            if(nx>=XYE_HORZ) nx = 0;
+            if(ny>=XYE_VERT) ny = 0;
+
+            lb->move(nx,ny);
+            lb->tic = game::Counter() ;
+        }
+    
+    return true;
+    
+}
+
+bool largeblock::isReallyASmallBlock()
+{
+    if(root == NULL) setupBlock();
+    
+    return (root->children == 1);
+    
+}
+
+bool largeblock::trypush(edir dir,obj* pusher)
+{
+    if(root == NULL) setupBlock();
+    
+    if(root->children == 1) return trypush_common(dir,pusher, false,NULL);
+    
+    switch(dir)
+    {
+        case D_RIGHT: return pushingBlocks(dir,-1, XYE_HORZ-1, 0, 1,0,XYE_VERT-1, 1,0);
+        case D_LEFT: return pushingBlocks(dir,1, 0, XYE_HORZ-1, 1,0,XYE_VERT-1, -1,0);
+        case D_UP: return pushingBlocks(dir,-1, XYE_HORZ-1, 0,   -1, XYE_VERT-1,0, 0,1);
+        case D_DOWN: return pushingBlocks(dir,-1, XYE_HORZ-1, 0,  1,0,XYE_VERT-1, 0,-1);
+            
+    }
+    return false;
+}
+void largeblock::OnDeath()
+{
+    if(root != NULL)
+    {
+        largeblockroot* lbr = root;
+        for (int i=0; i<XYE_HORZ; i++)
+            for (int j=0; j<XYE_VERT; j++)
+            {
+                largeblock * lb = getPart(game::Square(i,j)->object, lbr);
+                if(lb != NULL) lb->root = NULL;
+            }
+        delete lbr;
+        
+    }
+}
+
+
+inline bool largeblock::HasBlockColor(blockcolor bc) { return ((! colorless) && (c==bc)); }
+
+/**End Class large Block**/
+
+
 
 /**Start Class metalBlock**/
 metalblock::metalblock(square* sq,bool makeround)
@@ -3363,15 +3642,13 @@ bool magnetic::TryMagneticMove(char ox, char oy, char xx, char xy, edir godir, b
     MovedTic=game::Counter();
     LastPushDir=godir;
     if (mt!=T_STICKY) return true;
+    
     sq=game::SquareN(sx,sy);
     obj* object=sq->object;
 
     if ((object!=NULL) && (object->tic!=game::counter) && (object->AffectedByMagnetism(horz)))
     {
-        sq=game::Square(oldx,oldy);
-        gobject=sq->gobject;
-        if ((gobject==NULL) || (gobject->CanEnter(object,godir)))
-            object->move(oldx,oldy);
+        object->trypush(godir, this);
     }
 
     return true;
@@ -7132,6 +7409,11 @@ bool pit::CanConsume(obj* object)
                 if (r->Floats()) return false;
                 break;
             case(OT_RATTLERNODE): return false;
+            case(OT_LARGEBLOCK):
+            {
+                largeblock* lb=static_cast<largeblock*>(object);
+                return ( lb->isReallyASmallBlock() );
+            }
         }
  return true;
 }

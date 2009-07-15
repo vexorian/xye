@@ -22,7 +22,7 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include "kye_script.h"
 #include "xsb_level.h"
 #include "gen.h"
-#include "string"
+#include<string>
 
 /** Class LevelPack begin**/
 unsigned int LevelPack::n;
@@ -700,8 +700,43 @@ void Load_Block(TiXmlElement* el)
         el->QueryIntAttribute("nocolor",&colorless);
         el->QueryIntAttribute("round",&round);
 
-    block* bc=new block(game::SquareN(LastX,LastY),c,round);
-    if (colorless) bc->colorless=true;
+    block* dn=new block(game::SquareN(LastX,LastY),c, round);
+    if (colorless) dn->colorless=true;
+
+}
+
+/* Load LargeBlock*/
+void Load_LargeBlock(TiXmlElement* el)
+{
+    int colorless=0;
+        el->QueryIntAttribute("x",&LastX);
+        el->QueryIntAttribute("y",&LastY);
+        blockcolor c=GetElementBlockColor(el);
+        el->QueryIntAttribute("nocolor",&colorless);
+    const char* ptr = el->Attribute("sharededges");
+    bool up=false, right=false, down=false, left=false;
+    if(ptr)
+    {
+        for (int i=0; ptr[i]!='\0'; i++)
+            switch(ptr[i])
+            {
+                case 'U': up=true; break;
+                case 'R': right=true; break;
+                case 'D': down=true; break;
+                case 'L': left=true; break;
+            }
+    }
+    if( !(up|down|left|right))
+    {  //don't bother
+       block* dn=new block(game::SquareN(LastX,LastY),c, false);
+       if (colorless) dn->colorless=true;
+    }
+    else
+    {
+        largeblock* bc=new largeblock(game::SquareN(LastX,LastY),c, up,right,down,left);
+        if (colorless) bc->colorless=true;
+    }
+    
 
 }
 
@@ -1363,6 +1398,7 @@ otype GetOTFromXmlElement(TiXmlElement* x, unsigned int *extra)
     else if (strcmp(TempCharA,"timer")==0) return OT_NUMBER;
     else if (strcmp(TempCharA,"bot")==0) return OT_ROBOXYE;
     else if (strcmp(TempCharA,"lblock")==0) return OT_LOWDENSITY;
+    else if (strcmp(TempCharA,"largeblockpart")==0) return OT_LARGEBLOCK;
     else if (strcmp(TempCharA,"clocker")==0) { *extra=0; return OT_TURNER; }
     else if (strcmp(TempCharA,"aclocker")==0) { *extra=1; return OT_TURNER; }
 
@@ -1432,6 +1468,7 @@ void LoadObjects(TiXmlElement* normal)
             case(OT_MARKEDAREA): Load_Marked(pEChild); break;
             case(OT_HINT): Load_Hint(pEChild,false); break;
             case(OT_WARNING): Load_Hint(pEChild,true); break;
+            case(OT_LARGEBLOCK): Load_LargeBlock(pEChild); break;
             case(OT_PORTAL): Load_Portal(pEChild); break;
             case(OT_FIREPAD): Load_FirePad(pEChild); break;
             case(OT_PIT): Load_Pit(pEChild); break;
