@@ -1898,12 +1898,15 @@ void dfsLargeBlocks(int x, int y, editorcolor color, int px, int py, editorboard
         for (int r=0; r<4; r++)
         {
             int nx = dx[r]+x, ny = dy[r]+y;
-            if( (nx<0) || (ny<0) || (nx>=XYE_HORZ) || (ny>=XYE_VERT) )
-                continue;
+            if(nx<0) nx = XYE_HORZ-1;
+            if(ny<0) ny = XYE_VERT-1;
+            if(ny>=XYE_VERT) ny = 0;
+            if(nx>=XYE_HORZ) nx = 0;
+
             boardelement &o2 = eb->objects[nx][ny];
             Uint8 nflags2 = getLargeBlockFlagsByVarDir(o2.variation, o2.direction);
             
-            if( ((nflags &( 1<<df[r]) ) || (nflags2 &( 1<<dop[r]) ) ) && (o2.type==EDOT_LARGEBLOCK ) && (o2.color==color )  )
+            if( ((nflags &( 1<<df[r]) ) && (nflags2 &( 1<<dop[r]) ) ) && (o2.type==EDOT_LARGEBLOCK ) && (o2.color==color )  )
             {
                 dfsLargeBlocks(nx,ny, color,px,py, eb);
             }
@@ -1924,8 +1927,10 @@ void editorboard::drawLargeBlockInBoard(SDL_Surface * target, int ox,int oy, int
         for (int r=0; r<8; r++)
         {
             int nx = dx[r]+ox, ny = dy[r]+oy;
-            if( (nx<0) || (ny<0) || (nx>=XYE_HORZ) || (ny>=XYE_VERT) )
-                continue;
+            if(nx<0) nx = XYE_HORZ-1;
+            if(ny<0) ny = XYE_VERT-1;
+            if(ny>=XYE_VERT) ny = 0;
+            if(nx>=XYE_HORZ) nx = 0;
             boardelement &o2 = objects[nx][ny];
             if( (o2.type==EDOT_LARGEBLOCK) && (o2.parentx == o.parentx) && (o.parenty==o2.parenty)) {
                 nflags|=(1<<r);
@@ -1936,15 +1941,20 @@ void editorboard::drawLargeBlockInBoard(SDL_Surface * target, int ox,int oy, int
     bool doalpha = false;
     if( /*( editor::tic4 > 1) &&*/ ( editor::buttons->SelectedObjectType == EDOT_LARGEBLOCK) )
     {
-        if ( flags - (flags&nflags) )
+        
+        if ( flags != (nflags-(nflags&0b01010101) ) )
         {
             doalpha = true;
-            nflags |= flags;
+            if(editor::tic4<2)
+            {
+                drawLargeBlockByFlags( target, x,y, color, nflags , doalpha);
+                return;
+            }
+            
+        //    nflags |= flags;
         }
+        nflags = flags|(nflags&0b01010101);
     }
-
-
-    
     drawLargeBlockByFlags( target, x,y, color, nflags , doalpha);
 }
 
