@@ -3284,6 +3284,188 @@ bool largeblock::pushingBlocks(edir dir, int ix, int x0, int x1, int iy, int y0,
     
 }
 
+largeblock* largeblock_pushgroup[XYE_HORZ*XYE_VERT];
+int         largeblock_pushn = 0;
+
+largeblock* largeblock_stack[XYE_HORZ*XYE_VERT];
+int         largeblock_stackn = 0;
+
+void largeblock::getPushGroup()
+{
+    char checked[XYE_HORZ][XYE_VERT] = {};
+    largeblock_pushn = 0;
+    largeblock_stackn=1;
+    largeblock_stack[0]= this;
+    checked[x][y]=1;
+    while(largeblock_stackn>0)
+    {
+        largeblock* lb = largeblock_stack[--largeblock_stackn];
+        largeblock_pushgroup[ largeblock_pushn++] = lb;
+        int x=lb->x, y=lb->y;
+        int dx[4]={0,0,1,-1};
+        int dy[4]={-1,1,0,0};
+        for (int d=0; d<4; d++)
+        {
+            int nx=dx[d]+x, ny=dy[d]+y;
+            if(nx<0) nx=XYE_HORZ-1;
+            if(ny<0) ny=XYE_VERT-1;
+            if(nx>=XYE_HORZ) nx = 0;
+            if(ny>=XYE_VERT) ny = 0;
+            largeblock * lb = getPart(game::Square(nx,ny)->object,root);
+            if( (checked[nx][ny]==0) && (lb!=NULL) )
+            {
+                checked[nx][ny] = 1;
+                largeblock_stack[ largeblock_stackn++] = lb;
+            }
+        }
+    }
+    
+}
+
+void largeblock::doPush(edir dir, int dx, int dy)
+{
+    char checked[XYE_HORZ][XYE_VERT] = {};
+    largeblock_stackn=0;
+    for (int i=0; i<largeblock_pushn; i++)
+    {
+        largeblock_stack[ largeblock_stackn ++]= largeblock_pushgroup[i];
+        while(largeblock_stackn > 0)
+        {
+            largeblock* lb = largeblock_stack[--largeblock_stackn];
+            int x = lb->x, y=lb->y;
+            if(checked[x][y]==1) continue;
+            bool performMove= true;
+            int nx = x+dx, ny = y+dy;
+            if(nx<0) nx=XYE_HORZ-1;
+            if(ny<0) ny=XYE_VERT-1;
+            if(nx>=XYE_HORZ) nx = 0;
+            if(ny>=XYE_VERT) ny = 0;
+
+            if( checked[x][y] == 0)
+            {
+                //start
+                checked[x][y] = 2;
+                if(checked[nx][ny]==2) //found a cycle!
+                {
+                    performMove = false;
+                    checked[x][y]=1;
+                    Uint8 cflags = lb->flags;
+                    largeblock * prev = lb;
+                    lb->tic = game::Counter();
+                    game::Square(x,y)->Update=true;
+                    while(largeblock_stackn > 0)
+                    {
+                        lb = largeblock_stack[--largeblock_stackn];
+                        lb->tic = game::Counter();
+                        x=lb->x, y=lb->y;
+                        checked[x][y] = 1;
+                        game::Square(x,y)->Update=true;
+                        prev->flags = lb->flags;
+                        prev = lb;
+                    }
+                    prev->flags = cflags;
+                }
+                else if(checked[nx][ny]==0)
+                {
+                    obj* object = game::Square(nx,ny)->object;
+                    largeblock * lb2= getPart(object, root);
+                    if(lb2!=NULL)
+                    {
+                        performMove=false;
+                        ++largeblock_stackn;
+                        largeblock_stack[largeblock_stackn ++] = lb2;
+                    }
+                    else if( (object!=NULL) && ((object->GetType() == OT_BLACKHOLE) || (object->GetType() == OT_MINE)) )
+                    {
+                        lb->Kill();
+                        static_cast<dangerous*>(object)->Eat();
+                        performMove=false;
+                        checked[nx][ny] = 1;
+                        checked[x][y]=1;
+                    }
+                }
+            }
+            if(performMove)
+            {
+                lb->tic = game::Counter();
+                lb->move(nx,ny);
+                checked[nx][ny] = 1;
+                checked[x][y]=1;
+            }             
+        } 
+    }
+
+}
+
+bool largeblock::canPush(edir dir, int dx, int dy)
+{
+    char checked[XYE_HORZ][XYE_VERT] = {};
+    largeblock_stackn=0;
+    for (int i=0; i<largeblock_pushn; i++)
+    {
+        largeblock_stack[ largeblock_stackn ++]= largeblock_pushgroup[i];
+        while (largeblock_stackn > 0)
+        {
+            largeblock* lb = largeblock_stack[--largeblock_stackn];
+            int x = lb->x, y=lb->y;
+            if(checked[x][y]==1) continue;
+            gobj* gobject = game::Square(x,y)->gobject;
+            if( (gobject!=NULL) && (! gobject->CanLeave(lb, dir)) )
+                return false;
+
+            int nx = x+dx, ny = y+dy;
+            if(nx<0) nx=XYE_HORZ-1;
+            if(ny<0) ny=XYE_VERT-1;
+            if(nx>=XYE_HORZ) nx = 0;
+            if(ny>=XYE_VERT) ny = 0;
+
+            gobject = game::Square(nx,ny)->gobject;
+            if( (gobject!=NULL) && (! gobject->CanEnter(lb, dir)) )
+                return false;
+
+            if( checked[x][y] == 0)
+            {
+                //start
+                checked[x][y] = 2;
+                if(checked[nx][ny]==2); //found a cycle, do nothing
+                else if(checked[nx][ny]==0)
+                {
+                    obj* object = game::Square(nx,ny)->object;
+                    largeblock * lb2= getPart(object, root);
+                    if(lb2!=NULL)
+                    {
+                        ++largeblock_stackn;
+                        largeblock_stack[largeblock_stackn ++] = lb2;
+                    }
+                    else if(object!=NULL)
+                    {
+                        if ((object->GetType() == OT_BLACKHOLE) || (object->GetType() == OT_MINE))
+                        {
+                            if( static_cast<dangerous*>(object)->Busy(lb) )
+                                return false;
+                        }
+                        else return false;
+                    }
+                }
+            }
+        } 
+    }
+    return true;
+
+}
+
+bool largeblock::pushingBlocks2(edir dir, int dx, int dy)
+{
+    if(tic==game::Counter()) return false;
+    getPushGroup();   
+    if(canPush(dir,dx,dy))
+    {
+        doPush(dir,dx,dy);
+        return true;
+    }
+    return false;
+}
+
 bool largeblock::isReallyASmallBlock()
 {
     if(root == NULL) setupBlock();
@@ -3300,10 +3482,15 @@ bool largeblock::trypush(edir dir,obj* pusher)
     
     switch(dir)
     {
-        case D_RIGHT: return pushingBlocks(dir,-1, XYE_HORZ-1, 0, 1,0,XYE_VERT-1, 1,0);
+/*        case D_RIGHT: return pushingBlocks(dir,-1, XYE_HORZ-1, 0, 1,0,XYE_VERT-1, 1,0);
         case D_LEFT: return pushingBlocks(dir,1, 0, XYE_HORZ-1, 1,0,XYE_VERT-1, -1,0);
         case D_UP: return pushingBlocks(dir,-1, XYE_HORZ-1, 0,   -1, XYE_VERT-1,0, 0,1);
-        case D_DOWN: return pushingBlocks(dir,-1, XYE_HORZ-1, 0,  1,0,XYE_VERT-1, 0,-1);
+        case D_DOWN: return pushingBlocks(dir,-1, XYE_HORZ-1, 0,  1,0,XYE_VERT-1, 0,-1);*/
+        case D_RIGHT: return pushingBlocks2(dir,1,0);
+        case D_LEFT: return pushingBlocks2(dir,-1,0);
+        case D_UP: return pushingBlocks2(dir,0,1);
+        case D_DOWN: return pushingBlocks2(dir,0,-1);
+
             
     }
     return false;

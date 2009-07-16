@@ -414,7 +414,10 @@ class largeblock : public obj
      void blockDFS( largeblockroot* root);
      static largeblock* getPart( obj* object, largeblockroot* root);
      bool pushingBlocks(edir dir, int ix, int x0, int x1, int iy, int y0, int y1, int dx ,int dy);
-
+     void doPush(edir dir, int dx, int dy);
+     bool canPush(edir dir, int dx, int dy);
+     void getPushGroup();
+     bool pushingBlocks2(edir dir, int dx, int dy);
  public:
      bool colorless;
      largeblock(square* sq,blockcolor tc, bool up, bool right, bool down, bool left );
