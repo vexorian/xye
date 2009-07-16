@@ -1324,21 +1324,35 @@ void makewall(boardelement &o)
 void editorboard::makeDefaultLevel()
 {
     int i,j;
+    bool already = true;
     for (i=0;i<XYE_HORZ;i++)for (j=0;j<XYE_VERT;j++)
     {
+        if (objects[i][j].type != EDOT_NONE)
+        {
+            if(objects[i][j].type==EDOT_WALL)
+            {
+                already = already && ( (i==0) || (j==0) || (i==XYE_HORZ-1) || (j==XYE_VERT-1));
+            }
+            else already = false;
+        }
+        else if( (i==0) || (j==0) || (i==XYE_HORZ-1) || (j==XYE_VERT-1))
+            already=false;
+            
         objects[i][j].type=EDOT_NONE;
     }
-
-    //fill border walls
-    for (j=0;j<XYE_VERT;j++)
+    if( ! already)
     {
-        makewall(objects[0][j]);
-        makewall(objects[XYE_HORZ-1][j]);
-    }
-    for (j=0;j<XYE_HORZ;j++)
-    {
-        makewall(objects[j][0]);
-        makewall(objects[j][XYE_VERT-1]);
+        //fill border walls
+        for (j=0;j<XYE_VERT;j++)
+        {
+            makewall(objects[0][j]);
+            makewall(objects[XYE_HORZ-1][j]);
+        }
+        for (j=0;j<XYE_HORZ;j++)
+        {
+            makewall(objects[j][0]);
+            makewall(objects[j][XYE_VERT-1]);
+        }
     }
     xye_x=-1;
     xye_y=-1;
