@@ -19,8 +19,8 @@ Permission is granted to anyone to use this software for any purpose, including 
 
 #include <errno.h>
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include <string>
 #include <cstring>
 
