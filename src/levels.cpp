@@ -27,6 +27,11 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include "options.h"
 #include "vxsdl.h"
 #include "command.h"
+#include<string>
+#include<cstring>
+#include<algorithm>
+using std::string;
+using std::sort;
 
 #include "browser.h"
 
@@ -63,7 +68,7 @@ bool ActiveIsEditable;
 
 void LoadActiveFileInfo();
 
-#define spacingtext "                             "
+#define SPACING_TEXT "                             "
 
 
 char* RemovePath(string *in)
@@ -125,7 +130,7 @@ void Draw()
 
 
 
-    nw=game::FontRes->TextWidth(spacingtext);
+    nw=game::FontRes->TextWidth(SPACING_TEXT);
     while ((i<FileN) && (cy<sh))
     {
         char * tm=RemovePath( FoundFile+i  );
@@ -317,6 +322,48 @@ void FillArrayWithFilenames(const char* nf, const char* lvp, unsigned int &c)
 
 }
 
+struct LevelSorting
+{
+    string lf;
+    
+    LevelSorting(const char* levelfolder)
+    {
+        lf = levelfolder;
+    }
+    
+    int getRank(const string &s)
+    {
+        int r=0;
+        if( s.length() > lf.length() )
+        {
+            if( std::equal(lf.begin(), lf.end(), s.begin()) )
+            {
+                r=1;
+                string x = s.substr(lf.length());
+                if(x=="tutorials.xye") r=4;
+                if(x=="levels.xye") r=3;
+                if(x=="kye.xye") r=2;
+            }
+            
+        }
+
+        return r;
+    }
+    
+    bool operator()( const string &a, const string &b)
+    {
+       // printf("LF is %s \n",lf);
+        int arank = getRank(a);
+        int brank = getRank(b);
+        
+        if( arank==brank)
+            return (a<b);
+        return (arank>brank);
+        
+        
+    }
+};
+
 void FillArrayWithFilenames()
 {
 
@@ -328,65 +375,17 @@ void FillArrayWithFilenames()
     int i;
     const char* N;
     unsigned int L;
-    bool def,kye,lev;
-    def=kye=lev=false;
     string aux;
 
     while ((c<FileN) && (N=F.NextFileMatching(Akyexyelevel)))
     {
         L=strlen(N);
-
         if (L<=20)
         {
             i=0;
             FoundFile[c]=nf;
             FoundFile[c]+=N;
-
-            if ( (!def) && (!strcmp(N,"tutorials.xye")) )
-                def=true;
-            else if ( (!kye) && (!strcmp(N,"kye.xye")))
-                kye=true;
-            else if ( (!lev) && (!strcmp(N,"levels.xye")))
-                lev=true;
-
-            else
-                c++;
-        }
-    }
-
-    //now sort the array so tutorials.xye , levels.xye and kye.xye are the first options.
-    if (def || kye || lev)
-    {
-        int add,j;
-        if (def && kye && lev)
-            add=3;
-        else if ((def && kye) || (def && lev) || (lev && kye))
-            add=2;
-        else
-            add=1;
-        for ( i=c-1; i>=0; i--)
-            FoundFile[i+add]=FoundFile[i];
-
-        c+=add;
-        j=0;
-        if (def)
-        {
-            FoundFile[0]=nf;
-            FoundFile[0]+="tutorials.xye";
-            j++;
-        }
-        if (lev)
-        {
-            FoundFile[j]=nf;
-            FoundFile[j]+="levels.xye";
-            j++;
-        }
-
-        if (kye)
-        {
-            FoundFile[j]=nf;
-            FoundFile[j]+="kye.xye";
-            j++;
+            c++;
         }
     }
 
@@ -406,15 +405,16 @@ void FillArrayWithFilenames()
         delete[]tm2;
     }
 
-
-delete [] nf;
+    char * levelsfolder = nf;
 
     //Add levels on %home%/.xye/levels
     nf=getHomeDir();
     if ((strlen(nf)!=0) && c) FillArrayWithFilenames(nf,nf,c);
     delete[] nf;
 
-
+     //sort the array alphabetically
+    sort(FoundFile, FoundFile+c, LevelSorting(levelsfolder) );
+    delete[] levelsfolder;
 
     //Finally find the value of res and if someone has it, make sure Active points to it
     for (i=0;i<c;i++)
@@ -568,7 +568,7 @@ bool MouseUpEvent(Uint16 x,Uint16 y)
 
    //First of all verify if the user actually clicked list item
 
-   if (x>game::FontRes->TextWidth(spacingtext))
+   if (x>game::FontRes->TextWidth(SPACING_TEXT))
       return true;
 
    //Now get the initial index so we know how to calculate the stuff
@@ -603,6 +603,7 @@ return true;
 
 
 }
+
 
 
 void Show()
