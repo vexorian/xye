@@ -84,10 +84,19 @@ void saveNormalObject(std::ofstream &file, boardelement &o, int x, int y)
             file <<"/>\n";
             break;
         case EDOT_GEM:
-            file<<"\t\t<gem ";
-            savePosition(file,x,y);
-            saveColor(file,o);
-            file <<"/>\n";
+            if(o.color == EDCO_WHITE)
+            {
+                file<<"\t\t<star ";
+                savePosition(file,x,y);
+                file << "/>\n";
+            }
+            else
+            {
+                file<<"\t\t<gem ";
+                savePosition(file,x,y);
+                saveColor(file,o);
+                file <<"/>\n";
+            }
             break;
 
         case EDOT_WALL:
@@ -280,13 +289,7 @@ void saveNormalObject(std::ofstream &file, boardelement &o, int x, int y)
             savePosition(file,x,y);
             file << "/>\n";
             break;
-        
-        case EDOT_STAR:
-            file<<"\t\t<star ";
-            savePosition(file,x,y);
-            file << "/>\n";
-            break;
-            
+                   
         case EDOT_LARGEBLOCK:
             file<<"\t\t";
             saveLargeBlock(file, o, x,y);
