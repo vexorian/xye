@@ -645,8 +645,6 @@ editorbuttons::editorbuttons(int sx, int sy, int sw, int sh)
     buttons[bp][1].type=EDOT_LARGEBLOCK;
     buttons[bp][1].variation = 4;
 
-    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
-    buttons[bp][1].type=EDOT_STAR;
 
 
     SelectedObjectType= EDOT_NONE;
@@ -1009,6 +1007,7 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
                 case EDCO_YELLOW: text="Topaz (yellow gem)"; break;
                 case EDCO_BLUE: text="Diamond (blue gem)"; break;
                 case EDCO_RED: text="Ruby (red gem)";
+                default: text="Star (optional gem)";
             }
             break;
 
@@ -1027,10 +1026,6 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
             }
             break;       
         
-        case EDOT_STAR:
-            text="Star";
-            break;
-
         case EDOT_LARGEBLOCK:
             switch(variation)
             {
@@ -1136,7 +1131,7 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
 
     switch(ot)
     {
-        case EDOT_GEM: colorchoice=1; break;
+        case EDOT_GEM: colorchoice=2; break;
 
         case EDOT_COLORSYSTEM: colorchoice=1; maxvariations=6; break;
         case EDOT_RATTLERHEAD: maxvariations=10; break;
@@ -1584,7 +1579,9 @@ void drawGem( SDL_Surface * target, int x, int y, editorcolor color)
         case(EDCO_BLUE): tx=2; break;
         case(EDCO_RED): tx=3; break;
         case(EDCO_GREEN): tx=4; break;
-        default: tx=5; break;
+        case(EDCO_YELLOW): tx=5; break;
+        default:
+           ty = 13, tx=9;
     }
     DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
 
@@ -2095,12 +2092,6 @@ void drawFirePad( SDL_Surface * target, int x, int y)
     D.Draw(target,x,y);
 }
 
-void drawStar( SDL_Surface * target, int x, int y)
-{
-    DaVinci D(editor::sprites,9*sz,13*sz,sz,sz);
-    D.Draw(target,x,y);
-}
-
 void drawFood( SDL_Surface * target, int x, int y)
 {
     DaVinci D(editor::sprites,11*sz,13*sz,sz,sz);
@@ -2271,7 +2262,6 @@ void drawObjectBySpecs( SDL_Surface * target, int x, int y, editorobjecttype ot,
         case EDOT_FOOD: drawFood(target,x,y); break;
         case EDOT_WILDCARD: drawWildCard(target,x,y,round); break;
         case EDOT_FIREPAD: drawFirePad(target,x,y); break;
-        case EDOT_STAR: drawStar(target,x,y); break;
 
 
 

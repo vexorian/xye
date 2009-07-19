@@ -139,7 +139,7 @@ enum editorobjecttype
     EDOT_XYE,
     EDOT_WALL,
     EDOT_GEM,
-    EDOT_STAR,
+
     EDOT_BLOCK,
 
     EDOT_EARTH,

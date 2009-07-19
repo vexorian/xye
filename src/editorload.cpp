@@ -101,6 +101,16 @@ bool editor_LoadGem(TiXmlElement* el)
     return true;
 }
 
+bool editor_LoadStar(TiXmlElement* el)
+{
+    int x,y; if(!getElementPosition(el,x,y)) return false;
+
+    boardelement &o=editorload_objects[x][y];
+    o.type=EDOT_GEM;
+    o.color = EDCO_WHITE;
+    return true;
+}
+
 bool editor_LoadGenRC(TiXmlElement* el,editorobjecttype type, int variation=0)
 {
     int x,y; if(!getElementPosition(el,x,y)) return false;
@@ -468,7 +478,7 @@ bool editor_LoadObjects(TiXmlElement* el)
         else if (v=="teleport") { if (! editor_LoadGenD(ch,EDOT_TELEPORT)) return false; }
 
         else if (v=="bot")  { if (! editor_LoadGen(ch,EDOT_BOT,0)) return false; }
-        else if (v=="star")  { if (! editor_LoadGen(ch,EDOT_STAR,0)) return false; }
+        else if (v=="star")  { if (! editor_LoadStar(ch)) return false;}
         else if (v=="rfood")  { if (! editor_LoadGen(ch,EDOT_FOOD,0)) return false; }
         else if (v=="wild")  { if (! editor_LoadGenR(ch,EDOT_WILDCARD,0)) return false; }
         else if (v=="metalblock")  { if (! editor_LoadGenR(ch,EDOT_METAL,0)) return false; }
