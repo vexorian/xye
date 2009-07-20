@@ -621,9 +621,6 @@ editorbuttons::editorbuttons(int sx, int sy, int sw, int sh)
     buttons[bp][1].type=EDOT_BOT;
 
     buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
-    buttons[bp][1].type=EDOT_WILDCARD;
-
-    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
     buttons[bp][1].type=EDOT_KEYSYSTEM;
 
     buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
@@ -637,9 +634,6 @@ editorbuttons::editorbuttons(int sx, int sy, int sw, int sh)
 
     buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
     buttons[bp][1].type=EDOT_FOOD;
-
-    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
-    buttons[bp][1].type=EDOT_METAL;
 
     buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
     buttons[bp][1].type=EDOT_LARGEBLOCK;
@@ -908,9 +902,12 @@ string gettextRC(const char * base, editorcolor color, bool round)
         case EDCO_GREEN: res="Green "; break;
         case EDCO_YELLOW: res="Yellow "; break;
         case EDCO_WHITE: res="White "; break;
+        case EDCO_METAL: res="Metal "; break;
+        case EDCO_WILD:  res="Wildcard "; break;
     }
     if(round) res+="round ";
     res+=base;
+    if(color == EDCO_METAL) res+=" (resists fire)";
     return res;
 }
 
@@ -919,7 +916,6 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
     switch(ot)
     {
         case EDOT_BOT: text="Bot";break;
-        case EDOT_METAL: text="Metal block (resists fire)";break;
         case EDOT_FOOD: text="Snake food";break;
         case EDOT_RATTLERHEAD:
             text="Snake";
@@ -935,11 +931,7 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
 
             break;
         case EDOT_FIREPAD: text="Fire pad";break;
-        case EDOT_WILDCARD: 
-        
-            if(round) text="Round wildcard block";
-            else text="Wildcard block";
-            break;
+
 
         case EDOT_XYE:
             text="Xye";
@@ -972,7 +964,8 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
             else text="Key";
             break;
 
-        case EDOT_BLOCK: text=gettextRC("block",color,round); break;
+        case EDOT_BLOCK:
+            text=gettextRC("block",color,round); break;
 
         case EDOT_NUMBER:
 
@@ -1146,7 +1139,7 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
 
         case EDOT_NUMBER: colorchoice=1; roundchoice=1; maxvariations=10; break;
 
-        case EDOT_BLOCK: colorchoice=2; roundchoice=true; break;
+        case EDOT_BLOCK: colorchoice=4; roundchoice=true; break;
         case EDOT_TURNER: colorchoice=2; roundchoice=true; maxvariations=2; break;
 
 
@@ -1155,13 +1148,11 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
         case EDOT_MAGNET: maxvariations=3; break;
 
         case EDOT_EARTH: roundchoice=true; break;
-        case EDOT_METAL: roundchoice=true; break;
 
         case EDOT_KEYSYSTEM: colorchoice=1; maxvariations=2; break;
         case EDOT_SPECIALBLOCKS: roundchoice=true; colorchoice=1; maxvariations=6; break;
         case EDOT_GEMBLOCK: colorchoice=1; break;
 
-        case EDOT_WILDCARD: roundchoice=1; break;
 
 
 
@@ -1183,6 +1174,11 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
     int roundstart=0;
     int colorstart=3;
     int variationstart=0;
+    int colorcount=0;
+    if(colorchoice == 4) colorcount=7;
+    else if(colorchoice == 3) colorcount=6;
+    else if (colorchoice == 2) colorcount=5;
+    else if (colorchoice == 1) colorcount=4;
 
     if( roundchoice && colorchoice )
     {
@@ -1190,12 +1186,9 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
         if(roundstart<0) roundstart=0;
         colorstart=roundstart + 3;
 
-        int o=3;
-        if (colorchoice == 2) o=4;
-
-        if (colorstart+o>=EDITORBUTTONS_COUNTX)
+        if (colorstart+colorcount>=EDITORBUTTONS_COUNTX)
         {
-            colorstart=EDITORBUTTONS_COUNTX-o-1;
+            colorstart=EDITORBUTTONS_COUNTX-colorcount-1;
             roundstart=colorstart-3;
         }
     }
@@ -1207,12 +1200,8 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
     else if (colorchoice)
     {
         colorstart=lastclickedx;
-        int o=3;
-        if (colorchoice == 2) o=4;
-
-        if (colorstart+o>=EDITORBUTTONS_COUNTX)
-            colorstart=EDITORBUTTONS_COUNTX-o-1;
-
+        if (colorstart+colorcount>=EDITORBUTTONS_COUNTX)
+            colorstart=EDITORBUTTONS_COUNTX-colorcount-1;
     }
 
     if(maxvariations)
@@ -1238,38 +1227,11 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
         }
     }
 
-    if(colorchoice==1)
+    for (int i=0;i<colorcount;i++)
     {
-        editorcolor cols[4] = {EDCO_YELLOW,EDCO_BLUE,EDCO_RED,EDCO_GREEN};
-        for (int i=0;i<4;i++)
-        {
-            singleobject &o=buttons[i+colorstart][0];
-            o.content= CONTENT_RECOLOR;
-            o.color=cols[i];
-            /*if (color==cols[i])
-            {
-                //o.selected=true;
-                //clickedcolor=&o;
-            }*/
-        }
-    }
-
-
-
-    if(colorchoice==2)
-    {
-        editorcolor cols[5] = {EDCO_YELLOW,EDCO_BLUE,EDCO_RED,EDCO_GREEN,EDCO_WHITE};
-        for (int i=0;i<5;i++)
-        {
-            singleobject &o=buttons[i+colorstart][0];
-            o.content= CONTENT_RECOLOR;
-            o.color=cols[i];
-            /*if (color==cols[i])
-            {
-                o.selected=true;
-                clickedcolor=&o;
-            }*/
-        }
+        singleobject &o=buttons[i+colorstart][0];
+        o.content= CONTENT_RECOLOR;
+        o.color=(editorcolor)(i);
     }
 
     if(maxvariations>0)
@@ -1650,8 +1612,17 @@ void drawBlock( SDL_Surface * target, int x, int y, bool round, editorcolor colo
     if(round) tx=2;
     else tx=1;
     DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
-
-    if(color!=EDCO_WHITE)
+    if( color==EDCO_WILD)
+    {
+        ty = 2, tx = 1+round;
+        D.ChangeRect(tx*sz,ty*sz,sz,sz);
+    }
+    else if(color==EDCO_METAL)
+    {
+        ty = 8, tx = 9+round;
+        D.ChangeRect(tx*sz,ty*sz,sz,sz);
+    }
+    else if(color!=EDCO_WHITE)
     {
         D.SetColors(&options::BKColor[color],255);
     }
@@ -2310,7 +2281,6 @@ void drawObjectBySpecs( SDL_Surface * target, int x, int y, editorobjecttype ot,
         case EDOT_BLOCK: drawBlock(target,x,y,round,color); break;
         case EDOT_LARGEBLOCK: drawLargeBlock(target,x,y,color,variation, direction); break;
         case EDOT_PORTAL: drawPortal(target,x,y,color,variation); break;
-        case EDOT_METAL: drawMetalBlock(target,x,y,round); break;
         case EDOT_TURNER: drawTurner(target,x,y,round,color,variation); break;
 
 
@@ -2328,7 +2298,6 @@ void drawObjectBySpecs( SDL_Surface * target, int x, int y, editorobjecttype ot,
         case EDOT_TELEPORT: drawTeleport(target,x,y,direction); break;
         case EDOT_BOT: drawBot(target,x,y); break;
         case EDOT_FOOD: drawFood(target,x,y); break;
-        case EDOT_WILDCARD: drawWildCard(target,x,y,round); break;
         case EDOT_FIREPAD: drawFirePad(target,x,y); break;
 
 

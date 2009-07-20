@@ -139,12 +139,13 @@ bool editor_LoadGen(TiXmlElement * el, editorobjecttype type, int variation=0)
 
 
 
-bool editor_LoadGenR(TiXmlElement * el, editorobjecttype type, int variation=0)
+bool editor_LoadGenR(TiXmlElement * el, editorobjecttype type, int variation=0, editorcolor color = EDCO_YELLOW)
 {
     int x,y; if(!getElementPosition(el,x,y)) return false;
     int round=false; el->QueryIntAttribute("round",&round);
     boardelement &o=editorload_objects[x][y];
     o.type=type;
+    o.color = color;
     o.variation=variation;
     o.round=round;
     return true;
@@ -545,8 +546,8 @@ bool editor_LoadObjects(TiXmlElement* el)
         else if (v=="bot")  { if (! editor_LoadGen(ch,EDOT_BOT,0)) return false; }
         else if (v=="star")  { if (! editor_LoadStar(ch)) return false;}
         else if (v=="rfood")  { if (! editor_LoadGen(ch,EDOT_FOOD,0)) return false; }
-        else if (v=="wild")  { if (! editor_LoadGenR(ch,EDOT_WILDCARD,0)) return false; }
-        else if (v=="metalblock")  { if (! editor_LoadGenR(ch,EDOT_METAL,0)) return false; }
+        else if (v=="wild")  { if (! editor_LoadGenR(ch,EDOT_BLOCK,0, EDCO_WILD    )) return false; }
+        else if (v=="metalblock")  { if (! editor_LoadGenR(ch,EDOT_BLOCK,0 , EDCO_METAL )) return false; }
         else if (v=="window")  { if (! editor_LoadGenC(ch,EDOT_COLORSYSTEM,5)) return false; }
         else if (v=="lock")  { if (! editor_LoadGenC(ch,EDOT_KEYSYSTEM,1)) return false; }
         else if (v=="key")  { if (! editor_LoadGenC(ch,EDOT_KEYSYSTEM,0)) return false; }
