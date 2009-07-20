@@ -7,6 +7,9 @@ boardelement editorload_objects[XYE_HORZ][XYE_VERT];
 int editorload_xyex;
 int editorload_xyey;
 
+int editorload_portal_x[5][2];
+int editorload_portal_y[5][2];
+
 string editor::loadError;
 
 
@@ -352,6 +355,68 @@ bool editor_LoadLargeBlock(TiXmlElement * el)
     return true;
 }
 
+bool editor_LoadPortal(TiXmlElement * el)
+{
+    int x=-1,y=-1,tx=-1,ty=-1; 
+    el->QueryIntAttribute("x", &x);
+    el->QueryIntAttribute("y", &y);
+
+    el->QueryIntAttribute("targetx", &tx);
+    el->QueryIntAttribute("targety", &ty);
+    if( (tx<0) || (tx>=XYE_HORZ) || (ty<0) || (ty>=XYE_VERT) )
+    {
+        tx=ty=0;
+        cout<< "Notice: A <portal> tag had strange target point data, ignored"<<endl;
+    }
+    if( (x<0) || (x>=XYE_HORZ) || (y<0) || (y>=XYE_VERT) )
+    {
+        cout <<"Bad <portal> position "<<endl;
+        return false;
+    }
+
+    
+    int defcolor=-1;
+    el->QueryIntAttribute("defcolor", &defcolor);
+    if ( (defcolor<0) || (defcolor>=5) )
+    {
+        defcolor  = 0;
+        cout<< "Notice: A <portal> tag had a strange/missing defcolor value. This could indicate that the level was not made by this version of the editor."<<endl;
+    }
+    if( editorload_portal_x[defcolor][0] == -1)
+    {
+        boardelement &o=editorload_objects[x][y];
+        o.type = EDOT_PORTAL;
+        o.variation = 0;
+        o.color=(editorcolor)(defcolor);
+
+        boardelement &o2=editorload_objects[tx][ty];
+        o2.type = EDOT_PORTAL;
+        o2.variation = 2;
+        o2.color=(editorcolor)(defcolor);
+        
+        editorload_portal_x[defcolor][0] = x;
+        editorload_portal_y[defcolor][0] = y;
+        editorload_portal_x[defcolor][1] = tx;
+        editorload_portal_y[defcolor][1] = ty;
+
+    }
+    else //secondary!?
+    {
+        boardelement &o=editorload_objects[x][y];
+        o.type = EDOT_PORTAL;
+        o.variation = 1;
+        o.color=(editorcolor)(defcolor);
+        editorload_portal_x[defcolor][1] = x;
+        editorload_portal_y[defcolor][1] = y;
+
+
+    }
+    
+
+    return true;
+}
+
+
 
 bool editor_LoadBeast(TiXmlElement * el)
 {
@@ -496,6 +561,7 @@ bool editor_LoadObjects(TiXmlElement* el)
         else if (v=="rattler") { if (! editor_LoadRattler(ch)) return false; }
         
         else if (v=="largeblockpart") { if (! editor_LoadLargeBlock(ch)) return false; }
+        else if (v=="portal")         { if (! editor_LoadPortal(ch)) return false; }
 
 
 
@@ -611,6 +677,11 @@ bool editor::load()
 
         int i,j;
         editorload_xyex=-1;
+        
+        for (int i=0; i<5; i++)
+            for (int j=0; j<2;j++)
+                editorload_portal_x[i][j] = editorload_portal_y[i][j] = -1;
+        
         for (i=0;i<XYE_HORZ;i++)for (j=0;j<XYE_VERT;j++) editorload_objects[i][j].type=EDOT_NONE;
 
         loadError="Found tags and/or attributes that are not recognized by the current version.";
@@ -669,6 +740,11 @@ bool editor::load()
         {
             editor::board->objects[i][XYE_VERT-j-1]=editorload_objects[i][j];
         }
+        for (int i=0; i<5; i++)
+            for (int j=0; j<2; j++)
+                editor::board->portal_x[i][j] = editorload_portal_x[i][j],
+                editor::board->portal_y[i][j] = XYE_VERT-editorload_portal_y[i][j]-1;
+        
         editor::board->xye_x = editorload_xyex;
         editor::board->xye_y = XYE_VERT-editorload_xyey-1;
         editor::board->hint = lhint;

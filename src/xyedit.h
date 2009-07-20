@@ -164,6 +164,7 @@ enum editorobjecttype
     EDOT_METAL,
     
     EDOT_LARGEBLOCK,
+    EDOT_PORTAL,
 
 
     EDOT_NONE
@@ -291,6 +292,7 @@ class editorboard: public control
     void applyFromButtons(int x, int y);
     void drawRoundWall(SDL_Surface*target,int ox,int oy, int x,int y, int variation);
     void drawLargeBlockInBoard(SDL_Surface * target, int ox,int oy, int x, int y, editorcolor color, int variation, int direction);
+    void enforceUniquePortals(int x, int y, int variation, editorcolor color);
 
  public:
     bool clicked;
@@ -300,7 +302,11 @@ class editorboard: public control
     boardelement objects[XYE_HORZ ][XYE_VERT];
     int xye_x;
     int xye_y;
+    int portal_x[5][2];
+    int portal_y[5][2];
     
+    
+      
     string title;
     string description;
     string hint;
