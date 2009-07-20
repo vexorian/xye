@@ -294,9 +294,42 @@ void saveNormalObject(std::ofstream &file, boardelement &o, int x, int y)
             file<<"\t\t";
             saveLargeBlock(file, o, x,y);
             file<<"\n";
+            break;
+            
+        case EDOT_PORTAL:
+            // Do nothing.
+            break;
     }
 }
 
+void savePortals(std::ofstream &file, editorboard *board)
+{
+    for (int i=0; i<5; i++)
+        if( board->portal_x[i][0] != -1)
+        {
+            int x = board->portal_x[i][0];
+            int y = board->portal_y[i][0];
+            int tx = board->portal_x[i][1];
+            int ty = board->portal_y[i][1];
+            if(tx<0) tx=0;
+            if(ty<0) ty=0;
+            file<<"\t\t<portal ";
+            savePosition(file, x,XYE_VERT-y-1);
+            file<<"defcolor='"<<i<<"' ";
+            file<<"targetx='"<<tx<<"' targety='"<<(XYE_VERT-ty-1)<<"' ";
+            file << "/>\n";
+            if(board->objects[tx][ty].variation == 1)
+            {
+                file<<"\t\t<portal ";
+                savePosition(file, tx,XYE_VERT-ty-1);
+                file<<"defcolor='"<<i<<"' ";
+                file<<"targetx='"<<x<<"' targety='"<<(XYE_VERT-y-1)<<"' ";
+                file << "/>\n";
+
+            }
+        }
+            
+}
 
 void saveGroundObject(std::ofstream &file,boardelement &o, int x, int y)
 {
@@ -424,6 +457,9 @@ bool editor::save(const string &target)
     {
         saveNormalObject(file,editor::board->objects[i][j],i,XYE_VERT-j-1);
     }
+    savePortals( file, editor::board);
+    
+    
     file << "\t</objects>\n";
 
 
