@@ -154,14 +154,12 @@ enum editorobjecttype
     EDOT_TURNER,
     EDOT_COLORSYSTEM,
     EDOT_KEYSYSTEM,
-    EDOT_WILDCARD,
     EDOT_BOT,
     EDOT_NUMBER,
     EDOT_SPECIALBLOCKS,
     EDOT_FIREPAD,
     EDOT_RATTLERHEAD,
     EDOT_FOOD,
-    EDOT_METAL,
     
     EDOT_LARGEBLOCK,
     EDOT_PORTAL,
@@ -176,7 +174,10 @@ enum editorcolor
     EDCO_GREEN=3,
     EDCO_BLUE=2,
     EDCO_YELLOW=0,
-    EDCO_WHITE=4
+    EDCO_WHITE=4,
+    EDCO_METAL = 5,
+    EDCO_WILD = 6
+    
 };
 
 struct singleobject
