@@ -77,11 +77,28 @@ void saveNormalObject(std::ofstream &file, boardelement &o, int x, int y)
     {
         case EDOT_NONE : return; //nothing to do
         case EDOT_BLOCK:
-            file<<"\t\t<block ";
-            savePosition(file,x,y);
-            saveColor(file,o,true);
-            saveRound(file,o);
-            file <<"/>\n";
+            switch(o.color)
+            {
+              case EDCO_METAL:
+                file<<"\t\t<metalblock ";
+                savePosition(file,x,y);
+                saveRound(file,o);
+                file <<"/>\n";
+                break;
+              case EDCO_WILD:
+                file<<"\t\t<wild ";
+                savePosition(file,x,y);
+                saveRound(file,o);
+                file <<"/>\n";
+                break;
+
+              default:
+                file<<"\t\t<block ";
+                savePosition(file,x,y);
+                saveColor(file,o,true);
+                saveRound(file,o);
+                file <<"/>\n";
+            }
             break;
         case EDOT_GEM:
             if(o.color == EDCO_WHITE)
@@ -212,21 +229,6 @@ void saveNormalObject(std::ofstream &file, boardelement &o, int x, int y)
         case EDOT_BOT:
             file<<"\t\t<bot ";
             savePosition(file,x,y);
-            file << "/>\n";
-            break;
-
-
-        case EDOT_WILDCARD:
-            file<<"\t\t<wild ";
-            savePosition(file,x,y);
-            saveRound(file,o);
-            file << "/>\n";
-            break;
-
-        case EDOT_METAL:
-            file<<"\t\t<metalblock ";
-            savePosition(file,x,y);
-            saveRound(file,o);
             file << "/>\n";
             break;
 
