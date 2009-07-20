@@ -645,6 +645,8 @@ editorbuttons::editorbuttons(int sx, int sy, int sw, int sh)
     buttons[bp][1].type=EDOT_LARGEBLOCK;
     buttons[bp][1].variation = 4;
 
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_PORTAL;
 
 
     SelectedObjectType= EDOT_NONE;
@@ -1038,6 +1040,12 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
             
             break;
 
+        case EDOT_PORTAL:
+
+            if(variation==0) text=gettextRC("portal (primary)",color,false);
+            else if(variation==1) text=gettextRC("portal (secondary)",color,false);
+            else text=gettextRC("portal (exit)",color,false);
+           break;
 
         case EDOT_PUSHER:
             switch(color)
@@ -1167,6 +1175,7 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
         case EDOT_BEAST: maxvariations=14; break;
         
         case EDOT_LARGEBLOCK: maxvariations=5; colorchoice=2;  break;
+        case EDOT_PORTAL: maxvariations=3; colorchoice=2;  break;
 
         //default : //EDOT_TELEPORT,EDOT_BOT,EDOT_FIREPAD, EDOT_FOOD
     }
@@ -1351,6 +1360,9 @@ void editorboard::makeDefaultLevel()
     }
     xye_x=-1;
     xye_y=-1;
+    for (int i=0; i<5; i++)
+        for (int j=0; j<2; j++)
+            portal_x[i][j]= portal_y[i][j]=-1;
 }
 
 editorboard::editorboard(int sx, int sy)
@@ -1485,6 +1497,26 @@ void editorboard::draw(SDL_Surface* target)
     }
 }
 
+void editorboard::enforceUniquePortals(int x, int y, int variation, editorcolor color)
+{
+    int cid = (int)(color);
+    int use = 0;
+    
+    if(variation > 0 ) use = 1;
+    
+    
+    int tx= portal_x[cid][use], ty=portal_y[cid][use];
+    if(tx!=-1)
+    {
+        objects[tx][ty].type=EDOT_NONE;       
+    }
+    portal_x[cid][use]=x;
+    portal_y[cid][use]=y;
+    
+    
+    
+}
+
 void editorboard::applyFromButtons(int x, int y)
 {
     if((x<0) || (y<0) || (x>=XYE_HORZ) || (y>=XYE_VERT)) return ;
@@ -1497,6 +1529,13 @@ void editorboard::applyFromButtons(int x, int y)
         xye_x=-1;
         xye_y=-1;
     }
+    for (int i=0; i<5; i++)
+        for (int j=0; j<2; j++)
+            if((x==portal_x[i][j]) && (y==portal_y[i][j]))
+            {
+                portal_x[i][j] = portal_y[i][j] = -1;
+            }
+           
 
 
     if (editor::buttons->Eraser)
@@ -1505,12 +1544,18 @@ void editorboard::applyFromButtons(int x, int y)
         return;
     }
 
-    if(editor::buttons->SelectedObjectType==EDOT_XYE)
+    switch(editor::buttons->SelectedObjectType)
     {
-        if(xye_x!=-1) objects[xye_x][xye_y].type=EDOT_NONE;
-        xye_x=x;
-        xye_y=y;
+        case EDOT_XYE:
+            if(xye_x!=-1) objects[xye_x][xye_y].type=EDOT_NONE;
+                xye_x=x;
+                xye_y=y;
+            break;
+        case EDOT_PORTAL:
+            enforceUniquePortals(x,y, editor::buttons->SelectedVariation, editor::buttons->SelectedColor);
+            break;
     }
+    
 
     o.type=editor::buttons->SelectedObjectType;
     o.color=editor::buttons->SelectedColor;
@@ -1611,6 +1656,28 @@ void drawBlock( SDL_Surface * target, int x, int y, bool round, editorcolor colo
         D.SetColors(&options::BKColor[color],255);
     }
     D.Draw(target,x,y);
+}
+
+void drawPortal( SDL_Surface * target, int x, int y, editorcolor color, int variation)
+{
+    Uint8 tx=8,ty=0;
+    DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+
+    Uint8 alpha = 255;
+    if(variation>0) alpha = 127;
+    if(color!=EDCO_WHITE)
+    {
+        D.SetColors(&options::BKColor[color],alpha);
+    }
+    else if(alpha!=255) D.SetColors(255,255,255,alpha);
+    D.Draw(target,x,y);
+    if(variation==2)
+    {
+        tx=4, ty=8;
+        D.ChangeRect(tx*sz,ty*sz,sz,sz);
+        D.SetColors(0,0,0,alpha);
+        D.Draw(target,x,y);
+    }
 }
 
 void drawMetalBlock( SDL_Surface * target, int x, int y, bool round)
@@ -2242,6 +2309,7 @@ void drawObjectBySpecs( SDL_Surface * target, int x, int y, editorobjecttype ot,
         case EDOT_WALL: drawWall(target,x,y,round,variation); break;
         case EDOT_BLOCK: drawBlock(target,x,y,round,color); break;
         case EDOT_LARGEBLOCK: drawLargeBlock(target,x,y,color,variation, direction); break;
+        case EDOT_PORTAL: drawPortal(target,x,y,color,variation); break;
         case EDOT_METAL: drawMetalBlock(target,x,y,round); break;
         case EDOT_TURNER: drawTurner(target,x,y,round,color,variation); break;
 

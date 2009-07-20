@@ -1231,12 +1231,13 @@ void Load_Hint(TiXmlElement* el, bool warn)
         hn->ChangeColor(palette::GetColor(c1),palette::GetColor(c2));
     }*/
 }
-
+#include<iostream>
 
 /* Load Portal */
 void Load_Portal(TiXmlElement* el)
 {
     int tx=0,ty=0,c=0;
+    int defcolor=-1;
         el->QueryIntAttribute("x",&LastX);
         el->QueryIntAttribute("y",&LastY);
 
@@ -1245,8 +1246,16 @@ void Load_Portal(TiXmlElement* el)
         el->QueryIntAttribute("color",&c);
 
     Uint8 R,G,B;
-    if (c) palette::GetColor(c,R,G,B);
-    else R=G=B=255;
+    R=G=B=255;
+    el->QueryIntAttribute("defcolor",&defcolor);
+    if( (defcolor>=0) && (defcolor<4))
+    {
+            SDL_Color cc = options::BKColor[defcolor];
+            R=cc.r;
+            G=cc.g;
+            B=cc.b;
+    }
+    else if (c) palette::GetColor(c,R,G,B);
 
     portal* pt= new portal(game::SquareN(LastX,LastY),R,G,B,tx,ty);
 }
