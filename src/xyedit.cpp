@@ -2224,7 +2224,7 @@ void drawOneDir( SDL_Surface * target, int x, int y, int direction, int variatio
     }
 }
 
-void drawBeast( SDL_Surface * target, int x, int y, int direction, int variation)
+void drawBeast( SDL_Surface * target, int x, int y, int direction, int variation, bool noDirectionAid=false)
 {
     Uint8 tx,ty;
 
@@ -2289,7 +2289,7 @@ void drawBeast( SDL_Surface * target, int x, int y, int direction, int variation
     DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
 
 
-    if(( (variation==(int)(BT_SPINNER) ) ||  (variation==(int)(BT_ASPINNER) ) ) && (editor::tic4<2))
+    if(( (variation==(int)(BT_SPINNER) ) ||  (variation==(int)(BT_ASPINNER) ) ) && (editor::tic4<2) && !noDirectionAid)
     {
         D.SetColors(255,255,255,128);
         D.Draw(target,x,y);
@@ -2324,10 +2324,9 @@ void drawFactoryTop( SDL_Surface * target, int x, int y, int direction, bool dot
     DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
     if( dotrans )
     {
+        Uint8 alpha = 255;
+        if((editor::tic4<2) ) alpha = 120;
         
-        Uint8 alpha = 180;
-        /*if(( editor::tic4 == 1) || ( editor::tic4 == 3)) alpha = 110;
-        else if (editor::tic4 == 2) alpha = 40;*/
         D.SetColors(255,255,255,alpha);
     }
     D.Draw(target,x,y);
@@ -2357,7 +2356,7 @@ void drawDangerFactory( SDL_Surface * target, int x, int y, int variation, int d
         case 14: drawRattlerHead(target,x,y,0,direction); break;
         case 15: drawFood(target,x,y); break;
         case 16: drawHazard(target,x,y,1); break;
-        default : drawBeast(target,x,y,direction,variation);
+        default : drawBeast(target,x,y,direction,variation, true);
         
     }
     drawFactoryTop(target,x,y, direction, (editor::SelectedType() == EDOT_COLORFACTORY)||(editor::SelectedType() == EDOT_DANGERFACTORY) );
