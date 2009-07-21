@@ -4560,6 +4560,7 @@ bool factory::trypush(edir dir,obj* pusher) {
             case(OT_BEAST):
                 object=new beast(sq,beasttype,fac);
                 object->tic=game::Counter();
+                if(beasttype == BT_STATIC) static_cast<beast*>(object)->AIValue=true;
                 break;
             case(OT_RATTLERFOOD):
                 object=new rfood(sq);
