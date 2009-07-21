@@ -36,6 +36,66 @@ struct editorboard;
 
 
 #define MAXCONTROLS 100
+
+enum contenttype
+{
+    CONTENT_NOCONTENT,
+    CONTENT_VARIATION,
+    CONTENT_MAKEROUND,
+
+    CONTENT_RECOLOR,
+    CONTENT_CHANGEOBJECT
+};
+
+enum editorobjecttype
+{
+    EDOT_XYE,
+    EDOT_WALL,
+    EDOT_GEM,
+
+    EDOT_BLOCK,
+
+    EDOT_EARTH,
+    EDOT_GEMBLOCK,
+    EDOT_MAGNET,
+    EDOT_PUSHER,
+    EDOT_ARROWMAKER,
+    EDOT_HAZARD,
+    EDOT_ONEDIRECTION,
+    EDOT_BEAST,
+    EDOT_TELEPORT,
+    EDOT_TURNER,
+    EDOT_COLORSYSTEM,
+    EDOT_KEYSYSTEM,
+    EDOT_BOT,
+    EDOT_NUMBER,
+    EDOT_SPECIALBLOCKS,
+    EDOT_FIREPAD,
+    EDOT_RATTLERHEAD,
+    EDOT_FOOD,
+    
+    EDOT_LARGEBLOCK,
+    EDOT_PORTAL,
+    
+    EDOT_COLORFACTORY,
+    EDOT_DANGERFACTORY,
+
+    EDOT_NONE
+};
+
+enum editorcolor
+{
+    EDCO_RED=1,
+    EDCO_GREEN=3,
+    EDCO_BLUE=2,
+    EDCO_YELLOW=0,
+    EDCO_WHITE=4,
+    EDCO_METAL = 5,
+    EDCO_WILD = 6
+    
+};
+
+
 class editor
 {
   private:
@@ -89,7 +149,7 @@ class editor
      
      static string myLevelsPath;
 
-
+    static editorobjecttype SelectedType();
     static bool SavedFile;
     static void Init(const string &path, const string &file);
     static bool save(); //implemented in editorsave.cpp
@@ -124,61 +184,6 @@ class editor
     
 };
 
-enum contenttype
-{
-    CONTENT_NOCONTENT,
-    CONTENT_VARIATION,
-    CONTENT_MAKEROUND,
-
-    CONTENT_RECOLOR,
-    CONTENT_CHANGEOBJECT
-};
-
-enum editorobjecttype
-{
-    EDOT_XYE,
-    EDOT_WALL,
-    EDOT_GEM,
-
-    EDOT_BLOCK,
-
-    EDOT_EARTH,
-    EDOT_GEMBLOCK,
-    EDOT_MAGNET,
-    EDOT_PUSHER,
-    EDOT_ARROWMAKER,
-    EDOT_HAZARD,
-    EDOT_ONEDIRECTION,
-    EDOT_BEAST,
-    EDOT_TELEPORT,
-    EDOT_TURNER,
-    EDOT_COLORSYSTEM,
-    EDOT_KEYSYSTEM,
-    EDOT_BOT,
-    EDOT_NUMBER,
-    EDOT_SPECIALBLOCKS,
-    EDOT_FIREPAD,
-    EDOT_RATTLERHEAD,
-    EDOT_FOOD,
-    
-    EDOT_LARGEBLOCK,
-    EDOT_PORTAL,
-
-
-    EDOT_NONE
-};
-
-enum editorcolor
-{
-    EDCO_RED=1,
-    EDCO_GREEN=3,
-    EDCO_BLUE=2,
-    EDCO_YELLOW=0,
-    EDCO_WHITE=4,
-    EDCO_METAL = 5,
-    EDCO_WILD = 6
-    
-};
 
 struct singleobject
 {

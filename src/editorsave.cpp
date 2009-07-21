@@ -69,6 +69,63 @@ void saveLargeBlock(std::ofstream &file, boardelement &o, int x ,int y)
     
 }
 
+void saveColorFactory(std::ofstream &file, boardelement &o, int x ,int y)
+{
+    file <<"<factory ";
+    savePosition(file,x,y);
+    switch(o.direction)
+    {
+        case EDITORDIRECTION_UP: file<<"dir='U' swdir='D' "; break;
+        case EDITORDIRECTION_DOWN: file<<"dir='D' swdir='U' "; break;
+        case EDITORDIRECTION_RIGHT: file<<"dir='R' swdir='L' "; break;
+        default: file<<"dir='L' swdir='R' "; break;
+    }
+    
+    saveColor(file,o, false);
+    saveRound(file,o);
+    file<<"kind='";
+    switch(o.variation)
+    {
+        case 0: case 1: case 2: file<<o.variation; break;
+        case 3: file<<4; break;
+        case 4: file<<8; break;
+    }
+    
+    file<<"' />";
+    
+    
+}
+
+void saveDangerFactory(std::ofstream &file, boardelement &o, int x ,int y)
+{
+    file <<"<factory ";
+    savePosition(file,x,y);
+    switch(o.direction)
+    {
+        case EDITORDIRECTION_UP: file<<"dir='U' swdir='D' "; break;
+        case EDITORDIRECTION_DOWN: file<<"dir='D' swdir='U' "; break;
+        case EDITORDIRECTION_RIGHT: file<<"dir='R' swdir='L' "; break;
+        default: file<<"dir='L' swdir='R' "; break;
+    }
+    
+    file<<"kind='";
+    switch(o.variation)
+    {
+        case 14:
+            file<<7; break;
+        case 15:
+            file<<6; break;
+        case 16:
+            file<<3; break;
+
+        default:
+            file<<5<<"' beastkind='"<<o.variation; break;
+    }
+    
+    file<<"' />";
+    
+    
+}
 
 
 void saveNormalObject(std::ofstream &file, boardelement &o, int x, int y)
@@ -297,7 +354,17 @@ void saveNormalObject(std::ofstream &file, boardelement &o, int x, int y)
             saveLargeBlock(file, o, x,y);
             file<<"\n";
             break;
-            
+        case EDOT_COLORFACTORY:
+            file<<"\t\t";
+            saveColorFactory(file,o,x,y);
+            file<<"\n";
+            break;
+        case EDOT_DANGERFACTORY:
+            file<<"\t\t";
+            saveDangerFactory(file,o,x,y);
+            file<<"\n";
+            break;
+
         case EDOT_PORTAL:
             // Do nothing.
             break;

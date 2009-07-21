@@ -103,6 +103,11 @@ void testSubWindowDo(bool okclicked, const string text, inputDialogData * dat)
 }
 
 editor::setText_state_enum editor::setText_state;
+
+editorobjecttype editor::SelectedType()
+{
+    return buttons->SelectedObjectType;
+}
      
 void editor::continueSetText(bool okclicked, const string text, inputDialogData * dat)
 {
@@ -642,6 +647,11 @@ editorbuttons::editorbuttons(int sx, int sy, int sw, int sh)
     buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
     buttons[bp][1].type=EDOT_PORTAL;
 
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_COLORFACTORY;
+
+    buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
+    buttons[bp][1].type=EDOT_DANGERFACTORY;
 
     SelectedObjectType= EDOT_NONE;
     Eraser=true;
@@ -911,6 +921,28 @@ string gettextRC(const char * base, editorcolor color, bool round)
     return res;
 }
 
+const char* GetMonsterName(int variation)
+{
+    switch ((btype)(variation))
+            {
+                case BT_GNASHER: return "Gnasher";
+                case BT_BLOB: return "Blob"; break;
+                case BT_TWISTER: return "Twister"; break;
+                case BT_SPIKE:  return "Spike"; break;
+                case BT_STATIC : return "Inertia"; break;
+                case BT_PATIENCE: return "Patience"; break;
+                case BT_TIGER: return "Tiger"; break;
+                case BT_DARD:     return "Dart"; break;
+                case BT_RANGER:   return "Ranger"; break;
+                case BT_SPINNER:  return "Spinner (clockwise)"; break;
+                case BT_ASPINNER:  return "Spinner (anti-clockwise)"; break;
+                case BT_BLOBBOSS:  return "Blob mind"; break;
+                case BT_WARD:  return "Ward"; break;
+                case BT_VIRUS:  return "Virus"; break;
+
+            }
+    return "?";
+}
 void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool round, int variation)
 {
     switch(ot)
@@ -1039,6 +1071,28 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
             else if(variation==1) text=gettextRC("portal (secondary)",color,false);
             else text=gettextRC("portal (exit)",color,false);
            break;
+           
+        case EDOT_COLORFACTORY:
+            switch(variation)
+            {
+                case 0: text=gettextRC("block factory",color,round); break;
+                case 1: text=gettextRC("arrow block factory",color,round); break;
+                case 2: text=gettextRC("dot-block factory",color,round); break;
+                case 3: text=gettextRC("pusher factory",color,false); break;
+                case 4: text=gettextRC("gem factory",color,false); break;
+            }
+            break;
+        case EDOT_DANGERFACTORY:
+            switch(variation)
+            {
+                case 14: text="Rattler factory"; break;
+                case 15: text="Rattler food factory"; break;
+                case 16: text="Land mine factory"; break;
+                
+                default: text=string(GetMonsterName(variation))+" factory";
+            }
+            break;
+
 
         case EDOT_PUSHER:
             switch(color)
@@ -1099,24 +1153,7 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
             break;
 
         case EDOT_BEAST:
-            switch ((btype)(variation))
-            {
-                case BT_GNASHER: text="Gnasher"; break;
-                case BT_BLOB: text="Blob"; break;
-                case BT_TWISTER: text="Twister"; break;
-                case BT_SPIKE:  text="Spike"; break;
-                case BT_STATIC : text ="Inertia"; break;
-                case BT_PATIENCE: text="Patience"; break;
-                case BT_TIGER: text="Tiger"; break;
-                case BT_DARD:     text="Dart"; break;
-                case BT_RANGER:   text="Ranger"; break;
-                case BT_SPINNER:  text="Spinner (clockwise)"; break;
-                case BT_ASPINNER:  text="Spinner (anti-clockwise)"; break;
-                case BT_BLOBBOSS:  text="Blob mind"; break;
-                case BT_WARD:  text="Ward"; break;
-                case BT_VIRUS:  text="Virus"; break;
-
-            }
+            text = GetMonsterName(variation);
 
             break;
         default:
@@ -1167,6 +1204,8 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
         
         case EDOT_LARGEBLOCK: maxvariations=5; colorchoice=2;  break;
         case EDOT_PORTAL: maxvariations=3; colorchoice=2;  break;
+        case EDOT_COLORFACTORY: maxvariations=5; colorchoice=1; roundchoice=1;  break;
+        case EDOT_DANGERFACTORY: maxvariations=17;  break;
 
         //default : //EDOT_TELEPORT,EDOT_BOT,EDOT_FIREPAD, EDOT_FOOD
     }
@@ -1695,6 +1734,7 @@ void drawColorSystem( SDL_Surface * target, int x, int y, editorcolor color, int
     D.Draw(target,x,y);
 
 }
+
 
 
 void drawKeySystem( SDL_Surface * target, int x, int y, editorcolor color, int variation)
@@ -2256,7 +2296,7 @@ void drawBeast( SDL_Surface * target, int x, int y, int direction, int variation
 
         switch(direction)
         {
-               case(EDITORDIRECTION_RIGHT): tx=4; ty=11; break;
+              case(EDITORDIRECTION_RIGHT): tx=4; ty=11; break;
                case(EDITORDIRECTION_LEFT): tx=5; ty=11; break;
               case(EDITORDIRECTION_DOWN): tx=4; ty=12; break;
               default: tx=5; ty=12;
@@ -2270,6 +2310,58 @@ void drawBeast( SDL_Surface * target, int x, int y, int direction, int variation
 
 }
 
+
+void drawFactoryTop( SDL_Surface * target, int x, int y, int direction, bool dotrans)
+{
+    Uint8 tx, ty=14;
+    switch(direction)
+    {
+        case(EDITORDIRECTION_RIGHT): tx=6; break;
+        case(EDITORDIRECTION_DOWN): tx=7; break;
+        case(EDITORDIRECTION_LEFT): tx=8; break;
+        default: tx=9;
+    }
+    DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+    if( dotrans )
+    {
+        Uint8 alpha = 180;
+        if(( editor::tic4 == 1) || ( editor::tic4 == 3)) alpha = 110;
+        else if (editor::tic4 == 2) alpha = 40;
+        D.SetColors(255,255,255,alpha);
+    }
+    D.Draw(target,x,y);
+    tx = ((tx-6)+2)%4+6;
+    ty ++;
+    D.ChangeRect(tx*sz,ty*sz,sz,sz);
+    D.Draw(target,x,y);
+}
+
+void drawColorFactory( SDL_Surface * target, int x, int y, bool round, editorcolor color, int variation, int direction)
+{
+    switch(variation)
+    {
+        case 0: drawBlock(target, x,y, round, color); break;
+        case 1: drawSpecialBlocks(target,x,y,round, color, 0, direction); break;
+        case 2: drawSpecialBlocks(target,x,y,round, color, 4, direction); break;
+        case 3: drawPusher(target,x,y,color,direction); break;
+        case 4: drawGem(target,x,y,color);
+        
+    }
+    drawFactoryTop(target,x,y, direction, (editor::SelectedType() == EDOT_COLORFACTORY) );
+}
+void drawDangerFactory( SDL_Surface * target, int x, int y, int variation, int direction)
+{
+    switch(variation)
+    {
+        case 14: drawRattlerHead(target,x,y,0,direction); break;
+        case 15: drawFood(target,x,y); break;
+        case 16: drawHazard(target,x,y,1); break;
+        default : drawBeast(target,x,y,direction,variation);
+        
+    }
+    drawFactoryTop(target,x,y, direction, (editor::SelectedType() == EDOT_DANGERFACTORY) );
+}
+
 void drawObjectBySpecs( SDL_Surface * target, int x, int y, editorobjecttype ot, editorcolor color, bool round, int variation, int direction)
 {
     switch(ot)
@@ -2281,6 +2373,8 @@ void drawObjectBySpecs( SDL_Surface * target, int x, int y, editorobjecttype ot,
         case EDOT_BLOCK: drawBlock(target,x,y,round,color); break;
         case EDOT_LARGEBLOCK: drawLargeBlock(target,x,y,color,variation, direction); break;
         case EDOT_PORTAL: drawPortal(target,x,y,color,variation); break;
+        case EDOT_COLORFACTORY: drawColorFactory(target,x,y,round, color,variation, direction); break;
+        case EDOT_DANGERFACTORY: drawDangerFactory(target,x,y,variation, direction); break;
         case EDOT_TURNER: drawTurner(target,x,y,round,color,variation); break;
 
 
