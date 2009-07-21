@@ -511,6 +511,49 @@ bool editor_LoadColorDoor(TiXmlElement* el, int closedvariation)
     return true;
 }
 
+bool editor_LoadFactory(TiXmlElement* el)
+{
+    int x,y,kind=0; if(!getElementPosition(el,x,y)) return false;
+    el->QueryIntAttribute("kind",&kind);
+    int round=false; el->QueryIntAttribute("round",&round);
+    boardelement &o=editorload_objects[x][y];
+    o.direction = getElementDirection(el);
+    o.color = getElementColor(el);
+    o.round = round;
+    switch (kind)
+    {
+        case 0: case 1: case 2:
+            o.variation = kind;
+            o.type = EDOT_COLORFACTORY;
+            break;
+        case 4:
+            o.variation = 3;
+            o.type = EDOT_COLORFACTORY;
+            break;
+        case 8:
+            o.variation = 4;
+            o.type = EDOT_COLORFACTORY;
+            break;
+        case 7:
+            o.variation = 14;
+            o.type = EDOT_DANGERFACTORY;
+            break;
+        case 6:
+            o.variation = 15;
+            o.type = EDOT_DANGERFACTORY;
+            break;
+        case 3:
+            o.variation = 16;
+            o.type = EDOT_DANGERFACTORY;
+            break;
+        default:
+            el->QueryIntAttribute("beastkind", &o.variation);
+            o.type = EDOT_DANGERFACTORY;
+    }
+    return true;
+    
+}
+
 
 bool editor_LoadObjects(TiXmlElement* el)
 {
@@ -563,6 +606,7 @@ bool editor_LoadObjects(TiXmlElement* el)
         
         else if (v=="largeblockpart") { if (! editor_LoadLargeBlock(ch)) return false; }
         else if (v=="portal")         { if (! editor_LoadPortal(ch)) return false; }
+        else if (v=="factory")         { if (! editor_LoadFactory(ch)) return false; }
 
 
 
