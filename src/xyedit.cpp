@@ -2324,9 +2324,10 @@ void drawFactoryTop( SDL_Surface * target, int x, int y, int direction, bool dot
     DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
     if( dotrans )
     {
+        
         Uint8 alpha = 180;
-        if(( editor::tic4 == 1) || ( editor::tic4 == 3)) alpha = 110;
-        else if (editor::tic4 == 2) alpha = 40;
+        /*if(( editor::tic4 == 1) || ( editor::tic4 == 3)) alpha = 110;
+        else if (editor::tic4 == 2) alpha = 40;*/
         D.SetColors(255,255,255,alpha);
     }
     D.Draw(target,x,y);
@@ -2347,7 +2348,7 @@ void drawColorFactory( SDL_Surface * target, int x, int y, bool round, editorcol
         case 4: drawGem(target,x,y,color);
         
     }
-    drawFactoryTop(target,x,y, direction, (editor::SelectedType() == EDOT_COLORFACTORY) );
+    drawFactoryTop(target,x,y, direction, (editor::SelectedType() == EDOT_COLORFACTORY)||(editor::SelectedType() == EDOT_DANGERFACTORY) );
 }
 void drawDangerFactory( SDL_Surface * target, int x, int y, int variation, int direction)
 {
@@ -2359,7 +2360,7 @@ void drawDangerFactory( SDL_Surface * target, int x, int y, int variation, int d
         default : drawBeast(target,x,y,direction,variation);
         
     }
-    drawFactoryTop(target,x,y, direction, (editor::SelectedType() == EDOT_DANGERFACTORY) );
+    drawFactoryTop(target,x,y, direction, (editor::SelectedType() == EDOT_COLORFACTORY)||(editor::SelectedType() == EDOT_DANGERFACTORY) );
 }
 
 void drawObjectBySpecs( SDL_Surface * target, int x, int y, editorobjecttype ot, editorcolor color, bool round, int variation, int direction)
