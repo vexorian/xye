@@ -821,8 +821,10 @@ class dangerous : public obj
      unsigned char mov;
      void OnDeath() {}
      bool disb;
+     
 
  public:
+     
      dangerous(square* sq, otype kind);
      dangerous(square* sq,edir dir,bool d);
      void FireBall(edir dir);
@@ -837,6 +839,7 @@ class dangerous : public obj
      void ChangeColor(Uint8 nR, Uint8 nG, Uint8 nB);
      bool Loop(bool* died);
      bool HasBlockColor(blockcolor bc);
+     bool fromRound;
 };
 
 /** All beasts are instances of the same class, it is good some times but a mess some other times **/
