@@ -1377,7 +1377,8 @@ bool game::TryMoveXye(edir dir)
 
 void game::MoveXye()
 {
-
+    if (gameover) return;
+    
     if ( (LastXyeMove+1) < counter)
     {
         if (playingrec)
@@ -1403,16 +1404,15 @@ void game::MoveXye()
                 UpdateAll=true;
                 game::XYE->alpha=200;
             }
-
             else
             {
-                if ((!nm) && TryMoveXye(DK_DIR) )
+                if ( (!nm) && TryMoveXye(DK_DIR) )
                       LastXyeMove=counter;
                 return;
             }
 
         }
-        if (gameover) return;
+
 
         //char dx=0,dy=0,nx,ny,cx,cy;
         //edir dir=D_UP;
@@ -5423,7 +5423,7 @@ dangerous::dangerous(square* sq,otype kind)
         case (OT_FIREBALL) : FireBall(D_DOWN); break;
         default:BlackHole();
     }
-
+    fromRound = false;
     absorb=0;
     anim=1;
     R=G=B=255;
@@ -5432,6 +5432,7 @@ dangerous::dangerous(square* sq,otype kind)
 
 dangerous::dangerous(square* sq,edir dir,bool d)
 {
+    fromRound = false;
     FireBall(dir);
     disb=d;
     absorb=0;
@@ -5487,12 +5488,19 @@ void dangerous::Draw(unsigned int x, unsigned int y)
             case(D_LEFT): tx=13; break;
             default: tx=11;
         }*/
+        /*
         ty=6;
         tx=11+anim;
-        //anim=(anim==2)?0:anim+1; */
+        
         anim=(anim==3)?0:anim+1;
         D.ChangeRect(tx*sz,ty*sz,sz,sz);
-        D.Draw(game::screen,x,y);
+        D.Draw(game::screen,x,y);*/
+        block::Draw(x,y, false, B_RED, fromRound);
+        //arrow::DrawF(x,y, B_RED,  dangerous::D, true);
+        D.ChangeRect(0*sz,8*sz,sz,sz);
+        D.SetColors(options::BFColor[B_RED], 255);
+        D.Draw(game::screen,x,y); /**/
+        
     }
     else
     {
@@ -5554,7 +5562,7 @@ inline bool dangerous::trypush(edir dir,obj* pusher) {
                     case D_RIGHT: game::SmallBoom(game::SquareN(nx,ny),false, 1, 0 ); break;
                     case D_LEFT: game::SmallBoom(game::SquareN(nx,ny),false, -1, 0 ); break;
                 }
-
+                if(fire) new explosion(game::Square(x,y), 0);
 
                 Kill();
                  return true;
@@ -5581,7 +5589,7 @@ inline bool dangerous::Busy(obj* entering) {
 }
 
 inline void dangerous::ChangeColor(Uint8 nR, Uint8 nG, Uint8 nB) { R=nR; G=nG; B=nB; }
-inline bool dangerous::HasBlockColor(blockcolor bc) { return false; }
+inline bool dangerous::HasBlockColor(blockcolor bc) { return (fire && (bc==B_RED) ); }
 
 
 
@@ -5600,15 +5608,20 @@ bool dangerous::Loop(bool* died)
     else if (fire)
     {
         UpdateSquare();
-        mov=(mov>=2)?0:mov+1;
+        mov=(mov>=1)?0:mov+1;
         mov=0;
         if(! mov)
         {
+            //new explosion(game::Square(x,y),1);
             disb=true;
             if (trypush(D,this))
+                
                 return true;
             else
+            {
+                //new explosion(game::Square(x,y),1);
                 mov=2;
+            }
         }
         return false;
     }
@@ -7482,12 +7495,15 @@ void firepad::Draw(unsigned int x, unsigned int y)
 
 void firepad::OnEnter(obj *entering)
 {
-    if (entering->HasBlockColor(B_RED))
+    if ((entering->HasBlockColor(B_RED) ) && (entering->GetType() !=  OT_FIREBALL)  )
     {
         anim= 1;
-
+        bool round = entering->HasRoundCorner(RC_1);
         entering->Kill(true); //true: Don't trigger funny things like the red timer's explosion
         dangerous* dg= new dangerous(game::Square(x,y),D,true);
+        dg->tic = game::Counter();
+        dg->fromRound = round;
+        new explosion(game::Square(x,y), 1);
     }
 }
 void firepad::OnLeave(obj *entering)
