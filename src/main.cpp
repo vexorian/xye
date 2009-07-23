@@ -130,19 +130,17 @@ int main ( int argc, char** argv )
 
     #endif
     }
-    char* pn=string2charp(&options::Dir);
-    printf("Will look on %s for data files (non-user levels, skins)\n",pn);
+    string & pn = options::Dir;
+    printf("Will look on %s for data files (non-user levels, skins)\n",  pn.c_str() );
 
 
-    if (! TryToOpenFolder(pn))
+    if (! TryToOpenFolder(pn.c_str()))
     {
-        delete[] pn;
         printf("Exception: Can't open/find data folder\n");
         return 1;
     }
 
-    if ( strlen(pn) && (pn[strlen(pn)-1]!='/')) options::Dir+='/'; //for safety
-    delete[] pn;
+    if ( (pn.length() > 0) && ( *pn.rbegin() !='/')) pn+='/'; //for safety
 
 const char* home;
 editor::myLevelsPath = "";

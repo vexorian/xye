@@ -80,8 +80,6 @@ char* RemovePath(string *in)
     while ((i>=0) && (v[i]!='/'))
         i--;
 
-    if (i<0)
-       return string2charp(in);
     // 0  1  2  3  4  5  6
     //[a][/][a][.][x][y][e]
 
@@ -234,15 +232,15 @@ bool Akyexyelevel(const char* f)
 char* getHomeDir()
 {
     char* f =getenv("HOME");
+    string tm;
     if (f)
     {
-        string tm=f;
-        tm+="/.xye/levels/";
-        return string2charp(&tm);
+        tm=f;
+        tm+="/.xye/levels/";       
     }
- char* fm=new char[1];
- strcpy(fm,"");
- return fm;
+    char * fm = new char[tm.length()+1];
+    strcpy(fm, tm.c_str());
+    return fm;
 }
 
 

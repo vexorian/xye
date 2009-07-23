@@ -190,11 +190,10 @@ int game::Init(const char* levelfile)
 
 
 
-    char *tm=string2charp(&SKIN);
+    const char *tm=SKIN.c_str();
     printf("Loading %s\n",tm);
     sprites=IMG_Load(tm);
     if (!sprites)  game::Error( "Invalid/Missing Sprite File");
-    delete[] tm;
 
     //Init cache
     printf("Initializing Recolor cache...\n");
@@ -530,10 +529,8 @@ int game::AppLoop()
                             end();
                             start();
                             LevelPack::Restart();
-                            char* tm=string2charp(&LevelPack::Solution);
-                            recording::load(tm);
+                            recording::load(LevelPack::Solution.c_str() );
                             playingrec=true;
-                            delete[] tm;
                         }
                         break;
 
@@ -1752,8 +1749,6 @@ void game::Undo()
 void game::SaveReplay()
 {
     //save the replay.
-    char * tmmm=string2charp(&LevelPack::OpenFile);
-
     const char* home=getenv("HOME");
     char* lastgame;
     if (home)
@@ -1768,8 +1763,7 @@ void game::SaveReplay()
         strcpy(lastgame,"./levels/lastgame.xyr");
     }
 
-    recording::saveInFile(lastgame,tmmm,LevelPack::OpenFileLn);
-    delete[] tmmm;
+    recording::saveInFile(lastgame,LevelPack::OpenFile.c_str(),LevelPack::OpenFileLn);
     delete[] lastgame;
 }
 
@@ -7732,12 +7726,14 @@ bool hint::Active()
 }
 char* hint::GetActiveText()
 {
+    string* res;
     if (active==(hint*)(1))
-        return string2charp(&(globaltext));
-    if (active) return string2charp(&(active->text));
+        res = &globaltext;
+    else if (active) 
+        res=(&(active->text));
 
-    char * r= new char[1];
-    r[0]='\0';
+    char * r= new char[ res->length() ];
+    strcpy(r, res->c_str() );
     return r;
 }
 

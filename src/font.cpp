@@ -173,9 +173,7 @@ Font::~Font()
 
 void Font::WriteWrap(SDL_Surface* surface, int x, int y, int w, int h,const std::string& text) const
 {
-    char* c=string2charp(  (string*)(&text) );
-    WriteWrap(surface,x,y,w,h,c);
-    delete[] c;
+    WriteWrap(surface,x,y,w,h,  text.c_str() );
 }
 
 

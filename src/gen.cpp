@@ -26,14 +26,14 @@ void Randomize() { srand (time (0)); }
 
 int GetRandomInt(int min, int max)
 {
-	return (int)(min+(rand() / F_RAND_MAX)*(max-min)+0.5);
+    return (int)(min+(rand() / F_RAND_MAX)*(max-min)+0.5);
 }
 
 
 template<class T>
 T GetRandom(T min, T max)
 {
-	return (T)(min+(rand() / F_RAND_MAX)*(max-min)+0.5);
+    return (T)(min+(rand() / F_RAND_MAX)*(max-min)+0.5);
 }
 
 template<class T>
@@ -53,71 +53,56 @@ template double GetRandom<double>(double,double);
 //A Chance(0.75) has a 75% percent chance to return true.
 bool Chance(float x)
 {
-	return (  (rand () / F_RAND_MAX) <= x);
+    return (  (rand () / F_RAND_MAX) <= x);
 }
 
 unsigned int RandomRGB(unsigned char a,unsigned char b)
 {
-	return(    (   (255*256+GetRandomInt(a,b))*256 +    GetRandomInt(a,b)) * 256 + GetRandomInt(a,b) );
+    return(    (   (255*256+GetRandomInt(a,b))*256 +    GetRandomInt(a,b)) * 256 + GetRandomInt(a,b) );
 }
 
 unsigned int RandomRGB()
 {
-	return(RandomRGB(0,255));
-}
-
-
-//String stuff:
-
-char* string2charp(string* s)
-{
-    int l=s->length();
-    //Oh no! next code is the lamest thing I have ever written, was causing a lot of issues: if (!l) return "";
-	char* r=new char[l+1];
-	for (int i=0;i<l;i++)
-	    r[i]=(*s)[i];
-    r[l]='\0';
-    return (r);
-
+    return(RandomRGB(0,255));
 }
 
 
 struct ColorStruct
 {
-	unsigned char B;
-	unsigned char G;
-	unsigned char R;
-	unsigned char A;
+    unsigned char B;
+    unsigned char G;
+    unsigned char R;
+    unsigned char A;
 };
 
 unsigned char mixChannel(unsigned char A, unsigned char B)
 {
-	if (A>B)
-	    return ( B + (unsigned char)((A-B) / 2 ));
+    if (A>B)
+        return ( B + (unsigned char)((A-B) / 2 ));
 
  return ( A + (unsigned char)((B-A) / 2 ));
 }
 
 unsigned int MixColors(unsigned int A, unsigned int B)
 {
-	ColorStruct *sA=(ColorStruct*)(&A);
-	ColorStruct *sB=(ColorStruct*)(&B);
-	ColorStruct R;
+    ColorStruct *sA=(ColorStruct*)(&A);
+    ColorStruct *sB=(ColorStruct*)(&B);
+    ColorStruct R;
     R.A= ( sA->A < sB->A ? sA->A:sB->A);
     R.B= mixChannel(sA->B,sB->B);
     R.G= mixChannel(sA->G,sB->G);
     R.R= mixChannel(sA->R,sB->R);
-    return *( (unsigned int *)(&R)  )	;
+    return *( (unsigned int *)(&R)  )   ;
 }
 
 SDL_Color& MixColors(SDL_Color& A, SDL_Color& B)
 {
-	SDL_Color* R=new SDL_Color;
-	R->r= mixChannel(A.r,B.r);
-	R->g= mixChannel(A.g,B.g);
-	R->b= mixChannel(A.b,B.b);
-	R->unused=255;
-	return (*R);
+    SDL_Color* R=new SDL_Color;
+    R->r= mixChannel(A.r,B.r);
+    R->g= mixChannel(A.g,B.g);
+    R->b= mixChannel(A.b,B.b);
+    R->unused=255;
+    return (*R);
 }
 
 bool TryS2I(std::string &str, int& r)

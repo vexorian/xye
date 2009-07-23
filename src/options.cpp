@@ -95,9 +95,7 @@ TiXmlElement* options::GetOptionsElement(TiXmlDocument* cnf)
 
 string* options::fixpath(string& path,bool dohomecheck)
 {
-    char * pathc=string2charp(&path);
-    char* fx=fixpath(pathc,dohomecheck);
-    delete [] pathc;
+    char* fx=fixpath( path.c_str(),dohomecheck);
     string* s=new string(fx);
     delete [] fx;
     return s;
