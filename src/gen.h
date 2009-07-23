@@ -4,8 +4,6 @@
 
 using std::string;
 
-char* string2charp(string* s);
-
 //Sets random seed
 void Randomize();
 //returns a random integer in range
