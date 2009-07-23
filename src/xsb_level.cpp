@@ -34,12 +34,7 @@ void getline_xplt2(std::ifstream &a, std::string &l)
     int L=l.length();
     if ((L>1) && (l[L-1]=='\r'))
     {
-        char* fixer=string2charp(&l);
-        fixer[L-1]='\0';
-        l=fixer;
-        delete[] fixer;
-
-
+        l = l.substr(0,L-1);
     }
 }
 

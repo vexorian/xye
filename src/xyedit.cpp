@@ -249,11 +249,11 @@ void editor::Init(const string &path, const string &file)
 
     if (!window::InitSDL()) return;
 
-    char *tm=string2charp(&SKIN);
+    const char *tm=SKIN.c_str();
     printf("Loading %s\n",tm);
     sprites=IMG_Load(tm);
     if (!sprites)  game::Error( "Invalid/Missing Sprite File");
-    delete[] tm;
+    
 
     //Init cache
     printf("Initializing Recolor cache...\n");
