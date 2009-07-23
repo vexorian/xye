@@ -287,25 +287,33 @@ int game::Init(const char* levelfile)
 
 
     const char* r=options::GetLevelFile();
+    int ln = options::GetLevelNumber();
 
 
-    if (levelfile!=NULL) r=levelfile;
-    else if (!strcmp(r,"#browse#")) //If the user edited xyecong.xml to have #browse# as file name then show the
-                                //primitive level browser.
-       r=LevelBrowser::GetLevelFile();
+    if (r!=NULL)
+    {
+       LevelBrowser::AssignLevelFile(r);
+       ln = 1;
+    }
+    r=LevelBrowser::GetLevelFile();
        
 
     while (r[0]!='\0')
     {
         game::started=true;
         game::start();
-        LevelPack::Load(r,options::GetLevelNumber());
+        ln = 1;
+        if( strcmp(r, options::GetLevelFile() ) == 0 ) ln= options::GetLevelNumber();
+        options::SaveLevelFile( r, ln);
+        LevelPack::Load(r,ln);
+        
 
 
         if (! AppLoop()) break;
         if (levelfile!=NULL) break;
+        //options::SaveLevelFile(NULL);
+        ln = 1;
         r= LevelBrowser::GetLevelFile();
-
     }
 
 
@@ -540,12 +548,14 @@ int game::AppLoop()
                         end();
                         start();
                         LevelPack::Next();
+                        options::SaveLevelFile( LevelPack::OpenFile.c_str(), LevelPack::OpenFileLn);
                         break;
 
                     case(SDLK_MINUS): case(SDLK_KP_MINUS): case(SDLK_b): //Minus - b
                         end();
                         start();
                         LevelPack::Last();
+                        options::SaveLevelFile( LevelPack::OpenFile.c_str(), LevelPack::OpenFileLn);
                         break;
 
 
