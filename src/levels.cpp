@@ -30,6 +30,7 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include<string>
 #include<cstring>
 #include<algorithm>
+#include<iostream>
 using std::string;
 using std::sort;
 
@@ -48,7 +49,7 @@ Font* InfoFont;
 Font* InfoBoldFont;
 
 
-char res[300] = {'t','u','t','o','r','i','a','l','s','.','x','y','e','\0'};
+string CurrentFileName;
 bool runeditor;
 bool editfile;
 string FileDesc;
@@ -416,7 +417,7 @@ void FillArrayWithFilenames()
 
     //Finally find the value of res and if someone has it, make sure Active points to it
     for (i=0;i<c;i++)
-        if (FoundFile[i]==res)
+        if (FoundFile[i]==CurrentFileName)
         {
             Active=i;
             return;
@@ -643,7 +644,7 @@ void Show()
               }
 
          case(SDL_QUIT):
-             res[0]='\0';
+             CurrentFileName = "";
              delete[] FoundFile;
              return;
 
@@ -653,16 +654,13 @@ void Show()
         Draw();
         SDL_Delay(100);
     }
-    int i=0, L=FoundFile[Active].length();
-    while (i<=L)
-    {
-        res[i]=(FoundFile[Active])[i];
-        i++;
-    }
+    CurrentFileName = FoundFile[Active];
     delete[] FoundFile;
     FoundFile=NULL;
 
 }
+
+
 
 const char* GetLevelFile()
 {
@@ -679,13 +677,13 @@ const char* GetLevelFile()
 
         Command::executeParallel(commandline);
 
-        strcpy(res,"");
+        CurrentFileName = "";
     }
     else if(editfile)
     {
         string commandline=options::ExecutablePath;
         commandline+=" --edit ";
-        commandline+=string(res).substr(editor::myLevelsPath.size() );
+        commandline+=CurrentFileName.substr(editor::myLevelsPath.size() );
         commandline+=" ";
         commandline+=options::Dir;
         
@@ -693,10 +691,10 @@ const char* GetLevelFile()
         Command::executeParallel(commandline);
         
         
-        strcpy(res,"");
+        CurrentFileName="";
     }
 
-    return res;
+    return CurrentFileName.c_str();
 }
 
 
@@ -733,6 +731,11 @@ void DeleteFonts()
     delete MenuSelectedFont;
     delete InfoFont;
     delete InfoBoldFont;
+}
+
+void AssignLevelFile( const char * path)
+{
+    CurrentFileName = path;
 }
 
 
