@@ -11,7 +11,7 @@ class options
 
 //    static TiXmlDocument* cnf;
 //    static TiXmlElement* ele;
-    static char* LevelFile;
+    static string LevelFile;
     static char* Texture;
     static int   FontSize;
     static int   FontBoldSize;
@@ -29,12 +29,16 @@ class options
     static TiXmlElement* GetOptionsElement(TiXmlDocument* cnf);
     static TiXmlDocument* getxyeconf(TiXmlElement *&options  );
     static TiXmlDocument* defaultxyeconf(const char* path,TiXmlElement *&options);
+    static string homefolder;
+    static void LoadLevelFile();
+    static void PerformLevelFileSave();
 
  public:
     static bool  xyeDirectionSprites;
     static string Dir;
     options() {}
     static string GetDir();
+    static const string& GetHomeFolder();
     static string* fixpath(string& path,bool dohomecheck);
     static string* fixpath(string& path) { return fixpath(path,false); }
     static char* fixpath(const char * path,bool dohomecheck);
@@ -50,6 +54,10 @@ class options
     static const char* GetFontBoldFile();
     static int GetGridSize();
     static unsigned int GetLevelNumber();
+    
+    static void SaveLevelFile(const char* filename, int levelNumber = 0);
+    
+    
     static unsigned char Red();
     static unsigned char Green();
     static unsigned char Blue();
@@ -68,5 +76,6 @@ class options
     static SDL_Color LevelMenu_infotext;
 
     static string ExecutablePath;
+    
 
 };

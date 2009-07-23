@@ -49,7 +49,7 @@ string options::Dir;
 
 
 
-char* options::LevelFile;
+string options::LevelFile;
 char* options::Texture;
 char* options::Font;
 char* options::FontBold;
@@ -78,7 +78,7 @@ bool options::xyeDirectionSprites = false;
 
 bool options::Error(const char* msg)
 {
-    fprintf(stderr,msg);
+    fprintf(stderr,"%s",msg);
     throw msg;
 }
 
@@ -135,11 +135,7 @@ char* options::fixpath(const char * path,bool dohomecheck)
 
 void options::Default()
 {
-    // 12345678
-    //'#browse#';
-    LevelFile=new char[9];
-    strcpy(LevelFile,"#browse#");
-
+    LevelFile = "#browse";
 }
 
 TiXmlDocument* options::defaultxyeconf(const char* path,TiXmlElement *&options)
@@ -159,6 +155,7 @@ TiXmlDocument* options::defaultxyeconf(const char* path,TiXmlElement *&options)
     delete r;
     return NULL;
 }
+
 
 
 TiXmlDocument* options::getxyeconf(TiXmlElement *&options  )
@@ -263,8 +260,7 @@ void options::Init()
 
     tm=ele->Attribute("levelfile");
 
-    LevelFile = new char[strlen(tm)+1];
-    strcpy(LevelFile,tm);
+    LevelFile = tm;
 
     const char * sknfile = ele->Attribute("skinfile");
     char *skin;
@@ -376,17 +372,23 @@ tem = fixpath(Font,true);delete[] Font;Font=tem;
 tem = fixpath(FontBold,true);delete[] FontBold;FontBold=tem;
 tem = fixpath(Texture,true);delete[] Texture;Texture=tem;
 
-if (strcmp(LevelFile,"#browse#"))
+if (LevelFile != "#browse#")
 {
-   char* tem2=new char[strlen("levels/")+strlen(LevelFile)+1];
+   char* tem2=new char[strlen("levels/")+LevelFile.length()+1];
    strcpy(tem2,"levels/");
-   strcat(tem2,LevelFile);
-   tem = fixpath(tem2,true);delete[] LevelFile;LevelFile=tem;
+   strcat(tem2,LevelFile.c_str());
+   tem = fixpath(tem2,true);LevelFile=tem;
    delete[] tem2;
 }
 
 
+    tem = options::fixpath("./", true);
+    homefolder=tem;
+    if( (homefolder.length() >= 3) && (homefolder.substr( homefolder.length()-3, 3)=="/./") )
+        homefolder.resize( homefolder.length() - 2);
+    delete[] tem;
 
+    LoadLevelFile();
 
 }
 
@@ -541,13 +543,14 @@ void options::Clean()
 {
     if (bini)
     {
-        delete [] LevelFile;
+        PerformLevelFileSave();
         delete [] Texture;
         delete [] Font;
         delete [] FontBold;
 
         bini=false;
     }
+    
 }
 
 string options::GetDir()
@@ -560,7 +563,8 @@ string options::GetDir()
 const char* options::GetLevelFile()
 {
     ! bini? Error("Attempt to call unitialized options"):0;
-    return (LevelFile);
+    if(LevelFile == "#browse#") return NULL;
+    return (LevelFile.c_str() );
 }
 
 
@@ -600,6 +604,14 @@ int options::GetGridSize()
     return GridSize;
 }
 
+string options::homefolder;
+const string& options::GetHomeFolder()
+{
+    ! bini? Error("Attempt to call unitialized options"):0;
+    return homefolder;
+}
+
+
 unsigned int options::GetLevelNumber()
 {
     return lvnum;
@@ -618,4 +630,41 @@ unsigned char options::Blue()
     return(b);
 }
 
+void options::PerformLevelFileSave()
+{
+    std::ofstream file;
+    string path = GetHomeFolder()+"lastlevel.conf";
+    file.open (path.c_str(),std::ios::trunc | std::ios::out );
+    if (!file.is_open()) return ; //ouch just halt.
+    file<<LevelFile<<"\n"<<lvnum<<"\n";
+    file.close();
+}
 
+void options::SaveLevelFile(const char* filename, int levelNumber)
+{
+    if(filename != NULL)
+    {
+        LevelFile = filename;
+        lvnum = levelNumber;
+    }
+    else
+    {
+        LevelFile = "#browse#";
+        lvnum = 0;
+    }
+}
+
+void options::LoadLevelFile()
+{
+    std::ifstream file;
+    string path = GetHomeFolder()+"lastlevel.conf";
+    file.open (path.c_str(), std::ios::in );
+    if (!file.is_open())
+    {
+        LevelFile = "#browse#";
+        lvnum = 0;
+        return ; //ouch just halt.
+    }
+    getline(file,LevelFile);
+    file>>lvnum;
+}

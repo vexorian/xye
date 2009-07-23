@@ -4,7 +4,7 @@ namespace LevelBrowser
 {
 
 
-
+void AssignLevelFile( const char * path);
 
 const char* GetLevelFile();
 
