@@ -289,13 +289,18 @@ int game::Init(const char* levelfile)
     const char* r=options::GetLevelFile();
     int ln = options::GetLevelNumber();
 
-
     if (r!=NULL)
     {
        LevelBrowser::AssignLevelFile(r);
        ln = 1;
     }
-    r=LevelBrowser::GetLevelFile();
+    if ( levelfile != NULL)
+    {
+        options::IgnoreLevelSave();
+        r = levelfile;
+    }
+    else
+        r=LevelBrowser::GetLevelFile();
        
 
     while (r[0]!='\0')
@@ -306,12 +311,9 @@ int game::Init(const char* levelfile)
         if( strcmp(r, options::GetLevelFile() ) == 0 ) ln= options::GetLevelNumber();
         options::SaveLevelFile( r, ln);
         LevelPack::Load(r,ln);
-        
-
-
+     
         if (! AppLoop()) break;
-        if (levelfile!=NULL) break;
-        //options::SaveLevelFile(NULL);
+        if( levelfile != NULL) break;
         ln = 1;
         r= LevelBrowser::GetLevelFile();
     }
