@@ -34,6 +34,7 @@ class options
     static void PerformLevelFileSave();
 
  public:
+    static void IgnoreLevelSave();
     static bool  xyeDirectionSprites;
     static string Dir;
     options() {}
