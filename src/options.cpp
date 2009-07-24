@@ -22,8 +22,8 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include "gen.h"
 
 
-#include <iostream>
-#include <fstream>
+#include<iostream>
+#include<fstream>
 
 
 //for simplicity's sake I copied it, hopefully we won't ever change this enum
@@ -630,8 +630,16 @@ unsigned char options::Blue()
     return(b);
 }
 
+bool options_saveignored = false;
+
+void options::IgnoreLevelSave()
+{
+    options_saveignored = true;
+}
+
 void options::PerformLevelFileSave()
 {
+    if(options_saveignored) return;
     std::ofstream file;
     string path = GetHomeFolder()+"lastlevel.conf";
     file.open (path.c_str(),std::ios::trunc | std::ios::out );
