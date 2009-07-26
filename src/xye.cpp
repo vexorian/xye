@@ -2604,13 +2604,14 @@ void xye::Kill()
 /**Class Robo- xye**/
 roboxye::roboxye(square* sq)
 {
+    anim = GetRandomInt(0,2);
     type=OT_ROBOXYE;
     ObjectConstruct(sq);
 }
 
 void roboxye::Draw(unsigned int x,unsigned int y)
 {
-    DaVinci D(game::sprites,3*sz,GetRandomInt(0,2)*sz,sz,sz);
+    DaVinci D(game::sprites,3*sz,anim*sz,sz,sz);
     D.Draw(game::screen,x,y);
 }
 
@@ -2637,6 +2638,8 @@ bool roboxye::Loop(bool* died)
 
     //unsigned int ClockTic=GM->Counter();
     if (game::AllowRoboXyeMovement()) {
+        
+        anim = (anim+GetRandomInt(1,2)) % 3;
 
         edir D[4]= { D_UP, D_DOWN, D_LEFT, D_RIGHT };
         unsigned char DN=4,i,j;
