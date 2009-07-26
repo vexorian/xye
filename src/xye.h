@@ -294,6 +294,7 @@ class xye : public obj
 class roboxye : public obj
 {
  private:
+     int anim;
      square* checkpoint;
      void OnDeath() {}
  public:
