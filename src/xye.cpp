@@ -45,6 +45,7 @@ SDL_Color game::PlayerColor;
 
 //Restard signal
 bool game::gameover=false;
+bool xye_fromeditortest = false;
 bool game::FinishedLevel=false;
 
 //The gridsize of the current skin, as float and as int
@@ -296,6 +297,7 @@ int game::Init(const char* levelfile)
     }
     if ( levelfile != NULL)
     {
+        xye_fromeditortest = true;
         options::IgnoreLevelSave();
         r = levelfile;
     }
@@ -1746,7 +1748,7 @@ bool game::Moved(edir d)
 void game::Undo()
 {
 
-    if ( options::UndoEnabled() &&    recording::undo())
+    if ( (options::UndoEnabled() || xye_fromeditortest)  &&    recording::undo())
     {
     undo=true;
     game::draw();
