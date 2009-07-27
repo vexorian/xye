@@ -161,26 +161,23 @@ TiXmlDocument* options::defaultxyeconf(const char* path,TiXmlElement *&options)
 TiXmlDocument* options::getxyeconf(TiXmlElement *&options  )
 {
     printf("looking for valid xyeconf.xml:\n");
-    char* home=NULL;
-    char* loc=NULL;
+    const char* home=NULL;
+    
     TiXmlDocument* r;
     if (home=getenv("HOME"))
     {
-
-        loc=new char[strlen(home)+strlen("/.xye/xyeconf.xml")+1 ];
-        strcpy(loc,home);
-        strcat(loc,"/.xye/xyeconf.xml");
-        r= new TiXmlDocument(loc);
+        string loc = string(home)+"/.xye/xyeconf.xml";
+        //string loc="./xyeconf.xml";
+        r= new TiXmlDocument(loc.c_str());
         if (options=options::GetOptionsElement(r))
         {
-            printf("found %s\n",loc);
+            printf("found %s\n",loc.c_str() );
             return (r);
         }
         delete r;
 
 
-        r=defaultxyeconf(loc,options);
-        delete[] loc;
+        r=defaultxyeconf(loc.c_str(),options);
         if (r)
         {
             printf("Generated default xyeconf.xml");
@@ -237,6 +234,7 @@ void options::Init()
     if (!ele)
     {
          Default();
+         delete cnf;
          return;
     }
 
@@ -281,12 +279,12 @@ void options::Init()
          delete [] ttt;
     }
 
-    TiXmlDocument* skinxml=new TiXmlDocument(skin);
+    TiXmlDocument skinxml(skin);
     delete[] skin;
 
-    if (skinxml->LoadFile())
+    if (skinxml.LoadFile())
     {
-         ele=skinxml->FirstChild("xyeskin")->ToElement();
+         ele=skinxml.FirstChild("xyeskin")->ToElement();
          if (ele)
          {
              LoadColors(ele);
@@ -389,6 +387,7 @@ if (LevelFile != "#browse#")
     delete[] tem;
 
     LoadLevelFile();
+    delete cnf;
 
 }
 
