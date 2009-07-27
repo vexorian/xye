@@ -282,7 +282,7 @@ struct boardelement
     int              parentx;
     int              parenty;
     
-    boardelement() { parentx=parenty = -1; };
+    boardelement() { parentx=parenty = -1; type=EDOT_NONE; };
 
 };
 
