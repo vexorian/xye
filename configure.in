@@ -2,12 +2,12 @@
 
 # Process this file with autoconf to produce a configure script.
 PROJ_NAME=xye
-PROJ_VERSION=0.8.0
+PROJ_VERSION=0.9.0
 
 
 
 
-AC_INIT(xye,0.8.0,vexorian@gmail.com)
+AC_INIT(xye,0.9.0,vexorian@gmail.com)
 
 # Setup for automake
 AM_INIT_AUTOMAKE
@@ -65,7 +65,7 @@ AC_SUBST(doc_dir)
 
 
 
-#Is openGL required by XyE?
+#Is openGL required by Xye? I don't think so...
 # Check for OpenGL
 #AC_MSG_CHECKING(for OpenGL support)
 #HAVE_OPENGL=no

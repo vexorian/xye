@@ -137,6 +137,7 @@ button* Button_NextLevel;
 button* Button_PrevLevel;
 button* Button_Hint;
 button* Button_Solution;
+button* Button_Undo;
 
 
 //======================================================================
@@ -398,7 +399,7 @@ int game::Init(const char* levelfile)
         
         //game::start();
         ln = 1;
-        if( strcmp(r, options::GetLevelFile() ) == 0 ) ln= options::GetLevelNumber();
+        if( (r!=NULL) && (options::GetLevelFile()!=NULL) && (strcmp(r, options::GetLevelFile() ) == 0) ) ln= options::GetLevelNumber();
         /*
         if (! AppLoop()) break;
         if( levelfile != NULL) break;
@@ -582,6 +583,7 @@ void game::AfterLevelLoad()
     Button_Solution->Enabled = ( (LevelPack::HasSolution()) && !playingrec);
     Button_Hint->Enabled= (hint::GlobalHintExists());
     Button_NextLevel->Enabled = Button_PrevLevel->Enabled  = (LevelPack::n > 1);
+    Button_Undo->Visible = (options::UndoEnabled() || xye_fromeditortest || LevelPack::AllowUndo() );
 }
 
 void game::RestartCommand( const buttondata*bd)
@@ -926,8 +928,7 @@ void game::InitGameSection(window* wind)
     bt->Icon(11,19);
     bt->depth=1;
     bt->onClick = UndoCommand;
-    bt->Visible = (options::UndoEnabled() || xye_fromeditortest);
-    
+    Button_Undo = bt;
     wind->addControl(bt);
 
 
@@ -976,7 +977,7 @@ void game::InitGameSection(window* wind)
     game::started=true;
     game::end();
     game::start();
-    if( strcmp(game::InitLevelFile, options::GetLevelFile()) == 0)
+    if( (game::InitLevelFile!=NULL) && (options::GetLevelFile()!=NULL) && strcmp(game::InitLevelFile, options::GetLevelFile()) == 0)
         game::InitLevelFileN = options::GetLevelNumber();
     
     LevelPack::Load( game::InitLevelFile, game::InitLevelFileN);
@@ -2012,7 +2013,7 @@ bool game::Moved(edir d)
 void game::Undo()
 {
 
-    if ( (options::UndoEnabled() || xye_fromeditortest)  &&    recording::undo())
+    if ( (options::UndoEnabled() || xye_fromeditortest || LevelPack::AllowUndo() )  &&    recording::undo())
     {
        undo=true;
        //game::draw();
