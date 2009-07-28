@@ -14,6 +14,9 @@ Permission is granted to anyone to use this software for any purpose, including 
     3. This notice may not be removed or altered from any source distribution.
 
 */
+#ifndef WINDOWINCLUDED
+
+
 #include "vxsdl.h"
 #ifndef FONTINCLUDED
    #include "font.h"
@@ -41,6 +44,8 @@ class control
 
      virtual void draw(SDL_Surface* target)=0;
      virtual void loop()=0;
+     
+     virtual ~control() {}
 
 };
 
@@ -49,6 +54,8 @@ class control
 #define MAXSUBS 5
 
 typedef void (*keysimFunction)(SDLKey keysim, Uint16 unicode);
+class window;
+typedef void (*voidFunction)(window* wind);
 class window
 {
   private:
@@ -97,12 +104,15 @@ class window
      
      
      void init(int width,int height, const char* caption);
-
+     voidFunction transition;
+     void reset();
 
 
  public:
 
     static window* create(int width , int height,const char* caption);
+    void SetCaption(const char* caption);
+    void SetCaption(const string caption);
     ~window();
     SDL_Surface* getDrawingSurface();
     int Width;
@@ -126,6 +136,8 @@ class window
     
     static bool InitSDL();
     static void QuitSDL();
+    void Close();
+    void SetTransition( voidFunction tra);
 };
 
 class rectangle: public control
@@ -164,24 +176,41 @@ class textblock: public control
 
 class buttondata
 {
+    public:
+        virtual ~buttondata() {};
 };
 
 class button : public control
 {
     private:
         int flashperiod;
+        int iconx, icony;
+
     public:
         buttondata* data;
+        
+        
         
         
     
         string text;
         bool click;
+
+        bool Visible;
+        bool Enabled;
         button(int sx, int sy, int sw, int sh);
         ~button();
         void draw(SDL_Surface* target);
         void loop() {}
+        
+        void (*onModeEnd) ();
+        void Icon(int ix, int iy);
+        
+        
         void (*onClick)(const buttondata* data);
+        void (*onPress)(const buttondata* data);
+        void (*onRelease)(const buttondata* data);
+        
         inline void onMouseMove(int px,int py){}
         void onMouseOut();
         void onMouseDown(int px,int py);
@@ -203,3 +232,5 @@ class button : public control
         
         
 };
+
+#endif

@@ -19,6 +19,7 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include "gen.h"
 #include <iostream>
 #include <fstream>
+#include<string>
 #include "xye_script.h"
 #include "xsb_level.h"
 
