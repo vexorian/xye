@@ -25,13 +25,16 @@ Permission is granted to anyone to use this software for any purpose, including 
 
 
 
+
 #define sz game::GRIDSIZE //typing game::GRIDSIZE is an annoyance
+
+
 
 /*******class game**********/
 //
 //  Is game really a class? or is it just a pack of global functions and variables? */
 // I did not use a namespace for this and many other things because namespaces are not
-// friendly with headers.
+// friendly with headers. Edit in 2009: Are they?
 
 //=======================================================================================================
 //class game static variables:
@@ -127,12 +130,80 @@ signed int game::HintMarquee;
 unsigned char game::HintRead;
 
 bool game::CoordMode;
+window* gamewindow = NULL;
+gameboard* TheGameBoard = NULL;
+
+button* Button_NextLevel;
+button* Button_PrevLevel;
+button* Button_Hint;
+button* Button_Solution;
+
+
+//======================================================================
+//gameboard methods:
+
+gameboard::gameboard(int sx, int sy, int sw, int sh)
+{
+    x=sx;y=sy;w=sw;h=sh;
+    depth=0;
+}
+void gameboard::loop()
+{
+    game::loop();
+}
+void gameboard::draw(SDL_Surface* target)
+{
+    game::draw(x,y);
+}
+void gameboard::onMouseMove(int x,int y)
+{
+    game::onMouseMove(x,y);
+}
+void gameboard::onMouseOut()
+{
+    game::onMouseOut();
+}
+void gameboard::onMouseDown(int x,int y)
+{
+    game::onMouseDown(x,y);
+}
+void gameboard::onMouseUp(int x,int y)
+{
+    game::onMouseUp(x,y);
+}
+gameboard::~gameboard()
+{
+    TheGameBoard = NULL;
+}
+
+//------------------------------------------------------------------------
+class gamepanel : public control
+{
+    public:
+        gamepanel( int sx, int sy, int sw, int sh)
+        {
+            x=sx, y=sy, w=sw, h=sh;
+        }
+        
+        void loop() {}
+        void draw(SDL_Surface* target)
+        {
+            game::DrawPanel(target, x,y,w,h);
+        }
+        void onMouseMove(int px,int py) {}
+        void onMouseOut(){}
+        void onMouseDown(int px,int py){}
+        void onMouseUp(int px,int py){}
+        void onMouseRightUp(int px,int py) {}
+
+
+};
+
 
 
 //=======================================================================================================
 // Class game methods.
 //
-
 
 //Setups the game, initialize variable and that stuff
 int game::Init(const char* levelfile)
@@ -207,6 +278,12 @@ int game::Init(const char* levelfile)
 
     RecolorCache::savecolor(&PlayerColor);
 
+    
+    if (!window::InitSDL()) return 0;
+    printf("Setting video mode...\n");
+    gamewindow=window::create(XYE_HORZ*GRIDSIZE+XYE_GAMEX+XYE_XTRA_X,    XYE_VERT*GRIDSIZE+XYE_GAMEY+2*XYE_XTRA_Y+ GRIDSIZE+2+1+GRIDSIZE,"Xye - editor");
+    screen= gamewindow->getDrawingSurface();  //SDL_SetVideoMode(/*w*/XYE_HORZ*GRIDSIZE+XYE_GAMEX+XYE_XTRA_X,
+              ///              /*h*/XYE_VERT*GRIDSIZE+XYE_GAMEY+2*XYE_XTRA_Y+ GRIDSIZE+2+1, 32, 0);
 
 
     //<window icon> "Ahh, the horror!"
@@ -233,12 +310,12 @@ int game::Init(const char* levelfile)
     SDL_WM_SetIcon(icon,NULL);
     //</window icon>
 
-    printf("Setting video mode...\n");
 
 
-    screen=SDL_SetVideoMode(/*w*/XYE_HORZ*GRIDSIZE+XYE_GAMEX+XYE_XTRA_X,
-                            /*h*/XYE_VERT*GRIDSIZE+XYE_GAMEY+2*XYE_XTRA_Y+ GRIDSIZE+2+1, 32, 0);
+     button* bt = new button(0,0,100,100);
 
+
+     
 
 
     //SDL_ShowCursor(SDL_DISABLE);
@@ -284,7 +361,13 @@ int game::Init(const char* levelfile)
 
         SDL_FreeSurface(SS);
     }
-
+    button::FontResource=FontRes;
+    button::SourceSurface=sprites;
+    button::LongTextureX=7;
+    button::ShortTextureX=6;
+    button::PressedTextureY=18;
+    button::NormalTextureY=17;
+    button::Size=sz;
 
 
     const char* r=options::GetLevelFile();
@@ -292,34 +375,38 @@ int game::Init(const char* levelfile)
 
     if (r!=NULL)
     {
-       LevelBrowser::AssignLevelFile(r);
-       ln = 1;
+       LevelBrowser::AssignLevelFile(r, ln);
     }
     if ( levelfile != NULL)
     {
         xye_fromeditortest = true;
         options::IgnoreLevelSave();
         r = levelfile;
+        game::InitLevelFile = r;
+        game::InitLevelFileN = ln;
+        gamewindow->SetTransition( game::InitGameSection );
+
     }
     else
-        r=LevelBrowser::GetLevelFile();
+    {
+        gamewindow->SetTransition( LevelBrowser::StartSection );
+    }
        
 
-    while (r[0]!='\0')
-    {
-        game::started=true;
-        game::start();
+    //while (r[0]!='\0')
+   // {
+        
+        //game::start();
         ln = 1;
         if( strcmp(r, options::GetLevelFile() ) == 0 ) ln= options::GetLevelNumber();
-        options::SaveLevelFile( r, ln);
-        LevelPack::Load(r,ln);
-     
+        /*
         if (! AppLoop()) break;
         if( levelfile != NULL) break;
         ln = 1;
-        r= LevelBrowser::GetLevelFile();
-    }
-
+        r= LevelBrowser::GetLevelFile();*/
+    //}
+        
+    gamewindow->loop(XYE_FPS);
 
     printf("Cleaning level data...\n");
     LevelPack::Clean();
@@ -336,7 +423,7 @@ int game::Init(const char* levelfile)
     delete FontRes_White ;
     delete FontRes_Bold;
 
-    LevelBrowser::DeleteFonts();
+    LevelBrowser::Clean();
 
     printf("cleaning recolor cache\n");
     RecolorCache::clean();
@@ -355,17 +442,26 @@ int game::Init(const char* levelfile)
 
 
     printf("Shutting down SDL\n");
-    SDL_Quit();
+    delete gamewindow;
+    window::QuitSDL();
 
 
     return (0);
 
+
+}
+
+void game::PlayLevel( const char *levelfile, int level)
+{
+    InitLevelFile = levelfile;
+    InitLevelFileN= level;
+    gamewindow->SetTransition(game::InitGameSection);
 }
 
 
 void game::Error(const char* msg)
 {
-    fprintf(stderr,msg);
+    fprintf(stderr,"%s", msg);
     fprintf(stderr,"\n");
     throw (msg);
 }
@@ -445,7 +541,7 @@ bool game::EvalDirGrid(Uint16 x1,Uint16 y1,Uint16 x2,Uint16 y2,edir &dir)
 bool game::EvalDirGrid(obj* object,Uint16 x2,Uint16 y2,edir &dir)
 {
     square* sq= Square(object->X(),object->Y());
-    return EvalDirGrid(sq->x,sq->y,x2,y2,dir);
+    return EvalDirGrid(sq->x - TheGameBoard->x,sq->y - TheGameBoard->y,x2,y2,dir);
 }
 
 
@@ -479,87 +575,132 @@ void game::PlayRecording(const char* rc)
     playingrec=true;
 }
 
-int game::AppLoop()
+void game::AfterLevelLoad()
+{
+    if(!xye_fromeditortest)
+        options::SaveLevelFile( LevelPack::OpenFile.c_str(), LevelPack::OpenFileLn);
+    Button_Solution->Enabled = ( (LevelPack::HasSolution()) && !playingrec);
+    Button_Hint->Enabled= (hint::GlobalHintExists());
+    Button_NextLevel->Enabled = Button_PrevLevel->Enabled  = (LevelPack::n > 1);
+}
+
+void game::RestartCommand( const buttondata*bd)
+{
+    if (!playingrec) SaveReplay();
+    end();
+    start();
+    LevelPack::Restart();
+    AfterLevelLoad();
+}
+
+void game::ExitCommand( const buttondata*bd)
+{
+    gamewindow->Close(); //exit if Escape is Pressed
+}
+
+void game::GoPreviousCommand( const buttondata*bd)
+{
+    end();
+    start();
+    LevelPack::Last();
+    AfterLevelLoad();
+}
+
+void game::GoNextCommand( const buttondata*bd)
+{
+    end();
+    start();
+    LevelPack::Next();
+    AfterLevelLoad();
+}
+
+
+void game::HintDownCommand( const buttondata*bd)
+{
+    hint::GlobalHint(true);
+}
+
+void game::HintUpCommand( const buttondata*bd)
+{
+    hint::GlobalHint(false);
+}
+
+void game::FFDownCommand( const buttondata*bd)
+{
+    FastForward=true;
+}
+
+void game::FFUpCommand( const buttondata*bd)
+{
+    FastForward=false;
+}
+
+void game::UndoCommand( const buttondata*bd)
+{
+    if (! playingrec) Undo();
+}
+
+void game::BrowseCommand( const buttondata*bd)
+{
+    if( xye_fromeditortest) ExitCommand();
+    else gamewindow->SetTransition(LevelBrowser::StartSection);    
+}
+
+void game::SolutionCommand( const buttondata*bd)
+{
+    if (LevelPack::HasSolution())
+    {
+        end();
+        start();
+        LevelPack::Restart();
+        recording::load(LevelPack::Solution.c_str() );
+        playingrec=true;
+        AfterLevelLoad();
+    }
+}
+
+void game::onKeyDown(SDLKey keysim, Uint16 unicode)
 {
     bool done=false;
     bool browse=false;
-    Uint32 per=(Uint32)((1.0 / XYE_FPS)*1000); //calculates period of time based on FPS;
 
-    SDL_Event event;
-    Uint8 st;
-
-    TriggeredGameLoop=InActive=false;
-    SDL_TimerID tim = SDL_AddTimer( per, game::timer,0);
-    while (!done)
-    {
-        // message processing loop
-        while (SDL_PollEvent(&event) && (!done))
-        {
-
-            // check for messages
-            switch (event.type)
-            {
-                // exit if the window is closed
-            case SDL_QUIT:
-                done = true;
-                break;
-
-                // check for keypresses
-            case (SDL_KEYDOWN): //Key IS Down!
-                switch (event.key.keysym.sym)
+                switch (keysim)
                 {
                     case (SDLK_c) :
                         CoordMode=true;
                         break;
                     case (SDLK_h) :
-                        hint::GlobalHint(true);
+                        HintDownCommand();
                         break;
                     case (SDLK_BACKSPACE):
-                        done = browse=true; //exit and restart browser
+                        BrowseCommand();
+                        
                         break;
 
                     case (SDLK_ESCAPE):
-                        done = true; //exit if Escape is Pressed
+                        ExitCommand();
                         break;
 
                     case (SDLK_DELETE):
-                        if (! playingrec) Undo();
+                        UndoCommand();
                         break;
                     case(SDLK_RETURN): case(SDLK_KP_ENTER): //Enter
-
-
-                        if (!playingrec) SaveReplay();
-                        end();
-                        start();
-                        LevelPack::Restart();
+                        RestartCommand();
 
                         break;
 
                     case(SDLK_s): //s
-                        if (LevelPack::HasSolution())
-                        {
-                            end();
-                            start();
-                            LevelPack::Restart();
-                            recording::load(LevelPack::Solution.c_str() );
-                            playingrec=true;
-                        }
+                        SolutionCommand();
                         break;
 
 
 
                     case(SDLK_PLUS): case(SDLK_KP_PLUS): case(SDLK_n): //Plus - N
-                        end();
-                        start();
-                        LevelPack::Next();
-                        options::SaveLevelFile( LevelPack::OpenFile.c_str(), LevelPack::OpenFileLn);
+                        GoNextCommand();
                         break;
 
                     case(SDLK_MINUS): case(SDLK_KP_MINUS): case(SDLK_b): //Minus - b
-                        end();
-                        start();
-                        LevelPack::Last();
-                        options::SaveLevelFile( LevelPack::OpenFile.c_str(), LevelPack::OpenFileLn);
+                        GoPreviousCommand();
                         break;
 
 
@@ -574,21 +715,20 @@ int game::AppLoop()
                         DK_RIGHT_PRESSED=DK_PRESSED=DK_GO=true; DK_PRESSED_FIRST=0; DK_DIR=D_RIGHT; break;
 
                     case(SDLK_RCTRL):case(SDLK_LCTRL):
-
-                        if (! FastForward)
-                        {
-                            FastForward=true;
-                            SDL_AddTimer( per /2 , game::FastForwardTimer,0);
-                        }
+                        FFDownCommand();
                         break;
                     case(SDLK_RSHIFT):case(SDLK_LSHIFT):
                         ShiftPressed=true; break;
 
                 }
-                break;
+    
+}
+void game::onKeyUp(SDLKey keysim, Uint16 unicode)
+{
+    bool done=false;
+    bool browse=false;
 
-            case (SDL_KEYUP):
-                switch (event.key.keysym.sym)
+                switch (keysim)
                 {
 
                     case (SDLK_c) :
@@ -596,7 +736,7 @@ int game::AppLoop()
                         break;
 
                     case (SDLK_h) :
-                        hint::GlobalHint(false);
+                        HintUpCommand();
                         break;
 
                     //Dir arrows release:
@@ -614,89 +754,234 @@ int game::AppLoop()
                         if (DK_PRESSED) DK_PRESSED = ((DK_DIR!=D_RIGHT) || (EvalDirKeys())); break;
 
                     case(SDLK_RCTRL):case(SDLK_LCTRL):
-                        FastForward=false; break;
+                        FFUpCommand(); break;
 
                     case(SDLK_RSHIFT):case(SDLK_LSHIFT):
                         ShiftPressed=false; break;
 
 
                 }
-                break;
 
-            case (SDL_MOUSEBUTTONDOWN):
-                mouse_x=event.button.x;mouse_y=event.button.y;
-                if (EvalDirGrid(XYE,mouse_x,mouse_y,DK_DIR))
-                {
-                    DK_PRESSED_FIRST=0;
-                    DK_GO=mouse_valid=true;
-                }
-                mouse_pressed=true;
-                break;
-
-            case (SDL_MOUSEBUTTONUP):
-                mouse_pressed=mouse_valid=false;
-                break;
-            case(SDL_MOUSEMOTION) :
-                mouse_x=event.motion.x;mouse_y=event.motion.y;
-                if (mouse_pressed)
-                {
-                if (EvalDirGrid(XYE,mouse_x,mouse_y,DK_DIR) && (!mouse_valid) )
-                {
-                    DK_PRESSED_FIRST=0;
-                    DK_GO=mouse_valid=true;
-                }
-                else if (mouse_valid)
-                    mouse_valid=false;
-                }
-
-                break;
-
-            case (SDL_USEREVENT): //Currently the only user event  is game loop
-                TriggeredGameLoop=false;
-
-                if (game::started)
-                {
-                       st=SDL_GetAppState();
-                    if ( st & (SDL_APPMOUSEFOCUS | SDL_APPINPUTFOCUS) )
-                    {
-                        if (InActive)
-                        {
-                            UpdateAll=true;
-                            InActive=false;
-                        }
-                    }
-                    else
-                    {
-                        InActive=true;
-                    }
-                    game::loop();
-
-                } else
-                {
-                    game::start();
-                    LevelPack::Restart();
-                }
-
-                //if (
-                break;
-
-            } // end switchm
-
-
-
-        }
-        if ((!undo) && (!done)) SDL_Delay((InActive?1000:1));
-        //if (!done) SDL_Delay(1);
-    }
-    game::end();
-    SDL_RemoveTimer(tim);
-    return(browse);
 }
 
 void game::FlashXyePosition()
 {
     FlashPos=70;
 
+}
+
+void game::onExitAttempt()
+{
+    gamewindow->stop();
+}
+
+Sint16 Mouse2GridX(Uint16 mouse)
+{
+    Sint16 x=mouse;
+    if (x<0) return -1;
+    x= (Sint16)(x / sz);
+    if (x>=XYE_HORZ) return -1;
+    return x;
+}
+
+Sint16 Mouse2GridY(Uint16 mouse)
+{
+    Sint16 y=mouse;
+    if (y<0) return -1;
+    y= (Sint16)(y / sz);
+    if (y>=XYE_VERT) return -1;
+    return (XYE_VERT-y-1);
+
+}
+
+
+void game::onMouseMove(int x,int y)
+{
+    mouse_x=x, mouse_y=y;
+    if (mouse_pressed)
+    {
+        if (EvalDirGrid(XYE, mouse_x, mouse_y,DK_DIR) && (!mouse_valid) )
+        {
+            DK_PRESSED_FIRST=0;
+            DK_GO=mouse_valid=true;
+        }
+        else if (mouse_valid)
+            mouse_valid=false;
+    }
+
+}
+void game::onMouseOut()
+{
+}
+void game::onMouseDown(int x,int y)
+{
+    mouse_x=x, mouse_y=y;   
+    if (EvalDirGrid(XYE, mouse_x, mouse_y,DK_DIR))
+    {
+        DK_PRESSED_FIRST=0;
+        DK_GO=mouse_valid=true;
+    }
+    mouse_pressed=true;
+
+}
+void game::onMouseUp(int x,int y)
+{
+    mouse_pressed=mouse_valid=false;
+}
+
+
+const char* game::InitLevelFile = NULL;
+int game::InitLevelFileN=0;
+
+void game::InitGameSection(window* wind)
+{
+    Sint16 sz32 = (game::GRIDSIZE*3)/2;
+    //button * but = new button(0,0,100,100);
+    //but->depth = 100;
+    //gamewindow->addControl(but);
+   
+    rectangle* rc = new rectangle(0,0, wind->Width, game::GRIDSIZE, options::LevelMenu_info );
+    wind->addControl(rc);
+    
+    //fun with buttons
+    
+    const char* cap;
+    
+    //*** Browse button:
+    cap = "Browse";
+    button* bt  = new button(1,0, sz32, game::GRIDSIZE);
+    //bt->text = cap;
+    bt->Icon(5,15);
+    bt->depth=1;
+    bt->onClick = BrowseCommand;
+    wind->addControl(bt);
+
+    //*** Restart button:
+    cap = "Restart";
+    bt  = new button(bt->x + bt->w + 1,0, sz32, game::GRIDSIZE);
+    //bt->text = cap;
+    bt->Icon(7,3);
+    bt->depth=1;
+    bt->onClick = RestartCommand;
+    wind->addControl(bt);
+
+    //*** Prev button:
+    cap = "-";
+    bt  = new button(bt->x + bt->w + 1,0, sz32, game::GRIDSIZE);
+    //bt->text = cap;
+    bt->Icon(4,18);
+    bt->depth=1;
+    bt->onClick = GoPreviousCommand;
+    wind->addControl(bt);
+    Button_PrevLevel = bt;
+    
+    ;
+    
+    //*** Next button:
+    cap = "+";
+    bt  = new button(bt->x + bt->w + 1,0, sz32, game::GRIDSIZE);
+    //bt->text = cap;
+    bt->Icon(5,18);
+    bt->depth=1;
+    bt->onClick = GoNextCommand;
+    wind->addControl(bt);
+    Button_NextLevel=bt;
+
+    //*** FF button:
+    cap = ">>";
+    bt  = new button(bt->x + bt->w + 1,0, sz32, game::GRIDSIZE);
+    //bt->text = cap;
+    bt->Icon(8,3);
+    bt->depth=1;
+    bt->onPress = FFDownCommand;
+    bt->onRelease = FFUpCommand;
+    wind->addControl(bt);
+
+
+    //*** Hint button:
+    cap = "?";
+    bt  = new button(bt->x + bt->w + 1,0, sz32, game::GRIDSIZE);
+    //bt->text = cap;
+    bt->Icon(11,18);
+    bt->depth=1;
+    bt->onPress = HintDownCommand;
+    bt->onRelease = HintUpCommand;
+    wind->addControl(bt);
+    Button_Hint=bt;
+
+    //*** Solution button:
+    cap = "S";
+    bt  = new button(bt->x + bt->w + 1,0, sz32, game::GRIDSIZE);
+    bt->Icon(8,4);
+    //bt->text = cap;
+    bt->depth=1;
+    bt->onClick = SolutionCommand;
+    wind->addControl(bt);
+    Button_Solution=bt;
+
+    //*** Undo button:
+    cap = "Undo";
+    bt  = new button(bt->x + bt->w + 1,0, sz32, game::GRIDSIZE);
+    //bt->text = cap;
+    bt->Icon(11,19);
+    bt->depth=1;
+    bt->onClick = UndoCommand;
+    bt->Visible = (options::UndoEnabled() || xye_fromeditortest);
+    
+    wind->addControl(bt);
+
+
+
+    //*** Quit button:
+    cap = "Quit";
+    bt  = new button( wind->Width - button::recommendedWidth(cap) -1,0, button::recommendedWidth(cap), game::GRIDSIZE);
+    bt->text = cap; 
+    bt->depth=1;
+    bt->onClick = ExitCommand;
+    wind->addControl(bt);
+
+    
+    rc = new rectangle(0, game::GRIDSIZE, wind->Width, XYE_XTRA_Y, 0,0,0); 
+    wind->addControl(rc);
+    
+    Sint16 cx=0, cy = XYE_XTRA_Y + game::GRIDSIZE;
+    
+    TheGameBoard = new gameboard(XYE_XTRA_X,cy, game::GRIDSIZE*XYE_HORZ, game::GRIDSIZE*XYE_VERT);
+    wind->addControl(TheGameBoard);
+
+    rc = new rectangle(0, TheGameBoard->y, XYE_XTRA_X, TheGameBoard->h, 0,0,0); 
+    wind->addControl(rc);
+    rc = new rectangle(TheGameBoard->x+TheGameBoard->w, TheGameBoard->y, wind->Width-(TheGameBoard->x+TheGameBoard->w), TheGameBoard->h, 0,0,0); 
+    wind->addControl(rc);
+
+
+    
+    wind->onKeyDown = game::onKeyDown;
+    wind->onKeyUp = game::onKeyUp;
+    wind->onExitAttempt = game::onExitAttempt;
+
+    rc = new rectangle(0, TheGameBoard->y + TheGameBoard->h, wind->Width, XYE_XTRA_Y, 0,0,0); 
+    wind->addControl(rc);
+
+    
+    gamepanel* gp = new gamepanel(XYE_XTRA_X, rc->y + rc->h, wind->Width- 2*XYE_XTRA_X, wind->Height - (rc->y + rc->h) - XYE_XTRA_Y );
+    gp->depth = 2;
+    gamewindow->addControl(gp);
+
+    rc = new rectangle(0, gp->y, wind->Width, gp->h+XYE_XTRA_Y, 0,0,0); 
+    rc->depth = 0;
+    wind->addControl(rc);
+
+    //
+    game::started=true;
+    game::end();
+    game::start();
+    if( strcmp(game::InitLevelFile, options::GetLevelFile()) == 0)
+        game::InitLevelFileN = options::GetLevelNumber();
+    
+    LevelPack::Load( game::InitLevelFile, game::InitLevelFileN);
+    AfterLevelLoad();
+   
 }
 
 //Starts the game.
@@ -743,6 +1028,10 @@ void game::start(bool undotime)
     beast::ResetCounts();
     hint::Reset();
     HintMarquee=HintRead=0;
+    //game::InitControls();
+    
+    
+    
 
 
     LastXyeDir=D_DOWN; //Default last dir is down
@@ -753,10 +1042,10 @@ void game::start(bool undotime)
 
     square* sq;
 
-    iy=XYE_GAMEY;
+    iy=TheGameBoard->y;
     for (j=XYE_VERT-1;j>=0;j--)
     {
-        ix=XYE_GAMEX;
+        ix=TheGameBoard->x;
         for (i=0;i<XYE_HORZ;i++)
         {
             sq=&grid[i][j];
@@ -776,10 +1065,8 @@ void game::start(bool undotime)
         }
         iy+=GRIDSIZE;
     }
-
-
-
     started=true;
+    
 }
 
 
@@ -814,21 +1101,26 @@ void game::loop_gameplay()
 
 
     deathqueue::KillNow();
-    if( !undo) draw();
+    //draw();
 }
 void game::loop()
 {
     if (FinishedLevel)
     {
         incCounters();
-        //Just draw:
-        draw();
-        //game::end();
-        //restart=false;
+        //Just draw;
+        //draw();
     }
     else
     {
-        do loop_gameplay(); while (undo);
+        int i=0;
+        do
+        {
+            loop_gameplay();
+            i++;
+        }
+        while (undo || (FastForward&&(i<XYE_FASTFORWARD_SPEED)));
+            
     }
 
 }
@@ -865,46 +1157,29 @@ void game::DrawPanelInfo(DaVinci& D, Sint16 &cx,Sint16 &cy, Uint8 spx, Uint8 spy
     cx+=FontRes->TextWidth(tx)+4;
 
 }
-Sint16 Mouse2GridX(Uint16 mouse)
-{
-    Sint16 x=mouse-XYE_GAMEX;
-    if (x<0) return -1;
-    x= (Sint16)(x / sz);
-    if (x>=XYE_HORZ) return -1;
-    return x;
-}
-
-Sint16 Mouse2GridY(Uint16 mouse)
-{
-    Sint16 y=mouse-XYE_GAMEY;
-    if (y<0) return -1;
-    y= (Sint16)(y / sz);
-    if (y>=XYE_VERT) return -1;
-    return (XYE_VERT-y-1);
-
-}
 
 
 string LastPanelHint="";
 
 #define FADETICS 6
 #define MARQUEETICS 24
-void game::DrawPanel(Sint16 x, Sint16 y)
+void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h)
 {
     Sint16 cx,cy;
     Sint16 tem1,tem2;
-    Uint16 Aw=XYE_GAMEX+XYE_XTRA_X+XYE_HORZ*GRIDSIZE;
-    Uint16 Ah = GRIDSIZE+2+1+XYE_XTRA_Y;
-    Uint32 black=SDL_MapRGB(screen->format, 0, 0, 0);
-    Uint32 white=SDL_MapRGB(screen->format, 255, 255, 255);
+    Sint16 Aw=w;
+    Sint16 Ah=h;
+    Uint32 black=SDL_MapRGB(target->format, 0, 0, 0);
+    Uint32 white=SDL_MapRGB(target->format, 255, 255, 255);
 
     SDL_FillRect(screen, x,y, Aw, Ah, black);
-    Aw-=XYE_GAMEX+XYE_XTRA_X;
-    Ah-=XYE_XTRA_Y;
+    SDL_FillRect(screen, x,y, Aw, Ah, white);
+    //Aw-=XYE_GAMEX+XYE_XTRA_X;
+    //Ah-=XYE_XTRA_Y;
     x=XYE_GAMEX;
     Sint16 dif= (GRIDSIZE+2-FontRes->Height())/2;
 
-    char* tx=NULL;
+    char tx[30];
     string hintx="";
 
 
@@ -919,10 +1194,8 @@ void game::DrawPanel(Sint16 x, Sint16 y)
     else if (CoordMode)
     {
         HintMarquee=HintRead=0;
-        tx = new char[30];
         sprintf(tx,"x : %d ; y : %d",Mouse2GridX(mouse_x),Mouse2GridY(mouse_y));
         hintx = tx;
-        delete[] tx;
     }
     else if (FinishedLevel)
     {
@@ -935,12 +1208,7 @@ void game::DrawPanel(Sint16 x, Sint16 y)
 
     else if (hint::Active())
     {
-        tx=hint::GetActiveText();
-        //012345
-        //Hint -
-        hintx = "Hint - ";
-        hintx += tx;
-        delete [] tx;
+        hintx = "Hint - "+string(hint::GetActiveText() );
     }
 
 
@@ -949,7 +1217,6 @@ void game::DrawPanel(Sint16 x, Sint16 y)
     //Lives
     int L=XYE->GetLives()-1;
 
-    tx = new char[5];
     DaVinci D(game::sprites,0,0,0,0);
     if (L>0)
     {
@@ -959,9 +1226,8 @@ void game::DrawPanel(Sint16 x, Sint16 y)
         sprintf(tx,"%d",L);
         FontRes->Write(screen,GRIDSIZE+(GRIDSIZE/2)+x+2, y+2+dif ,tx);
     }
-    delete[]tx;
     cx=x+2+GRIDSIZE*3;
-    SDL_FillRect(screen,cx,y+1,2,Ah-1,black);
+    SDL_FillRect(screen,cx,y,2,Ah,black);
     cx+=5;
 
     //Levels
@@ -1009,7 +1275,7 @@ void game::DrawPanel(Sint16 x, Sint16 y)
             DrawPanelInfo(D, cx,cy, 6, 4, rd,dif,255,0,0,255);
 
     }
-    if (hint::GlobalHintExists())
+    /*if (hint::GlobalHintExists())
     {
         cx+=3;
         SDL_FillRect(screen, cx,y, 2, Ah, black);
@@ -1026,9 +1292,7 @@ void game::DrawPanel(Sint16 x, Sint16 y)
         D.ChangeRect(8*GRIDSIZE,4*GRIDSIZE,GRIDSIZE,GRIDSIZE);
         D.Draw(screen,cx,cy);
         cx+=20;
-
-
-    }
+    }*/
 
     //---
     bool hintactive=(hintx!="");
@@ -1098,18 +1362,21 @@ void game::DrawPanel(Sint16 x, Sint16 y)
 
 }
 
-void game::draw()
+void game::draw(Sint16 px, Sint16 py)
 {
+    if(undo) return;
+    
     int i,j;
 
     Uint32 black=SDL_MapRGB(screen->format, 0, 0, 0);
-    Uint32 Aw=XYE_GAMEX+XYE_XTRA_X+XYE_HORZ*GRIDSIZE;
-    Uint32 Ah=XYE_VERT*GRIDSIZE;
-    SDL_FillRect(screen, 0,0, Aw, XYE_GAMEY, black);
-    SDL_FillRect(screen, 0,XYE_GAMEY, XYE_GAMEX, Ah, black);
-    SDL_FillRect(screen, 0,XYE_GAMEY+Ah, Aw, XYE_XTRA_Y, black);
-    SDL_FillRect(screen, Aw-XYE_XTRA_X, XYE_GAMEY, XYE_XTRA_X, Ah, black);
-    DrawPanel(0,XYE_GAMEY+XYE_XTRA_Y+Ah-1);
+    //Uint32 Aw=XYE_GAMEX+XYE_XTRA_X+XYE_HORZ*GRIDSIZE;
+    //Uint32 Ah=XYE_VERT*GRIDSIZE;
+    //SDL_FillRect(screen, px,py, Aw, XYE_GAMEY, black);
+    //SDL_FillRect(screen, px,py+XYE_GAMEY, XYE_GAMEX, Ah, black);
+    //SDL_FillRect(screen, px,py+XYE_GAMEY+Ah, Aw, XYE_XTRA_Y, black);
+    //SDL_FillRect(screen, px+Aw-XYE_XTRA_X, py+XYE_GAMEY, XYE_XTRA_X, Ah, black);
+    
+    //DrawPanel(0,XYE_GAMEY+XYE_XTRA_Y+Ah-1);
 
 
     square* sq;
@@ -1148,9 +1415,6 @@ void game::draw()
             x=sq->x;
             y=sq->y;
             object=sq->object;
-
-
-
 
             SDL_FillRect(screen, x,y,GRIDSIZE,GRIDSIZE, SDL_MapRGB(screen->format, sq->R , sq->G, sq->B));
 
@@ -1274,7 +1538,7 @@ void game::draw()
 
 
 
-    SDL_Flip(screen);
+    //SDL_Flip(screen);
     UpdateAll=false;
 }
 
@@ -1750,11 +2014,12 @@ void game::Undo()
 
     if ( (options::UndoEnabled() || xye_fromeditortest)  &&    recording::undo())
     {
-    undo=true;
-    game::draw();
-    game::end();
-    game::start(true);
-    LevelPack::Restart();
+       undo=true;
+       //game::draw();
+       game::end();
+       game::start(true);
+       LevelPack::Restart();
+       AfterLevelLoad();
     }
 
 }
@@ -4972,6 +5237,7 @@ void surprise::Transform()
                 UpdateSquare();
                    break;
             case(B_BLUE):
+            {
                 wl=new wall(sq,0);
                 SDL_Color BC = options::BKColor[c];
 
@@ -4987,10 +5253,10 @@ void surprise::Transform()
                 if (b4) b4->IntelligentUpdateCorners(wl);
                 if (b2) b2->IntelligentUpdateCorners(wl);
                 if (b6) b6->IntelligentUpdateCorners(wl);
-
-                wl->ChangeColor(BC.r,BC.g,BC.b);
-
-            break;
+                wl->ChangeColor(BC.r+(255-BC.r)/2,BC.g+(255-BC.g)/2,BC.b+(255-BC.b)/2);
+                //wl->ChangeColor(BC.r,BC.g,BC.b);
+                break;
+            }
 
 
         }
@@ -7741,22 +8007,21 @@ bool hint::Active()
 {
     return (active!=NULL);
 }
-char* hint::GetActiveText()
+const char* hint::GetActiveText()
 {
-    string* res;
+    string res;
     if (active==(hint*)(1))
-        res = &globaltext;
+        res = globaltext;
     else if (active) 
-        res=(&(active->text));
+        res=active->text;
 
-    char * r= new char[ res->length() ];
-    strcpy(r, res->c_str() );
-    return r;
+    return res.c_str();
 }
 
 void hint::SetGlobalHint(const char* gl)
 {
-    globaltext=gl;
+    globaltext = string(gl);
+    //globaltext=gl;
 }
 
 void hint::SetGlobalHint(string &gl)

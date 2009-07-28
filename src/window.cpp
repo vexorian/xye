@@ -30,7 +30,7 @@ window* window::CurrentInstance=NULL;
 bool window::SDLactive=false;
 
 
-window::window() { };
+window::window() {};
 
 void onExitAttemptDoNothing() {};
 void onKeyEventDoNothing(SDLKey keysim, Uint16 unicode) {};
@@ -68,6 +68,11 @@ void window::QuitSDL()
         TTF_Quit();
     #endif    
     SDL_Quit();    
+}
+
+void window::Close()
+{
+    if( onExitAttempt != NULL ) onExitAttempt();
 }
 
 void window::endSub()
@@ -126,15 +131,27 @@ void window::init(int width, int height, const char * caption)
     SDL_Init(SDL_INIT_VIDEO);
     surface=SDL_SetVideoMode(width,height, 32, 0);
 
+    transition = NULL;
+
     SDL_WM_SetCaption(caption,0);
    
 
 }
 
+void window::SetCaption(const char* caption)
+{
+    SDL_WM_SetCaption(caption,0);
+}
+void window::SetCaption(const string caption)
+{
+    SDL_WM_SetCaption(caption.c_str(),0);
+}
+
+
 window* window::create(int width, int height, const char * caption)
 {
-    //all right, singleton pattern is tricky, this is only a singleton because SDL does not allow
-    //multiple windows so far.
+    //all right, singleton pattern is tricky, only reason this is a 
+    // singleton is because SDL does not allow multiple windows yet.
     
     
     if(CurrentInstance!=NULL) return CurrentInstance;
@@ -151,14 +168,22 @@ window* window::create(int width, int height, const char * caption)
     return CurrentInstance;
      
 }
-window::~window()
+
+
+void window::reset()
 {
-    CurrentInstance=NULL;
     deleteControls();
     while (sub>0)
     {
         endSub();
     }
+
+}
+
+window::~window()
+{
+    CurrentInstance=NULL;
+    reset();
     
     SDL_QuitSubSystem(SDL_INIT_VIDEO);
 }
@@ -179,7 +204,7 @@ void window::draw()
 
 void window::Error(const char* msg)
 {
-    fprintf(stderr,msg);
+    fprintf(stderr,"%s", msg);
     fprintf(stderr,"\n");
     throw (msg);
 }
@@ -209,6 +234,11 @@ Uint32 window::timer(Uint32 interval, void *param)
 void window::stop()
 {
     halt=true;
+}
+
+void window::SetTransition( voidFunction tra )
+{
+    transition = tra;
 }
 
 void window::loop(double fps)
@@ -290,7 +320,17 @@ void window::loop(double fps)
 
 
         }
+        if(transition!=NULL)
+        {
+            reset();
+            transition(this);
+            transition = NULL;
+        }
+
         if  (!done) SDL_Delay((InActive?1000:1));
+        
+        
+        
         //if (!done) SDL_Delay(1);
     }
 
@@ -307,8 +347,10 @@ void window::deleteControls()
     {
         if(i==curcontrol) 
             controls[curcontrol]->onMouseOut();
+            
         delete controls[i];
     }
+    curcontrol = -1;
     controln=0;
 }
 
@@ -323,7 +365,7 @@ void window::addControl(control *c)
     }
     if(controln==MAXCONTROLS)
     {
-        window::Error("Too much GUI controls!!");
+        window::Error("Too many GUI controls!!");
     }
     int i=0;
 
@@ -465,17 +507,28 @@ Uint8 button::LongTextureX=7;
 
 button::button(int sx, int sy, int sw, int sh)
 {
+    Visible=Enabled=true;
     data=NULL;
     x=sx;y=sy;w=sw;h=sh;
     depth=0;
     text="Button";
-    onClick=NULL;
+    onClick=onPress=onRelease=NULL;
     click=false;
     flashperiod=0;
+    iconx = icony = -1;
+}
+
+void button::Icon(int ix, int iy)
+{
+    text = "";
+    iconx=ix, icony=iy;
 }
 
 void button::draw(SDL_Surface* target)
 {
+    const Uint8 disablealpha = 128;//64;
+    if(!Visible) return;
+    bool pressed = (click || !Enabled);
     int sz=button::Size;
     int x=this->x;
     int y=this->y;
@@ -494,44 +547,71 @@ void button::draw(SDL_Surface* target)
     {
         int ty=NormalTextureY;
         int tx=LongTextureX;
-        if(click) ty=PressedTextureY;
-        DaVinci A(button::SourceSurface,tx*sz,ty*sz,sz,sz);
+        if(pressed) ty=PressedTextureY;
+        DaVinci A(button::SourceSurface,tx*sz,ty*sz,  std::max(std::min(w-sz ,sz),0)  ,sz);
+        if(! Enabled)
+            A.SetColors(255,255,255,disablealpha);
+
         A.Draw(target,x,y);
 
-        DaVinci C(button::SourceSurface,(tx+1)*sz,ty*sz,sz,sz);
+        
         for (int i=x+sz;i<x+w-sz;i+=sz)
         {
-            C.Draw(target,i,y);
+            A.ChangeRect( (tx+1)*sz,ty*sz, std::min(x+w-sz-i ,sz)   ,sz);
+            A.Draw(target,i,y);
         }
 
-        DaVinci B(button::SourceSurface,(tx+2)*sz,ty*sz,sz,sz);
-        B.Draw(target,x+w-sz,y);
+        A.ChangeRect((tx+2)*sz,ty*sz,sz,sz);
+        A.Draw(target,x+w-sz,y);
 
     }
     else if (w==sz)
     {
         int ty=NormalTextureY;
         int tx=ShortTextureX;
-        if(click) ty=PressedTextureY;
+        if(pressed) ty=PressedTextureY;
         DaVinci C(button::SourceSurface,tx*sz,ty*sz,sz,sz);
+        if(! Enabled)
+            C.SetColors(255,255,255,disablealpha);
+
         C.Draw(target,x,y);
     }
     int o=0;
-    if(click) o=1;
+    if(pressed) o=1;
 
     if(button::FontResource!=NULL)
     {
         button::FontResource->Write(target,o+x+(w-button::FontResource->TextWidth(text.c_str()))/2 ,o+y+(sz-button::FontResource->Height())/2,text.c_str());
     }
+    if ( (iconx!=-1) )
+    {
+        DaVinci I(button::SourceSurface, iconx*sz, icony*sz, sz,sz);
+        if(! Enabled)
+            I.SetColors(0,0,0,64);
+        I.Draw(target,x+o +(w-sz)/2,y+o);
+    }
 }
 
-void button::onMouseOut() { click=false; }
-void button::onMouseDown(int px,int py) { click=true; }
+void button::onMouseOut()
+{
+    if( click )
+    {
+        if(onRelease!=NULL) onRelease(data);
+        click=false;
+    }
+}
+void button::onMouseDown(int px,int py)
+{
+    
+    if( (!Visible) || (!Enabled) ) return;
+    if (onPress!=NULL) onPress(data);
+    click=true;
+}
 
 void button::onMouseUp(int px,int py)
 {
-
-    if(onClick && click) onClick(data);
+    if(onRelease!=NULL) onRelease(data);
+    if(onClick && click && Visible) onClick(data);
     click=false;
 }
 
