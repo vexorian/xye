@@ -1,4 +1,23 @@
- Version 0.8.0.0
+Version 0.9.0
+==============
+- The interface is a little easier to use, adding GUI buttons for actions that were previously only accessible through keyboard.
+- Many new official and bonus levels. (32 new official levels).
+- Tutorials were replaced by simpler and quicker levels, The old tutorials are still available in the oldtutorials level file.
+- The default theme has been heavily modified torwards a different, cleaner style, the older theme is still available.
+- New objects: stars and large blocks.
+- The editor now supports portal and factory objects.
+- Various bug fixes.
+- "intertia" factories now correctly create the inertia in moving mode.
+- Fixed a small glitch with blue walls turning darker after an undo operation.
+- Firepads now turn the red blocks into fire red blocks, which are not too different to fireballs in gameplay, besides that they still count as red 
+blocks. A bug has also been fixed that made these 'fireballs' get ahead by an extra frame, this makes firepads slightly slower than before.
+- The level browser sorts files alphabetically.
+- Clicking clear twice in the editor allows you to clear the layout completely, including the border walls.
+- Source compilable in newer g++ versions (which now require more explicity #includes).
+- Xye will remember the last file you played and the level number in it.
+
+
+ Version 0.8.0
 ================
  - A level editor is included.
  - Fixed behaviour of green timer blocks.
