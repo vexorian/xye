@@ -257,68 +257,68 @@ void AssignLargeBLockVarDirFromFlags( Uint8 flags , int &variation, int &directi
     //I can't think of something better, sorry.
     switch(flags)
     {
-        case 0b0001:
+        case 1:
             variation = 0;
             direction = EDITORDIRECTION_UP;
             break;
-        case 0b0010:
+        case 2:
             variation = 0;
             direction = EDITORDIRECTION_RIGHT;
             break;
-        case 0b0100:
+        case 4:
             variation = 0;
             direction = EDITORDIRECTION_DOWN;
             break;
-        case 0b1000:
+        case 8:
             variation = 0;
             direction = EDITORDIRECTION_LEFT;
             break;
 
-        case 0b0011:
+        case 3:
             variation = 1;
             direction = EDITORDIRECTION_UP;
             break;
-        case 0b0110:
+        case /*0b0110*/ 6:
             variation = 1;
             direction = EDITORDIRECTION_RIGHT;
             break;
-        case 0b1100:
+        case /*0b1100*/ 12:
             variation = 1;
             direction = EDITORDIRECTION_DOWN;
             break;
-        case 0b1001:
+        case /*0b1001*/ 9:
             variation = 1;
             direction = EDITORDIRECTION_LEFT;
             break;
 
-        case 0b0101:
+        case /*0b0101*/ 5:
             variation = 2;
             direction = EDITORDIRECTION_UP;
             break;
-        case 0b1010:
+        case /*0b1010*/ 10:
             variation = 2;
             direction = EDITORDIRECTION_RIGHT;
             break;
 
-        case 0b1110:
+        case /*0b1110*/ 14:
             variation = 3;
             direction = EDITORDIRECTION_DOWN;
             break;
-        case 0b1101:
+        case /*0b1101*/ 13:
             variation = 3;
             direction = EDITORDIRECTION_LEFT;
             break;
-        case 0b1011:
+        case /*0b1011*/ 11:
             variation = 3;
             direction = EDITORDIRECTION_UP;
             break;
-        case 0b0111:
+        case/* 0b0111*/ 7:
             variation = 3;
             direction = EDITORDIRECTION_RIGHT;
             break;
 
-            
-        case 0b1111:
+
+        case /*0b1111*/ 15:
             variation = 4;
             direction = EDITORDIRECTION_UP;
             break;
@@ -331,7 +331,7 @@ bool editor_LoadLargeBlock(TiXmlElement * el)
     int x,y; if(!getElementPosition(el,x,y)) return false;
 
     editorcolor col=getElementColor(el);
-    
+
     const char * ptr=el->Attribute("sharededges");
     if(! ptr)
     {
@@ -358,7 +358,7 @@ bool editor_LoadLargeBlock(TiXmlElement * el)
 
 bool editor_LoadPortal(TiXmlElement * el)
 {
-    int x=-1,y=-1,tx=-1,ty=-1; 
+    int x=-1,y=-1,tx=-1,ty=-1;
     el->QueryIntAttribute("x", &x);
     el->QueryIntAttribute("y", &y);
 
@@ -375,7 +375,7 @@ bool editor_LoadPortal(TiXmlElement * el)
         return false;
     }
 
-    
+
     int defcolor=-1;
     el->QueryIntAttribute("defcolor", &defcolor);
     if ( (defcolor<0) || (defcolor>=5) )
@@ -394,7 +394,7 @@ bool editor_LoadPortal(TiXmlElement * el)
         o2.type = EDOT_PORTAL;
         o2.variation = 2;
         o2.color=(editorcolor)(defcolor);
-        
+
         editorload_portal_x[defcolor][0] = x;
         editorload_portal_y[defcolor][0] = y;
         editorload_portal_x[defcolor][1] = tx;
@@ -412,7 +412,7 @@ bool editor_LoadPortal(TiXmlElement * el)
 
 
     }
-    
+
 
     return true;
 }
@@ -551,7 +551,7 @@ bool editor_LoadFactory(TiXmlElement* el)
             o.type = EDOT_DANGERFACTORY;
     }
     return true;
-    
+
 }
 
 
@@ -594,7 +594,7 @@ bool editor_LoadObjects(TiXmlElement* el)
         else if (v=="window")  { if (! editor_LoadGenC(ch,EDOT_COLORSYSTEM,5)) return false; }
         else if (v=="lock")  { if (! editor_LoadGenC(ch,EDOT_KEYSYSTEM,1)) return false; }
         else if (v=="key")  { if (! editor_LoadGenC(ch,EDOT_KEYSYSTEM,0)) return false; }
-        
+
         else if (v=="timer")  { if (! editor_LoadTimer(ch)) return false; }
 
         else if (v=="toggle") { if (! editor_LoadToggle(ch)) return false; }
@@ -603,7 +603,7 @@ bool editor_LoadObjects(TiXmlElement* el)
         else if (v=="surprise") { if (! editor_LoadGenRC(ch,EDOT_SPECIALBLOCKS,5)) return false;}
 
         else if (v=="rattler") { if (! editor_LoadRattler(ch)) return false; }
-        
+
         else if (v=="largeblockpart") { if (! editor_LoadLargeBlock(ch)) return false; }
         else if (v=="portal")         { if (! editor_LoadPortal(ch)) return false; }
         else if (v=="factory")         { if (! editor_LoadFactory(ch)) return false; }
@@ -676,8 +676,8 @@ bool editor::load()
         cout<<"Correctly loaded XML file.\n";
 
         TiXmlElement* pack, *el, *level;
-        
-        
+
+
 
         pack=fil.FirstChildElement("pack");
         if (pack==NULL)
@@ -692,7 +692,7 @@ bool editor::load()
         {
             lauthor=el->GetText();
         }
-        
+
         el=pack->FirstChildElement("description");
         if (el!=NULL)
         {
@@ -722,17 +722,17 @@ bool editor::load()
 
         int i,j;
         editorload_xyex=-1;
-        
+
         for (int i=0; i<5; i++)
             for (int j=0; j<2;j++)
                 editorload_portal_x[i][j] = editorload_portal_y[i][j] = -1;
-        
+
         for (i=0;i<XYE_HORZ;i++)for (j=0;j<XYE_VERT;j++) editorload_objects[i][j].type=EDOT_NONE;
 
         loadError="Found tags and/or attributes that are not recognized by the current version.";
         el=level->FirstChildElement();
-        
-        
+
+
         while (el!=NULL)
         {
             string v=el->Value();
@@ -789,7 +789,7 @@ bool editor::load()
             for (int j=0; j<2; j++)
                 editor::board->portal_x[i][j] = editorload_portal_x[i][j],
                 editor::board->portal_y[i][j] = XYE_VERT-editorload_portal_y[i][j]-1;
-        
+
         editor::board->xye_x = editorload_xyex;
         editor::board->xye_y = XYE_VERT-editorload_xyey-1;
         editor::board->hint = lhint;
@@ -797,8 +797,8 @@ bool editor::load()
         editor::board->description = ldescription;
         editor::board->author = lauthor;
         editor::board->bye = lbye;
-        
-        
+
+
         return true;
 
 
@@ -807,12 +807,12 @@ bool editor::load()
     {
         cout<<"Unable to load level file.\n";
         cout<<"\t"<<fil.ErrorDesc()<<"\n";
-        
+
         if (fil.ErrorId()==2)
         {
             if(filename_name=="editortest.xye") return true;
             loadError="Xyedit was unable to open the level file.";
-            
+
         }
         else
             loadError="There are errors in the XML structure of the file: "+string(fil.ErrorDesc());
