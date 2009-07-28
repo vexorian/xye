@@ -56,6 +56,11 @@ void LevelPack::Clean()
     KyeLevelPack::Clean();
 }
 
+bool LevelPack::AllowUndo()
+{
+    return (xsbmode);
+}
+
 void LevelPack::LoadNthLevel(unsigned int n)
 {
     if (kyemode)

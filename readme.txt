@@ -14,7 +14,7 @@ Game information
 Linux Users
 ===========
 
- Linux users should refer to the README file instead of this readme.txt file which is for win32 users.
+ Linux users should refer to the INSTALL file instead of this readme.txt file which is for win32 users.
 
 
 The Source
@@ -74,8 +74,7 @@ More
 
 Charity
 =======
-  Kye was a charityware, although Xye targets to be completelly free software, it is fair to add these lines to the readme: if you really enjoy this game and want to give me a good reason to continue improving it. Instead of asking for donations I am gonna ask you to donate to any Children Charity.
-
+  Kye was a charityware, although Xye targets to be completelly free software, it is fair to add these lines to the readme: if you really enjoy this game and want to give me a good reason to continue improving it. Instead of asking for donations I am gonna ask you to donate to any Children Charity. If you do it BECAUSE OF XYE, and feel like making the authors feel better, email me at vexorian@gmail.com to tell me you did it :) (do not include any private information/proof as that is risky, just tell me you donated to charity because you enjoyed Xye)
 
  Credits and Special thanks
  ===========================
