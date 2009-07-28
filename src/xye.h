@@ -3,6 +3,7 @@
    #include "font.h"
 #endif
 #include "levels.h"
+#include "window.h"
 #include <string>
 
 
@@ -28,6 +29,7 @@
 #define GEM_RUBY B_RED
 #define GEM_TOPAZ B_YELLOW
 #define GEM_EMERALD B_GREEN
+const int XYE_FASTFORWARD_SPEED=3;
 
 
 using std::string;
@@ -1265,7 +1267,7 @@ class hint: public gobj
      void SetHint(string hint);
 
      static bool Active();
-     static char* GetActiveText();
+     static const char* GetActiveText();
      static void Reset();
      static void GlobalHint(bool enb);
      static void SetGlobalHint(const char* gl);
@@ -1302,13 +1304,48 @@ class portal: public gobj
      static void Reset();
 };
 
+class game;
 
+class gameboard : public control
+{
+    public:
+        gameboard( int sx, int sy, int sw, int sh);
+        ~gameboard();
+        void loop();
+        void draw(SDL_Surface* target);
+        void onMouseMove(int px,int py);
+        void onMouseOut();
+        void onMouseDown(int px,int py);
+        void onMouseUp(int px,int py);
+        inline void onMouseRightUp(int px,int py) {}
+
+
+};
+
+
+class gamepanel;
 
 /**class game*/
 class game
 {
+    friend class gameboard;
+    friend class gamepanel;
  private:
+    
     game() {}
+    
+    static void AfterLevelLoad();
+    static void ExitCommand( const buttondata*bd = NULL);
+    static void RestartCommand( const buttondata* bd = NULL);
+    static void GoPreviousCommand( const buttondata*bd = NULL);
+    static void GoNextCommand( const buttondata*bd = NULL);
+    static void HintDownCommand( const buttondata*bd = NULL);
+    static void HintUpCommand( const buttondata*bd = NULL);
+    static void UndoCommand( const buttondata*bd = NULL);
+    static void FFUpCommand( const buttondata*bd = NULL);
+    static void FFDownCommand( const buttondata*bd = NULL);
+    static void BrowseCommand( const buttondata*bd = NULL);
+    static void SolutionCommand( const buttondata*bd = NULL);
 
     static bool mouse_pressed;
     static bool mouse_valid;
@@ -1334,7 +1371,6 @@ class game
     static bool TryMoveXye(char dx, char dy, edir dir);
 
 
-    static int AppLoop();
     static Uint32 timer(Uint32 interval, void *param);
     static Uint32 FastForwardTimer(Uint32 interval, void *param);
 
@@ -1354,7 +1390,7 @@ class game
     static bool DK_GO;
     static edir DK_DIR;
     static void TriggerGameLoop();
-    static void DrawPanel(Sint16 x, Sint16 y);
+    static void DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h);
     static bool EvalDirKeys();
 
 
@@ -1367,8 +1403,25 @@ class game
     static bool cameraon;
     static bool playingrec;
     static bool undo;
+    
+    static void onKeyUp(SDLKey keysim, Uint16 unicode);
+    static void onKeyDown(SDLKey keysim, Uint16 unicode);
+    static void onExitAttempt();
+    static void InitGameSection(window* wind);
+
+    static const char* InitLevelFile;
+    static int         InitLevelFileN;
+    
+    static void onMouseMove(int x,int y);
+    static void onMouseOut();
+    static void onMouseDown(int x,int y);
+    static void onMouseUp(int x,int y);
+    
 
  public:
+ 
+    static void PlayLevel( const char* levelfile, int level);
+ 
     static Font* FontRes;
     static Font* FontRes_White;
     static Font* FontRes_Bold;
@@ -1407,7 +1460,7 @@ class game
 
     static int Init(const char*levelfile=NULL);
     static void start(bool undotime=false);
-    static void draw();
+    static void draw(Sint16 x, Sint16 y);
     static void MoveXye();
 
     static void incCounters();

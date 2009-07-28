@@ -12,7 +12,7 @@ There is a terrible bug when compiling tinyxml with STL support in combination o
 #endif
 
 #include "tinyxml/xye_tinyxml.h"
-
+#include<string>
 
 using std::string;
 
@@ -90,19 +90,19 @@ class Level
 
 struct colorentry
 {
-	unsigned int id;
-	unsigned int color;
-	Uint8 R;
-	Uint8 G;
-	Uint8 B;
-	colorentry* next;
+    unsigned int id;
+    unsigned int color;
+    Uint8 R;
+    Uint8 G;
+    Uint8 B;
+    colorentry* next;
 };
 
 class palette
 {
  private:
-	static colorentry* ls[PALETTE_BASE_SIZE];
-	static bool ready;
+    static colorentry* ls[PALETTE_BASE_SIZE];
+    static bool ready;
     static colorentry* GetEntry(int id, bool create=false);
     palette() {}
  public:

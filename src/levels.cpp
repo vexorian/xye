@@ -43,6 +43,15 @@ using std::sort;
 namespace LevelBrowser
 {
 
+void PlayLevel();
+void OpenEditor();
+void EditLevel();
+
+
+window* thewindow;
+button* PlayButton;
+button* EditButton;
+
 Font* MenuFont;
 Font* MenuSelectedFont;
 Font* InfoFont;
@@ -50,6 +59,7 @@ Font* InfoBoldFont;
 
 
 string CurrentFileName;
+int    CurrentFileLevelN=1;
 bool runeditor;
 bool editfile;
 string FileDesc;
@@ -98,131 +108,232 @@ return tm;
 
 void Draw()
 {
-
+/*
     Uint32 back=SDL_MapRGB(game::screen->format, options::LevelMenu_menu);
     SDL_FillRect(game::screen, 0, back);
 
-    Sint16 cy=0,cx=2;
-
-    Uint16 nw,fp=cx+ InfoFont->TextWidth(" ");
-    Uint8 fh=options::GetGridSize();//  game::FontRes->Height();
-    int fof=0;
-    int fohei=InfoFont->Height();
-
-    if(fh<fohei)
-    {
-        fh=InfoFont->Height()+2;
-        fof=1;
-    }
-    else fof=(fh-fohei)/2;
-
-    Uint16 sh=game::screen->h - fh;
-    //int i=0;
-    int i=0;
-    int fxh= (int)(  (game::screen->h *0.5) / fh );
-    if (Active>fxh)
-    {
-        i=Active-fxh+1;
-    }
-
-    
 
 
-
-    nw=game::FontRes->TextWidth(SPACING_TEXT);
-    while ((i<FileN) && (cy<sh))
-    {
-        char * tm=RemovePath( FoundFile+i  );
-        if (Active==i)
-        {
-
-            SDL_FillRect(game::screen, cx , cy, nw  , fh,
-                ActiveIsValid?
-                    SDL_MapRGB(game::screen->format, options::LevelMenu_selected):
-                    SDL_MapRGB(game::screen->format, options::LevelMenu_selectederror));
-
-            MenuSelectedFont->Write(game::screen,fp,cy+fof, tm);
-        }
-        else
-            MenuFont->Write(game::screen,fp,cy+fof, tm);
-        delete[] tm;
-        i++;
-        cy+=fh;
-    }
-
-    cx=nw+5; cy=30;
-
-    SDL_FillRect(game::screen, cx , 2, game::screen->w-cx  , game::screen->h-2 , SDL_MapRGB(game::screen->format,  options::LevelMenu_info  ));
-
-    cx+=5;
-    nw=cx+ (nw / 2);
-
-    InfoBoldFont->Write(game::screen,cx,cy,"Title:");
-    cy+=fh;
-    InfoFont->Write(game::screen,nw,cy, FileTitle);
-    cy+=fh;
-    if (FileAuthor[0]!='\0')
-    {
-        InfoBoldFont->Write(game::screen,cx,cy,"Author:");
-        cy+=fh;
-        InfoFont->Write(game::screen,nw,cy, FileAuthor);
-        cy+=fh;
-    }
-
-    if(FileLevelsN>1)
-    {
-        char tml[6];
-        snprintf(tml,5,"%d",FileLevelsN);
-        InfoBoldFont->Write(game::screen,cx,cy,"Levels:");
-        cy+=fh;
-        InfoFont->Write(game::screen,nw,cy,tml);
-        cy+=fh;
-
-    }
-
-
-
-    InfoBoldFont->Write(game::screen,cx,cy,"Location:");
-    cy+=fh;
-    InfoFont->Write(game::screen,nw,cy, FoundFile[Active]);
-    //delete pt;
-    cy+=fh;
-
-
-
-
-    InfoBoldFont->Write(game::screen,cx,cy,"Description:");
-    cy+=fh;
-    string tm=" "+FileDesc;
-    InfoFont->WriteWrap(game::screen,nw,cy,game::screen->w - nw-5,sh-cy-4*fh, tm);
-
-
-    if(ActiveIsValid) InfoFont->Write(game::screen,cx,sh-3*fh,"[Enter] - Play");
-    if(ActiveIsEditable)
-    {
-        int temwa=InfoFont->TextWidth("[Enter] - Play");
-        int temwb=InfoFont->TextWidth("[F1] - Editor");
-        int temw;
-        InfoFont->Write(game::screen,cx,sh-2*fh,"[F1] - Editor");
-        if(temwa>temwb) temw=temwa;
-        else temw=temwb;
-        
-        InfoFont->Write(game::screen,cx+temw+10,sh-2*fh,"[F2] - Edit level");
-    }
-    else
-    {
-        InfoFont->Write(game::screen,cx,sh-2*fh,"[F1] - Editor");
-    }
-
-
+*/
 
 
     SDL_Flip(game::screen);
-    
-    
-    
-
 }
+
+
+
+class LevelList: public control
+{
+public:
+
+    LevelList(int sx, int sy, int sw, int sh)
+    {
+        x=sx, y=sy, w=sw, h=sh;
+        
+    }
+    
+    void loop(){}
+    
+    void draw(SDL_Surface* target)
+    {
+        Uint32 back=SDL_MapRGB(target->format, options::LevelMenu_menu);
+        SDL_FillRect(target, x,y,w,h,    back);
+
+        Sint16 cy=y,cx=x+2;
+
+        Uint16 nw,fp=cx+ InfoFont->TextWidth(" ");
+        
+        Uint8 fh=options::GetGridSize();//  game::FontRes->Height();
+        int fof=0;
+        int fohei=InfoFont->Height();
+
+        if(fh<fohei)
+        {
+            fh=InfoFont->Height()+2;
+            fof=1;
+        }
+        else fof=(fh-fohei)/2;
+
+        Uint16 sh=h - fh;
+        //int i=0;
+        int i=0;
+        int fxh= (int)(  (h *0.5) / fh );
+        if (Active>fxh)
+        {
+            i=Active-fxh+1;
+        }
+        nw=w-2;
+        while ((i<FileN) && (cy<sh))
+        {
+            char * tm=RemovePath( FoundFile+i  );
+            if (Active==i)
+            {
+
+                SDL_FillRect(game::screen, cx , cy, nw  , fh,
+                    ActiveIsValid?
+                        SDL_MapRGB(target->format, options::LevelMenu_selected):
+                        SDL_MapRGB(target->format, options::LevelMenu_selectederror));
+
+                MenuSelectedFont->Write(game::screen,fp,cy+fof, tm);
+            }
+            else
+                MenuFont->Write(game::screen,fp,cy+fof, tm);
+            delete[] tm;
+            i++;
+            cy+=fh;
+        }
+
+        cx=nw+5; cy=30;
+
+
+    }
+    
+    void onMouseMove(int px,int py){}
+    void onMouseOut() {}
+    void onMouseDown(int px,int py) {}
+    
+    
+    void onMouseUp(int px,int py)
+    {
+        //Now get the initial index so we know how to calculate the stuff
+        int i=0;
+        Uint8 fh=game::GRIDSIZE;
+        int fxh= (int)(  (h *0.5) / fh );
+        if (Active>fxh)
+        {
+            i=Active-fxh+1;
+        }
+
+        fxh=fh;
+        int j=i;
+        while (py>fxh)
+        {
+            j++;
+            fxh+=fh;
+        }
+        if (j<FileN)
+        {
+            if (Active==j)
+            {
+                PlayLevel();
+                return;
+            }
+            Active=j;
+            LoadActiveFileInfo();
+        }
+
+
+    }
+    void onMouseRightUp(int px,int py) {}
+};
+
+class LevelInfo: public control
+{
+public:
+
+    LevelInfo(int sx, int sy, int sw, int sh)
+    {
+        x=sx, y=sy, w=sw, h=sh;
+        
+    }
+    
+    void loop(){}
+    
+    void draw(SDL_Surface* target)
+    {
+        Uint32 back=SDL_MapRGB(target->format, options::LevelMenu_info);
+        SDL_FillRect(target, x,y,w,h,    back);
+        Sint16 sh = h;
+        
+        Sint16 fh=options::GetGridSize();//  game::FontRes->Height();
+        int fof=0;
+        int fohei=InfoFont->Height();
+
+        if(fh<fohei)
+        {
+            fh=InfoFont->Height()+2;
+            fof=1;
+        }
+        else fof=(fh-fohei)/2;
+
+
+        Sint16 cy=y+h/8,cx=x+2;
+        
+
+        cx+=5;
+        Sint16 nw = cx+InfoFont->TextWidth("        ");;
+
+        InfoBoldFont->Write(target,cx,cy,"Title:");
+        cy+=fh;
+        InfoFont->Write(target,nw,cy, FileTitle);
+        cy+=fh;
+        if (FileAuthor[0]!='\0')
+        {
+            InfoBoldFont->Write(target,cx,cy,"Author:");
+            cy+=fh;
+            InfoFont->Write(target,nw,cy, FileAuthor);
+            cy+=fh;
+        }
+
+        if(FileLevelsN>1)
+        {
+            char tml[6];
+            snprintf(tml,5,"%d",FileLevelsN);
+            InfoBoldFont->Write(target,cx,cy,"Levels:");
+            cy+=fh;
+            InfoFont->Write(target,nw,cy,tml);
+            cy+=fh;
+
+        }
+
+
+
+        InfoBoldFont->Write(target,cx,cy,"Location:");
+        cy+=fh;
+        InfoFont->Write(target,nw,cy, FoundFile[Active]);
+        //delete pt;
+        cy+=fh;
+
+
+
+
+        InfoBoldFont->Write(target,cx,cy,"Description:");
+        cy+=fh;
+        string tm=" "+FileDesc;
+        InfoFont->WriteWrap(target,nw,cy,x+w - nw-5,y+h-cy, tm);
+
+     /*
+        if(ActiveIsValid) InfoFont->Write(game::screen,cx,sh-3*fh,"[Enter] - Play");
+        if(ActiveIsEditable)
+        {
+            int temwa=InfoFont->TextWidth("[Enter] - Play");
+            int temwb=InfoFont->TextWidth("[F1] - Editor");
+            int temw;
+            InfoFont->Write(game::screen,cx,sh-2*fh,"[F1] - Editor");
+            if(temwa>temwb) temw=temwa;
+            else temw=temwb;
+            
+            InfoFont->Write(game::screen,cx+temw+10,sh-2*fh,"[F2] - Edit level");
+        }
+        else
+        {
+            InfoFont->Write(game::screen,cx,sh-2*fh,"[F1] - Editor");
+        }
+        **/
+
+
+
+    }
+    
+    void onMouseMove(int px,int py){}
+    void onMouseOut() {}
+    void onMouseDown(int px,int py) {}
+    
+    
+    void onMouseUp(int px,int py) {}
+    void onMouseRightUp(int px,int py) {}
+};
+
 
 bool Akyexyelevel(const char* f)
 {
@@ -437,34 +548,60 @@ void LoadActiveFileInfo()
     ActiveIsEditable= ActiveIsEditable && (fl.substr(fl.length()-4)==".xye");
     
     
+    PlayButton->Visible = ActiveIsValid;
+    EditButton->Visible = ActiveIsEditable;
+    
+    
 }
 
-
-bool KeyDownEvent(SDL_Event& event)
+void EditFile()
 {
-    switch (event.key.keysym.sym)
-    {
-        case(SDLK_UP):
-            break;
-        case(SDLK_DOWN):
-            break;
-        case(SDLK_LEFT):
-            break;
-        case(SDLK_RIGHT):
-            break;
-    }
- return true;
+        string commandline=options::ExecutablePath;
+        commandline+=" --edit ";
+        commandline+=CurrentFileName.substr(editor::myLevelsPath.size() );
+        commandline+=" ";
+        commandline+=options::Dir;
+        
+
+        Command::executeParallel(commandline);
+        
+        
+        CurrentFileName="";
+        thewindow->stop();
+}
+
+void OpenEditor()
+{
+        string commandline=options::ExecutablePath;
+        commandline+=" --edit editortest.xye ";
+        commandline+=options::Dir;
+
+        Command::executeParallel(commandline);
+
+        CurrentFileName = "";
+        thewindow->stop();
+}
+
+void PlayLevel()
+{
+    CurrentFileName = FoundFile[Active];
+    CurrentFileLevelN = 1;
+    game::PlayLevel(CurrentFileName.c_str(), CurrentFileLevelN);
+    
+    
+}
+
+void onKeyDown(SDLKey keysim, Uint16 unicode)
+{
 }
 
 
-bool attemptEditFile()
+void attemptEditFile()
 {
     if(ActiveIsEditable)
     {
-        editfile=true;
-        return true;
+        EditFile();
     }
-    return false;
 }
 
 bool IsCharKeyEvent(SDLKey& k,char & a,char &b)
@@ -481,11 +618,11 @@ bool IsCharKeyEvent(SDLKey& k,char & a,char &b)
     return (a!='\0');
 }
 
-bool KeyUpEvent(SDL_Event& event)
+void onKeyUp(SDLKey keysim, Uint16 unicode)
 {
     char a='\0',b=a;
 
-    if (IsCharKeyEvent(event.key.keysym.sym,a,b))
+    if (IsCharKeyEvent(keysim,a,b))
     {
         int l=Active;
         int i=Active+1;
@@ -507,11 +644,11 @@ bool KeyUpEvent(SDL_Event& event)
 
         }
         LoadActiveFileInfo();
-        return true;
+        return;
     }
 
 
-    switch (event.key.keysym.sym)
+    switch (keysim)
     {
 
         case(SDLK_UP):
@@ -541,66 +678,42 @@ bool KeyUpEvent(SDL_Event& event)
             break;
 
         case(SDLK_F1):
-             runeditor=true;
-             return false;
+             OpenEditor();
+             //return false;
+             break;
+        case(SDLK_ESCAPE):
+             thewindow->Close();
+             break;
 
         case(SDLK_F2):
-             return !attemptEditFile();
-
+             attemptEditFile();
+             break;
 
         case(SDLK_LEFT):
             break;
         case(SDLK_RIGHT):
             break;
         case(SDLK_RETURN): case(SDLK_KP_ENTER): //Enter
-            return(! ActiveIsValid);
+            PlayLevel();
     }
- return true;
+
 }
 
-
-
-bool MouseUpEvent(Uint16 x,Uint16 y)
+void OnPlayButtonClick(const buttondata* data)
 {
-    //TODO: Improve my GUI creating skills
-   //Calculate in which list item the mouse is located:
-
-   //First of all verify if the user actually clicked list item
-
-   if (x>game::FontRes->TextWidth(SPACING_TEXT))
-      return true;
-
-   //Now get the initial index so we know how to calculate the stuff
-
-    int i=0;
-    Uint8 fh=game::GRIDSIZE;
-    int fxh= (int)(  (game::screen->h *0.5) / fh );
-    if (Active>fxh)
-    {
-        i=Active-fxh+1;
-    }
-
-    fxh=fh;
-    int j=i;
-    while (y>fxh)
-    {
-        j++;
-        fxh+=fh;
-    }
-    if (j<FileN)
-    {
-        if (Active==j)
-            return ! ActiveIsValid;
-        Active=j;
-        LoadActiveFileInfo();
-    }
-
-return true;
-
-
-
-
-
+    PlayLevel();
+}
+void OnEditorButtonClick(const buttondata* data)
+{
+    OpenEditor();
+}
+void OnEditButtonClick(const buttondata* data)
+{
+    attemptEditFile();
+}
+void OnQuitButtonClick(const buttondata* data)
+{
+    thewindow->Close();
 }
 
 
@@ -622,78 +735,88 @@ void Show()
 
 
     bool loop=true;
-    SDL_Event event;
-    while(loop)
-    {
-        while (SDL_PollEvent(&event)) switch (event.type)
-        {
-
-         case (SDL_MOUSEBUTTONUP):
-            loop=MouseUpEvent(event.button.x,event.button.y);
-            break;
-
-
-         case (SDL_KEYDOWN): //Key IS Down!
-             loop=KeyDownEvent(event);
-             break;
-         case (SDL_KEYUP): //Key release
-              if (event.key.keysym.sym!=SDLK_ESCAPE )
-              {
-                 loop=KeyUpEvent(event);
-                 break;
-              }
-
-         case(SDL_QUIT):
-             CurrentFileName = "";
-             delete[] FoundFile;
-             return;
-
-         default:
-            ;
-        }
-        Draw();
-        SDL_Delay(100);
-    }
-    CurrentFileName = FoundFile[Active];
-    delete[] FoundFile;
-    FoundFile=NULL;
+    
+    //
+    //CurrentFileName = FoundFile[Active];
+    //delete[] FoundFile;
+    //FoundFile=NULL;
 
 }
 
-
-
-const char* GetLevelFile()
+void onExitAttempt()
 {
-    SDL_WM_SetCaption("Xye - Select a level file",0);
-    //strcpy(res,"dummy.xye");
+    thewindow->stop();
+}
+
+void StartSection(window* wind)
+{
+    thewindow = wind;
+    wind->SetCaption("Xye - Select a level file");
+    Sint16 lw = 2+game::FontRes->TextWidth(SPACING_TEXT);
+    LevelList* ll = new LevelList(0,0, lw , wind->Height);
+    ll->depth= 1;
+    LevelInfo* li = new LevelInfo(lw, 0, wind->Width-lw, wind->Height);
+    li->depth= 2;
+    
+    Sint16 w,cx; button* but;
+    cx = lw;
+
+    //== Play button
+    w = button::recommendedWidth("Play");
+    but = new button( cx, wind->Height - game::GRIDSIZE, w, game::GRIDSIZE);
+    but->onClick = OnPlayButtonClick;
+    but->text = "Play";
+    but->depth = 3;
+    PlayButton = but;
+    wind->addControl(but);
+    cx+=w+1;
+    
+    //== Run Editor button
+    w = button::recommendedWidth("[F1] Run Editor");
+    but = new button( cx, wind->Height - game::GRIDSIZE, w, game::GRIDSIZE);
+    but->text = "[F1] Run Editor";
+    but->depth = 3;
+    but->onClick = OnEditorButtonClick;
+
+    wind->addControl(but);
+    cx+=w+1;
+
+    //== Edit Level
+    w = button::recommendedWidth("[F2] Edit Level");
+    but = new button( cx, wind->Height - game::GRIDSIZE, w, game::GRIDSIZE);
+    but->text = "[F2] Edit Level";
+    but->depth = 3;
+    EditButton = but;
+    but->onClick = OnEditButtonClick;
+    wind->addControl(but);
+    cx+=w+1;
+
+    //== Quit
+    w = button::recommendedWidth("Quit");
+    but = new button( wind->Width-1-w, wind->Height - game::GRIDSIZE, w, game::GRIDSIZE);
+    but->text = "Quit";
+    but->depth = 3;
+    but->onClick = OnQuitButtonClick;
+    wind->addControl(but);
+    
+    //...    
+    wind->addControl(ll);
+    wind->addControl(li);
+    wind->onKeyUp = onKeyUp;
+    wind->onKeyDown = onKeyDown;
+    wind->onExitAttempt = onExitAttempt;
+    
+    
     Show();
     
     
-    if(runeditor)
-    {
-        string commandline=options::ExecutablePath;
-        commandline+=" --edit editortest.xye ";
-        commandline+=options::Dir;
+    
+    
+    return;
+}
 
-        Command::executeParallel(commandline);
-
-        CurrentFileName = "";
-    }
-    else if(editfile)
-    {
-        string commandline=options::ExecutablePath;
-        commandline+=" --edit ";
-        commandline+=CurrentFileName.substr(editor::myLevelsPath.size() );
-        commandline+=" ";
-        commandline+=options::Dir;
-        
-
-        Command::executeParallel(commandline);
-        
-        
-        CurrentFileName="";
-    }
-
+const char* GetLevelFile()
+{
     return CurrentFileName.c_str();
 }
 
@@ -733,9 +856,16 @@ void DeleteFonts()
     delete InfoBoldFont;
 }
 
-void AssignLevelFile( const char * path)
+void Clean()
+{
+    DeleteFonts();
+    if(FoundFile != NULL) delete[] FoundFile;
+}
+
+void AssignLevelFile( const char * path, int n)
 {
     CurrentFileName = path;
+    CurrentFileLevelN = n;
 }
 
 
