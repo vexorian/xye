@@ -75,7 +75,7 @@ void editor::onExitAttempt()
             ExitPrompt=true;
             dialogs::makeYesNoDialog(editorwindow,"Are you sure you want to close the editor before saving the level?","Yes","No",editor::onExitWithoutSavingClick);
         }
-    }    
+    }
     else
          cancel();
 };
@@ -99,7 +99,7 @@ void testSubWindowDo(bool okclicked, const string text, inputDialogData * dat)
 {
     if(okclicked) printf(": %s\n",text.c_str());
     else printf("<--Cancel-->\n");
-    
+
 }
 
 editor::setText_state_enum editor::setText_state;
@@ -108,7 +108,7 @@ editorobjecttype editor::SelectedType()
 {
     return buttons->SelectedObjectType;
 }
-     
+
 void editor::continueSetText(bool okclicked, const string text, inputDialogData * dat)
 {
     if(! okclicked ) return;
@@ -125,7 +125,7 @@ void editor::continueSetText(bool okclicked, const string text, inputDialogData 
             setText_state = ASSIGN_AUTHOR;
             dialogs::makeTextInputDialog(editorwindow,"Enter level author(s)",board->author, 1, "Ok", "Cancel", continueSetText,NULL);
             break;
-            
+
         case ASSIGN_AUTHOR:
             board->author=text;
             setText_state = ASSIGN_HINT;
@@ -137,11 +137,11 @@ void editor::continueSetText(bool okclicked, const string text, inputDialogData 
             setText_state = ASSIGN_BYE;
             dialogs::makeTextInputDialog(editorwindow,"Enter level end message (You can leave it empty)",board->bye, 3, "Ok", "Cancel", continueSetText,NULL);
             break;
-            
+
         case ASSIGN_BYE:
             board->bye = text;
-        
-        
+
+
     }
 }
 void editor::beginSetText(const buttondata* data)
@@ -156,7 +156,7 @@ string stripDotXyeExtension(const string s)
     int l=s.length();
     if ( (l<4) || (s[l-1]!='e') || (s[l-2]!='y') || (s[l-3]!='x') || (s[l-4]!='.') ) return s+string(".xye");
     return s;
-    
+
 }
 
 void editor::onClearConfirmation(bool yes)
@@ -189,7 +189,7 @@ void editor::saveAs(bool okclicked, const string text, inputDialogData * dat)
             file.close();
             return;
         }
-        
+
         filename=tfilename;
         filename_name=tname;
         filename_path=myLevelsPath;
@@ -221,7 +221,7 @@ void editor::Init(const string &path, const string &file)
 
     printf("initializing level support...\n");
     LevelPack::Init();
-    
+
     tic4=0;
     subtic4=0;
     filename_path=path;
@@ -253,7 +253,7 @@ void editor::Init(const string &path, const string &file)
     printf("Loading %s\n",tm);
     sprites=IMG_Load(tm);
     if (!sprites)  game::Error( "Invalid/Missing Sprite File");
-    
+
 
     //Init cache
     printf("Initializing Recolor cache...\n");
@@ -271,7 +271,7 @@ void editor::Init(const string &path, const string &file)
     Width=6+XYE_HORZ*GRIDSIZE;
     Height=7+2+(GRIDSIZE+2)*4+ (XYE_VERT*GRIDSIZE+6) + GRIDSIZE + 3;
 
-    printf("Setting up editor window...\n");    
+    printf("Setting up editor window...\n");
     editorwindow=window::create(Width,Height,"Xye - editor");
     editorwindow->onExitAttempt=editor::onExitAttempt;
 
@@ -315,14 +315,14 @@ void editor::Init(const string &path, const string &file)
 
         SDL_FreeSurface(SS);
     }
-    
+
 
     SDL_Color c;
     //Setup widgets settings:
     dialogs::FontResource=FontRes;
     dialogs::BackgroundColor = options::LevelMenu_info;
     dialogs::TextBoxColor = options::LevelMenu_menu;
-    
+
     button::FontResource=FontRes;
     button::SourceSurface=sprites;
     button::LongTextureX=7;
@@ -333,7 +333,7 @@ void editor::Init(const string &path, const string &file)
 
 
     screen=editorwindow->getDrawingSurface();
-    
+
     editorwindow->beforeDraw = editor::beforeDraw;
     editorwindow->onKeyDown= editor::onKeyDown;
     editorwindow->onKeyUp= editor::onKeyUp;
@@ -346,7 +346,7 @@ void editor::Init(const string &path, const string &file)
    control* tmcntrl=new rectangle(3,3,Width-6,sz, options::LevelMenu_info );
     tmcntrl->depth=1;
     editorwindow->addControl(tmcntrl);
-    
+
     int bx=3;
     int bw;
 
@@ -359,8 +359,8 @@ void editor::Init(const string &path, const string &file)
     tmbut->depth=20;
     editorwindow->addControl(tmbut);
     bx+=bw+1;
-    
-    
+
+
     bw=button::recommendedWidth("Clear");
     tmbut= new button(bx,3,bw,button::Size);
     tmbut->text="Clear";
@@ -368,7 +368,7 @@ void editor::Init(const string &path, const string &file)
     tmbut->depth=20;
     editorwindow->addControl(tmbut);
     bx+=bw+1;
-    
+
     bw=button::recommendedWidth("Test");
     tmbut= new button(bx,3,bw,button::Size);
     tmbut->text="Test";
@@ -376,7 +376,7 @@ void editor::Init(const string &path, const string &file)
     tmbut->depth=20;
     editorwindow->addControl(tmbut);
     bx+=bw+1;
-    
+
     bw=button::recommendedWidth("Save");
     tmbut= new button(bx,3,bw,button::Size);
     tmbut->text="Save";
@@ -402,7 +402,7 @@ void editor::Init(const string &path, const string &file)
     tmbut->depth=21;
     editorwindow->addControl(tmbut);
     bx+=bw+1;
-    
+
 
 
 
@@ -435,7 +435,7 @@ void editor::Init(const string &path, const string &file)
     printf("Cleaning controls...\n");
     buttons = NULL;
     delete editorwindow;
-    
+
 
     printf("Cleaning level data...\n");
     LevelPack::Clean();
@@ -484,7 +484,7 @@ void editor::onKeyDown(SDLKey keysim, Uint16 unicode)
     {
         case (SDLK_ESCAPE): //ESC
             editorEscapePressed=true;
-            break;           
+            break;
     };
 
 }
@@ -499,14 +499,14 @@ void editor::onKeyUp(SDLKey keysim, Uint16 unicode)
                 editorEscapePressed=false;
                 onExitAttempt();
             }
-            break;           
+            break;
     };
 }
 void editor::test()
 {
     if (! save(filename+"~") )
     {
-        dialogs::makeMessageDialog(editorwindow, string("Unable to test the level because xyedit cannot rewrite ")+string(filename+"~")+".","Ok",onDialogClickDoNothing);        
+        dialogs::makeMessageDialog(editorwindow, string("Unable to test the level because xyedit cannot rewrite ")+string(filename+"~")+".","Ok",onDialogClickDoNothing);
         return;
     }
 
@@ -1007,7 +1007,7 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
                 case EDCO_GREEN: text="Security timer block"; break;
                 case EDCO_BLUE: text="Slow timer block"; break;
                 case EDCO_YELLOW: text="Timer block"; break;
-                
+
             }
 
             break;
@@ -1043,16 +1043,16 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
             else  text="Soft block"; break;
         case EDOT_GEMBLOCK: text="Gem requirement block"; break;
         case EDOT_MAGNET:
-        
+
             switch(variation)
             {
                 case 0: text="Magnet"; break;
                 case 2: text="Sticky block"; break;
                 case 1: text="Inverse magnet"; break;
-                
+
             }
-            break;       
-        
+            break;
+
         case EDOT_LARGEBLOCK:
             switch(variation)
             {
@@ -1060,9 +1060,9 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
                 case 1: text="Large block (1-1-0-0)"; break;
                 case 2: text="Large block (1-0-1-0)"; break;
                 case 3: text="Large block (1-1-1-0)"; break;
-                case 4: text="Large block (1-1-1-1)"; break;               
+                case 4: text="Large block (1-1-1-1)"; break;
             }
-            
+
             break;
 
         case EDOT_PORTAL:
@@ -1071,7 +1071,7 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
             else if(variation==1) text=gettextRC("portal (secondary)",color,false);
             else text=gettextRC("portal (exit)",color,false);
            break;
-           
+
         case EDOT_COLORFACTORY:
             switch(variation)
             {
@@ -1088,7 +1088,7 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
                 case 14: text="Rattler factory"; break;
                 case 15: text="Rattler food factory"; break;
                 case 16: text="Land mine factory"; break;
-                
+
                 default: text=string(GetMonsterName(variation))+" factory";
             }
             break;
@@ -1101,10 +1101,10 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
                 case EDCO_RED: text="Persistent pusher"; break;
                 case EDCO_BLUE: text="Clock-wise pusher"; break;
                 case EDCO_GREEN: text="Anticlock-wise pusher"; break;
-                
+
             }
             break;
-         
+
         case EDOT_ARROWMAKER:
 
             if(variation==0) text=gettextRC("shooter clock",color ,round);
@@ -1201,7 +1201,7 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
         case EDOT_HAZARD: maxvariations=3; break;
         case EDOT_ONEDIRECTION: maxvariations=2; break;
         case EDOT_BEAST: maxvariations=14; break;
-        
+
         case EDOT_LARGEBLOCK: maxvariations=5; colorchoice=2;  break;
         case EDOT_PORTAL: maxvariations=3; colorchoice=2;  break;
         case EDOT_COLORFACTORY: maxvariations=5; colorchoice=1; roundchoice=1;  break;
@@ -1342,7 +1342,7 @@ void editorboard::makeDefaultLevel()
         }
         else if( (i==0) || (j==0) || (i==XYE_HORZ-1) || (j==XYE_VERT-1))
             already=false;
-            
+
         objects[i][j].type=EDOT_NONE;
     }
     if( ! already)
@@ -1372,14 +1372,14 @@ editorboard::editorboard(int sx, int sy)
     description="Generated by xyedit";
     title=editor::filename_name;
     hint="";
-    
+
     depth=0;
     x=sx;y=sy;
     w=sz*XYE_HORZ;
     h=sz*XYE_VERT;
     mousex=mousey=0;
     clicked=mouse=false;
-    
+
     makeDefaultLevel();
 
 
@@ -1502,20 +1502,20 @@ void editorboard::enforceUniquePortals(int x, int y, int variation, editorcolor 
 {
     int cid = (int)(color);
     int use = 0;
-    
+
     if(variation > 0 ) use = 1;
-    
-    
+
+
     int tx= portal_x[cid][use], ty=portal_y[cid][use];
     if(tx!=-1)
     {
-        objects[tx][ty].type=EDOT_NONE;       
+        objects[tx][ty].type=EDOT_NONE;
     }
     portal_x[cid][use]=x;
     portal_y[cid][use]=y;
-    
-    
-    
+
+
+
 }
 
 void editorboard::applyFromButtons(int x, int y)
@@ -1536,7 +1536,7 @@ void editorboard::applyFromButtons(int x, int y)
             {
                 portal_x[i][j] = portal_y[i][j] = -1;
             }
-           
+
 
 
     if (editor::buttons->Eraser)
@@ -1556,7 +1556,7 @@ void editorboard::applyFromButtons(int x, int y)
             enforceUniquePortals(x,y, editor::buttons->SelectedVariation, editor::buttons->SelectedColor);
             break;
     }
-    
+
 
     o.type=editor::buttons->SelectedObjectType;
     o.color=editor::buttons->SelectedColor;
@@ -1845,45 +1845,45 @@ void drawTurner( SDL_Surface * target, int x, int y, bool round, editorcolor col
  *   0 | 1 | 2
  *   7 -   - 3
  *   6 | 5 | 4
- * 
+ *
  * */
 void drawLargeBlockByFlags( SDL_Surface * target, int x, int y, editorcolor color, Uint8 flags, bool doalpha=false)
 {
     Uint8 tx,ty;
     Uint8 sz2 = sz>>1;
-    
+
     //flags = 0b1101;
-    
-    
+
+
     Uint8 up = (flags>>1)&1;
     Uint8 right = (flags>>3)&1;
     Uint8 down = (flags>>5)&1;
     Uint8 left = (flags>>7)&1;
-    
+
     Uint8 upleft = (flags>>0)&1;
     Uint8 upright = (flags>>2)&1;
     Uint8 downright = (flags>>4)&1;
     Uint8 downleft = (flags>>6)&1;
-    
-    //top left corner:   
+
+    //top left corner:
     Uint8 var = 0;
     if( up&&left&&upleft) var=4;
     else if( up&&left) var = 3;
     else if(up) var = 2;
     else if(left) var = 1;
-    
+
     tx = 10;
     ty = var + 15;
     DaVinci D(editor::sprites, tx*sz,  ty*sz,sz2,sz2);
     Uint8 alpha = 255, white=255;
     if( doalpha) alpha = 128;
     if(editor::buttons->SelectedObjectType == EDOT_LARGEBLOCK) white = 220;
-    
+
     if(color!=EDCO_WHITE) D.SetColors(&options::BKColor[color],alpha);
     else D.SetColors(white,white,white,alpha);
     D.Draw(target,x,y);
 
-    //top right corner:   
+    //top right corner:
     var = 0;
     if( up&&right&&upright) var=4;
     else if( up&&right) var = 3;
@@ -1895,19 +1895,19 @@ void drawLargeBlockByFlags( SDL_Surface * target, int x, int y, editorcolor colo
     D.ChangeRect(tx*sz+sz2, ty*sz, sz2,sz2);
     D.Draw(target,x+sz2,y);
 
-    //bottom left corner:   
+    //bottom left corner:
     var = 0;
     if( down&&left&&downleft) var=4;
     else if( down&&left) var = 3;
     else if(down) var = 2;
     else if(left) var = 1;
-    
+
     tx = 10;
     ty = var + 15;
     D.ChangeRect(tx*sz,  ty*sz + sz2,sz2,sz2);
     D.Draw(target,x,y+sz2);
 
-    //bottom right corner:   
+    //bottom right corner:
     var = 0;
     if( down&&right&& downright) var=4;
     else if( down&&right) var = 3;
@@ -1928,27 +1928,27 @@ Uint8 getLargeBlockFlagsByVarDir( int variation, int direction)
      *    3   1
      *    -|2|  */
     Uint8 flags = 0;
-    
+
     switch(variation)
     {
-        case 0: flags = 0b0001; break;
-        case 1: flags = 0b0011; break;
-        case 2: flags = 0b0101; break;
-        case 3: flags = 0b1011; break;
-        case 4: flags = 0b1111; break;
+        case 0: flags = /*0b0001*/ 1; break;
+        case 1: flags = /*0b0011*/ 3; break;
+        case 2: flags = /*0b0101*/ 5; break;
+        case 3: flags = /*0b1011*/11; break;
+        case 4: flags = /*0b1111*/15; break;
     }
     switch(direction)
     {
         case EDITORDIRECTION_DOWN: //bit 0 to 2
-            flags = ( ((flags<<2)&0b1111) | (flags>>2) );
+            flags = ( ((flags<<2)&/*0b1111*/15) | (flags>>2) );
             break;
         case EDITORDIRECTION_UP: //bit 0 to 0
             break;
         case EDITORDIRECTION_LEFT: //bit 0 to 3
-            flags = ( ((flags<<3)&0b1111) | (flags>>1) );
+            flags = ( ((flags<<3)&/*0b1111*/15) | (flags>>1) );
             break;
         case EDITORDIRECTION_RIGHT: //bit 0 to 1
-            flags = ( ((flags<<1)&0b1111) | (flags>>3) );
+            flags = ( ((flags<<1)&/*0b1111*/15) | (flags>>3) );
             break;
     }
     Uint8 up = flags&1;
@@ -1969,14 +1969,14 @@ Uint8 largeBlockDFS[XYE_HORZ][XYE_VERT] = {};
 
 void dfsLargeBlocks(int x, int y, editorcolor color, int px, int py, editorboard* eb)
 {
-   
+
     if(largeBlockDFS[x][y] != editor::tic4)
     {
-        
+
         largeBlockDFS[x][y] = editor::tic4;
         boardelement &o=eb->objects[x][y];
         Uint8 nflags = getLargeBlockFlagsByVarDir(o.variation, o.direction);
-        
+
 
         o.parentx = px,
         o.parenty = py;
@@ -1994,13 +1994,13 @@ void dfsLargeBlocks(int x, int y, editorcolor color, int px, int py, editorboard
 
             boardelement &o2 = eb->objects[nx][ny];
             Uint8 nflags2 = getLargeBlockFlagsByVarDir(o2.variation, o2.direction);
-            
+
             if( ((nflags &( 1<<df[r]) ) && (nflags2 &( 1<<dop[r]) ) ) && (o2.type==EDOT_LARGEBLOCK ) && (o2.color==color )  )
             {
                 dfsLargeBlocks(nx,ny, color,px,py, eb);
             }
         }
-        
+
     }
 }
 
@@ -2025,13 +2025,13 @@ void editorboard::drawLargeBlockInBoard(SDL_Surface * target, int ox,int oy, int
                 nflags|=(1<<r);
             }
         }
-        
+
     }
     bool doalpha = false;
     if( /*( editor::tic4 > 1) &&*/ ( editor::buttons->SelectedObjectType == EDOT_LARGEBLOCK) )
     {
-        
-        if ( flags != (nflags-(nflags&0b01010101) ) )
+
+        if ( flags != (nflags-(nflags&/*0b01010101*/85) ) )
         {
             doalpha = true;
             if(editor::tic4<2)
@@ -2039,10 +2039,10 @@ void editorboard::drawLargeBlockInBoard(SDL_Surface * target, int ox,int oy, int
                 drawLargeBlockByFlags( target, x,y, color, nflags , doalpha);
                 return;
             }
-            
+
         //    nflags |= flags;
         }
-        nflags = flags|(nflags&0b01010101);
+        nflags = flags|(nflags&/*0b01010101*/85);
     }
     drawLargeBlockByFlags( target, x,y, color, nflags , doalpha);
 }
@@ -2326,7 +2326,7 @@ void drawFactoryTop( SDL_Surface * target, int x, int y, int direction, bool dot
     {
         Uint8 alpha = 255;
         if((editor::tic4<2) ) alpha = 120;
-        
+
         D.SetColors(255,255,255,alpha);
     }
     D.Draw(target,x,y);
@@ -2345,7 +2345,7 @@ void drawColorFactory( SDL_Surface * target, int x, int y, bool round, editorcol
         case 2: drawSpecialBlocks(target,x,y,round, color, 4, direction); break;
         case 3: drawPusher(target,x,y,color,direction); break;
         case 4: drawGem(target,x,y,color);
-        
+
     }
     drawFactoryTop(target,x,y, direction, (editor::SelectedType() == EDOT_COLORFACTORY)||(editor::SelectedType() == EDOT_DANGERFACTORY) );
 }
@@ -2357,7 +2357,7 @@ void drawDangerFactory( SDL_Surface * target, int x, int y, int variation, int d
         case 15: drawFood(target,x,y); break;
         case 16: drawHazard(target,x,y,1); break;
         default : drawBeast(target,x,y,direction,variation, true);
-        
+
     }
     drawFactoryTop(target,x,y, direction, (editor::SelectedType() == EDOT_COLORFACTORY)||(editor::SelectedType() == EDOT_DANGERFACTORY) );
 }
