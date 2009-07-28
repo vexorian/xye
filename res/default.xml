@@ -5,7 +5,7 @@
   compatibility, bitmap fonts must be bmp, and there are samples in this folder, do not specify truetypesize if you
   do not want a truetype font-->
 <xyeskin
-sprites="xye.png"
+sprites="clean.png"
 size='20'
 fontfile="DejaVuSans.ttf"
 boldfontfile="DejaVuSans-Bold.ttf"
@@ -28,17 +28,26 @@ truetypesize='12'
 <!--Color schemes are optional, left as an example:-->
 
 <!-- main "B" colors , shouldn't change them too much, maybe the tone, but: (red blocks are supposed to be red blocks)-->
-<color type="B" bc="Y" red='255' green='255' blue='0'/>
-<color type="B" bc="R" red='255' green='0' blue='0'/>
-<color type="B" bc="B" red='0' green='0' blue='255'/>
-<color type="B" bc="G" red='0' green='170' blue='0'/>
+<!--color type="B" bc="Y" red='255' green='255' blue='0'/-->
+<color type="B" bc="Y" red='255' green='255' blue='50'/>
+<!--color type="B" bc="R" red='255' green='0' blue='0'/-->
+<color type="B" bc="R" red='255' green='50' blue='50'/>
+<!--color type="B" bc="B" red='0' green='0' blue='255'/-->
+<color type="B" bc="B" red='75' green='75' blue='255'/>
+<!--color type="B" bc="G" red='0' green='170' blue='0'/-->
+<color type="B" bc="G" red='75' green='170' blue='50'/>
 
 <!-- secondary "F" colors , these are the colors used by symbols / secondary art of the different blocks
 feel free to change them, just keep good contrast-->
 
-<color type="F" bc="Y" red='255' green='0' blue='0'/>
+<color type="F" bc="Y" red='255' green='50' blue='50' />
+<color type="F" bc="R" red='255' green='255' blue='50' />
+<color type="F" bc="B" red='0' green='255' blue='255'/>
+<color type="F" bc="G" red='255' green='255' blue='255'/>
+<!--
+<color type="F" bc="Y" red='255' green='0' blue='0'/ >
 <color type="F" bc="R" red='255' green='255' blue='0'/>
 <color type="F" bc="B" red='0' green='255' blue='255'/>
 <color type="F" bc="G" red='255' green='255' blue='255'/>
-
+-->
 </xyeskin>

@@ -64,7 +64,7 @@ class LevelPack
     static void Last();
     static bool GetFileData(const char* filename, string &au, string &ds, string &ti, unsigned int &leveln);
 
-
+    static bool AllowUndo();
 };
 
 void LoadLevel(TiXmlElement* level);

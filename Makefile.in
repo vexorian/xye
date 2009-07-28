@@ -208,7 +208,7 @@ DISTCLEANFILES = *~ *.~*
 #in case of debugging comment next line
 xye_LDFLAGS = 
 docedir = $(doc_dir)/@PACKAGE@
-doce_DATA = README format.txt template.xye.xml GAMEINTRO.txt xye.svg NEWS COPYING AUTHORS INSTALL
+doce_DATA = README GAMEINTRO.txt xye.svg NEWS COPYING AUTHORS INSTALL
 levelsdir = $(datadir)/@PACKAGE@/levels
 levels_DATA = levels/5levels.xye \
 levels/kye.xye \
@@ -217,12 +217,18 @@ levels/logo.xye \
 levels/Mic4.xye \
 levels/pxlevels.xye \
 levels/microban.xsb \
-levels/tutorials.xye
+levels/oldtutorials.xye \
+levels/sphinx.xye \
+levels/cracked.xye \
+levels/tutorials.xye \
+levels/xyester.xye
 
 resdir = $(datadir)/@PACKAGE@/res
 res_DATA = res/default.xml \
+res/detailed.xml \
 res/classic.xml \
-res/xye.png \
+res/clean.png \
+res/detailed.png \
 res/kye.png \
 res/DejaVuSans.ttf \
 res/DejaVuSans-Bold.ttf \
