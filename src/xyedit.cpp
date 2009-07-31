@@ -15,18 +15,18 @@ Permission is granted to anyone to use this software for any purpose, including 
 
 */
 
+#include<cstdio>
+#include<cstdlib>
+#include<iostream>
+#include<fstream>
+
 #include "xyedit.h"
 #include "xye.h"
-
-#include <stdio.h>
 #include "xye_script.h"
 #include "options.h"
-#include<stdlib.h>
 #include "dialogs.h"
 #include "command.h"
 
-#include <iostream>
-#include <fstream>
 
 #define sz editor::GRIDSIZE //typing game::GRIDSIZE is an annoyance
 
@@ -987,6 +987,7 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
                 case 3: text="Color trapdoor (open)"; break;
                 case 4: text="Color marked area"; break;
                 case 5: text="Color requirement-block"; break;
+                case 6: text="Color marked area (with block)"; break;
 
             }
             break;
@@ -1171,7 +1172,7 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
     {
         case EDOT_GEM: colorchoice=2; break;
 
-        case EDOT_COLORSYSTEM: colorchoice=1; maxvariations=6; break;
+        case EDOT_COLORSYSTEM: colorchoice=1; maxvariations=7; break;
         case EDOT_RATTLERHEAD: maxvariations=10; break;
 
         case EDOT_NUMBER: colorchoice=1; roundchoice=1; maxvariations=10; break;
@@ -1725,6 +1726,10 @@ void drawColorSystem( SDL_Surface * target, int x, int y, editorcolor color, int
         case 3: /*open trap*/ tx=8,ty=7; break;
         case 4: /*marked*/ tx=6,ty=5; break;
         case 5: /*window*/ tx=9,ty=7; break;
+        case 6:
+            drawBlock(target,x,y,false,color);
+            drawColorSystem(target,x,y, color, 4);
+            break;
 
     }
 
