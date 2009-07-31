@@ -1594,5 +1594,5 @@ bool AI_RoboMine(obj* foro, edir &r);
 
 char FixVert(char vert);
 char FixHorz(char horz);
-char FixCoordinates(char &horz, char &vert);
+void FixCoordinates(char &horz, char &vert);
 

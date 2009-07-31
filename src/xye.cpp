@@ -8339,6 +8339,7 @@ bool deathqueue::KillNow()
 
         delete tm;
     } while (c!=NULL);
+    return true;
 
 }
 
@@ -8729,7 +8730,7 @@ char FixHorz(char horz)
 {
     return (horz>=XYE_HORZ)?0:(horz<0)?XYE_HORZ-1:horz;
 }
-char FixCoordinates(char &horz, char &vert)
+void FixCoordinates(char &horz, char &vert)
 {
     vert=(vert>=XYE_VERT)?0:(vert<0)?XYE_VERT-1:vert;
     horz=(horz>=XYE_HORZ)?0:(horz<0)?XYE_HORZ-1:horz;
