@@ -565,18 +565,10 @@ blockcolor XsbLevel::bc;
 
 void XsbLevel::SetGameCaption()
 {
-    if (LevelPack::CurrentLevelTitle != NULL) delete[] LevelPack::CurrentLevelTitle;
-
     int L=name.length();
-
-
-    char * str = new char[L+9];
-
-    LevelPack::CurrentLevelTitle=str;
-    strcpy(str,"XYE - ");
-    for (int i=L;i>=0;i--)
-       str[i+6]=name[i];
-    SDL_WM_SetCaption(str,0);
+    string title = "Xye - "+name;
+    LevelPack::CurrentLevelTitle=title.c_str();
+    SDL_WM_SetCaption(title.c_str(),0);
 
 }
 void XsbLevel::Load()

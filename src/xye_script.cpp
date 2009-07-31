@@ -42,7 +42,7 @@ TiXmlElement* LevelPack::pack =NULL ;
 TiXmlElement* LevelPack::CurrentLevel =NULL;
 TiXmlElement* LevelPack::FirstLevel =NULL;
 
-char* LevelPack::CurrentLevelTitle=NULL;
+string LevelPack::CurrentLevelTitle;
 
 void LevelPack::Init()
 {
@@ -1683,31 +1683,17 @@ TiXmlElement* pEChild;
 
     //Part 1: Load the level's title:
     pEChild= level->FirstChildElement("title");
-    if (pEChild)
+    if (pEChild != NULL)
     {
         const char *cntd=pEChild->GetText();
-        if (cntd)
+        if (cntd != NULL)
         {
-            int L=strlen(cntd),i;
-            char * str = new char[L+7];
-            if (LevelPack::CurrentLevelTitle!=NULL) delete[] LevelPack::CurrentLevelTitle;
-            LevelPack::CurrentLevelTitle= str;
-            str[0]='\0';
-            strcpy(str,cntd);
-            for (i=L;i>=0;i--)
-                str[i+6]=str[i];
-            str[0]='X';
-            str[1]='y';
-            str[2]='e';
-            str[3]=' ';
-            str[4]='-';
-            str[5]=' ';
-            SDL_WM_SetCaption(str,0);
-            str=NULL;
+            LevelPack::CurrentLevelTitle= "Xye - "+string(cntd);
+            SDL_WM_SetCaption(LevelPack::CurrentLevelTitle.c_str(),0);
         }
     }
     else
-        SDL_WM_SetCaption("XYE",0);
+        SDL_WM_SetCaption("Xye",0);
 
 
     //Part 2: Load the level's bye message if any:
