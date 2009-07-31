@@ -162,7 +162,6 @@ bool recording::get(edir &r, bool& nomove)
 
 bool recording::load(const char* st)
 {
-
     unsigned int L,i=0;
     if (  (!st) || (!(L=strlen(st)) ) ) return false;
     recording::clean();
@@ -180,8 +179,7 @@ bool recording::load(const char* st)
         }
         i++;
     }
-
-
+    return true;
 
 }
 char* recording::save()
