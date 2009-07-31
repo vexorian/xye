@@ -109,7 +109,7 @@ const char* XsbLevelPack::ReadData(const char* path,unsigned int &n )
             ch=cw;
             cw=ch;
         }
-        if ((cw<=30) && (cw>=1) && (ch>=1) && (ch<=20))
+        if ((cw<=XYE_HORZ) && (cw>=1) && (ch>=1) && (ch<=XYE_VERT))
             n++;
     }
     fl.close();
@@ -184,7 +184,7 @@ void XsbLevelPack::Load(const char* filename, unsigned int ln)
             getline_xplt2 (fl,line);
 
         }
-        if (((cw>20) && (ch>cw)) || ((ch>20) && (cw>ch)) || (ch>30) || (cw>30) || (ch==0) || (cw==0))
+        if (((cw>XYE_HORZ) && (ch>cw)) || ((ch>XYE_VERT) && (cw>ch)) || (ch>XYE_HORZ) || (cw>XYE_VERT) || (ch==0) || (cw==0))
             continue; //doh
 
         current=new XsbLevel();
@@ -602,7 +602,6 @@ void XsbLevel::Load()
         for (i=ox+w;i<XYE_HORZ;i++) LoadXsbWall(i,j,false);
     }
 */
-
     for (j=0;j<h;j++) for (i=0;i<w;i++) switch(data[i][j])
     {
 
