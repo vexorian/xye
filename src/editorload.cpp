@@ -13,7 +13,7 @@ int editorload_portal_y[5][2];
 string editor::loadError;
 
 
-bool getElementPosition(TiXmlElement *el, int &x , int &y)
+bool getElementPosition(TiXmlElement *el, int &x , int &y, bool allowSamePos=false)
 {
     x=400;
     y=400;
@@ -25,7 +25,7 @@ bool getElementPosition(TiXmlElement *el, int &x , int &y)
         cout<<"Wrong coordinates "<<x<<","<<y<<" found in a tag: <"<<el->Value()<<">\n";
         return false;
     }
-    if(editorload_objects[x][y].type!=EDOT_NONE)
+    if((!allowSamePos) && (editorload_objects[x][y].type!=EDOT_NONE) )
     {
         cout<<"Unable to load two objects in same position: "<<x<<","<<y<<" , tag: <"<<el->Value()<<">\n";
         return false;
@@ -554,6 +554,22 @@ bool editor_LoadFactory(TiXmlElement* el)
 
 }
 
+bool editor_LoadBlock(TiXmlElement* el)
+{
+    if(! editor_LoadGenRC(el,EDOT_BLOCK))
+    {
+        //handle special block above marked aread case.
+        int x, y;
+        if(! getElementPosition(el, x , y, true) ) return false;
+        boardelement &o1=editorload_objects[x][y];
+        if((o1.type != EDOT_COLORSYSTEM) && (o1.variation!=0))
+            return false;
+        o1.variation = 6;
+        
+    }
+    return true;
+}
+
 
 bool editor_LoadObjects(TiXmlElement* el)
 {
@@ -564,7 +580,7 @@ bool editor_LoadObjects(TiXmlElement* el)
         string v=ch->Value();
         if (v=="wall")     { if (! editor_LoadWall(ch)) return false;}
         else if (v=="gem")    { if (! editor_LoadGem(ch)) return false;}
-        else if (v=="block") { if (! editor_LoadGenRC(ch,EDOT_BLOCK)) return false;}
+        else if (v=="block") { if (! editor_LoadBlock(ch) ) return false;}
 
         else if (v=="clocker") { if (! editor_LoadGenRC(ch,EDOT_TURNER)) return false;}
         else if (v=="aclocker") { if (! editor_LoadGenRC(ch,EDOT_TURNER,1)) return false;}

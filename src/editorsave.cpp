@@ -281,6 +281,13 @@ void saveNormalObject(std::ofstream &file, boardelement &o, int x, int y)
                 saveColor(file,o);
                 file<<"/>\n";
             }
+            else if(o.variation==6) //block on top of area
+            {
+                file<<"\t\t<block ";
+                savePosition(file,x,y);
+                saveColor(file,o);
+                file<<"/>\n";                
+            }
             break;
 
         case EDOT_BOT:
@@ -447,6 +454,7 @@ void saveGroundObject(std::ofstream &file,boardelement &o, int x, int y)
                 case 2 /*closed trap*/: file<<"blocktrap ";break;
                 case 3 /*open trap*/: file<<"blocktrap open='1' ";break;
                 case 4 /*marked area*/: file<<"marked ";break;
+                case 6 /*block above area*/: file<<"marked "; break;
 
             }
             savePosition(file,x,y);
