@@ -1728,7 +1728,7 @@ void drawColorSystem( SDL_Surface * target, int x, int y, editorcolor color, int
         case 5: /*window*/ tx=9,ty=7; break;
         case 6:
             drawBlock(target,x,y,false,color);
-            drawColorSystem(target,x,y, color, 4);
+            tx=6,ty=5;
             break;
 
     }
