@@ -9542,6 +9542,7 @@
     </objects>
     <xye x='7' y='5' lives='1' />
 </level>
+
 <level>
 <title>T19: Dots and repellers</title>
 <hint>Dot blocks do not stop until they hit something.</hint>
@@ -9554,8 +9555,12 @@
 002000200040440008000040800800600000000000000000060660000008606600000006
 2000042006006800000620002400402
 </solution>
+
+
 <bye>Great!</bye>
     <ground>
+        <marked x='4' y='9' bc='B' />
+        <blockdoor x='7' y='9' bc='Y' />
         <marked x='11' y='18' bc='Y' />
         <marked x='11' y='1' bc='Y' />
         <marked x='17' y='12' bc='Y' />
@@ -9564,6 +9569,8 @@
         <blockdoor x='20' y='11' bc='Y' />
         <blockdoor x='20' y='9' bc='Y' />
         <blockdoor x='20' y='7' bc='Y' />
+        <blockdoor x='25' y='9' bc='B' />
+        <blockdoor open='1' x='27' y='9' bc='B' />
     </ground>
     <objects>
         <wall x='0' y='19' type='6' />
@@ -9632,15 +9639,15 @@
         <wall x='3' y='16' type='6' />
         <wall x='3' y='15' type='6' />
         <wall x='3' y='14' type='6' />
-        <wall x='3' y='13' type='6' />
-        <wall x='3' y='12' type='6' />
-        <wall x='3' y='11' type='6' />
-        <wall x='3' y='10' type='6' />
-        <wall x='3' y='9' type='6' />
-        <wall x='3' y='8' type='6' />
-        <wall x='3' y='7' type='6' />
-        <wall x='3' y='6' type='6' />
-        <wall x='3' y='5' type='6' />
+        <wall x='3' y='13' />
+        <wall x='3' y='12' />
+        <wall x='3' y='11' />
+        <wall x='3' y='10' />
+        <wall x='3' y='9' />
+        <wall x='3' y='8' />
+        <wall x='3' y='7' />
+        <wall x='3' y='6' />
+        <wall x='3' y='5' />
         <wall x='3' y='4' type='6' />
         <wall x='3' y='3' type='6' />
         <wall x='3' y='2' type='6' />
@@ -9652,15 +9659,8 @@
         <wall x='4' y='16' type='6' />
         <wall x='4' y='15' type='6' />
         <wall x='4' y='14' type='6' />
-        <wall x='4' y='13' type='6' />
-        <wall x='4' y='12' type='6' />
-        <wall x='4' y='11' type='6' />
-        <wall x='4' y='10' type='6' />
-        <wall x='4' y='9' type='6' />
-        <wall x='4' y='8' type='6' />
-        <wall x='4' y='7' type='6' />
-        <wall x='4' y='6' type='6' />
-        <wall x='4' y='5' type='6' />
+        <wall x='4' y='13' />
+        <wall x='4' y='5' />
         <wall x='4' y='4' type='6' />
         <wall x='4' y='3' type='6' />
         <wall x='4' y='2' type='6' />
@@ -9672,15 +9672,13 @@
         <wall x='5' y='16' type='6' />
         <wall x='5' y='15' type='6' />
         <wall x='5' y='14' type='6' />
-        <wall x='5' y='13' type='6' />
-        <wall x='5' y='12' type='6' />
-        <wall x='5' y='11' type='6' />
-        <wall x='5' y='10' type='6' />
-        <wall x='5' y='9' type='6' />
-        <wall x='5' y='8' type='6' />
-        <wall x='5' y='7' type='6' />
-        <wall x='5' y='6' type='6' />
-        <wall x='5' y='5' type='6' />
+        <wall x='5' y='13' />
+        <wall x='5' y='12' />
+        <wall x='5' y='11' />
+        <lblock x='5' y='9' bc='B' />
+        <wall x='5' y='7' />
+        <wall x='5' y='6' />
+        <wall x='5' y='5' />
         <wall x='5' y='4' type='6' />
         <wall x='5' y='3' type='6' />
         <wall x='5' y='2' type='6' />
@@ -9694,11 +9692,8 @@
         <wall x='6' y='14' type='6' />
         <wall x='6' y='13' type='6' />
         <wall x='6' y='12' type='6' />
-        <wall x='6' y='11' type='6' />
-        <wall x='6' y='10' type='6' />
-        <wall x='6' y='9' type='6' />
-        <wall x='6' y='8' type='6' />
-        <wall x='6' y='7' type='6' />
+        <wall x='6' y='11' />
+        <wall x='6' y='7' />
         <wall x='6' y='6' type='6' />
         <wall x='6' y='5' type='6' />
         <wall x='6' y='4' type='6' />
@@ -9713,13 +9708,12 @@
         <wall x='7' y='15' type='6' />
         <wall x='7' y='14' type='6' />
         <wall x='7' y='13' type='6' />
-        <wall x='7' y='12' type='6' />
+        <wall x='7' y='12' />
         <wall x='7' y='11' />
         <wall x='7' y='10' />
-        <wall x='7' y='9' />
         <wall x='7' y='8' />
         <wall x='7' y='7' />
-        <wall x='7' y='6' type='6' />
+        <wall x='7' y='6' />
         <wall x='7' y='5' type='6' />
         <wall x='7' y='4' type='6' />
         <wall x='7' y='3' type='6' />
@@ -9733,10 +9727,8 @@
         <wall x='8' y='15' type='6' />
         <wall x='8' y='14' type='6' />
         <wall x='8' y='13' type='6' />
-        <wall x='8' y='12' type='6' />
-        <wall x='8' y='11' />
-        <wall x='8' y='7' />
-        <wall x='8' y='6' type='6' />
+        <wall x='8' y='12' />
+        <wall x='8' y='6' />
         <wall x='8' y='5' type='6' />
         <wall x='8' y='4' type='6' />
         <wall x='8' y='3' type='6' />
@@ -9750,11 +9742,9 @@
         <wall x='9' y='15' type='6' />
         <wall x='9' y='14' type='6' />
         <wall x='9' y='13' type='6' />
-        <wall x='9' y='12' type='6' />
-        <wall x='9' y='11' />
+        <wall x='9' y='12' />
         <magnet x='9' y='9' kind='1' />
-        <wall x='9' y='7' />
-        <wall x='9' y='6' type='6' />
+        <wall x='9' y='6' />
         <wall x='9' y='5' type='6' />
         <wall x='9' y='4' type='6' />
         <wall x='9' y='3' type='6' />
@@ -10003,7 +9993,6 @@
         <wall x='25' y='12' type='6' />
         <wall x='25' y='11' type='6' />
         <wall x='25' y='10' />
-        <wall x='25' y='9' />
         <wall x='25' y='8' />
         <wall x='25' y='7' type='6' />
         <wall x='25' y='6' type='6' />
@@ -10022,9 +10011,8 @@
         <wall x='26' y='13' type='6' />
         <wall x='26' y='12' type='6' />
         <wall x='26' y='11' type='6' />
-        <wall x='26' y='10' type='6' />
-        <wall x='26' y='9' type='6' />
-        <wall x='26' y='8' type='6' />
+        <wall x='26' y='10' />
+        <wall x='26' y='8' />
         <wall x='26' y='7' type='6' />
         <wall x='26' y='6' type='6' />
         <wall x='26' y='5' type='6' />
@@ -10041,11 +10029,10 @@
         <wall x='27' y='14' type='6' />
         <wall x='27' y='13' type='6' />
         <wall x='27' y='12' type='6' />
-        <wall x='27' y='11' type='6' />
-        <wall x='27' y='10' type='6' />
-        <wall x='27' y='9' type='6' />
-        <wall x='27' y='8' type='6' />
-        <wall x='27' y='7' type='6' />
+        <wall x='27' y='11' />
+        <wall x='27' y='10' />
+        <wall x='27' y='8' />
+        <wall x='27' y='7' />
         <wall x='27' y='6' type='6' />
         <wall x='27' y='5' type='6' />
         <wall x='27' y='4' type='6' />
@@ -10060,13 +10047,13 @@
         <wall x='28' y='15' type='6' />
         <wall x='28' y='14' type='6' />
         <wall x='28' y='13' type='6' />
-        <wall x='28' y='12' type='6' />
-        <wall x='28' y='11' type='6' />
-        <wall x='28' y='10' type='6' />
-        <wall x='28' y='9' type='6' />
-        <wall x='28' y='8' type='6' />
-        <wall x='28' y='7' type='6' />
-        <wall x='28' y='6' type='6' />
+        <wall x='28' y='12' />
+        <earth x='28' y='11' />
+        <earth x='28' y='10' />
+        <star x='28' y='9' />
+        <earth x='28' y='8' />
+        <earth x='28' y='7' />
+        <wall x='28' y='6' />
         <wall x='28' y='5' type='6' />
         <wall x='28' y='4' type='6' />
         <wall x='28' y='3' type='6' />
@@ -10080,13 +10067,13 @@
         <wall x='29' y='15' type='6' />
         <wall x='29' y='14' type='6' />
         <wall x='29' y='13' type='6' />
-        <wall x='29' y='12' type='6' />
-        <wall x='29' y='11' type='6' />
-        <wall x='29' y='10' type='6' />
-        <wall x='29' y='9' type='6' />
-        <wall x='29' y='8' type='6' />
-        <wall x='29' y='7' type='6' />
-        <wall x='29' y='6' type='6' />
+        <wall x='29' y='12' />
+        <wall x='29' y='11' />
+        <wall x='29' y='10' />
+        <wall x='29' y='9' />
+        <wall x='29' y='8' />
+        <wall x='29' y='7' />
+        <wall x='29' y='6' />
         <wall x='29' y='5' type='6' />
         <wall x='29' y='4' type='6' />
         <wall x='29' y='3' type='6' />
@@ -10096,6 +10083,7 @@
     </objects>
     <xye x='10' y='9' lives='1' />
 </level>
+
 <level>
 <title>T20: Avoiding</title>
 <hint>Those things byte.</hint>
