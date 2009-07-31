@@ -41,7 +41,7 @@ class LevelPack
     static void Init();
     static void Clean();
 
-    static char* CurrentLevelTitle;
+    static string CurrentLevelTitle;
     static unsigned int n;
     static string Author;
     static string Name;
