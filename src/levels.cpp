@@ -810,8 +810,6 @@ void StartSection(window* wind)
     Show();
     
     
-    
-    
     return;
 }
 
