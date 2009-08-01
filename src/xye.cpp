@@ -282,7 +282,7 @@ int game::Init(const char* levelfile)
     
     if (!window::InitSDL()) return 0;
     printf("Setting video mode...\n");
-    gamewindow=window::create(XYE_HORZ*GRIDSIZE+XYE_GAMEX+XYE_XTRA_X,    XYE_VERT*GRIDSIZE+XYE_GAMEY+2*XYE_XTRA_Y+ GRIDSIZE+2+1+GRIDSIZE,"Xye - editor");
+    gamewindow=window::create(XYE_HORZ*GRIDSIZE+XYE_GAMEX+XYE_XTRA_X,    XYE_VERT*GRIDSIZE+XYE_GAMEY+2*XYE_XTRA_Y+ GRIDSIZE+2+1+GRIDSIZE,"Xye");
     screen= gamewindow->getDrawingSurface();  //SDL_SetVideoMode(/*w*/XYE_HORZ*GRIDSIZE+XYE_GAMEX+XYE_XTRA_X,
               ///              /*h*/XYE_VERT*GRIDSIZE+XYE_GAMEY+2*XYE_XTRA_Y+ GRIDSIZE+2+1, 32, 0);
 
