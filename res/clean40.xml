@@ -5,13 +5,13 @@
   compatibility, bitmap fonts must be bmp, and there are samples in this folder, do not specify truetypesize if you
   do not want a truetype font-->
 <xyeskin
-sprites="xye.png"
-size='20'
+sprites="clean40.png"
+size='40'
 fontfile="DejaVuSans.ttf"
 boldfontfile="DejaVuSans-Bold.ttf"
 
 xyedirections ='no'
-truetypesize='12'
+truetypesize='24'
 >
 
 <!-- The select level menu colors, you may try making it combine with your system if you want -->
