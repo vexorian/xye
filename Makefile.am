@@ -29,7 +29,7 @@ resdir= $(datadir)/@PACKAGE@/res
 res_DATA = res/default.xml \
 res/detailed.xml \
 res/classic.xml \
-res/clean.png \
+res/xye.png \
 res/detailed.png \
 res/kye.png \
 res/DejaVuSans.ttf \
@@ -52,6 +52,7 @@ src/xye.cbp \
 xye.ico \
 res/kye.xcf \
 res/xye.xcf \
+res/detailed.xcf \
 xye.svg \
 src/resource.rc
 
