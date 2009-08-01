@@ -465,9 +465,17 @@ struct LevelSorting
        // printf("LF is %s \n",lf);
         int arank = getRank(a);
         int brank = getRank(b);
+        int asla = count(a.begin(), a.end(), '/')+count(a.begin(), a.end(), '\\');
+        int bsla = count(b.begin(), b.end(), '/')+count(b.begin(), b.end(), '\\');;
         
         if( arank==brank)
-            return (a<b);
+        {
+            if(asla == bsla)
+                return (a<b);
+                
+                
+            return (asla<bsla);
+        }
         return (arank>brank);
         
         
