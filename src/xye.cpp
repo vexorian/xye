@@ -18,7 +18,7 @@ Permission is granted to anyone to use this software for any purpose, including 
 
 #include "xye.h"
 
-#include <stdio.h>
+#include<cstdio>
 #include "xye_script.h"
 #include "options.h"
 #include "record.h"
@@ -3068,6 +3068,11 @@ wall::wall(square* sq)
     ObjectConstruct(sq);
 }
 
+
+void wall::ChangeKind(unsigned char t)
+{
+    kind = std::min<unsigned char>(t,6);
+}
 
 
 void wall::Draw(unsigned int x, unsigned int y)
