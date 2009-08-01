@@ -334,6 +334,7 @@ class wall : public obj
      wall(square* sq);
      bool ResistsFire();
      void Draw(unsigned int x, unsigned int y);
+     void ChangeKind(unsigned char t);
      void ChangeColor(Uint8 nR, Uint8 nG, Uint8 nB);
      void SetRoundCorners(bool r7, bool r1, bool r3, bool r9);
      bool trypush(edir dir,obj* pusher);
