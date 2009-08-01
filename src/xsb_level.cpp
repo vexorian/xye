@@ -516,6 +516,29 @@ return false;
 
 }
 
+bool FromXyeDFS(int* mem, unsigned char x, unsigned char y)
+{
+    static const unsigned char dx[4] = {0,0,-1,1}, dy[4] = {-1,1,0,0};
+    int &res =  mem[y*XYE_HORZ+x];
+    if( res==0)
+    {
+        res = 1;
+        for (int t=0; t<4; t++)
+        {
+            unsigned char nx = x+dx[t], ny=y+dy[t];
+            if ( (nx<XYE_HORZ) && (ny<XYE_VERT)
+                 && (( game::Square(x,y)->object == NULL) || ( game::Square(x,y)->object->GetType() == OT_BLOCK))
+               )
+            {
+                FromXyeDFS(mem,nx,ny);
+            }
+        }
+        
+    }
+    return ( (res==2) ? true: false);
+}
+
+
 bool FindAGoodWall(int i, int j,bool rec=true)
 {
     if ((i==0) || (j==0) || (i>=XYE_HORZ) || (j>=XYE_VERT))
@@ -629,16 +652,29 @@ $ - box
             ky=oy-j;
     }
 
-    FindAGoodWall(kx,ky);
-
     //XsbLevel::tx=ox-1;
     //XsbLevel::ty=oy+1;
 
+    int * mem=new int[XYE_HORZ*XYE_VERT];
+    memset(mem, 0, sizeof(int)*XYE_HORZ*XYE_VERT);;
+    FromXyeDFS(mem, kx, ky);
+    for (j=0;j<XYE_VERT;j++)
+        for (i=0;i<XYE_HORZ;i++)
+            if( mem[j*XYE_HORZ+i] == 0 )
+            {
+                square * sq = game::Square(i,j);
+                obj* object = sq->object;
+                if(object==NULL)
+                {
+                    wall* wl = new wall(sq);
+                }
+            }
+    delete[] mem;
 
-
+    FindAGoodWall(kx,ky);
 
     //This is where the hard part begins, we have to make the level have gems
-    int * mem=new int[XYE_HORZ*XYE_VERT];
+    mem=new int[XYE_HORZ*XYE_VERT];
 
     for (j=0;j<XYE_HORZ*XYE_VERT;j++)
        mem[j]=2;
@@ -653,14 +689,38 @@ $ - box
                 )
 
               )
-
-
-
             {
-
                 EnsurePath(i,j,mem,false,bc,bywall);
             }
+
     delete [] mem;
+
+    /// Now  change walls to "decoration" walls accordingly...
+    for (j=0;j<XYE_VERT;j++)
+        for (i=0;i<XYE_HORZ;i++)
+        {
+
+            square * sq = game::Square(i,j);
+            obj* object = sq->object;
+            
+            if( (object!=NULL) && (object->GetType() == OT_WALL) )
+            {
+                unsigned int dx[4]={0,0,1,-1}, dy[4]={1,-1, 0,0};
+                bool sorrounded = true;
+                for (int t=0; t<4; t++)
+                    if ( (i+dx[t]< XYE_HORZ) && (j+dy[t]< XYE_VERT) )
+                    {
+                        obj* obj2 = game::Square(i+dx[t], j+dy[t])->object;
+                        if( (obj2 == NULL) || (obj2->GetType() != OT_WALL) )
+                            sorrounded = false;
+                    }
+                if( sorrounded)
+                {
+                    wall* wl = static_cast<wall*>(object);
+                    wl->ChangeKind(6);
+                }
+            }
+        }
 
 
 
