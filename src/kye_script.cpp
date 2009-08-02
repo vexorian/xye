@@ -17,8 +17,8 @@ Permission is granted to anyone to use this software for any purpose, including 
 
 #include "xye.h"
 #include "gen.h"
-#include <iostream>
-#include <fstream>
+#include<iostream>
+#include<fstream>
 #include "xye_script.h"
 #include "kye_script.h"
 
@@ -308,9 +308,12 @@ void LoadXyeMarked(unsigned char x,unsigned char y)
 }
 
 
-void LoadKyeBlock(unsigned  char x, unsigned char y,bool round)
+void LoadKyeBlock(unsigned  char x, unsigned char y,bool round, bool fromxye)
 {
-    block* b=new block(game::Square(x,y),B_YELLOW,round);
+    block* b=new block(game::Square(x,y), /*(fromxye?B_YELLOW: B_GREEN)*/ B_YELLOW,round);
+    
+    
+    
 }
 
 void LoadKyeBeast(unsigned char x, unsigned char y, btype B)
@@ -446,8 +449,8 @@ void KyeLevel::Load()
             LoadKyeWall(data[i][j],i,j);
             break;
         case('e'): LoadKyeEarth(i,j); break;
-        case('b'): LoadKyeBlock(i,j,false); break;
-        case('B'): LoadKyeBlock(i,j,true); break;
+        case('b'): LoadKyeBlock(i,j,false, FromXyeLevel); break;
+        case('B'): LoadKyeBlock(i,j,true, FromXyeLevel); break;
         case('*'): LoadKyeGem(i,j); break;
 
         case ('E'): LoadKyeBeast(i,j,BT_GNASHER); break;
