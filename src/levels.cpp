@@ -337,7 +337,7 @@ public:
 
 bool Akyexyelevel(const char* f)
 {
-    return (HasExtension(f,"xsb") || HasExtension(f,"kye") || HasExtension(f,"KYE") || HasExtension(f,"xye") || HasExtension(f,"xyr") );
+    return (HasExtension(f,"slc") || HasExtension(f,"xsb") || HasExtension(f,"kye") || HasExtension(f,"KYE") || HasExtension(f,"xye") || HasExtension(f,"xyr") );
     // the standard forces xye extension to be lower case.
 }
 

@@ -22,7 +22,9 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include "kye_script.h"
 #include "xsb_level.h"
 #include "gen.h"
+#include "tinyxml/xye_tinyxml.h"
 #include<string>
+
 
 /** Class LevelPack begin**/
 unsigned int LevelPack::n;
@@ -197,31 +199,36 @@ bool LevelPack::GetFileData(const char* filename, string &au, string &ds, string
         return true;
     }
 
-    if ((L>4) && doublematch<char>(filename[L-1],'b','B') && doublematch<char>(filename[L-2],'s','S') && doublematch<char>(filename[L-3],'x','X') && (filename[L-4]=='.'))
+    if ((L>4) && (filename[L-4]=='.')
+          && (  (strcmp(filename+L-3,"xsb") == 0) || (strcmp(filename+L-3,"XSB") == 0) 
+                || (strcmp(filename+L-3,"slc") == 0) || (strcmp(filename+L-3,"SLC") == 0)
+             )
+       )
+       
     {
+        ti = "";
+        const char* err=XsbLevelPack::ReadData(filename,leveln , au, ds, ti);
 
-        const char* err=XsbLevelPack::ReadData(filename,leveln );
-
-        i=L-1;
-        while((i>=0) && (filename[i]!='/')) i--;
-        i++;
-        ti="";
-        while ((i<L) && (filename[i]!='.'))
-           ti+=filename[i++];
+        if( ti=="")
+        {
+            i=L-1;
+            while((i>=0) && (filename[i]!='/')) i--;
+            i++;
+            ti=(filename+i);
+        }
 
 
         if (err)
         {
             leveln=0;
-            ds="Invalid .xsb (sokoban 'standard' format) file ";
+            ds="Invalid sokoban level file ";
             ds+="(";
             ds+=err;
             ds+=")";
 
             return false;
         }
-        au="";
-        ds="Standard Sokoban format level file";
+        
         return true;
     }
 
@@ -341,7 +348,9 @@ void LevelPack::Load(const char *filename, unsigned int ln, const char* replay)
         return;
     }
 
-    if ((L>4) && doublematch<char>(filename[L-1],'b','B') && doublematch<char>(filename[L-2],'s','S') && doublematch<char>(filename[L-3],'x','X') && (filename[L-4]=='.'))
+    if ((L>4) && (filename[L-4]=='.') &&
+        ((strcmp(filename+L-3,"xsb") ==0)||(strcmp(filename+L-3,"XSB") ==0)||(strcmp(filename+L-3,"SLC") ==0)||(strcmp(filename+L-3,"slc") ==0))
+       )
     {
         LevelPack::Author="";
         LevelPack::Name="";
