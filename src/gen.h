@@ -37,3 +37,4 @@ struct SDL_Color;
 SDL_Color& MixColors(SDL_Color& A, SDL_Color& B);
 
 bool TryS2I(std::string &str, int& r);
+std::string GetFileNameNoExtension( const char* filename );

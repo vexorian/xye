@@ -119,6 +119,16 @@ int SLC_CountValidLevels(TiXmlElement* levels)
     return n;
 }
 
+string GetSokobanLevelName(const char* filename, int ln)
+{
+    string name = GetFileNameNoExtension(filename);
+    int len = name.length();
+    
+    char buf[len+10];
+    sprintf(buf, "%s %d", name.c_str(), ln);
+    return string(buf);
+}
+
 void XsbLevelPack::LoadSLC(const char* filename, unsigned int ln)
 {
     TiXmlDocument  fil(filename);
@@ -172,11 +182,7 @@ void XsbLevelPack::LoadSLC(const char* filename, unsigned int ln)
                        
                 cur->name = el->Attribute("Id");
                 if(cur->name=="")
-                {
-                    char buf[10];
-                    sprintf(buf, "Level %d", cur->levelnum+1);
-                    cur->name=buf;
-                }
+                    cur->name = GetSokobanLevelName( filename, temlevel+1);
 
                 for (line = el->FirstChildElement("L"); line != NULL; line = line->NextSiblingElement("L") )
                 {
@@ -412,12 +418,7 @@ void XsbLevelPack::Load(const char* filename, unsigned int ln)
         }
 
 
-        current->name="Level ";
-        char * tm=new char[10];
-        strcpy(tm,"         ");
-        snprintf(tm,9,"%d",tn);
-        current->name+=tm;
-        delete[] tm;
+        current->name= GetSokobanLevelName(filename,tn);
 
         current->levelnum=tn;
 
