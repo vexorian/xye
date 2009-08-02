@@ -780,7 +780,7 @@ void XsbLevel::Load()
 {
 
         SetGameCaption();
-        hint::SetGlobalHint("The gem is inside a block-door, you have to place the blocks above the marked areas in order to open the block-door and get the gem.");
+        hint::SetGlobalHint("To get the gem, place a block above each of the marked areas.");
         LevelPack::SetLevelBye("");
         LevelPack::Solution="";
 

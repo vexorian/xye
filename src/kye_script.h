@@ -9,7 +9,7 @@ class KyeLevel
  bool FromXyeLevel;
  bool FoundKye;
 
- char data[30][20];
+ char data[XYE_HORZ][XYE_VERT];
  KyeLevel* Prev;
  KyeLevel* Next;
 
