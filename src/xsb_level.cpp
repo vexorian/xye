@@ -17,13 +17,35 @@ Permission is granted to anyone to use this software for any purpose, including 
 
 #include "xye.h"
 #include "gen.h"
-#include <iostream>
-#include <fstream>
+#include<iostream>
+#include<fstream>
 #include<string>
+#include<algorithm>
 #include "xye_script.h"
 #include "xsb_level.h"
 
 /** Class XsbLevelPack start **/
+class XsbLevel
+{
+public:
+    char data[XYE_HORZ][XYE_VERT];
+    char w;
+    char h;
+    string name;
+    XsbLevel* Prev;
+    XsbLevel* Next;
+    XsbLevel() { Prev=Next=NULL; levelnum=1; }
+
+    void SetGameCaption();
+    void Load();
+    unsigned int levelnum;
+    static int gm;
+    static int tx;
+    static int ty;
+    static blockcolor bc;
+};
+
+
 XsbLevel* XsbLevelPack::First=NULL;
 XsbLevel* XsbLevelPack::Final=NULL;
 XsbLevel* XsbLevelPack::CurrentLevel;
@@ -71,8 +93,165 @@ unsigned int RealSokoLineLength(std::string &s)
     while (s[L-1]==' ') L--;
     return L;
 }
-const char* XsbLevelPack::ReadData(const char* path,unsigned int &n )
+
+bool IsSLC(const char* path)
 {
+    int L= strlen(path);
+    return ((L>=4) && (strcmp(path+L-4,".slc") ==0 ));
+}
+
+int SLC_CountValidLevels(TiXmlElement* levels)
+{
+    int n=0;
+    TiXmlElement* el = levels->FirstChildElement("Level");
+    while (el != NULL)
+    {
+        int w = -1, h = -1;
+        el->QueryIntAttribute("Width", &w);
+        el->QueryIntAttribute("Height", &h);
+        if( h > w) std::swap(w,h);
+        if ( (w>=1) && (w<=XYE_HORZ) && (h<=XYE_VERT) && (h>=1) )
+            n++;
+        el=el->NextSiblingElement("Level");
+    }
+    
+    
+    return n;
+}
+
+void XsbLevelPack::LoadSLC(const char* filename, unsigned int ln)
+{
+    TiXmlDocument  fil(filename);
+    TiXmlElement* pack, *el;
+    tn=0;
+    fil.SetCondenseWhiteSpace(false);
+    if (fil.LoadFile())
+    {
+        pack=fil.FirstChildElement("SokobanLevels");
+        if (pack!=NULL)
+        {
+            el=pack->FirstChildElement("LevelCollection");
+            if(el == NULL) game::Error("Unable to find a <LevelCollection> tag.");
+            
+            tn = SLC_CountValidLevels(el);
+            
+            int temlevel =0 ;
+            for ( el= el->FirstChildElement("Level"); el != NULL; el = el->NextSiblingElement("Level") )
+            {
+                int w = -1, h = -1;
+                el->QueryIntAttribute("Width", &w);
+                el->QueryIntAttribute("Height", &h);
+                bool swapped = (h>XYE_VERT);
+                int L= w;
+                if(swapped)
+                {
+                    L = h;
+                    std::swap(w,h);
+                }
+                if((w<0) || (h<0) || (w>XYE_HORZ) || (h>XYE_VERT) ) continue;
+                
+                XsbLevel* cur;
+                if( First == NULL )
+                {
+                    cur = First = Final = new XsbLevel();
+                    First->Next = First->Prev =  NULL;
+                }
+                else
+                {
+                    cur = new XsbLevel();
+                    Final->Next = cur;
+                    cur->Prev = Final;
+                    Final = cur;
+                }
+                cur->w = w, cur->h = h;
+                TiXmlElement* line;
+                int linenum = 0;
+                for(int i=0; i<XYE_HORZ; i++)
+                    for(int j=0; j<XYE_VERT; j++)
+                       cur->data[i][j]='#';
+                       
+                cur->name = el->Attribute("Id");
+                if(cur->name=="")
+                {
+                    char buf[10];
+                    sprintf(buf, "Level %d", cur->levelnum+1);
+                    cur->name=buf;
+                }
+
+                for (line = el->FirstChildElement("L"); line != NULL; line = line->NextSiblingElement("L") )
+                {
+                    string row = line->GetText();
+                    
+                    
+                    for(int i=0; i<row.length(); i++)
+                        if(swapped)
+                            cur->data[linenum][i]= row[i];
+                        else
+                            cur->data[i][linenum]= row[i];
+                    
+                    linenum ++;
+                }
+                cur->levelnum = temlevel+1;
+                temlevel++;
+                
+            }
+
+        }
+        else return game::Error("Unable to load Sokoban XML file");
+
+    }
+    else game::Error("Unable to load Sokoban XML file");
+    LevelPack::n = tn;
+    LoadNthLevel(ln);
+}
+
+
+const char* XsbLevelPack::ReadDataSLC(const char* path,unsigned int &n, string&author, string &description, string&title)
+{
+    TiXmlDocument  fil(path);
+    TiXmlElement* pack, *el;
+    author = "";
+    description = "Sokoban levels in SLC format";
+    string email, url;
+    n=0;
+    if (fil.LoadFile())
+    {
+        pack=fil.FirstChildElement("SokobanLevels");
+        if (pack!=NULL)
+        {
+            el= pack->FirstChildElement("Description");
+            if(el != NULL) description = el->GetText();
+            el= pack->FirstChildElement("Title");
+            if(el != NULL) title = el->GetText();
+
+            el= pack->FirstChildElement("Email");
+            if(el != NULL) email = el->GetText();
+            el= pack->FirstChildElement("Url");
+            if(el != NULL) url = el->GetText();
+            el=pack->FirstChildElement("LevelCollection");
+            if(el == NULL) return "Unable to find a <LevelCollection> tag.";
+            
+            n = SLC_CountValidLevels(el);
+            author = el->Attribute("Copyright");
+
+        }
+        else return "Not a sokoban XML file";
+    }
+    else return "Not a sokoban XML file";
+    if(email!="") author+=" <"+email+">";
+    if(url!="") description+="\n\n"+url;
+
+
+    return NULL;
+}
+
+const char* XsbLevelPack::ReadData(const char* path,unsigned int &n, string&author, string &description, string & title)
+{
+    if( IsSLC(path))
+    {
+        return ReadDataSLC(path, n, author, description, title);
+    }
+    
     n=0;
     std::ifstream fl ;
     fl.open(path,std::ios::in);
@@ -116,6 +295,8 @@ const char* XsbLevelPack::ReadData(const char* path,unsigned int &n )
     if (!n)
         return "Could not find compatible xsb levels";
 
+    author = "";
+    description = "This file contains Sokoban levels in standard (text) format.";
 return NULL;
 
 }
@@ -137,16 +318,17 @@ void XsbLevelPack::Clean()
 }
 
 
+
 void XsbLevelPack::Load(const char* filename, unsigned int ln)
 {
-
-    std::string line;
-
-    std::ifstream fl ;
-
-
-
     Clean();
+    if( IsSLC(filename))
+    {
+        return LoadSLC(filename, ln);
+    }
+    
+    std::string line;
+    std::ifstream fl ;
     fl.open(filename,std::ios::in);
     if (! fl.is_open()) game::Error("Unable to load level file (.Xsb) (stream error)");
     if (fl.eof()) game::Error("Level File is empty");
@@ -721,7 +903,6 @@ $ - box
                 }
             }
         }
-
 
 
     game::XYE= new xye(game::Square(kx,ky));
