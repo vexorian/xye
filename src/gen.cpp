@@ -18,6 +18,8 @@ Permission is granted to anyone to use this software for any purpose, including 
 
 #include "gen.h"
 #include "vxsdl.h"
+#include<cstdio>
+
 const float F_RAND_MAX = (float)(RAND_MAX);
 
 
@@ -107,25 +109,23 @@ SDL_Color& MixColors(SDL_Color& A, SDL_Color& B)
 
 bool TryS2I(std::string &str, int& r)
 {
-    r=0;
-    int L=str.length();
-    if (L<=0) return false;
-    int i=0;
-    bool neg=(str[0]=='-');
-    if (neg) i++;
-    while (i<L)
-    {
-        //if (str[i]=='\r') { i++; continue; }
-
-        if ((str[i]>'9') || (str[i]<'0')) return false;
-        r*=10;
-        r+= (str[i] - '0');
-        i++;
-    }
-    if (neg) r*=-1;
-    return true;
+    return (sscanf(str.c_str(),"%d", &r)==1);
 }
 
+std::string GetFileNameNoExtension( const char* filename )
+{
+    int len= strlen(filename), k=len-1, r=len-1;
+    while ( (k>=0) && (filename[k]!='/') && (filename[k]!='\\') )
+        k--;
+    while ( (r>=0) && (filename[r]!='.') )
+        r--;
+    string name;
+    if ( r>k)
+        name = string(filename).substr(k+1, r-k-1);
+    else
+        name = &(filename[k+1]);
+    return name;
+}
 
 
 
