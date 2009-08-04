@@ -15,7 +15,7 @@ Permission is granted to anyone to use this software for any purpose, including 
 
 */
 
-
+const int MAX_FILENAMES_TO_REMEMBER = 100;
 
 
 #include "options.h"
@@ -24,7 +24,10 @@ Permission is granted to anyone to use this software for any purpose, including 
 
 #include<iostream>
 #include<fstream>
-
+#include<map>
+#include<algorithm>
+#include<string>
+using std::string;
 
 //for simplicity's sake I copied it, hopefully we won't ever change this enum
 enum blockcolor
@@ -74,6 +77,15 @@ SDL_Color options::LevelMenu_menutext;
 SDL_Color options::LevelMenu_selectedtext;
 SDL_Color options::LevelMenu_infotext;
 bool options::xyeDirectionSprites = false;
+
+
+// Used for saving level file numbers and recent level files...
+int MemTime = 0;
+typedef std::map< std::pair<int, string>, int> memmap;
+std::map< std::pair<int, string>, int> MemFileLevelNumber;
+std::map< string, int> MemFileLevelTime;
+
+
 
 
 bool options::Error(const char* msg)
@@ -548,6 +560,11 @@ void options::Clean()
         delete [] FontBold;
 
         bini=false;
+        
+        MemTime = 0;
+        MemFileLevelNumber.clear();
+        MemFileLevelTime.clear();
+
     }
     
 }
@@ -611,10 +628,6 @@ const string& options::GetHomeFolder()
 }
 
 
-unsigned int options::GetLevelNumber()
-{
-    return lvnum;
-}
 
 unsigned char options::Red()
 {
@@ -636,6 +649,53 @@ void options::IgnoreLevelSave()
     options_saveignored = true;
 }
 
+
+
+
+
+void options::SaveLevelFile(const char* filename, int levelNumber)
+{
+    if(filename == NULL) return;
+    
+    MemTime++;
+    string s = filename;
+    if( MemFileLevelTime.count(s) == 1)
+    {
+        int t = MemFileLevelTime[s];
+        MemFileLevelTime[filename]  = MemTime;
+        MemFileLevelNumber.erase( MemFileLevelNumber.find( make_pair(t, s) ) );
+        MemFileLevelNumber[ make_pair(MemTime, s) ] =levelNumber;
+    }
+    else 
+    {
+        if( MemFileLevelTime.size() >= MAX_FILENAMES_TO_REMEMBER )
+        {
+            //remove the one with the lowest time
+            std::pair<int,string> oldest = MemFileLevelNumber.begin()->first;
+            MemFileLevelTime.erase( MemFileLevelTime.find(oldest.second) );
+            MemFileLevelNumber.erase(MemFileLevelNumber.begin());
+        }
+        MemFileLevelTime[s] = MemTime;
+        MemFileLevelNumber[ make_pair(MemTime,s) ] = levelNumber;
+        
+    }
+   
+    LevelFile = filename;
+    lvnum = levelNumber;
+}
+
+
+unsigned int options::GetLevelNumber(const char* filename)
+{
+    string s=filename;
+    if( MemFileLevelTime.count(s))
+    {
+        int t = MemFileLevelTime[s];
+        return MemFileLevelNumber[ make_pair(t, s) ];
+    }
+    return 1;
+}
+
 void options::PerformLevelFileSave()
 {
     if(options_saveignored) return;
@@ -643,26 +703,23 @@ void options::PerformLevelFileSave()
     string path = GetHomeFolder()+"lastlevel.conf";
     file.open (path.c_str(),std::ios::trunc | std::ios::out );
     if (!file.is_open()) return ; //ouch just halt.
-    file<<LevelFile<<"\n"<<lvnum<<"\n";
+    
+    for ( memmap::iterator q = MemFileLevelNumber.begin(); q!=MemFileLevelNumber.end(); q++)
+    {
+        file<< q->first.second  << std::endl<< q->second <<std::endl;
+    }
+    
+    
     file.close();
 }
 
-void options::SaveLevelFile(const char* filename, int levelNumber)
-{
-    if(filename != NULL)
-    {
-        LevelFile = filename;
-        lvnum = levelNumber;
-    }
-    else
-    {
-        LevelFile = "#browse#";
-        lvnum = 0;
-    }
-}
 
 void options::LoadLevelFile()
 {
+    MemTime = 0;
+    MemFileLevelNumber.clear();
+    MemFileLevelTime.clear();
+    
     std::ifstream file;
     string path = GetHomeFolder()+"lastlevel.conf";
     file.open (path.c_str(), std::ios::in );
@@ -672,6 +729,15 @@ void options::LoadLevelFile()
         lvnum = 0;
         return ; //ouch just halt.
     }
-    getline(file,LevelFile);
-    file>>lvnum;
+    std::cout<<file.eof()<<std::endl;
+    string LevelFile;
+    int lvnum;
+    while( !file.eof()  )
+    {
+        getline(file,LevelFile);
+        if(LevelFile=="") break;
+        file>>lvnum;
+        SaveLevelFile(LevelFile.c_str(), lvnum);
+        getline(file,LevelFile);
+    }
 }
