@@ -372,7 +372,7 @@ int game::Init(const char* levelfile)
 
 
     const char* r=options::GetLevelFile();
-    int ln = options::GetLevelNumber();
+    int ln = options::GetLevelNumber(r);
 
     if (r!=NULL)
     {
@@ -399,7 +399,8 @@ int game::Init(const char* levelfile)
         
         //game::start();
         ln = 1;
-        if( (r!=NULL) && (options::GetLevelFile()!=NULL) && (strcmp(r, options::GetLevelFile() ) == 0) ) ln= options::GetLevelNumber();
+        if (r!=NULL)
+             ln= options::GetLevelNumber(r);
         /*
         if (! AppLoop()) break;
         if( levelfile != NULL) break;
@@ -977,8 +978,8 @@ void game::InitGameSection(window* wind)
     game::started=true;
     game::end();
     game::start();
-    if( (game::InitLevelFile!=NULL) && (options::GetLevelFile()!=NULL) && strcmp(game::InitLevelFile, options::GetLevelFile()) == 0)
-        game::InitLevelFileN = options::GetLevelNumber();
+    if(game::InitLevelFile!=NULL)
+        game::InitLevelFileN = options::GetLevelNumber(game::InitLevelFile);
     
     LevelPack::Load( game::InitLevelFile, game::InitLevelFileN);
     AfterLevelLoad();

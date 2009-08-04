@@ -47,6 +47,9 @@ class options
     static void Init();
     static void Clean();
     static const char* GetLevelFile();
+    static unsigned int GetLevelNumber( const char* levelfile);
+    
+    
     static const char* GetSpriteFile();
 
     static int GetFontSize();
@@ -54,7 +57,7 @@ class options
     static const char* GetFontFile();
     static const char* GetFontBoldFile();
     static int GetGridSize();
-    static unsigned int GetLevelNumber();
+    
     
     static void SaveLevelFile(const char* filename, int levelNumber = 0);
     
