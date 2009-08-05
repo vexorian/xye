@@ -186,7 +186,8 @@ void XsbLevelPack::LoadSLC(const char* filename, unsigned int ln)
 
                 for (line = el->FirstChildElement("L"); line != NULL; line = line->NextSiblingElement("L") )
                 {
-                    string row = line->GetText();
+                    const char* gt =line->GetText(); 
+                    string row = ( (gt!=NULL) ? gt : "");
                     
                     
                     for(int i=0; i<row.length(); i++)
@@ -226,14 +227,14 @@ const char* XsbLevelPack::ReadDataSLC(const char* path,unsigned int &n, string&a
         if (pack!=NULL)
         {
             el= pack->FirstChildElement("Description");
-            if(el != NULL) description = el->GetText();
+            if( (el != NULL) && (el->GetText()!=NULL) ) description = el->GetText();
             el= pack->FirstChildElement("Title");
-            if(el != NULL) title = el->GetText();
+            if( (el != NULL) && (el->GetText()!=NULL) ) title = el->GetText();
 
             el= pack->FirstChildElement("Email");
-            if(el != NULL) email = el->GetText();
+            if( (el != NULL) && (el->GetText()!=NULL) ) email = el->GetText();
             el= pack->FirstChildElement("Url");
-            if(el != NULL) url = el->GetText();
+            if( (el != NULL) && (el->GetText()!=NULL) ) url = el->GetText();
             el=pack->FirstChildElement("LevelCollection");
             if(el == NULL) return "Unable to find a <LevelCollection> tag.";
             
