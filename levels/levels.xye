@@ -2528,39 +2528,32 @@
     </ground>
     <palette>
         <color id='1' red='220' green='255' blue='220'/>
-        <color id='2' red='165' green='192' blue='165'/>
-    </palette>
-    <floor>
-        <area color='2' x='0' x2='1' y='0' y2='1'/>
-        <area color='2' x='2' x2='25'/>
-        <area color='2' x='27' x2='29'/>
-        <area color='2' y='1' y2='10' x='29'/>
-        <area color='2' x='9' x2='14' y='1'/>
-        <area color='2' x='16' x2='17'/>
-        <area color='2' y='2' y2='5' x='0'/>
-        <area color='2' x='10' x2='12'/>
-        <area color='2' y='7' x='0'/><area color='2' y2='8' x='18'/><area color='2' y2='9' x='28'/>
-        <area color='2' y='4' y2='5' x='4'/><area color='2' x='21'/>
-        <area color='2' y='5' y2='6' x='5'/><area color='2' y2='7' x='17'/>
-        <area color='2' y='6' y2='8' x='6'/><area color='2' y2='7' x='10'/><area color='2' x='11' x2='13'/>
-        <area color='2' y='8' x='7'/><area color='2' x='9'/><area color='2' x='19' x2='22'/>
-        <area color='2' y='9' x='21' x2='24'/><area color='2' x='27'/>
-        <area color='2' y='11' x='13'/>
-        <area color='2' y='12' x='17'/>
-        <area color='2' y='13' x='21' x2='26'/>
-        <area color='2' y='14' y2='17' x='17'/>
-        <area color='2' y='18' x='4'/><area color='2' x='6' x2='14'/><area color='2' x='16' x2='22'/>
-        <area color='2' y='19' x='2' x2='23'/><area color='2' x='25' x2='29'/>
-        
-        
-        
-        
-    </floor>
-    
+    </palette>   
     <default>
         <wall color='1'/>
     </default>
     <objects>
+        <wall type='6' x='0' x2='1' y='0' y2='1'/>
+        <wall type='6' x='2' x2='25'/>
+        <wall type='6' x='27' x2='29'/>
+        <wall type='6' y='1' y2='10' x='29'/>
+        <wall type='6' x='9' x2='14' y='1'/>
+        <wall type='6' x='16' x2='17'/>
+        <wall type='6' y='2' y2='5' x='0'/>
+        <wall type='6' x='10' x2='12'/>
+        <wall type='6' y='7' x='0'/><wall type='6' y2='8' x='18'/><wall type='6' y2='9' x='28'/>
+        <wall type='6' y='4' y2='5' x='4'/><wall type='6' x='21'/>
+        <wall type='6' y='5' y2='6' x='5'/><wall type='6' y2='7' x='17'/>
+        <wall type='6' y='6' y2='8' x='6'/><wall type='6' y2='7' x='10'/><wall type='6' x='11' x2='13'/>
+        <wall type='6' y='8' x='7'/><wall type='6' x='9'/><wall type='6' x='19' x2='22'/>
+        <wall type='6' y='9' x='21' x2='24'/><wall type='6' x='27'/>
+        <wall type='6' y='11' x='13'/>
+        <wall type='6' y='12' x='17'/>
+        <wall type='6' y='13' x='21' x2='26'/>
+        <wall type='6' y='14' y2='17' x='17'/>
+        <wall type='6' y='18' x='4'/><wall type='6' x='6' x2='14'/><wall type='6' x='16' x2='22'/>
+        <wall type='6' y='19' x='2' x2='23'/><wall type='6' x='25' x2='29'/>
+
         <wall y='0' x='26'/>
         <wall y='1' x='2' x2='8'/>
         <wall x='15'/>
@@ -10354,19 +10347,9 @@
 <hint>Open your eyes</hint>
 <palette>
     <color id='1' red='255' green='255' blue='255' />
-    <color id='2' red='192' green='192' blue='192'/>
 </palette>
 <default>
 </default>
-<floor>
-    <area y='0' y2='6' x='0' x2='2' color='2'/>
-    <area y='12' x='0' x2='5' color='2'/>
-    <area y='17' y2='19' x='12' x2='16' color='2'/>
-    <area y='7' y2='9' x='24' x2='29' color='2'/>
-    <area y='18' y2='19' x='0' x2='5' color='2'/>
-    <area y='14' y2='17' x='0' x2='1' color='2'/>
-    
-</floor>
 <kyeformat offset='2'><![CDATA[
   012345678901234567890123456789
  /------------------------------
@@ -10392,6 +10375,16 @@
 0|  5555555555555555555555555555
 ]]></kyeformat>
 <objects>
+    <wall y='0' y2='6' x='0' x2='1' type='6'/>
+    <wall y='12' x='0' x2='5' type='6'/>
+    <wall y='17' y2='19' x='12' x2='16' type='6'/>
+    <wall y='7' y2='9' x='24' x2='29' type='6'/>
+    <wall y='18' y2='19' x='0' x2='5' type='6'/>
+    <wall y='14' y2='17' x='0' x2='1' type='6'/>
+    
+    <wall y='4' x='2' type='6'/>
+    <wall y='6' x='2' type='6'/>
+
     <gem y='10' x='2' bc="Y"/>
     <gem y='8' x='3' bc="R"/>
     <gem y='1' x='29' bc="Y"/>
