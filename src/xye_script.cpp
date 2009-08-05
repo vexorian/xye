@@ -141,14 +141,14 @@ void  LevelPack::LoadInformation()
 
     //Pack name:
     pEChild= pack->FirstChildElement("name");
-    if (pEChild)
+    if ( (pEChild != NULL) && (pEChild->GetText()!=NULL) )
         Name= pEChild->GetText();
     else
         Name= "Unknown";
 
     //Pack author:
     pEChild= pack->FirstChildElement("author");
-    if (pEChild)
+    if ( (pEChild != NULL) && (pEChild->GetText()!=NULL) )
         Author= pEChild->GetText();
     else
         Author= "Unknown";
@@ -253,13 +253,13 @@ return true;*/
 
             el= pack->FirstChildElement("name");
 
-            if (el)
+            if ( (el!=NULL) && (el->GetText()!=NULL) )
                 ti= el->GetText();
             else
                 ti="Just another XYE level file";
 
             el= pack->FirstChildElement("author");
-            if (el)
+            if ( (el!=NULL) && (el->GetText()!=NULL) )
                 au= el->GetText();
             else
                 au="Unknown";
@@ -384,15 +384,21 @@ void LevelPack::Load(const char *filename, unsigned int ln, const char* replay)
                 if (pack=pack->FirstChildElement("moves"))
                 {
                     bf=pack->GetText();
-                    char* tm2=new char[strlen(bf)+1];
-                    strcpy(tm2,bf);
-                    LevelPack::Load(tm,ln,tm2);
-                    delete[] tm;
-                    delete[] tm2;
+                    if(bf!=NULL)
+                    {
+                        char* tm2=new char[strlen(bf)+1];
+                        strcpy(tm2,bf);
+                        LevelPack::Load(tm,ln,tm2);
+                        delete[] tm2;
+                    }
+                    else
+                    {
+                        LevelPack::Load(tm, ln, "");
+                    }
                     return;
                 }
                 else game::Error("replay file has no replay data");
-
+                delete[] tm;
 
             }
             else
@@ -1236,8 +1242,8 @@ void Load_Hint(TiXmlElement* el, bool warn)
         el->QueryIntAttribute("x",&LastX);
         el->QueryIntAttribute("y",&LastY);
         /*el->QueryIntAttribute("color",&c1);*/
-
-    string text= el->GetText () ;
+    const char* tx = el->GetText ();
+    string text = ( (tx!=NULL) ? tx : "") ;
     hint* hn=new hint(game::SquareN(LastX,LastY), text, warn);
     /*if (c1!=0)
     {
@@ -1698,8 +1704,13 @@ TiXmlElement* pEChild;
         if (cntd != NULL)
         {
             LevelPack::CurrentLevelTitle= "Xye - "+string(cntd);
-            SDL_WM_SetCaption(LevelPack::CurrentLevelTitle.c_str(),0);
         }
+        else
+        {
+            LevelPack::CurrentLevelTitle= "Xye";
+        }
+        SDL_WM_SetCaption(LevelPack::CurrentLevelTitle.c_str(),0);
+
     }
     else
         SDL_WM_SetCaption("Xye",0);
@@ -1711,7 +1722,7 @@ TiXmlElement* pEChild;
     if (pEChild)
     {
         const char *cntd=pEChild->GetText();
-        if (cntd)
+        if (cntd != NULL)
             LevelPack::SetLevelBye(cntd);
     }
 
@@ -1720,7 +1731,7 @@ TiXmlElement* pEChild;
     if (pEChild)
     {
         const char *cntd=pEChild->GetText();
-        if (cntd)
+        if (cntd!=NULL)
             hint::SetGlobalHint(cntd);
     }
 
@@ -1731,7 +1742,7 @@ TiXmlElement* pEChild;
     if (pEChild)
     {
         const char *cntd=pEChild->GetText();
-        if (cntd)
+        if (cntd!=NULL)
             LevelPack::Solution=cntd;
     }
 
@@ -1837,6 +1848,8 @@ bool LoadKyeFormat(TiXmlElement* kf)
 
     KyeLevel K(true);
     const char* tx=kf->GetText();
+    if(tx==NULL) tx="";
+    
     int offset=0,m;
     kf->QueryIntAttribute("offset",&offset);
 
