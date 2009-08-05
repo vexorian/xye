@@ -888,9 +888,10 @@ $ - box
             
             if( (object!=NULL) && (object->GetType() == OT_WALL) )
             {
-                unsigned int dx[4]={0,0,1,-1}, dy[4]={1,-1, 0,0};
+                unsigned int dx[8]={0,0,1,-1, 1,1,-1,-1};
+                unsigned int dy[8]={1,-1, 0,0,1,-1,1,-1};
                 bool sorrounded = true;
-                for (int t=0; t<4; t++)
+                for (int t=0; t<8; t++)
                     if ( (i+dx[t]< XYE_HORZ) && (j+dy[t]< XYE_VERT) )
                     {
                         obj* obj2 = game::Square(i+dx[t], j+dy[t])->object;
