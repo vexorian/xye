@@ -706,13 +706,16 @@ bool editor::load()
         el=pack->FirstChildElement("author");
         if (el!=NULL)
         {
-            lauthor=el->GetText();
+            const char* gt=el->GetText();
+            lauthor= (gt!=NULL ? gt : "");
+            
         }
 
         el=pack->FirstChildElement("description");
         if (el!=NULL)
         {
-            ldescription=el->GetText();
+            const char* gt=el->GetText();
+            ldescription= (gt!=NULL ? gt : "");
         }
 
         int n=0;
@@ -772,15 +775,18 @@ bool editor::load()
             }
             else if (v=="title")
             {
-                ltitle=el->GetText();
+                const char* gt=el->GetText();
+                ltitle= ( (gt!=NULL) ? gt : "");
             }
             else if (v=="hint")
             {
-                lhint=el->GetText();
+                const char* gt=el->GetText();
+                lhint= ( (gt!=NULL) ? gt : "");
             }
             else if (v=="bye")
             {
-                lbye=el->GetText();
+                const char* gt=el->GetText();
+                lbye= ( (gt!=NULL) ? gt : "");
             }
             else
             {
