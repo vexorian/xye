@@ -155,7 +155,7 @@ void  LevelPack::LoadInformation()
 
     //Pack Desc:
     pEChild= pack->FirstChildElement("description");
-    if (pEChild)
+    if ( (pEChild!=NULL) && (pEChild->GetText()!=NULL ) )
         Desc= pEChild->GetText();
     else
         Desc= "Unknown";
@@ -265,7 +265,7 @@ return true;*/
                 au="Unknown";
             el= pack->FirstChildElement("description");
 
-            if (el)
+            if ( (el!=NULL) && (el->GetText()!=NULL) )
                 ds= el->GetText();
             else
                 ds="(No description)";
