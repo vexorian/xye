@@ -1448,8 +1448,8 @@ void editorboard::drawRoundWall(SDL_Surface*target,int ox,int oy, int x, int y, 
     o.r3mem=(Uint8)(r3);
 
 
-    int sz2=sz/2;
-    Uint8 tx,ty;
+    Sint16 sz2=sz/2;
+    Sint16 tx,ty;
     ty=variation+1;
     if(variation==6) ty=0;
 
