@@ -1160,6 +1160,12 @@ void game::DrawPanelInfo(DaVinci& D, Sint16 &cx,Sint16 &cy, Uint8 spx, Uint8 spy
 
 }
 
+void game::DrawPanelInfo(DaVinci& D, Sint16 &cx,Sint16 &cy, Uint8 spx, Uint8 spy , unsigned int num, Uint8 fonadd, SDL_Color col)
+{
+    DrawPanelInfo(D,cx,cy,spx,spy,num,fonadd, col.r , col.g, col.b, col.unused);
+}
+
+
 
 string LastPanelHint="";
 
@@ -1268,13 +1274,13 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
         FontRes->Write(screen,cx, y+2+dif ,"Got: ");
         cx+= FontRes->TextWidth("Got: ");
         if (bl)
-            DrawPanelInfo(D, cx,cy, 6, 4, bl,dif,0,0,255,255);
+            DrawPanelInfo(D, cx,cy, 6, 4, bl,dif, options::BKColor[B_BLUE] );
         if (gr)
-            DrawPanelInfo(D, cx,cy, 6, 4, gr,dif,0,170,0,255);
+            DrawPanelInfo(D, cx,cy, 6, 4, gr,dif, options::BKColor[B_GREEN] );
         if (yl)
-            DrawPanelInfo(D, cx,cy, 6, 4, yl,dif,255,255,0,255);
+            DrawPanelInfo(D, cx,cy, 6, 4, yl,dif, options::BKColor[B_YELLOW] );
         if (rd)
-            DrawPanelInfo(D, cx,cy, 6, 4, rd,dif,255,0,0,255);
+            DrawPanelInfo(D, cx,cy, 6, 4, rd,dif, options::BKColor[B_RED] );
 
     }
     /*if (hint::GlobalHintExists())

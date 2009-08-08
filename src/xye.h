@@ -1394,7 +1394,7 @@ class game
     static void DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h);
     static bool EvalDirKeys();
 
-
+    static void DrawPanelInfo(DaVinci& D, Sint16 &cx,Sint16 &cy, Uint8 spx, Uint8 spy , unsigned int num, Uint8 fonadd, SDL_Color col);
     static void DrawPanelInfo(DaVinci& D, Sint16 &cx,Sint16 &cy, Uint8 spx, Uint8 spy , unsigned int num, Uint8 fonadd, Uint8 R=255, Uint8 G=255, Uint8 B=255, Uint8 A=255);
     static signed int HintMarquee;
     static unsigned char HintRead;
