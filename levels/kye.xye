@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <pack>
-<name>KYE levels</name>
+<name>Kye levels</name>
 <author>Colin Garbutt</author>
-<description>Levels included in Shareware Kye. From really basic ones to a pair of difficult ones. Really fun pack. Adapted by Vexorian</description>
+<description>Levels originally included in Shareware Kye. Adapted to Xye. From very basic ones to a pair of difficult ones.</description>
 <!--
  It is amazing how well the .kye format works and how easy it is to edit it with a text editor, the problem was that most of the opcodes
  were taken already, it was very difficult for me to make what I intended for Xye and keep that format which was kind of limited.
