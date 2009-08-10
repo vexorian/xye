@@ -256,7 +256,7 @@ return true;*/
             if ( (el!=NULL) && (el->GetText()!=NULL) )
                 ti= el->GetText();
             else
-                ti="Just another XYE level file";
+                ti="Just another Xye level file";
 
             el= pack->FirstChildElement("author");
             if ( (el!=NULL) && (el->GetText()!=NULL) )
@@ -278,6 +278,8 @@ return true;*/
                 leveln++;
                 el=el->NextSiblingElement("level");
             }
+            
+            if( leveln==0) val=false;
 
 
         }
@@ -300,7 +302,7 @@ return true;*/
     {
 
         au="Invalid File";
-        ds="This file is not a valid XYE level file";
+        ds="This file is not a valid Xye level file";
         int L=strlen(fil.ErrorDesc());
         char* err=new char[L+40];
         sprintf(err,"\n\n(Error: %s at line: %d col: %d)",fil.ErrorDesc(),fil.ErrorRow(),fil.ErrorCol());
