@@ -33,7 +33,6 @@ Permission is granted to anyone to use this software for any purpose, including 
 
 SDL_Color editor::PlayerColor;
 Font* editor::FontRes;
-SDL_Surface*     editor::screen;
 
 //Buffer of the sprites file
 SDL_Surface*     editor::sprites;
@@ -332,8 +331,6 @@ void editor::Init(const string &path, const string &file)
     button::Size=sz;
 
 
-    screen=editorwindow->getDrawingSurface();
-
     editorwindow->beforeDraw = editor::beforeDraw;
     editorwindow->onKeyDown= editor::onKeyDown;
     editorwindow->onKeyUp= editor::onKeyUp;
@@ -511,6 +508,7 @@ void editor::test()
     }
 
     SDL_WM_SetCaption("Xye - Editor (Testing)",0);
+    SDL_Surface* screen = editorwindow->getDrawingSurface();
     SDL_FillRect(screen,0,0,editor::Width,editor::Height,SDL_MapRGB(screen->format,0,0,0));
     SDL_Flip(screen);
 
