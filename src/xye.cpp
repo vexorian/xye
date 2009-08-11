@@ -6635,8 +6635,21 @@ bool beast::Loop_Sub(bool* died)
 bool beast::Loop(bool* died)
 {
     bool OnTime=false;
-    if ((game::counter7==0) || ((kind==BT_STATIC) && AIValue && (game::counter2==0) )) /* || (kind==BT_ASPINNER)) */NewAnim();
-
+    
+    switch(kind)
+    {
+        case BT_SPINNER: case BT_ASPINNER:
+            if ( ( game::counter5==0) || ( game::counter5==3) )
+                NewAnim();
+            break;
+        case BT_STATIC:
+            if( !AIValue || (game::counter2!=0) )
+                break;
+        default:
+            if(game::counter7==0)
+                 NewAnim(); 
+    };
+    
     switch(kind)
     {
         case(BT_PATIENCE): case(BT_TIGER): case(BT_DARD): case(BT_RANGER): OnTime=true; break;
