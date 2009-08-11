@@ -138,6 +138,12 @@ void window::init(int width, int height, const char * caption)
 
 }
 
+void window::Resize(int width, int height)
+{
+    surface=SDL_SetVideoMode(width,height, 32, 0);
+
+}
+
 void window::SetCaption(const char* caption)
 {
     SDL_WM_SetCaption(caption,0);

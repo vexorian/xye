@@ -106,22 +106,6 @@ return tm;
 
 }
 
-void Draw()
-{
-/*
-    Uint32 back=SDL_MapRGB(game::screen->format, options::LevelMenu_menu);
-    SDL_FillRect(game::screen, 0, back);
-
-
-
-*/
-
-
-    SDL_Flip(game::screen);
-}
-
-
-
 class LevelList: public control
 {
 public:
@@ -169,15 +153,15 @@ public:
             if (Active==i)
             {
 
-                SDL_FillRect(game::screen, cx , cy, nw  , fh,
+                SDL_FillRect(target, cx , cy, nw  , fh,
                     ActiveIsValid?
                         SDL_MapRGB(target->format, options::LevelMenu_selected):
                         SDL_MapRGB(target->format, options::LevelMenu_selectederror));
 
-                MenuSelectedFont->Write(game::screen,fp,cy+fof, tm);
+                MenuSelectedFont->Write(target,fp,cy+fof, tm);
             }
             else
-                MenuFont->Write(game::screen,fp,cy+fof, tm);
+                MenuFont->Write(target,fp,cy+fof, tm);
             delete[] tm;
             i++;
             cy+=fh;
