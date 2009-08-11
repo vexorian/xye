@@ -237,8 +237,6 @@ int game::Init(const char* levelfile)
      SKIN=options::GetSpriteFile();
 
 
-    GameWidth=ix=XYE_GAMEX+XYE_HORZ*GRIDSIZE+XYE_XTRA_X;
-    GameHeight=iy=XYE_GAMEY+XYE_VERT*GRIDSIZE+XYE_XTRA_Y;
 
     Randomize();
 
@@ -283,7 +281,9 @@ int game::Init(const char* levelfile)
     
     if (!window::InitSDL()) return 0;
     printf("Setting video mode...\n");
-    gamewindow=window::create(XYE_HORZ*GRIDSIZE+XYE_GAMEX+XYE_XTRA_X,    XYE_VERT*GRIDSIZE+XYE_GAMEY+2*XYE_XTRA_Y+ GRIDSIZE+2+1+GRIDSIZE,"Xye");
+    GameWidth=XYE_HORZ*GRIDSIZE+XYE_GAMEX+XYE_XTRA_X;
+    GameHeight=XYE_VERT*GRIDSIZE+XYE_GAMEY+2*XYE_XTRA_Y+ GRIDSIZE+2+1+GRIDSIZE;
+    gamewindow=window::create(GameWidth, GameHeight   ,"Xye");
     screen= gamewindow->getDrawingSurface();
 
 
@@ -388,8 +388,6 @@ int game::Init(const char* levelfile)
     }
     else
     {
-        xye_fromeditortest = true;
-        options::IgnoreLevelSave();
         r = levelfile;
         game::InitLevelFile = r;
         game::InitLevelFileN = ln;
@@ -459,6 +457,15 @@ int game::Init(const char* levelfile)
 
 void game::PlayLevel( const char *levelfile, int level)
 {
+    xye_fromeditortest = false;
+    InitLevelFile = levelfile;
+    InitLevelFileN= level;
+    gamewindow->SetTransition(game::InitGameSection);
+}
+
+void game::TestLevel( const char *levelfile, int level)
+{
+    xye_fromeditortest = true;
     InitLevelFile = levelfile;
     InitLevelFileN= level;
     gamewindow->SetTransition(game::InitGameSection);
@@ -602,7 +609,12 @@ void game::RestartCommand( const buttondata*bd)
 
 void game::ExitCommand( const buttondata*bd)
 {
-    gamewindow->Close(); //exit if Escape is Pressed
+    if(xye_fromeditortest)
+    {
+        gamewindow->SetTransition(editor::ResumeSectionAndQuit);
+    }
+    else
+        gamewindow->Close(); //exit if Escape is Pressed
 }
 
 void game::GoPreviousCommand( const buttondata*bd)
@@ -649,7 +661,7 @@ void game::UndoCommand( const buttondata*bd)
 
 void game::BrowseCommand( const buttondata*bd)
 {
-    if( xye_fromeditortest) ExitCommand();
+    if( xye_fromeditortest) gamewindow->SetTransition(editor::ResumeSection);
     else gamewindow->SetTransition(LevelBrowser::StartSection);    
 }
 
@@ -837,17 +849,24 @@ void game::onMouseUp(int x,int y)
 }
 
 
-const char* game::InitLevelFile = NULL;
+string game::InitLevelFile;
 int game::InitLevelFileN=0;
 
 void game::InitGameSection(window* wind)
 {
+    Sint16 oy = 0;
+    if(! xye_fromeditortest)
+        gamewindow->Resize(GameWidth,GameHeight);
+    else
+    {
+        oy = XYE_XTRA_Y;
+    }
     Sint16 sz32 = (game::GRIDSIZE*3)/2;
     //button * but = new button(0,0,100,100);
     //but->depth = 100;
     //gamewindow->addControl(but);
    
-    rectangle* rc = new rectangle(0,0, wind->Width, game::GRIDSIZE, options::LevelMenu_info );
+    rectangle* rc = new rectangle(0,oy, wind->Width, game::GRIDSIZE, options::LevelMenu_info );
     wind->addControl(rc);
     
     //fun with buttons
@@ -856,7 +875,7 @@ void game::InitGameSection(window* wind)
     
     //*** Browse button:
     cap = "Browse";
-    button* bt  = new button(1,0, sz32, game::GRIDSIZE);
+    button* bt  = new button(1,oy, sz32, game::GRIDSIZE);
     //bt->text = cap;
     bt->Icon(5,15);
     bt->depth=1;
@@ -865,7 +884,7 @@ void game::InitGameSection(window* wind)
 
     //*** Restart button:
     cap = "Restart";
-    bt  = new button(bt->x + bt->w + 1,0, sz32, game::GRIDSIZE);
+    bt  = new button(bt->x + bt->w + 1,oy, sz32, game::GRIDSIZE);
     //bt->text = cap;
     bt->Icon(7,3);
     bt->depth=1;
@@ -874,7 +893,7 @@ void game::InitGameSection(window* wind)
 
     //*** Prev button:
     cap = "-";
-    bt  = new button(bt->x + bt->w + 1,0, sz32, game::GRIDSIZE);
+    bt  = new button(bt->x + bt->w + 1,oy, sz32, game::GRIDSIZE);
     //bt->text = cap;
     bt->Icon(4,18);
     bt->depth=1;
@@ -886,7 +905,7 @@ void game::InitGameSection(window* wind)
     
     //*** Next button:
     cap = "+";
-    bt  = new button(bt->x + bt->w + 1,0, sz32, game::GRIDSIZE);
+    bt  = new button(bt->x + bt->w + 1,oy, sz32, game::GRIDSIZE);
     //bt->text = cap;
     bt->Icon(5,18);
     bt->depth=1;
@@ -896,7 +915,7 @@ void game::InitGameSection(window* wind)
 
     //*** FF button:
     cap = ">>";
-    bt  = new button(bt->x + bt->w + 1,0, sz32, game::GRIDSIZE);
+    bt  = new button(bt->x + bt->w + 1,oy, sz32, game::GRIDSIZE);
     //bt->text = cap;
     bt->Icon(8,3);
     bt->depth=1;
@@ -907,7 +926,7 @@ void game::InitGameSection(window* wind)
 
     //*** Hint button:
     cap = "?";
-    bt  = new button(bt->x + bt->w + 1,0, sz32, game::GRIDSIZE);
+    bt  = new button(bt->x + bt->w + 1,oy, sz32, game::GRIDSIZE);
     //bt->text = cap;
     bt->Icon(11,18);
     bt->depth=1;
@@ -918,7 +937,7 @@ void game::InitGameSection(window* wind)
 
     //*** Solution button:
     cap = "S";
-    bt  = new button(bt->x + bt->w + 1,0, sz32, game::GRIDSIZE);
+    bt  = new button(bt->x + bt->w + 1,oy, sz32, game::GRIDSIZE);
     bt->Icon(8,4);
     //bt->text = cap;
     bt->depth=1;
@@ -928,7 +947,7 @@ void game::InitGameSection(window* wind)
 
     //*** Undo button:
     cap = "Undo";
-    bt  = new button(bt->x + bt->w + 1,0, sz32, game::GRIDSIZE);
+    bt  = new button(bt->x + bt->w + 1,oy, sz32, game::GRIDSIZE);
     //bt->text = cap;
     bt->Icon(11,19);
     bt->depth=1;
@@ -940,17 +959,17 @@ void game::InitGameSection(window* wind)
 
     //*** Quit button:
     cap = "Quit";
-    bt  = new button( wind->Width - button::recommendedWidth(cap) -1,0, button::recommendedWidth(cap), game::GRIDSIZE);
+    bt  = new button( wind->Width - button::recommendedWidth(cap) -1,oy, button::recommendedWidth(cap), game::GRIDSIZE);
     bt->text = cap; 
     bt->depth=1;
     bt->onClick = ExitCommand;
     wind->addControl(bt);
 
     
-    rc = new rectangle(0, game::GRIDSIZE, wind->Width, XYE_XTRA_Y, 0,0,0); 
+    rc = new rectangle(0, game::GRIDSIZE+oy, wind->Width, XYE_XTRA_Y, 0,0,0); 
     wind->addControl(rc);
     
-    Sint16 cx=0, cy = XYE_XTRA_Y + game::GRIDSIZE;
+    Sint16 cx=0, cy = oy+XYE_XTRA_Y + game::GRIDSIZE;
     
     TheGameBoard = new gameboard(XYE_XTRA_X,cy, game::GRIDSIZE*XYE_HORZ, game::GRIDSIZE*XYE_VERT);
     wind->addControl(TheGameBoard);
@@ -970,7 +989,7 @@ void game::InitGameSection(window* wind)
     wind->addControl(rc);
 
     
-    gamepanel* gp = new gamepanel(XYE_XTRA_X, rc->y + rc->h, wind->Width- 2*XYE_XTRA_X, wind->Height - (rc->y + rc->h) - XYE_XTRA_Y );
+    gamepanel* gp = new gamepanel(XYE_XTRA_X, rc->y + rc->h, wind->Width- 2*XYE_XTRA_X, wind->Height - (rc->y + rc->h) - XYE_XTRA_Y  );
     gp->depth = 2;
     gamewindow->addControl(gp);
 
@@ -982,10 +1001,10 @@ void game::InitGameSection(window* wind)
     game::started=true;
     game::end();
     game::start();
-    if(game::InitLevelFile!=NULL)
-        game::InitLevelFileN = options::GetLevelNumber(game::InitLevelFile);
+    if(game::InitLevelFile!="")
+        game::InitLevelFileN = options::GetLevelNumber(game::InitLevelFile.c_str());
     
-    LevelPack::Load( game::InitLevelFile, game::InitLevelFileN);
+    LevelPack::Load( game::InitLevelFile.c_str(), game::InitLevelFileN);
     AfterLevelLoad();
    
 }
@@ -1188,7 +1207,7 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
     SDL_FillRect(screen, x,y, Aw, Ah, white);
     //Aw-=XYE_GAMEX+XYE_XTRA_X;
     //Ah-=XYE_XTRA_Y;
-    x=XYE_GAMEX;
+    //x+=XYE_GAMEX;
     Sint16 dif= (GRIDSIZE+2-FontRes->Height())/2;
 
     char tx[30];
@@ -1257,6 +1276,10 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
 
     unsigned int yl,rd,bl,gr;
     cy=y+2;
+    if(xye_fromeditortest)
+    {
+         FontRes->Write(screen, x+w-GRIDSIZE-FontRes->TextWidth("Testing a level from Xyedit"),y+h-XYE_XTRA_Y-FontRes->Height()  ,"Testing a level from Xyedit");
+    }
     if (gem::GetRemanents(yl,rd,bl,gr))
     {
         FontRes->Write(screen,cx, y+2+dif ,"Remaining: ");
@@ -1287,6 +1310,7 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
             DrawPanelInfo(D, cx,cy, 6, 4, rd,dif, options::BKColor[B_RED] );
 
     }
+    
     /*if (hint::GlobalHintExists())
     {
         cx+=3;

@@ -63,8 +63,8 @@ void KyeLevelPack::Load(const char* filename, unsigned int ln)
 
     Clean();
     fl.open(filename,std::ios::in);
-    if (! fl.is_open()) game::Error("Unable to load level file (.kye) (stream error)");
-    if (fl.eof()) game::Error("Level File is empty");
+    if (! fl.is_open()) {LevelPack::Error("Unable to load level file (.kye) (stream error)"); return; }
+    if (fl.eof()) {LevelPack::Error("Level File is empty"); return; }
 
     //read stuff !
     getline_xplt (fl,line);
@@ -72,12 +72,12 @@ void KyeLevelPack::Load(const char* filename, unsigned int ln)
 
 
     if (! TryS2I(line,N))
-        game::Error("Not a kye file, first line not a number!");
+        {LevelPack::Error("Not a kye file, first line not a number!");return;}
     LevelPack::n=N;
 
 
-    if (N<=0) game::Error("Not really a kye file (Number of levels too low <=0)");
-    if (fl.eof()) game::Error("Unexpected end of file");
+    if (N<=0) {LevelPack::Error("Not really a kye file (Number of levels too low <=0)");return;}
+    if (fl.eof()) {LevelPack::Error("Unexpected end of file");return;}
 
     //now we know the file is *supposed* to have N files;
 
@@ -90,11 +90,11 @@ void KyeLevelPack::Load(const char* filename, unsigned int ln)
         //Try to read N levels.
 
         getline_xplt (fl,current->name);
-        if (fl.eof()) game::Error("Unexpected end of file");
+        if (fl.eof()) {LevelPack::Error("Unexpected end of file");return;}
         getline_xplt (fl,current->lhint);
-        if (fl.eof()) game::Error("Unexpected end of file");
+        if (fl.eof()) {LevelPack::Error("Unexpected end of file");return;}
         getline_xplt (fl,current->bye);
-        if (fl.eof()) game::Error("Unexpected end of file");
+        if (fl.eof()) {LevelPack::Error("Unexpected end of file");return;}
 
         //Now it should get interesting, we will read 20 lines that form the level
         //and parse them into the 2d array.
@@ -102,7 +102,7 @@ void KyeLevelPack::Load(const char* filename, unsigned int ln)
         for (j=19;j>=0;j--)
         {
             getline_xplt (fl,line);
-            if ((j>0) && fl.eof()) game::Error("Unexpected end of file");
+            if ((j>0) && fl.eof()) {LevelPack::Error("Unexpected end of file");return;}
             k=line.length();
             k= (k>30)?30:k;
             for (i=0;i<k;i++)
@@ -116,7 +116,7 @@ void KyeLevelPack::Load(const char* filename, unsigned int ln)
         N--;
         if (N>0)
         {
-            if (fl.eof()) game::Error("Invalid Kye file (missing level?)");
+            if (fl.eof()) {LevelPack::Error("Invalid Kye file (missing level?)");return;}
             ql=new KyeLevel();
             ql->Prev=current;
             current->Next=ql;

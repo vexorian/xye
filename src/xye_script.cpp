@@ -35,6 +35,7 @@ string LevelPack::Solution;
 string LevelPack::CurrentLevelBye;
 string LevelPack::OpenFile;
 unsigned int LevelPack::OpenFileLn;
+bool LevelPack::defmode;
 bool LevelPack::kyemode;
 bool LevelPack::xsbmode;
 
@@ -63,8 +64,17 @@ bool LevelPack::AllowUndo()
     return (xsbmode);
 }
 
+
+
+
+
 void LevelPack::LoadNthLevel(unsigned int n)
 {
+    if(defmode)
+    {
+        LevelPack::Default();
+        return;
+    }
     if (kyemode)
     {
         KyeLevelPack::LoadNthLevel(n);
@@ -77,7 +87,7 @@ void LevelPack::LoadNthLevel(unsigned int n)
     }
 
     CurrentLevel=FirstLevel=pack->FirstChildElement("level");
-    if (! FirstLevel) game::Error("can't find any level");
+    if (! FirstLevel) { LevelPack::Error("can't find any level"); return; }
     TiXmlElement* tm=FirstLevel;
     int i=1;
     while ((i<n) && (CurrentLevel))
@@ -113,14 +123,18 @@ void LevelPack::Restart()
         KyeLevelPack::Restart();
     else if (xsbmode)
         XsbLevelPack::Restart();
+    else if (defmode)
+        LevelPack::Default();
     else
         LoadLevel(CurrentLevel);
+
 }
 
 bool LevelPack::HasSolution()
 {
     return(Solution!="");
 }
+
 
 void  LevelPack::LoadInformation()
 {
@@ -137,7 +151,7 @@ void  LevelPack::LoadInformation()
     }
 
 
-    if (!n) game::Error("No levels on file");
+    if (!n) {LevelPack::Error("No levels on file"); return;}
 
     //Pack name:
     pEChild= pack->FirstChildElement("name");
@@ -319,7 +333,6 @@ return(val);
 
 void LevelPack::Load(const char *filename, unsigned int ln, const char* replay)
 {
-
     OpenFile=filename;
     OpenFileLn=ln;
     if (Doc!=NULL)
@@ -364,7 +377,7 @@ void LevelPack::Load(const char *filename, unsigned int ln, const char* replay)
 
         return;
     }
-    kyemode=xsbmode=false;
+    kyemode=xsbmode=defmode=false;
     Doc= new TiXmlDocument(filename);
 
     if (Doc->LoadFile())
@@ -378,8 +391,8 @@ void LevelPack::Load(const char *filename, unsigned int ln, const char* replay)
             if (pack) //It is a replay file!
             {
                 const char * bf=pack->Attribute("levelfile");
-                char* tm=new char[strlen(bf)+1];
-                strcpy(tm,bf);
+                
+                const char* tm=bf;
                 int tmx=1;
                 pack->QueryIntAttribute("leveln",&tmx);
                 ln=tmx;
@@ -388,10 +401,7 @@ void LevelPack::Load(const char *filename, unsigned int ln, const char* replay)
                     bf=pack->GetText();
                     if(bf!=NULL)
                     {
-                        char* tm2=new char[strlen(bf)+1];
-                        strcpy(tm2,bf);
-                        LevelPack::Load(tm,ln,tm2);
-                        delete[] tm2;
+                        LevelPack::Load(tm,ln,bf);
                     }
                     else
                     {
@@ -399,14 +409,14 @@ void LevelPack::Load(const char *filename, unsigned int ln, const char* replay)
                     }
                     return;
                 }
-                else game::Error("replay file has no replay data");
-                delete[] tm;
+                else { LevelPack::Error("replay file has no replay data"); return; }
 
             }
             else
             {
                 fprintf(stderr,"Can't find pack element!");
-                game::Error("Can't find pack element!");
+                LevelPack::Error("Can't find pack element!");
+                return;
             }
         }
         LoadInformation();
@@ -418,8 +428,7 @@ void LevelPack::Load(const char *filename, unsigned int ln, const char* replay)
     else
     {
         fprintf(stderr,"Invalid / Missing Level xml file [%s]", filename);
-
-        game::Error(Doc->ErrorDesc());
+        LevelPack::Error(Doc->ErrorDesc());
     }
 
 
@@ -427,6 +436,12 @@ void LevelPack::Load(const char *filename, unsigned int ln, const char* replay)
 
 void LevelPack::Next()
 {
+    if (defmode)
+    {
+        LevelPack::Default();
+        return;
+    }
+
     if (kyemode)
     {
         KyeLevelPack::Next();
@@ -453,6 +468,12 @@ void LevelPack::Next()
 
 void LevelPack::Last()
 {
+    if (defmode)
+    {
+        LevelPack::Default();
+        return;
+    }
+
     if (kyemode)
     {
         KyeLevelPack::Last();
@@ -486,6 +507,7 @@ void LevelPack::Last()
 
 bool LevelPack::HasPrevious()
 {
+    if(defmode) return false;
     if (kyemode)
         return KyeLevelPack::HasLast();
     if (xsbmode)
@@ -496,6 +518,7 @@ bool LevelPack::HasPrevious()
 }
 bool LevelPack::HasNext()
 {
+    if(defmode) return false;
     if (kyemode)
         return KyeLevelPack::HasNext();
     if (xsbmode)
@@ -1686,6 +1709,34 @@ void LoadFloor(TiXmlElement* floor)
     }
 
 
+}
+
+//==========================
+// Default level, in case there were errors:
+//
+void LevelPack::Default()
+{
+    defmode=true;
+    n=1; //one level
+    Name = "Level File could not be open";
+    Author = "Unknown";
+    Desc = "An error happened while attempting to load the file";
+    
+    LevelPack::CurrentLevelTitle= "Xye - Could not open level file";
+    SDL_WM_SetCaption(LevelPack::CurrentLevelTitle.c_str(),0);
+    
+    LevelPack::SetLevelBye("Sorry");
+    hint::SetGlobalHint(Desc.c_str());    
+    LevelPack::Solution="";
+    
+    palette::Clear();
+    game::XYE= new xye(game::Square(0,0));
+}
+
+
+void LevelPack::Error(const char * msg)
+{
+    Default();
 }
 
 //===========================================================================================

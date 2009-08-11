@@ -1410,7 +1410,7 @@ class game
     static void onExitAttempt();
     static void InitGameSection(window* wind);
 
-    static const char* InitLevelFile;
+    static string InitLevelFile;
     static int         InitLevelFileN;
     
     static void onMouseMove(int x,int y);
@@ -1422,6 +1422,7 @@ class game
  public:
  
     static void PlayLevel( const char* levelfile, int level);
+    static void TestLevel( const char* levelfile, int level);
  
     static Font* FontRes;
     static Font* FontRes_White;

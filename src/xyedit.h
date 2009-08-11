@@ -122,6 +122,7 @@ class editor
      static window* editorwindow;
      
      static void onExitWithoutSavingClick(bool yes);
+     static void onBrowseWithoutSavingClick(bool yes);
      
      static enum setText_state_enum
      {
@@ -156,6 +157,7 @@ class editor
     static bool save(const string &target);
     static void buttonSave(const buttondata* data) { save(); }
     static void onSaveAsClick(const buttondata* data);
+    static void onBrowseClick(const buttondata* data);
     
     static bool load(); //implemented in editorload.cpp
     
@@ -179,6 +181,8 @@ class editor
     static unsigned int subtic4;
 
     static void StartSection(window* wind)  ;
+    static void ResumeSection(window* wind)  ;
+    static void ResumeSectionAndQuit(window* wind)  ;
     
     
     
@@ -300,6 +304,8 @@ class editorboard: public control
     void drawLargeBlockInBoard(SDL_Surface * target, int ox,int oy, int x, int y, editorcolor color, int variation, int direction);
     void enforceUniquePortals(int x, int y, int variation, editorcolor color);
 
+    void assign(editorboard* other);
+    static editorboard copy;
  public:
     bool clicked;
     bool mouse;
@@ -331,6 +337,10 @@ class editorboard: public control
     void onMouseRightUp(int px,int py);
     
     void makeDefaultLevel();
+    
+    
+    static void SaveCopy(editorboard* ed);
+    static void LoadCopy(editorboard* ed);
 
 
 
