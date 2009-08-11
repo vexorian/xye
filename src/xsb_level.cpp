@@ -141,7 +141,7 @@ void XsbLevelPack::LoadSLC(const char* filename, unsigned int ln)
         if (pack!=NULL)
         {
             el=pack->FirstChildElement("LevelCollection");
-            if(el == NULL) game::Error("Unable to find a <LevelCollection> tag.");
+            if(el == NULL) {LevelPack::Error("Unable to find a <LevelCollection> tag.");return;}
             
             tn = SLC_CountValidLevels(el);
             
@@ -204,10 +204,10 @@ void XsbLevelPack::LoadSLC(const char* filename, unsigned int ln)
             }
 
         }
-        else return game::Error("Unable to load Sokoban XML file");
+        else return LevelPack::Error("Unable to load Sokoban XML file");
 
     }
-    else game::Error("Unable to load Sokoban XML file");
+    else return LevelPack::Error("Unable to load Sokoban XML file");
     LevelPack::n = tn;
     LoadNthLevel(ln);
 }
@@ -337,8 +337,8 @@ void XsbLevelPack::Load(const char* filename, unsigned int ln)
     std::string line;
     std::ifstream fl ;
     fl.open(filename,std::ios::in);
-    if (! fl.is_open()) game::Error("Unable to load level file (.Xsb) (stream error)");
-    if (fl.eof()) game::Error("Level File is empty");
+    if (! fl.is_open()) return LevelPack::Error("Unable to load level file (.Xsb) (stream error)");
+    if (fl.eof()) return LevelPack::Error("Level File is empty");
     std::string buf;
     unsigned char ch,cw,i,j;
     unsigned int k,L;
@@ -436,7 +436,7 @@ void XsbLevelPack::Load(const char* filename, unsigned int ln)
 
         //now the line contains a non-valid line
     }
-if (! First) game::Error("No compatible levels found (XSB file)");
+if (! First) return LevelPack::Error("No compatible levels found (XSB file)");
 LevelPack::n=tn;
     fl.close();
 

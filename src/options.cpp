@@ -687,6 +687,7 @@ void options::SaveLevelFile(const char* filename, int levelNumber)
 
 unsigned int options::GetLevelNumber(const char* filename)
 {
+    if(filename==NULL) return 1;
     string s=filename;
     if( MemFileLevelTime.count(s))
     {
