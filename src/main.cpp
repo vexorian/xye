@@ -225,7 +225,9 @@ else
    if(editmode!="")
    {
        printf("Initializing editor...\n");
-       editor::Init(mylevelsplace,editmode);
+       editor::SetFile(mylevelsplace,editmode);
+       game::Init("/START_EDITOR/");
+       
    }
    else if(playmode!="")
    {

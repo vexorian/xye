@@ -151,7 +151,7 @@ class editor
 
     static editorobjecttype SelectedType();
     static bool SavedFile;
-    static void Init(const string &path, const string &file);
+    static void SetFile(const string &path, const string &file);
     static bool save(); //implemented in editorsave.cpp
     static bool save(const string &target);
     static void buttonSave(const buttondata* data) { save(); }
@@ -163,11 +163,10 @@ class editor
     static void test(const buttondata* data) { test(); }
 
 
-    static SDL_Color PlayerColor;
+
     static Font* FontRes;
 
     static SDL_Surface* sprites;
-    static SDL_Surface* screen;
 
     static int Width;
     static int Height;
@@ -178,7 +177,8 @@ class editor
     static editorboard *  board;
     static unsigned int tic4;
     static unsigned int subtic4;
-    
+
+    static void StartSection(window* wind)  ;
     
     
     

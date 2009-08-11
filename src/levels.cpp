@@ -548,7 +548,9 @@ void LoadActiveFileInfo()
 
 void EditFile()
 {
-        string commandline=options::ExecutablePath;
+    editor::SetFile(editor::myLevelsPath,CurrentFileName.substr(editor::myLevelsPath.size() ) );
+    thewindow->SetTransition(editor::StartSection);
+/*        string commandline=options::ExecutablePath;
         commandline+=" --edit ";
         commandline+=CurrentFileName.substr(editor::myLevelsPath.size() );
         commandline+=" ";
@@ -559,19 +561,21 @@ void EditFile()
         
         
         CurrentFileName="";
-        thewindow->stop();
+        thewindow->stop();*/
 }
 
 void OpenEditor()
 {
-        string commandline=options::ExecutablePath;
+    editor::SetFile(editor::myLevelsPath,"editortest.xye");
+    thewindow->SetTransition(editor::StartSection);
+/*        string commandline=options::ExecutablePath;
         commandline+=" --edit editortest.xye ";
         commandline+=options::Dir;
 
         Command::executeParallel(commandline);
 
         CurrentFileName = "";
-        thewindow->stop();
+        thewindow->stop();*/
 }
 
 void PlayLevel()
