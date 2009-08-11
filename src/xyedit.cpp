@@ -20,6 +20,7 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include<iostream>
 #include<fstream>
 
+#include "levels.h"
 #include "xyedit.h"
 #include "xye.h"
 #include "xye_script.h"
@@ -59,6 +60,13 @@ void editor::onExitWithoutSavingClick(bool yes)
     ExitPrompt=false;
     if(yes) cancel();
 }
+
+void editor::onBrowseWithoutSavingClick(bool yes)
+{
+    if(yes)
+        editor::editorwindow->SetTransition(LevelBrowser::StartSection);
+}
+
 
 void editor::onExitAttempt()
 {
@@ -199,24 +207,36 @@ void editor::onSaveAsClick(const buttondata* data)
     dialogs::makeTextInputDialog(editorwindow,"Enter a new level file name","", 1, "Ok", "Cancel", saveAs,NULL);
 }
 
+
+void editor::onBrowseClick(const buttondata* data)
+{
+    if(! SavedFile)
+    {
+        dialogs::makeYesNoDialog(editorwindow,"Are you sure you want to close the editor before saving the level?","Yes","No",editor::onBrowseWithoutSavingClick);
+    }
+    else 
+        editor::editorwindow->SetTransition(LevelBrowser::StartSection);
+}
+
+
 void editor::cancel()
 {
     printf("Closing the editor without saving\n");
     editorwindow->stop();
 }
 
-void editor::StartSection(window* wind)
+void editor::ResumeSectionAndQuit(window* wind)
+{
+    ResumeSection(wind);
+    editor::onQuitClick(NULL);
+}
+
+void editor::ResumeSection(window* wind)
 {
 
 
     tic4=0;
-    subtic4=0;
 
-
-
-
-
-    printf("Setting up editor window...\n");
     Width=6+XYE_HORZ*GRIDSIZE;
     Height=7+2+(GRIDSIZE+2)*4+ (XYE_VERT*GRIDSIZE+6) + GRIDSIZE + 3;
     editorwindow = wind;
@@ -294,6 +314,16 @@ void editor::StartSection(window* wind)
     editorwindow->addControl(tmbut);
     bx+=bw+1;
 
+    bw=button::recommendedWidth("Browse");
+    tmbut= new button(bx,3,bw,button::Size);
+    tmbut->text="Browse";
+    tmbut->onClick = editor::onBrowseClick;
+    tmbut->depth=20;
+    savebutton=tmbut;
+    editorwindow->addControl(tmbut);
+    bx+=bw+1;
+
+
     bw=button::recommendedWidth("Quit");
     tmbut= new button(Width-6 -bw,3,bw,button::Size);
     tmbut->text="Quit";
@@ -311,6 +341,8 @@ void editor::StartSection(window* wind)
 
 
     board   = new editorboard(3,6+sz);
+    editorboard::LoadCopy(board);
+    
     buttons = new editorbuttons(5, XYE_VERT*sz + 11+sz , Width-10, 2+(sz+2)*4 );
 
     board->depth = 3;
@@ -319,12 +351,11 @@ void editor::StartSection(window* wind)
     editorwindow->addControl(buttons);
     editorwindow->addControl(board);
 
+}
 
-
-
-
-
-
+void editor::StartSection(window* wind)
+{ 
+    ResumeSection(wind);
     if (!load())
     {
         dialogs::makeMessageDialog(editorwindow, editor::loadError,"Ok",onDialogClickDoNothing);
@@ -376,12 +407,20 @@ void editor::onKeyUp(SDLKey keysim, Uint16 unicode)
 }
 void editor::test()
 {
-    if (! save(filename+"~") )
+    string nfilename = filename+"~";
+    if (! save(nfilename) )
     {
         dialogs::makeMessageDialog(editorwindow, string("Unable to test the level because xyedit cannot rewrite ")+string(filename+"~")+".","Ok",onDialogClickDoNothing);
         return;
     }
+    //SDL_Surface* screen = editorwindow->getDrawingSurface();
+    //SDL_FillRect(screen,0,0,editor::Width,editor::Height,SDL_MapRGB(screen->format,0,0,0));
+    //SDL_Flip(screen);
+    editorboard::SaveCopy(editor::board);
+    game::TestLevel(nfilename.c_str(), 1);
 
+    return;
+    /*
     SDL_WM_SetCaption("Xye - Editor (Testing)",0);
     SDL_Surface* screen = editorwindow->getDrawingSurface();
     SDL_FillRect(screen,0,0,editor::Width,editor::Height,SDL_MapRGB(screen->format,0,0,0));
@@ -395,7 +434,7 @@ void editor::test()
     commandline+=options::Dir;
 
     Command::executeWaitForProcess(commandline);
-    SDL_WM_SetCaption("Xye - Editor",0);
+    SDL_WM_SetCaption("Xye - Editor",0);*/
 }
 
 
@@ -1198,6 +1237,39 @@ void makewall(boardelement &o)
     o.type=EDOT_WALL;
     o.variation=0;
     o.round=false;
+}
+
+editorboard editorboard::copy(0,0);
+
+void editorboard::assign(editorboard* other)
+{
+    for (int i=0; i<XYE_HORZ; i++)
+        for (int j=0; j<XYE_VERT; j++)
+            objects[i][j] = other->objects[i][j];
+
+    xye_x = other->xye_x;
+    xye_y = other->xye_y;
+    for (int i=0; i<5; i++)
+        for (int j=0; j<2; j++)
+        {
+            portal_x[i][j] = other->portal_x[i][j];
+            portal_y[i][j] = other->portal_y[i][j];
+        }
+    title=other->title;
+    description=other->description;
+    hint=other->hint;
+    bye=other->bye;
+    author=other->author;
+    
+}
+
+void editorboard::SaveCopy(editorboard* ed)
+{
+    copy.assign(ed);
+}
+void editorboard::LoadCopy(editorboard* ed)
+{
+    ed->assign(&copy);
 }
 
 void editorboard::makeDefaultLevel()

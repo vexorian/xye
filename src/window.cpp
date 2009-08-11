@@ -140,6 +140,9 @@ void window::init(int width, int height, const char * caption)
 
 void window::Resize(int width, int height)
 {
+    if((Width==width) && (Height==height)) return;
+    Width = width;
+    Height = height;
     surface=SDL_SetVideoMode(width,height, 32, 0);
 
 }
@@ -633,7 +636,7 @@ button::~button()
 
 Sint16 button::recommendedWidth(const char* s)
 {
-    Sint16 w=FontResource->TextWidth(s);
-    if(w<Size*3) return Size*4;
-    return w+Size;
+    Sint16 w=FontResource->TextWidth(s) + Size;
+    if(w<Size*3) return Size*3;
+    return w;
 }

@@ -30,6 +30,7 @@ class LevelPack
 
      static void LoadFirstLevel();
      static void LoadNthLevel(unsigned int n);
+     static bool defmode;
      static bool kyemode;
      static bool xsbmode;
 
@@ -40,6 +41,8 @@ class LevelPack
  public:
     static void Init();
     static void Clean();
+    static void Default();
+    static void Error(const char * msg);
 
     static string CurrentLevelTitle;
     static unsigned int n;
