@@ -238,7 +238,8 @@ void editor::ResumeSection(window* wind)
     tic4=0;
 
     Width=6+XYE_HORZ*GRIDSIZE;
-    Height=7+2+(GRIDSIZE+2)*4+ (XYE_VERT*GRIDSIZE+6) + GRIDSIZE + 3;
+
+    Height=GRIDSIZE+3+XYE_VERT*GRIDSIZE + 9+(GRIDSIZE+2)*4;
     editorwindow = wind;
     editorwindow->Resize(Width, Height);
     editorwindow->onExitAttempt=editor::onExitAttempt;
@@ -257,22 +258,22 @@ void editor::ResumeSection(window* wind)
     editorwindow->onKeyDown= editor::onKeyDown;
     editorwindow->onKeyUp= editor::onKeyUp;
 
-    editorwindow->addControl(new rectangle(0,0,Width,Height, 0,0,0 ) );
+    //editorwindow->addControl(new rectangle(0,0,Width,Height, 0,0,0 ) );
 
 
 
 
-   control* tmcntrl=new rectangle(3,3,Width-6,sz, options::LevelMenu_info );
+    control* tmcntrl=new rectangle(0,0,Width,sz, options::LevelMenu_info );
     tmcntrl->depth=1;
     editorwindow->addControl(tmcntrl);
 
-    int bx=3;
+    int bx=1;
     int bw;
 
     button* tmbut;
 
     bw=button::recommendedWidth("Set level text");
-    tmbut= new button(bx,3,bw,button::Size);
+    tmbut= new button(bx,0,bw,button::Size);
     tmbut->text="Set level text";
     tmbut->onClick = beginSetText;
     tmbut->depth=20;
@@ -281,7 +282,7 @@ void editor::ResumeSection(window* wind)
 
 
     bw=button::recommendedWidth("Clear");
-    tmbut= new button(bx,3,bw,button::Size);
+    tmbut= new button(bx,0,bw,button::Size);
     tmbut->text="Clear";
     tmbut->onClick = onClearClick;
     tmbut->depth=20;
@@ -289,7 +290,7 @@ void editor::ResumeSection(window* wind)
     bx+=bw+1;
 
     bw=button::recommendedWidth("Test");
-    tmbut= new button(bx,3,bw,button::Size);
+    tmbut= new button(bx,0,bw,button::Size);
     tmbut->text="Test";
     tmbut->onClick = editor::test;
     tmbut->depth=20;
@@ -297,7 +298,7 @@ void editor::ResumeSection(window* wind)
     bx+=bw+1;
 
     bw=button::recommendedWidth("Save");
-    tmbut= new button(bx,3,bw,button::Size);
+    tmbut= new button(bx,0,bw,button::Size);
     tmbut->text="Save";
     tmbut->onClick = editor::buttonSave;
     tmbut->depth=20;
@@ -306,7 +307,7 @@ void editor::ResumeSection(window* wind)
     bx+=bw+1;
 
     bw=button::recommendedWidth("Save as");
-    tmbut= new button(bx,3,bw,button::Size);
+    tmbut= new button(bx,0,bw,button::Size);
     tmbut->text="Save as";
     tmbut->onClick = editor::onSaveAsClick;
     tmbut->depth=20;
@@ -315,7 +316,7 @@ void editor::ResumeSection(window* wind)
     bx+=bw+1;
 
     bw=button::recommendedWidth("Browse");
-    tmbut= new button(bx,3,bw,button::Size);
+    tmbut= new button(bx,0,bw,button::Size);
     tmbut->text="Browse";
     tmbut->onClick = editor::onBrowseClick;
     tmbut->depth=20;
@@ -325,25 +326,25 @@ void editor::ResumeSection(window* wind)
 
 
     bw=button::recommendedWidth("Quit");
-    tmbut= new button(Width-6 -bw,3,bw,button::Size);
+    tmbut= new button(Width-1 -bw,0,bw,button::Size);
     tmbut->text="Quit";
     tmbut->onClick = editor::onQuitClick;
     tmbut->depth=21;
     editorwindow->addControl(tmbut);
     bx+=bw+1;
+    Sint16 by = 0;
 
 
 
-
-    tmcntrl=new rectangle(3, XYE_VERT*sz + sz+9 , Width-6, 4+(sz+2)*4 , 255,255,255 );
+    tmcntrl=new rectangle(3, XYE_VERT*sz + sz+3+by+3 , Width-6, 4+(sz+2)*4 , 255,255,255 );
     tmcntrl->depth=2;
     editorwindow->addControl(tmcntrl);
 
 
-    board   = new editorboard(3,6+sz);
+    board   = new editorboard(3,by+3+sz);
     editorboard::LoadCopy(board);
     
-    buttons = new editorbuttons(5, XYE_VERT*sz + 11+sz , Width-10, 2+(sz+2)*4 );
+    buttons = new editorbuttons(5, XYE_VERT*sz + by+8+sz , Width-10, 2+(sz+2)*4 );
 
     board->depth = 3;
     buttons->depth = 3;
