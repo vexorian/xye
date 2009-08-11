@@ -111,6 +111,7 @@ class window
  public:
 
     static window* create(int width , int height,const char* caption);
+    void Resize(int width, int height);
     void SetCaption(const char* caption);
     void SetCaption(const string caption);
     ~window();

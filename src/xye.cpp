@@ -283,8 +283,7 @@ int game::Init(const char* levelfile)
     if (!window::InitSDL()) return 0;
     printf("Setting video mode...\n");
     gamewindow=window::create(XYE_HORZ*GRIDSIZE+XYE_GAMEX+XYE_XTRA_X,    XYE_VERT*GRIDSIZE+XYE_GAMEY+2*XYE_XTRA_Y+ GRIDSIZE+2+1+GRIDSIZE,"Xye");
-    screen= gamewindow->getDrawingSurface();  //SDL_SetVideoMode(/*w*/XYE_HORZ*GRIDSIZE+XYE_GAMEX+XYE_XTRA_X,
-              ///              /*h*/XYE_VERT*GRIDSIZE+XYE_GAMEY+2*XYE_XTRA_Y+ GRIDSIZE+2+1, 32, 0);
+    screen= gamewindow->getDrawingSurface();
 
 
     //<window icon> "Ahh, the horror!"
@@ -1372,6 +1371,7 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
 
 void game::draw(Sint16 px, Sint16 py)
 {
+    game::screen = gamewindow->getDrawingSurface();
     if(undo) return;
     
     int i,j;
