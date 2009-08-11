@@ -22,7 +22,8 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include "xye_script.h"
 #include "options.h"
 #include "record.h"
-
+#include "dialogs.h"
+#include "xyedit.h"
 
 
 
@@ -310,14 +311,6 @@ int game::Init(const char* levelfile)
     SDL_WM_SetIcon(icon,NULL);
     //</window icon>
 
-
-
-     button* bt = new button(0,0,100,100);
-
-
-     
-
-
     //SDL_ShowCursor(SDL_DISABLE);
     DK_PRESSED=DK_UP_PRESSED=DK_DOWN_PRESSED=DK_LEFT_PRESSED=DK_RIGHT_PRESSED=DK_GO=false;
     DK_PRESSED_FIRST=0;
@@ -361,6 +354,10 @@ int game::Init(const char* levelfile)
 
         SDL_FreeSurface(SS);
     }
+    dialogs::FontResource=game::FontRes;
+    dialogs::BackgroundColor = options::LevelMenu_info;
+    dialogs::TextBoxColor = options::LevelMenu_menu;
+    
     button::FontResource=FontRes;
     button::SourceSurface=sprites;
     button::LongTextureX=7;
@@ -368,6 +365,10 @@ int game::Init(const char* levelfile)
     button::PressedTextureY=18;
     button::NormalTextureY=17;
     button::Size=sz;
+    
+    editor::FontRes = game::FontRes;
+    editor::sprites = game::sprites;
+    editor::GRIDSIZE = game::GRIDSIZE;
 
 
     const char* r=options::GetLevelFile();
@@ -377,7 +378,15 @@ int game::Init(const char* levelfile)
     {
        LevelBrowser::AssignLevelFile(r, ln);
     }
-    if ( levelfile != NULL)
+    if ( levelfile == NULL)
+    {
+        gamewindow->SetTransition( LevelBrowser::StartSection );
+    }
+    else if (strcmp(levelfile, "/START_EDITOR/") == 0) //bad hack , BAD hack
+    {
+        gamewindow->SetTransition( editor::StartSection );
+    }
+    else
     {
         xye_fromeditortest = true;
         options::IgnoreLevelSave();
@@ -386,10 +395,6 @@ int game::Init(const char* levelfile)
         game::InitLevelFileN = ln;
         gamewindow->SetTransition( game::InitGameSection );
 
-    }
-    else
-    {
-        gamewindow->SetTransition( LevelBrowser::StartSection );
     }
        
 

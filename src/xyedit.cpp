@@ -31,12 +31,6 @@ Permission is granted to anyone to use this software for any purpose, including 
 #define sz editor::GRIDSIZE //typing game::GRIDSIZE is an annoyance
 
 
-SDL_Color editor::PlayerColor;
-Font* editor::FontRes;
-
-//Buffer of the sprites file
-SDL_Surface*     editor::sprites;
-
 
 int editor::Width,editor::Height, editor::GRIDSIZE;
 
@@ -56,7 +50,8 @@ bool editor::ExitPrompt=false;
 
 
 button * editor::savebutton;
-
+SDL_Surface * editor::sprites;
+Font* editor::FontRes;
 
 
 void editor::onExitWithoutSavingClick(bool yes)
@@ -210,125 +205,32 @@ void editor::cancel()
     editorwindow->stop();
 }
 
-void editor::Init(const string &path, const string &file)
+void editor::StartSection(window* wind)
 {
-    printf("Initializing SDL...\n");
-    Randomize();
 
-    printf("loading options...\n");
-    options::Init();
-
-    printf("initializing level support...\n");
-    LevelPack::Init();
 
     tic4=0;
     subtic4=0;
-    filename_path=path;
-    filename_name=file;
-    filename=path+file;
 
 
 
-    char i,j;
-    int ix,iy;
 
-
-
-    PlayerColor.r=options::Red();
-    PlayerColor.g=options::Green();
-    PlayerColor.b=options::Blue();
-    PlayerColor.unused=255;
-
-    GRIDSIZE=options::GetGridSize();
-    string SKIN=options::GetSpriteFile();
-
-    printf("Initializing Recolor Table...\n");
-    Init_RecolorTable();
-
-
-    if (!window::InitSDL()) return;
-
-    const char *tm=SKIN.c_str();
-    printf("Loading %s\n",tm);
-    sprites=IMG_Load(tm);
-    if (!sprites)  game::Error( "Invalid/Missing Sprite File");
-
-
-    //Init cache
-    printf("Initializing Recolor cache...\n");
-    RecolorCache::restart(sprites);
-    for (i=0;i<4;i++)
-    {
-        RecolorCache::savecolor(&options::BFColor[i]);
-        RecolorCache::savecolor(&options::BKColor[i]);
-    }
-
-    RecolorCache::savecolor(&PlayerColor);
-
-
-
-    Width=6+XYE_HORZ*GRIDSIZE;
-    Height=7+2+(GRIDSIZE+2)*4+ (XYE_VERT*GRIDSIZE+6) + GRIDSIZE + 3;
 
     printf("Setting up editor window...\n");
-    editorwindow=window::create(Width,Height,"Xye - editor");
+    Width=6+XYE_HORZ*GRIDSIZE;
+    Height=7+2+(GRIDSIZE+2)*4+ (XYE_VERT*GRIDSIZE+6) + GRIDSIZE + 3;
+    editorwindow = wind;
+    editorwindow->Resize(Width, Height);
     editorwindow->onExitAttempt=editor::onExitAttempt;
 
-    //<window icon> "Ahh, the horror!"
-    printf("Initializing window icon...\n");
-    SDL_Surface* icon=SDL_CreateRGBSurface(0,32,32,32,SDL_ENDIAN32MASKS);
-
-    //D.Draw(sprites,4,4);
-    //sz=48;
-    if (sz>32)
-    {
-        SDL_FillRect(icon, 0,0,32,32, SDL_MapRGB(icon->format,0,0,0 ) );
-        SDL_FillRect(icon, 2,2,28,28, SDL_MapRGB(icon->format,options::Red(),options::Green(),options::Blue()) );
-    }
-    else
-    {
-        DaVinci D(sprites,0,0,sz,sz);
-        D.SetColors(PlayerColor,255);
-        Uint32          colorkey=SDL_MapRGB(icon->format,255,0,255);
-        SDL_FillRect(icon, 0, colorkey );
-        SDL_SetColorKey(icon, SDL_SRCCOLORKEY, colorkey);
-
-        D.Draw(icon,(unsigned int)((32-sz)/2),(unsigned int)((32-sz)/2));
-    }
-    SDL_WM_SetIcon(icon,NULL);
-    //</window icon>
 
     SDL_WM_SetCaption("Xye - Editor",0);
 
 
-    if(options::GetFontSize()) //if not 0 then we want a truetypefont.
-    {
-        FontRes=new Font(options::GetFontFile(),options::GetFontSize(), 0,0,0);
-    }
-    else //do the giberish
-    {
-        SDL_Surface * SS=SDL_LoadBMP(options::GetFontFile());
-        if (! SS) Error("Invalid/Missing Font bmp");
-
-        FontRes= new Font(SS,0,0,0);
-
-        SDL_FreeSurface(SS);
-    }
 
 
     SDL_Color c;
     //Setup widgets settings:
-    dialogs::FontResource=FontRes;
-    dialogs::BackgroundColor = options::LevelMenu_info;
-    dialogs::TextBoxColor = options::LevelMenu_menu;
-
-    button::FontResource=FontRes;
-    button::SourceSurface=sprites;
-    button::LongTextureX=7;
-    button::ShortTextureX=6;
-    button::PressedTextureY=18;
-    button::NormalTextureY=17;
-    button::Size=sz;
 
 
     editorwindow->beforeDraw = editor::beforeDraw;
@@ -427,42 +329,15 @@ void editor::Init(const string &path, const string &file)
     {
         dialogs::makeMessageDialog(editorwindow, editor::loadError,"Ok",onDialogClickDoNothing);
     }
-    editorwindow->loop(XYE_FPS);
 
-    printf("Cleaning controls...\n");
-    buttons = NULL;
-    delete editorwindow;
+    editorwindow = wind;
+}
 
-
-    printf("Cleaning level data...\n");
-    LevelPack::Clean();
-
-
-    printf("cleaning options data\n");
-    options::Clean();
-
-    printf("cleaning fonts\n");
-    //Delete things that have to be deleted
-    delete FontRes ;
-
-    printf("cleaning recolor cache\n");
-    RecolorCache::clean();
-
-
-
-
-    printf("cleaning sprites\n");
-    SDL_FreeSurface(sprites);
-
-    printf("Shutting down SDL\n");
-
-    window::QuitSDL();
-
-
-
-
-    return;
-
+void editor::SetFile(const string &path, const string &file)
+{
+    filename_path=path;
+    filename_name=file;
+    filename=path+file;
 }
 
 
@@ -1570,7 +1445,7 @@ void editorboard::applyFromButtons(int x, int y)
 void drawXye( SDL_Surface * target, int x, int y, int variation)
 {
     DaVinci D(editor::sprites,0,0,sz,sz);
-    D.SetColors( &editor::PlayerColor);
+    D.SetColors( &game::PlayerColor);
     D.Draw(target,x,y);
     if(variation)
     {
