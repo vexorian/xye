@@ -548,6 +548,7 @@ void LoadActiveFileInfo()
 
 void EditFile()
 {
+    CurrentFileName = FoundFile[Active];
     editor::SetFile(editor::myLevelsPath,CurrentFileName.substr(editor::myLevelsPath.size() ) );
     thewindow->SetTransition(editor::StartSection);
 /*        string commandline=options::ExecutablePath;
