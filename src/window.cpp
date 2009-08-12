@@ -181,6 +181,7 @@ window* window::create(int width, int height, const char * caption)
 
 void window::reset()
 {
+    beforeDraw=NULL;
     deleteControls();
     while (sub>0)
     {
@@ -204,7 +205,8 @@ SDL_Surface* window::getDrawingSurface()
 
 void window::draw()
 {
-    beforeDraw();
+    if(beforeDraw!=NULL)
+        beforeDraw();
     drawControls();
     SDL_Flip(surface);
 }
