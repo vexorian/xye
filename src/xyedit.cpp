@@ -54,6 +54,7 @@ button * editor::savebutton;
 button * editor::solutionbutton;
 SDL_Surface * editor::sprites;
 Font* editor::FontRes;
+bool SavedSolution = false;
 
 
 void editor::onExitWithoutSavingClick(bool yes)
@@ -91,6 +92,7 @@ void editor::onQuitClick(const buttondata* data)
 void editor::SendSolution(const char* sol)
 {
     SavedFile = false;
+    SavedSolution = true;
     editorboard::SetCopySolution(sol);
 }
 
@@ -289,6 +291,16 @@ void editor::ResumeSection(window* wind)
     editorwindow->addControl(tmbut);
     bx+=bw+1;
 
+    //*** Solution button:
+    bw=(GRIDSIZE*3)/2;
+    tmbut  = new button(bx,0, bw, button::Size);
+    tmbut->Icon(8,4);
+    //bt->text = cap;
+    tmbut->depth=20;
+    tmbut->onClick = editor::playSolution;
+    editorwindow->addControl(tmbut);
+    solutionbutton=tmbut;
+    bx+=bw+1;
 
     bw=button::recommendedWidth("Clear");
     tmbut= new button(bx,0,bw,button::Size);
@@ -333,18 +345,6 @@ void editor::ResumeSection(window* wind)
     editorwindow->addControl(tmbut);
     bx+=bw+1;
 
-    //*** Solution button:
-    bw=(GRIDSIZE*3)/2;
-    tmbut  = new button(bx,0, bw, button::Size);
-    tmbut->Icon(8,4);
-    //bt->text = cap;
-    tmbut->depth=20;
-    tmbut->onClick = editor::playSolution;
-
-    //bt->onClick = SolutionCommand;
-    editorwindow->addControl(tmbut);
-    solutionbutton=tmbut;
-    bx+=bw+1;
 
 
     bw=button::recommendedWidth("Quit");
@@ -492,7 +492,15 @@ editorbuttons::editorbuttons(int sx, int sy, int sw, int sh)
     selection=NULL;
 
     direction=0;
-    text="Welcome to xyedit!";
+    if(SavedSolution)
+    {
+        SavedSolution = false;
+        text = "The new solution has been recorded";
+    }
+    else
+    {
+        text="Welcome to xyedit!";
+    }
 
     int bp=-1;
     buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
