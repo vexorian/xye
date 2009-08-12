@@ -267,7 +267,7 @@ void editor::ResumeSection(window* wind)
     editorwindow->onKeyDown= editor::onKeyDown;
     editorwindow->onKeyUp= editor::onKeyUp;
 
-    //editorwindow->addControl(new rectangle(0,0,Width,Height, 0,0,0 ) );
+    editorwindow->addControl(new rectangle(0,0,Width,Height, 0,0,0 ) );
 
 
 
