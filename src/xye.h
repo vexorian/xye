@@ -1335,6 +1335,8 @@ class game
     
     game() {}
     
+    static bool IsUndoAllowed();
+    
     static void AfterLevelLoad();
     static void ExitCommand( const buttondata*bd = NULL);
     static void RestartCommand( const buttondata* bd = NULL);

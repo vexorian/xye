@@ -605,7 +605,8 @@ void game::AfterLevelLoad()
     Button_Solution->Enabled = ( (LevelPack::HasSolution()) && !playingrec);
     Button_Hint->Enabled= (hint::GlobalHintExists());
     Button_NextLevel->Enabled = Button_PrevLevel->Enabled  = (LevelPack::n > 1);
-    Button_Undo->Visible = (options::UndoEnabled() || xye_fromeditortest || LevelPack::AllowUndo() );
+    Button_Undo->Visible = (game::IsUndoAllowed() || xye_fromeditortest);
+    Button_Undo->Enabled = game::IsUndoAllowed();
     Button_RecordSolution->Visible = xye_fromeditortest;
     Button_RecordSolution->Enabled = !xye_recordingsolution;    
 }
@@ -2091,10 +2092,15 @@ bool game::Moved(edir d)
     return ((LastXyeMove==counter) && (LastXyeDir==d));
 }
 
+bool game::IsUndoAllowed()
+{
+    return ( ((options::UndoEnabled() || xye_fromeditortest) && ! xye_recordingsolution) || LevelPack::AllowUndo() );
+}
+
 void game::Undo()
 {
 
-    if ( (options::UndoEnabled() || xye_fromeditortest || LevelPack::AllowUndo() )  &&    recording::undo())
+    if ( game::IsUndoAllowed() && recording::undo() )
     {
        undo=true;
        //game::draw();
