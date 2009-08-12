@@ -1343,6 +1343,8 @@ class game
     static void HintDownCommand( const buttondata*bd = NULL);
     static void HintUpCommand( const buttondata*bd = NULL);
     static void UndoCommand( const buttondata*bd = NULL);
+    static void RecordSolutionCommand( const buttondata*bd = NULL);
+    
     static void FFUpCommand( const buttondata*bd = NULL);
     static void FFDownCommand( const buttondata*bd = NULL);
     static void BrowseCommand( const buttondata*bd = NULL);
@@ -1422,7 +1424,7 @@ class game
  public:
  
     static void PlayLevel( const char* levelfile, int level);
-    static void TestLevel( const char* levelfile, int level);
+    static void TestLevel( const char* levelfile, int level, bool playsolution=true);
  
     static Font* FontRes;
     static Font* FontRes_White;

@@ -101,6 +101,7 @@ class editor
   private:
 
      static button * savebutton;
+     static button * solutionbutton;
      
      static bool ExitPrompt;
      static string loadError;
@@ -161,7 +162,13 @@ class editor
     
     static bool load(); //implemented in editorload.cpp
     
+    static void SendSolution(const char* sol);
+
+    static void test(bool solution);
+    
     static void test();
+    static void playSolution(const buttondata* data=NULL);
+
     static void test(const buttondata* data) { test(); }
 
 
@@ -324,6 +331,7 @@ class editorboard: public control
     string hint;
     string author;
     string bye;
+    string solution;
 
 
     editorboard(int sx, int sy);
@@ -340,6 +348,7 @@ class editorboard: public control
     
     
     static void SaveCopy(editorboard* ed);
+    static void SetCopySolution(const char* sol);
     static void LoadCopy(editorboard* ed);
 
 
