@@ -567,6 +567,7 @@ void EditFile()
 
 void OpenEditor()
 {
+    CurrentFileName = editor::myLevelsPath+"editortest.xye";
     editor::SetFile(editor::myLevelsPath,"editortest.xye");
     thewindow->SetTransition(editor::StartSection);
 /*        string commandline=options::ExecutablePath;
