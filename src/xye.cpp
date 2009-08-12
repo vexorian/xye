@@ -1032,6 +1032,7 @@ void game::InitGameSection(window* wind)
     if(game::InitLevelFile!="")
         game::InitLevelFileN = options::GetLevelNumber(game::InitLevelFile.c_str());
     
+    LevelPack::FromEditor = xye_fromeditortest;
     LevelPack::Load( game::InitLevelFile.c_str(), game::InitLevelFileN);
     AfterLevelLoad();
     
@@ -2136,7 +2137,7 @@ void game::GameOver(bool good)
                 delete[]tm;
             }
             else
-                SDL_WM_SetCaption("Xye - YOU WIN! press [+] for another level.",0);
+                SDL_WM_SetCaption("Xye - YOU WIN!",0);
             FinishedLevel=true;
         }
         else
