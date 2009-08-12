@@ -1251,7 +1251,14 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
 
     if (playingrec)
     {
-        if (gameover)
+        if(xye_fromeditortest)
+        {
+            if (gameover)
+                hintx="** The movie has ended ** Press [Enter] to play the level - [Backspace] to return to the level editor.";
+            else
+                hintx="** Playing Movie ** - Press [Enter] to play the level. [Ctrl] - Fast Forward. [Backspace] - Return to the level editor.";
+        }
+        else if (gameover)
             hintx="** The movie has ended ** Press [Enter] to play the level - [Backspace] to return to the level file menu";
         else
             hintx="** Playing Movie ** - Press [Enter] to play the level. [Ctrl] - Fast Forward";
@@ -2131,10 +2138,12 @@ void game::GameOver(bool good)
         {
             if(xye_recordingsolution)
             {
-                SDL_WM_SetCaption("Xye - Your solution has been saved!",0);
+                //SDL_WM_SetCaption("Xye - Your solution has been saved!",0);
                 char * tm = recording::save();
                 editor::SendSolution(tm);
                 delete[]tm;
+                BrowseCommand();
+
             }
             else
                 SDL_WM_SetCaption("Xye - YOU WIN!",0);
@@ -2143,6 +2152,11 @@ void game::GameOver(bool good)
         else
             SDL_WM_SetCaption("Xye - Game over!",0);
    }
+   //else if(xye_fromeditortest)
+   //{
+   //    BrowseCommand();
+   //}
+   
    if(xye_recordingsolution)
        xye_recordingsolution=false;
     //counter=counter2=counter3=counter4=counter5=counter7=counter8=counter9=1;
