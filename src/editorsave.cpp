@@ -520,6 +520,11 @@ bool editor::save(const string &target)
     {
         file << "<hint>"<< stripXML(board->hint) <<"</hint>\n";
     }
+    if(board->solution!="")
+    {
+        file << "<solution>"<< stripXML(board->solution) <<"</solution>\n";
+    }
+
     if(board->bye!="")
     {
         file << "<bye>"<< stripXML(board->bye) <<"</bye>\n";

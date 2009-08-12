@@ -50,6 +50,8 @@ SDL_Color game::PlayerColor;
 //Restard signal
 bool game::gameover=false;
 bool xye_fromeditortest = false;
+bool xye_recordingsolution = false;
+bool xye_playsolution = false;
 bool game::FinishedLevel=false;
 
 //The gridsize of the current skin, as float and as int
@@ -139,6 +141,7 @@ button* Button_PrevLevel;
 button* Button_Hint;
 button* Button_Solution;
 button* Button_Undo;
+button* Button_RecordSolution;
 
 
 //======================================================================
@@ -458,14 +461,21 @@ int game::Init(const char* levelfile)
 void game::PlayLevel( const char *levelfile, int level)
 {
     xye_fromeditortest = false;
+    xye_recordingsolution = false;
+    xye_playsolution = false;
+
     InitLevelFile = levelfile;
     InitLevelFileN= level;
     gamewindow->SetTransition(game::InitGameSection);
 }
 
-void game::TestLevel( const char *levelfile, int level)
+void game::TestLevel( const char *levelfile, int level, bool playsolution)
 {
     xye_fromeditortest = true;
+    xye_recordingsolution = false;
+    xye_playsolution = playsolution;
+    
+
     InitLevelFile = levelfile;
     InitLevelFileN= level;
     gamewindow->SetTransition(game::InitGameSection);
@@ -596,6 +606,8 @@ void game::AfterLevelLoad()
     Button_Hint->Enabled= (hint::GlobalHintExists());
     Button_NextLevel->Enabled = Button_PrevLevel->Enabled  = (LevelPack::n > 1);
     Button_Undo->Visible = (options::UndoEnabled() || xye_fromeditortest || LevelPack::AllowUndo() );
+    Button_RecordSolution->Visible = xye_fromeditortest;
+    Button_RecordSolution->Enabled = !xye_recordingsolution;    
 }
 
 void game::RestartCommand( const buttondata*bd)
@@ -658,6 +670,13 @@ void game::UndoCommand( const buttondata*bd)
 {
     if (! playingrec) Undo();
 }
+
+void game::RecordSolutionCommand( const buttondata*bd)
+{
+    xye_recordingsolution = true;
+    game::RestartCommand(bd);
+}
+
 
 void game::BrowseCommand( const buttondata*bd)
 {
@@ -857,10 +876,10 @@ void game::InitGameSection(window* wind)
     Sint16 oy = 0;
     if(! xye_fromeditortest)
         gamewindow->Resize(GameWidth,GameHeight);
-    else
+    /*else
     {
         oy = XYE_XTRA_Y;
-    }
+    }*/
     Sint16 sz32 = (game::GRIDSIZE*3)/2;
     //button * but = new button(0,0,100,100);
     //but->depth = 100;
@@ -955,6 +974,15 @@ void game::InitGameSection(window* wind)
     Button_Undo = bt;
     wind->addControl(bt);
 
+    //*** Record button:
+    cap = "RecordSolution";
+    bt  = new button(bt->x + bt->w + 1,oy, sz32, game::GRIDSIZE);
+    //bt->text = cap;
+    bt->Icon(6,6);
+    bt->depth=1;
+    bt->onClick = RecordSolutionCommand;
+    Button_RecordSolution = bt;
+    wind->addControl(bt);
 
 
     //*** Quit button:
@@ -1006,6 +1034,12 @@ void game::InitGameSection(window* wind)
     
     LevelPack::Load( game::InitLevelFile.c_str(), game::InitLevelFileN);
     AfterLevelLoad();
+    
+    if(xye_playsolution)
+    {
+        xye_playsolution = false;
+        game::SolutionCommand(NULL);
+    }
    
 }
 
@@ -1278,7 +1312,9 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
     cy=y+2;
     if(xye_fromeditortest)
     {
-         FontRes->Write(screen, x+w-GRIDSIZE-FontRes->TextWidth("Testing a level from Xyedit"),y+h-XYE_XTRA_Y-FontRes->Height()  ,"Testing a level from Xyedit");
+        const char*tx="Testing a level from Xyedit";
+        if(xye_recordingsolution) tx="Recording your solution for Xyedit";
+        FontRes->Write(screen, x+w-GRIDSIZE-FontRes->TextWidth(tx),y+h-XYE_XTRA_Y-FontRes->Height()  ,tx);
     }
     if (gem::GetRemanents(yl,rd,bl,gr))
     {
@@ -2092,12 +2128,22 @@ void game::GameOver(bool good)
 
         if (good)
         {
-            SDL_WM_SetCaption("Xye - YOU WIN! press [+] for another level.",0);
+            if(xye_recordingsolution)
+            {
+                SDL_WM_SetCaption("Xye - Your solution has been saved!",0);
+                char * tm = recording::save();
+                editor::SendSolution(tm);
+                delete[]tm;
+            }
+            else
+                SDL_WM_SetCaption("Xye - YOU WIN! press [+] for another level.",0);
             FinishedLevel=true;
         }
         else
             SDL_WM_SetCaption("Xye - Game over!",0);
    }
+   if(xye_recordingsolution)
+       xye_recordingsolution=false;
     //counter=counter2=counter3=counter4=counter5=counter7=counter8=counter9=1;
     gameover=true;
 }
