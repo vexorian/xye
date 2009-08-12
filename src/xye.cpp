@@ -710,8 +710,6 @@ void game::onKeyDown(SDLKey keysim, Uint16 unicode)
                     case (SDLK_h) :
                         HintDownCommand();
                         break;
-                    case (SDLK_BACKSPACE):
-                        BrowseCommand();
                         
                         break;
 
@@ -796,6 +794,9 @@ void game::onKeyUp(SDLKey keysim, Uint16 unicode)
 
                     case(SDLK_RSHIFT):case(SDLK_LSHIFT):
                         ShiftPressed=false; break;
+                    case (SDLK_BACKSPACE):
+                        BrowseCommand();
+                        break;
 
 
                 }
@@ -978,7 +979,7 @@ void game::InitGameSection(window* wind)
     cap = "RecordSolution";
     bt  = new button(bt->x + bt->w + 1,oy, sz32, game::GRIDSIZE);
     //bt->text = cap;
-    bt->Icon(6,6);
+    bt->Icon(10,9);
     bt->depth=1;
     bt->onClick = RecordSolutionCommand;
     Button_RecordSolution = bt;
