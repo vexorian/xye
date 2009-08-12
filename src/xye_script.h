@@ -39,6 +39,7 @@ class LevelPack
 
      LevelPack() {}
  public:
+    static bool FromEditor;
     static void Init();
     static void Clean();
     static void Default();
