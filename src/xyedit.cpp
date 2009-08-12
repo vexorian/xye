@@ -291,6 +291,15 @@ void editor::ResumeSection(window* wind)
     editorwindow->addControl(tmbut);
     bx+=bw+1;
 
+    bw=button::recommendedWidth("Test");
+    tmbut= new button(bx,0,bw,button::Size);
+    tmbut->text="Test";
+    tmbut->onClick = editor::test;
+    tmbut->depth=20;
+    editorwindow->addControl(tmbut);
+    bx+=bw+1;
+
+
     //*** Solution button:
     bw=(GRIDSIZE*3)/2;
     tmbut  = new button(bx,0, bw, button::Size);
@@ -310,13 +319,6 @@ void editor::ResumeSection(window* wind)
     editorwindow->addControl(tmbut);
     bx+=bw+1;
 
-    bw=button::recommendedWidth("Test");
-    tmbut= new button(bx,0,bw,button::Size);
-    tmbut->text="Test";
-    tmbut->onClick = editor::test;
-    tmbut->depth=20;
-    editorwindow->addControl(tmbut);
-    bx+=bw+1;
 
     bw=button::recommendedWidth("Save");
     tmbut= new button(bx,0,bw,button::Size);
@@ -425,6 +427,12 @@ void editor::onKeyUp(SDLKey keysim, Uint16 unicode)
                 editorEscapePressed=false;
                 onExitAttempt();
             }
+            break;
+        case (SDLK_BACKSPACE):
+            onBrowseClick(NULL);
+            break;
+        case(SDLK_RETURN): case(SDLK_KP_ENTER): //Enter
+            test(false);
             break;
     };
 }
