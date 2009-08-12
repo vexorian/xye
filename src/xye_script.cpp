@@ -38,6 +38,7 @@ unsigned int LevelPack::OpenFileLn;
 bool LevelPack::defmode;
 bool LevelPack::kyemode;
 bool LevelPack::xsbmode;
+bool LevelPack::FromEditor=false;
 
 
 TiXmlDocument* LevelPack::Doc =NULL;
@@ -529,7 +530,11 @@ bool LevelPack::HasNext()
 void LevelPack::SetLevelBye(const char* bye)
 {
     const char* add="";
-    if (HasNext())
+    if(FromEditor)
+    {
+        add="Press [backspace] to return to the editor, [enter] to play again.";
+    }
+    else if (HasNext())
     {
         add="Press [N] or [+] to go to the next level";
     }
@@ -540,7 +545,7 @@ void LevelPack::SetLevelBye(const char* bye)
     else
         add="You beat the only level of this level pack, use [backspace] to browse for more levels";
 
-    if ( (! bye) || (! strlen(bye)) )
+    if ( (! bye) || (strlen(bye) == 0) )
         CurrentLevelBye="";
     else
     {
