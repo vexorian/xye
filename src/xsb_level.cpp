@@ -887,24 +887,6 @@ $ - box
             square * sq = game::Square(i,j);
             obj* object = sq->object;
             
-            if( (object!=NULL) && (object->GetType() == OT_WALL) )
-            {
-                unsigned int dx[8]={0,0,1,-1, 1,1,-1,-1};
-                unsigned int dy[8]={1,-1, 0,0,1,-1,1,-1};
-                bool sorrounded = true;
-                for (int t=0; t<8; t++)
-                    if ( (i+dx[t]< XYE_HORZ) && (j+dy[t]< XYE_VERT) )
-                    {
-                        obj* obj2 = game::Square(i+dx[t], j+dy[t])->object;
-                        if( (obj2 == NULL) || (obj2->GetType() != OT_WALL) )
-                            sorrounded = false;
-                    }
-                if( sorrounded)
-                {
-                    wall* wl = static_cast<wall*>(object);
-                    wl->ChangeKind(6);
-                }
-            }
         }
 
 
