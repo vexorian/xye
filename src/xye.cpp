@@ -3180,6 +3180,10 @@ void wall::ChangeKind(unsigned char t)
     if(kind>=WALL_KINDS) kind=0;
 }
 
+bool wall::containsRoundCorner()
+{
+    return (round1||round7||round9||round3);
+}
 
 void wall::Draw(unsigned int x, unsigned int y)
 {
@@ -3214,10 +3218,15 @@ void wall::Draw(unsigned int x, unsigned int y)
     right = right && !round9 && !round3;
     left = left && !round7 && !round1;
     
-    bool inborder = (!left||!up||!right||!down
-                     || !upright || !upleft
-                     || !downright ||!downleft
-                    );
+    bool inborder = (!left||!up||!right||!down);
+    if( !inborder && (!upright || !upleft || !downright ||!downleft) )
+    {
+        inborder = !(   find( px, uy, kind)->containsRoundCorner() 
+                    || find( px, dy, kind)->containsRoundCorner()
+                    || find( lx, py, kind)->containsRoundCorner()
+                    || find( rx, py, kind)->containsRoundCorner() );
+
+    }
     
 
     if (round7)

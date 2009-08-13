@@ -327,6 +327,8 @@ class wall : public obj
      Uint8 R;
      Uint8 G;
      Uint8 B;
+     
+     bool containsRoundCorner();
 
  public:
 
