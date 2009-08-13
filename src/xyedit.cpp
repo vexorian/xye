@@ -958,14 +958,12 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
         case EDOT_WALL:
             if(round)
             {
-                if(variation==6) text="Wall (auto round, inside decoration)";
-                else if (variation>3) text="Wall (auto-round, fire-resistant)";
+                if (variation>3) text="Wall (auto-round, fire-resistant)";
                 else text="Wall (auto-round)";
             }
             else
             {
-                if(variation==6) text="Wall (inside decoration)";
-                else if (variation>3) text="Wall (fire-resistant)";
+                if (variation>3) text="Wall (fire-resistant)";
                 else text="Wall";
             }
             break;
@@ -1124,7 +1122,7 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
 
 
         case EDOT_XYE: maxvariations=4; break;
-        case EDOT_WALL: maxvariations=7; roundchoice=true; break;
+        case EDOT_WALL: maxvariations=6; roundchoice=true; break;
         case EDOT_MAGNET: maxvariations=3; break;
 
         case EDOT_EARTH: roundchoice=true; break;
@@ -1432,8 +1430,7 @@ void editorboard::drawRoundWall(SDL_Surface*target,int ox,int oy, int x, int y, 
 
     Sint16 sz2=sz/2;
     Sint16 tx,ty;
-    ty=variation+1;
-    if(variation==6) ty=0;
+    ty=variation;
 
     tx=9*sz;
     if(r7) tx+=sz;
@@ -1620,8 +1617,7 @@ void drawGem( SDL_Surface * target, int x, int y, editorcolor color)
 void drawWall( SDL_Surface * target, int x, int y, bool round, int variation)
 {
     Uint8 tx,ty;
-    ty=variation+1;
-    if(ty==7) ty=0;
+    ty=variation;
     if(round) tx=10;
     else tx=9;
     DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
@@ -2217,12 +2213,12 @@ void drawBeast( SDL_Surface * target, int x, int y, int direction, int variation
 
     switch((btype)variation)
     {
-        case(BT_TWISTER):  tx=12; ty=0; break;
-        case(BT_SPIKE):    tx=14; ty=0; break;
-        case(BT_VIRUS):    tx=13; ty=0; break;
-        case(BT_BLOB):     tx=15; ty=0; break;
-        case(BT_BLOBBOSS): tx=15; ty=6; break;
-        case(BT_PATIENCE): tx=15; ty=3; break;
+        case(BT_TWISTER):  tx=16; ty=0; break;
+        case(BT_SPIKE):    tx=18; ty=0; break;
+        case(BT_VIRUS):    tx=17; ty=0; break;
+        case(BT_BLOB):     tx=19; ty=0; break;
+        case(BT_BLOBBOSS): tx=19; ty=6; break;
+        case(BT_PATIENCE): tx=19; ty=3; break;
         case(BT_TIGER): tx=10; ty=14; break;
 
         case(BT_STATIC):   tx=11; ty=15; break;
@@ -2230,20 +2226,20 @@ void drawBeast( SDL_Surface * target, int x, int y, int direction, int variation
         case(BT_DARD):
             switch(direction)
             {
-                case(EDITORDIRECTION_UP): tx=14; break;
-                case(EDITORDIRECTION_LEFT): tx=13; break;
-                case(EDITORDIRECTION_DOWN): tx=12; break;
-                default: tx=11;
+                case(EDITORDIRECTION_UP): tx=18; break;
+                case(EDITORDIRECTION_LEFT): tx=17; break;
+                case(EDITORDIRECTION_DOWN): tx=16; break;
+                default: tx=15;
             }
             ty= 2;
             break;
         case(BT_WARD):
             switch(direction)
             {
-                case(EDITORDIRECTION_UP): tx=14; break;
-                case(EDITORDIRECTION_LEFT): tx=13; break;
-                case(EDITORDIRECTION_DOWN): tx=12; break;
-                default: tx=11;
+                case(EDITORDIRECTION_UP): tx=18; break;
+                case(EDITORDIRECTION_LEFT): tx=17; break;
+                case(EDITORDIRECTION_DOWN): tx=16; break;
+                default: tx=15;
             }
             ty= 4;
             break;
@@ -2268,7 +2264,7 @@ void drawBeast( SDL_Surface * target, int x, int y, int direction, int variation
 
 
         default: //gnasher
-            tx=11;
+            tx=15;
             ty=0;
 
 

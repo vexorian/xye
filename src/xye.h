@@ -344,7 +344,7 @@ class wall : public obj
      static SDL_Color DefaultColor;
      static void SetDefaultType(signed int def);
      static void ResetDefaults();
-     static wall* find(char sx, char sy);
+     static wall* find(char sx, char sy, unsigned char kind = 6);
      void IntelligentUpdateCorners(wall *by);
 };
 

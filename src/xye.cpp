@@ -19,6 +19,7 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include "xye.h"
 
 #include<cstdio>
+#include<algorithm>
 #include "xye_script.h"
 #include "options.h"
 #include "record.h"
@@ -3134,7 +3135,7 @@ bool roboxye::Loop(bool* died)
 
 
 /**Class wall**/
-
+const int WALL_KINDS = 6;
 SDL_Color wall::DefaultColor;
 unsigned char wall::defkind=0;
 
@@ -3153,7 +3154,7 @@ wall::wall(square* sq,unsigned char t)
 {
      round7=round1=round3=round9=false;
     type=OT_WALL;
-    kind=t>6?6:t;
+    ChangeKind(t);
 
     R=DefaultColor.r;
     G=DefaultColor.g;
@@ -3175,7 +3176,8 @@ wall::wall(square* sq)
 
 void wall::ChangeKind(unsigned char t)
 {
-    kind = std::min<unsigned char>(t,6);
+    kind=t;
+    if(kind>=WALL_KINDS) kind=0;
 }
 
 
@@ -3184,20 +3186,59 @@ void wall::Draw(unsigned int x, unsigned int y)
     DaVinci D(game::sprites,0,0,0,0);
     int sz2=sz/2;
     Sint16 ty;
-    if(kind==6) ty=0;
-    else ty=sz*(kind+1);
+    ty=sz*(kind);
 
     D.SetColors(R,G,B,255);
+    
+    char px=this->x, py=this->y;
+    char rx=px+1, lx=px-1, uy=py+1, dy=py-1;
+    if(rx>=XYE_HORZ) rx=0;
+    if(uy>=XYE_VERT) uy=0;
+    if(lx<0) lx=XYE_HORZ-1;
+    if(dy<0) dy=XYE_VERT-1;
+    
+    bool up =   (find( px, uy, kind)!=NULL);
+    bool down = (find( px, dy, kind)!=NULL);
+    bool left = (find( lx, py, kind)!=NULL);
+    bool right = (find( rx, py, kind)!=NULL);
+    
+    up = up && !round7 && !round9;
+    down = down && !round1 && !round3;
+    right = right && !round9 && !round3;
+    left = left && !round7 && !round1;
+    
+    bool inborder = (!left||!up||!right||!down 
+                     ||!find(rx,uy,kind)||!find(rx,dy,kind)
+                     ||!find(lx,uy,kind)||!find(lx,dy,kind)
+                    );
+    
 
     if (round7)
         D.ChangeRect(10*sz,ty,sz2,sz2);
+    else if( up && left && !inborder)
+        D.ChangeRect(14*sz,ty,sz2,sz2);
+    else if(up&&left)
+        D.ChangeRect(13*sz,ty,sz2,sz2);
+    else if ( up)
+        D.ChangeRect(12*sz,ty,sz2,sz2);
+    else if ( left)
+        D.ChangeRect(11*sz,ty,sz2,sz2);
     else
         D.ChangeRect(9*sz,ty,sz2,sz2);
+    
 
     D.Draw(game::screen,x,y);
 
     if (round9)
         D.ChangeRect(21*sz2,ty,sz2,sz2);
+    else if( up && right && !inborder)
+        D.ChangeRect(14*sz+sz2,ty,sz2,sz2);
+    else if(up&&right)
+        D.ChangeRect(13*sz+sz2,ty,sz2,sz2);
+    else if ( up)
+        D.ChangeRect(12*sz+sz2,ty,sz2,sz2);
+    else if ( right)
+        D.ChangeRect(11*sz+sz2,ty,sz2,sz2);
     else
         D.ChangeRect(19*sz2,ty,sz2,sz2);
 
@@ -3205,6 +3246,14 @@ void wall::Draw(unsigned int x, unsigned int y)
 
     if (round1)
         D.ChangeRect(10*sz,ty+sz2,sz2,sz2);
+    else if( down && left && !inborder)
+        D.ChangeRect(14*sz,ty+sz2,sz2,sz2);
+    else if(down&&left)
+        D.ChangeRect(13*sz,ty+sz2,sz2,sz2);
+    else if ( down)
+        D.ChangeRect(12*sz,ty+sz2,sz2,sz2);
+    else if ( left)
+        D.ChangeRect(11*sz,ty+sz2,sz2,sz2);
     else
         D.ChangeRect(9*sz,ty+sz2,sz2,sz2);
 
@@ -3212,6 +3261,14 @@ void wall::Draw(unsigned int x, unsigned int y)
 
     if (round3)
         D.ChangeRect(21*sz2,ty+sz2,sz2,sz2);
+    else if( down && right && !inborder)
+        D.ChangeRect(14*sz+sz2,ty+sz2,sz2,sz2);
+    else if(down&&right)
+        D.ChangeRect(13*sz+sz2,ty+sz2,sz2,sz2);
+    else if ( down)
+        D.ChangeRect(12*sz+sz2,ty+sz2,sz2,sz2);
+    else if ( right)
+        D.ChangeRect(11*sz+sz2,ty+sz2,sz2,sz2);
     else
         D.ChangeRect(19*sz2,ty+sz2,sz2,sz2);
 
@@ -3231,12 +3288,17 @@ bool wall::Loop(bool* died)
 
 bool wall::trypush(edir dir,obj* pusher) { return false; }
 
-wall* wall::find(char sx, char sy)
+wall* wall::find(char sx, char sy, unsigned char kind)
 {
     square *sq=game::SquareN(sx,sy);
     obj* object;
-    if (( object=sq->object) && (object->GetType()==OT_WALL)) return (static_cast<wall*>(object));
-    return(false);
+    if (( object=sq->object) && (object->GetType()==OT_WALL))
+    {
+        wall* wl = static_cast<wall*>(object);
+        if( (kind==6) || (wl->kind==6) || (wl->kind==kind))
+            return (wl);
+    }
+    return(NULL);
 
 }
 
@@ -6575,17 +6637,17 @@ void beast::Draw(unsigned int x, unsigned int y,btype kind, edir fac, unsigned c
     switch(kind)
     {
         case(BT_TWISTER):
-            tx=12; ty=anim;
+            tx=16; ty=anim;
             break;
         case(BT_SPIKE):
-            tx=14; ty=anim;
+            tx=18; ty=anim;
             break;
         case(BT_VIRUS):
-            tx=13;
+            tx=17;
             ty=anim;
             break;
         case(BT_BLOB):
-            tx=15;
+            tx=19;
             ty=anim;
             break;
         case(BT_BLOBBOSS):
@@ -6599,7 +6661,7 @@ void beast::Draw(unsigned int x, unsigned int y,btype kind, edir fac, unsigned c
             break;
 
         case(BT_PATIENCE):
-            tx=15;
+            tx=19;
             ty=3+anim;
             break;
 
@@ -6621,20 +6683,20 @@ void beast::Draw(unsigned int x, unsigned int y,btype kind, edir fac, unsigned c
         case(BT_DARD):
             switch(fac)
             {
-                case(D_UP): tx=14; break;
-                case(D_LEFT): tx=13; break;
-                case(D_DOWN): tx=12; break;
-                default: tx=11;
+                case(D_UP): tx=18; break;
+                case(D_LEFT): tx=17; break;
+                case(D_DOWN): tx=16; break;
+                default: tx=15;
             }
             ty= anim+2;
             break;
         case(BT_WARD):
             switch(fac)
             {
-                case(D_UP): tx=14; break;
-                case(D_LEFT): tx=13; break;
-                case(D_DOWN): tx=12; break;
-                default: tx=11;
+                case(D_UP): tx=18; break;
+                case(D_LEFT): tx=17; break;
+                case(D_DOWN): tx=16; break;
+                default: tx=15;
             }
             ty= anim+4;
             break;
@@ -6661,7 +6723,7 @@ void beast::Draw(unsigned int x, unsigned int y,btype kind, edir fac, unsigned c
 
 
         default: //gnasher
-            tx=11;
+            tx=15;
             if (anim) ty=1;
             else ty=0;
 
