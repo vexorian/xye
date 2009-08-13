@@ -2213,12 +2213,12 @@ void drawBeast( SDL_Surface * target, int x, int y, int direction, int variation
 
     switch((btype)variation)
     {
-        case(BT_TWISTER):  tx=16; ty=0; break;
-        case(BT_SPIKE):    tx=18; ty=0; break;
-        case(BT_VIRUS):    tx=17; ty=0; break;
-        case(BT_BLOB):     tx=19; ty=0; break;
-        case(BT_BLOBBOSS): tx=19; ty=6; break;
-        case(BT_PATIENCE): tx=19; ty=3; break;
+        case(BT_TWISTER):  tx=17; ty=0; break;
+        case(BT_SPIKE):    tx=19; ty=0; break;
+        case(BT_VIRUS):    tx=18; ty=0; break;
+        case(BT_BLOB):     tx=19; ty=6; break;
+        case(BT_BLOBBOSS): tx=19; ty=12; break;
+        case(BT_PATIENCE): tx=19; ty=9; break;
         case(BT_TIGER): tx=10; ty=14; break;
 
         case(BT_STATIC):   tx=11; ty=15; break;
@@ -2226,20 +2226,20 @@ void drawBeast( SDL_Surface * target, int x, int y, int direction, int variation
         case(BT_DARD):
             switch(direction)
             {
-                case(EDITORDIRECTION_UP): tx=18; break;
-                case(EDITORDIRECTION_LEFT): tx=17; break;
-                case(EDITORDIRECTION_DOWN): tx=16; break;
-                default: tx=15;
+                case(EDITORDIRECTION_UP): tx=19; break;
+                case(EDITORDIRECTION_LEFT): tx=18; break;
+                case(EDITORDIRECTION_DOWN): tx=17; break;
+                default: tx=16;
             }
             ty= 2;
             break;
         case(BT_WARD):
             switch(direction)
             {
-                case(EDITORDIRECTION_UP): tx=18; break;
-                case(EDITORDIRECTION_LEFT): tx=17; break;
-                case(EDITORDIRECTION_DOWN): tx=16; break;
-                default: tx=15;
+                case(EDITORDIRECTION_UP): tx=19; break;
+                case(EDITORDIRECTION_LEFT): tx=18; break;
+                case(EDITORDIRECTION_DOWN): tx=17; break;
+                default: tx=16;
             }
             ty= 4;
             break;
@@ -2264,7 +2264,7 @@ void drawBeast( SDL_Surface * target, int x, int y, int direction, int variation
 
 
         default: //gnasher
-            tx=15;
+            tx=16;
             ty=0;
 
 
