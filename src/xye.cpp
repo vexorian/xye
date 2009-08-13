@@ -5971,24 +5971,26 @@ void dangerous::Draw(unsigned int x, unsigned int y)
     }
     else
     {
-    if (absorb>0)
-    {
-        tx=1;
-        ty=(int(  (absorb-1) / 10)+3);
-    }
-    else
-    {
-        tx=0;
-        ty=(anim+3);
-    }
+        if (absorb>0)
+        {
+            tx=1;
+            ty=(int(  (absorb-1) / 10)+3);
+        }
+        else
+        {
+            tx=0;
+            ty=(anim+3);
+        }
 
-    D.ChangeRect(0,sz*3,sz,sz);
-    D.SetColors(R,G,B,255);
-    D.Draw(game::screen,x,y);
+        D.ChangeRect(tx*sz,ty*sz,sz,sz);
+        D.Draw(game::screen,x,y);
 
 
-    D.ChangeRect(tx*sz,ty*sz,sz,sz);
-    D.Draw(game::screen,x,y);
+        D.ChangeRect(0,sz*3,sz,sz);
+        D.SetColors(R,G,B,255);
+        D.Draw(game::screen,x,y);
+
+
     }
 }
 
