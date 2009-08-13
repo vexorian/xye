@@ -3201,21 +3201,30 @@ void wall::Draw(unsigned int x, unsigned int y)
     bool down = (find( px, dy, kind)!=NULL);
     bool left = (find( lx, py, kind)!=NULL);
     bool right = (find( rx, py, kind)!=NULL);
+
+    bool upright = find(rx,uy,kind);
+    bool downright =find(rx,dy,kind);
+    bool upleft = find(lx,uy,kind);
+    bool downleft = find(lx,dy,kind);
+
+
     
     up = up && !round7 && !round9;
     down = down && !round1 && !round3;
     right = right && !round9 && !round3;
     left = left && !round7 && !round1;
     
-    bool inborder = (!left||!up||!right||!down 
-                     ||!find(rx,uy,kind)||!find(rx,dy,kind)
-                     ||!find(lx,uy,kind)||!find(lx,dy,kind)
+    bool inborder = (!left||!up||!right||!down
+                     || !upright || !upleft
+                     || !downright ||!downleft
                     );
     
 
     if (round7)
         D.ChangeRect(10*sz,ty,sz2,sz2);
     else if( up && left && !inborder)
+        D.ChangeRect(15*sz,ty,sz2,sz2);
+    else if(up&&left&&upleft)
         D.ChangeRect(14*sz,ty,sz2,sz2);
     else if(up&&left)
         D.ChangeRect(13*sz,ty,sz2,sz2);
@@ -3232,6 +3241,8 @@ void wall::Draw(unsigned int x, unsigned int y)
     if (round9)
         D.ChangeRect(21*sz2,ty,sz2,sz2);
     else if( up && right && !inborder)
+        D.ChangeRect(15*sz+sz2,ty,sz2,sz2);
+    else if(up&&right&&upright)
         D.ChangeRect(14*sz+sz2,ty,sz2,sz2);
     else if(up&&right)
         D.ChangeRect(13*sz+sz2,ty,sz2,sz2);
@@ -3242,11 +3253,15 @@ void wall::Draw(unsigned int x, unsigned int y)
     else
         D.ChangeRect(19*sz2,ty,sz2,sz2);
 
+    //D.SetColors(255,255,255,50);
     D.Draw(game::screen,x+sz2,y);
+    //D.SetColors(255,255,255,255);
 
     if (round1)
         D.ChangeRect(10*sz,ty+sz2,sz2,sz2);
     else if( down && left && !inborder)
+        D.ChangeRect(15*sz,ty+sz2,sz2,sz2);
+    else if(down&&left&&downleft)
         D.ChangeRect(14*sz,ty+sz2,sz2,sz2);
     else if(down&&left)
         D.ChangeRect(13*sz,ty+sz2,sz2,sz2);
@@ -3257,11 +3272,14 @@ void wall::Draw(unsigned int x, unsigned int y)
     else
         D.ChangeRect(9*sz,ty+sz2,sz2,sz2);
 
+    
     D.Draw(game::screen,x,y+sz2);
 
     if (round3)
         D.ChangeRect(21*sz2,ty+sz2,sz2,sz2);
     else if( down && right && !inborder)
+        D.ChangeRect(15*sz+sz2,ty+sz2,sz2,sz2);
+    else if(down&&right&&downright)
         D.ChangeRect(14*sz+sz2,ty+sz2,sz2,sz2);
     else if(down&&right)
         D.ChangeRect(13*sz+sz2,ty+sz2,sz2,sz2);
@@ -6637,22 +6655,22 @@ void beast::Draw(unsigned int x, unsigned int y,btype kind, edir fac, unsigned c
     switch(kind)
     {
         case(BT_TWISTER):
-            tx=16; ty=anim;
+            tx=17; ty=anim;
             break;
         case(BT_SPIKE):
-            tx=18; ty=anim;
+            tx=19; ty=anim;
             break;
         case(BT_VIRUS):
-            tx=17;
+            tx=18;
             ty=anim;
             break;
         case(BT_BLOB):
             tx=19;
-            ty=anim;
+            ty=anim+6;
             break;
         case(BT_BLOBBOSS):
             tx=15;
-            ty=anim+6;
+            ty=anim+12;
             break;
 
         case(BT_TIGER):
@@ -6662,7 +6680,7 @@ void beast::Draw(unsigned int x, unsigned int y,btype kind, edir fac, unsigned c
 
         case(BT_PATIENCE):
             tx=19;
-            ty=3+anim;
+            ty=9+anim;
             break;
 
         case(BT_STATIC):
@@ -6683,20 +6701,20 @@ void beast::Draw(unsigned int x, unsigned int y,btype kind, edir fac, unsigned c
         case(BT_DARD):
             switch(fac)
             {
-                case(D_UP): tx=18; break;
-                case(D_LEFT): tx=17; break;
-                case(D_DOWN): tx=16; break;
-                default: tx=15;
+                case(D_UP): tx=19; break;
+                case(D_LEFT): tx=18; break;
+                case(D_DOWN): tx=17; break;
+                default: tx=16;
             }
             ty= anim+2;
             break;
         case(BT_WARD):
             switch(fac)
             {
-                case(D_UP): tx=18; break;
-                case(D_LEFT): tx=17; break;
-                case(D_DOWN): tx=16; break;
-                default: tx=15;
+                case(D_UP): tx=19; break;
+                case(D_LEFT): tx=18; break;
+                case(D_DOWN): tx=17; break;
+                default: tx=16;
             }
             ty= anim+4;
             break;
@@ -6723,7 +6741,7 @@ void beast::Draw(unsigned int x, unsigned int y,btype kind, edir fac, unsigned c
 
 
         default: //gnasher
-            tx=15;
+            tx=16;
             if (anim) ty=1;
             else ty=0;
 
