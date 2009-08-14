@@ -124,8 +124,7 @@ bool game::DK_GO;
 edir game::DK_DIR;
 
 bool game::UpdateAll;
-bool game::InActive;
-bool game::TriggeredGameLoop;
+
 bool game::ShiftPressed;
 Font* game::FontRes;
 Font* game::FontRes_Bold;
@@ -491,28 +490,6 @@ void game::Error(const char* msg)
 }
 
 
-void game::TriggerGameLoop()
-{
-    if (!TriggeredGameLoop)
-    {
-        SDL_Event event;
-        SDL_UserEvent userevent;
-
-        userevent.type = SDL_USEREVENT;
-        userevent.code = 0; //game loop
-        userevent.data1 = NULL;
-        userevent.data2 = NULL;
-
-        event.type = SDL_USEREVENT;
-        event.user = userevent;
-        TriggeredGameLoop=true;
-        SDL_PushEvent(&event);
-
-
-    }
-}
-
-
 bool game::EvalDirGrid(Uint16 x1,Uint16 y1,Uint16 x2,Uint16 y2,edir &dir)
 {
     Uint8 sz_2=(Uint8)(sz / 2);
@@ -654,6 +631,7 @@ void game::FFDownCommand( const buttondata*bd)
 void game::FFUpCommand( const buttondata*bd)
 {
     FastForward=false;
+    UpdateAll=true;
 }
 
 void game::UndoCommand( const buttondata*bd)
@@ -1058,7 +1036,7 @@ void game::start(bool undotime)
     mouse_pressed=false;
     CoordMode=false;
     DK_PRESSED=DK_GO=false;
-    InActive=TriggeredGameLoop=ShiftPressed=false;
+    ShiftPressed=false;
 
     deathsq1=NULL;
     deathsq2=NULL;
@@ -1171,7 +1149,6 @@ void game::loop()
             i++;
         }
         while (undo || (FastForward&&(i<XYE_FASTFORWARD_SPEED)));
-        if(i!=1) UpdateAll=true;
             
     }
 
