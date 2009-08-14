@@ -307,12 +307,14 @@ class editorboard: public control
 {
  private:
     void applyFromButtons(int x, int y);
-    void drawRoundWall(SDL_Surface*target,int ox,int oy, int x,int y, int variation);
+    void drawWallInBoard(SDL_Surface*target,int ox,int oy, int x,int y, int variation, bool round);
     void drawLargeBlockInBoard(SDL_Surface * target, int ox,int oy, int x, int y, editorcolor color, int variation, int direction);
     void enforceUniquePortals(int x, int y, int variation, editorcolor color);
 
     void assign(editorboard* other);
     static editorboard copy;
+    bool findWall(int x, int y, int variation);
+    bool wallContainsRoundCorners(int x, int y);
  public:
     bool clicked;
     bool mouse;

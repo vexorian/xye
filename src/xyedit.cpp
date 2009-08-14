@@ -1409,11 +1409,21 @@ void editorboard::onMouseRightUp(int px,int py)
 
 }
 
+bool editorboard::wallContainsRoundCorners(int x, int y)
+{
+    return ( objects[x][y].r1mem || objects[x][y].r3mem || objects[x][y].r9mem || objects[x][y].r7mem);
+}
 
-void editorboard::drawRoundWall(SDL_Surface*target,int ox,int oy, int x, int y, int variation)
+
+bool editorboard::findWall(int x, int y, int variation)
+{
+    return (( objects[x][y].type == EDOT_WALL) && (objects[x][y].variation == variation));
+}
+
+void editorboard::drawWallInBoard(SDL_Surface*target,int ox,int oy, int x, int y, int variation, bool round)
 {
     bool r7,r9,r1,r3;
-    r7=r9=r1=r3=true;
+    r7=r9=r1=r3=round;
 
     if( (ox>0) && (objects[ox-1][oy].type==EDOT_WALL) ) r7=r1=false;
     if( (ox<XYE_HORZ-1) && (objects[ox+1][oy].type==EDOT_WALL) ) r9=r3=false;
@@ -1427,33 +1437,119 @@ void editorboard::drawRoundWall(SDL_Surface*target,int ox,int oy, int x, int y, 
     o.r9mem=(Uint8)(r9);
     o.r3mem=(Uint8)(r3);
 
-
+    DaVinci D(editor::sprites,0,0,0,0);
     Sint16 sz2=sz/2;
-    Sint16 tx,ty;
-    ty=variation;
+    Sint16 ty;
+    ty=sz*(variation);
 
-    tx=9*sz;
-    if(r7) tx+=sz;
+    //D.SetColors(R,G,B,255);
+    
+    char px=ox, py=oy;
+    char rx=px+1, lx=px-1, dy=py+1, uy=py-1;
+    if(rx>=XYE_HORZ) rx=0;
+    if(dy>=XYE_VERT) dy=0;
+    if(lx<0) lx=XYE_HORZ-1;
+    if(uy<0) uy=XYE_VERT-1;
+    
+    bool up =   findWall( px, uy, variation);
+    bool down = findWall( px, dy, variation);
+    bool left = findWall( lx, py, variation);
+    bool right = findWall( rx, py, variation);
 
-    DaVinci D(editor::sprites,tx,ty*sz,sz2,sz2);
+    bool upright = findWall( rx, uy, variation);
+    bool downright =findWall( rx, dy, variation);
+    bool upleft = findWall( lx, uy, variation);
+    bool downleft = findWall( lx, dy, variation);
+
+
+    
+    up = up && !r7 && !r9;
+    down = down && !r1 && !r3;
+    right = right && !r9 && !r3;
+    left = left && !r7 && !r1;
+    
+    bool inborder = (!left||!up||!right||!down);
+    if( !inborder && (!upright || !upleft || !downright ||!downleft) )
+    {
+        inborder = !(   wallContainsRoundCorners(px,uy) 
+                    || wallContainsRoundCorners(px,dy)
+                    || wallContainsRoundCorners(lx, py)
+                    || wallContainsRoundCorners(rx, py) );
+
+    }
+    
+
+    if (r7)
+        D.ChangeRect(10*sz,ty,sz2,sz2);
+    else if( up && left && !inborder)
+        D.ChangeRect(15*sz,ty,sz2,sz2);
+    else if(up&&left&&upleft)
+        D.ChangeRect(14*sz,ty,sz2,sz2);
+    else if(up&&left)
+        D.ChangeRect(13*sz,ty,sz2,sz2);
+    else if ( up)
+        D.ChangeRect(12*sz,ty,sz2,sz2);
+    else if ( left)
+        D.ChangeRect(11*sz,ty,sz2,sz2);
+    else
+        D.ChangeRect(9*sz,ty,sz2,sz2);
+    
+
     D.Draw(target,x,y);
 
-    tx=9*sz+(sz2);
-    if(r9) tx+=sz;
-    D.ChangeRect(tx,ty*sz,sz2,sz2);
+    if (r9)
+        D.ChangeRect(21*sz2,ty,sz2,sz2);
+    else if( up && right && !inborder)
+        D.ChangeRect(15*sz+sz2,ty,sz2,sz2);
+    else if(up&&right&&upright)
+        D.ChangeRect(14*sz+sz2,ty,sz2,sz2);
+    else if(up&&right)
+        D.ChangeRect(13*sz+sz2,ty,sz2,sz2);
+    else if ( up)
+        D.ChangeRect(12*sz+sz2,ty,sz2,sz2);
+    else if ( right)
+        D.ChangeRect(11*sz+sz2,ty,sz2,sz2);
+    else
+        D.ChangeRect(19*sz2,ty,sz2,sz2);
+
+    //D.SetColors(255,255,255,50);
     D.Draw(target,x+sz2,y);
+    //D.SetColors(255,255,255,255);
 
+    if (r1)
+        D.ChangeRect(10*sz,ty+sz2,sz2,sz2);
+    else if( down && left && !inborder)
+        D.ChangeRect(15*sz,ty+sz2,sz2,sz2);
+    else if(down&&left&&downleft)
+        D.ChangeRect(14*sz,ty+sz2,sz2,sz2);
+    else if(down&&left)
+        D.ChangeRect(13*sz,ty+sz2,sz2,sz2);
+    else if ( down)
+        D.ChangeRect(12*sz,ty+sz2,sz2,sz2);
+    else if ( left)
+        D.ChangeRect(11*sz,ty+sz2,sz2,sz2);
+    else
+        D.ChangeRect(9*sz,ty+sz2,sz2,sz2);
 
-    tx=9*sz;
-    if(r1) tx+=sz;
-    D.ChangeRect(tx,ty*sz+sz2,sz2,sz2);
-    D.Draw(target,x,y+sz2);
+    
+    D.Draw(game::screen,x,y+sz2);
 
-    tx=9*sz+sz2;
-    if(r3) tx+=sz;
-    D.ChangeRect(tx,ty*sz+sz2,sz2,sz2);
-    D.Draw(target,x+(sz2),y+sz2);
+    if (r3)
+        D.ChangeRect(21*sz2,ty+sz2,sz2,sz2);
+    else if( down && right && !inborder)
+        D.ChangeRect(15*sz+sz2,ty+sz2,sz2,sz2);
+    else if(down&&right&&downright)
+        D.ChangeRect(14*sz+sz2,ty+sz2,sz2,sz2);
+    else if(down&&right)
+        D.ChangeRect(13*sz+sz2,ty+sz2,sz2,sz2);
+    else if ( down)
+        D.ChangeRect(12*sz+sz2,ty+sz2,sz2,sz2);
+    else if ( right)
+        D.ChangeRect(11*sz+sz2,ty+sz2,sz2,sz2);
+    else
+        D.ChangeRect(19*sz2,ty+sz2,sz2,sz2);
 
+    D.Draw(target,x+sz2,y+sz2);
 
 }
 
@@ -1467,8 +1563,8 @@ void editorboard::draw(SDL_Surface* target)
         boardelement &o=objects[i][j];
         if(o.type!=EDOT_NONE)
         {
-            if (( o.type==EDOT_WALL) && (o.round))
-                drawRoundWall(target,i,j,x+i*sz,y+j*sz,o.variation);
+            if ( o.type==EDOT_WALL)
+                drawWallInBoard(target,i,j,x+i*sz,y+j*sz,o.variation, o.round);
             else if ( o.type == EDOT_LARGEBLOCK )
                 drawLargeBlockInBoard(target,i,j,x+i*sz,y+j*sz,o.color, o.variation, o.direction);
             else
