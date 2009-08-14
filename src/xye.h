@@ -1378,8 +1378,7 @@ class game
     static bool TryMoveXye(char dx, char dy, edir dir);
 
 
-    static Uint32 timer(Uint32 interval, void *param);
-    static Uint32 FastForwardTimer(Uint32 interval, void *param);
+
 
     static bool UpdateAll;
     static bool InActive;

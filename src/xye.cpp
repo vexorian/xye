@@ -512,18 +512,6 @@ void game::TriggerGameLoop()
     }
 }
 
-Uint32 game::timer(Uint32 interval, void *param) {
-     TriggerGameLoop();
-        return(interval);
-}
-
-Uint32 game::FastForwardTimer(Uint32 interval, void *param) {
-     TriggerGameLoop();
-     if (! FastForward)
-         return (0);
-
- return(interval);
-}
 
 bool game::EvalDirGrid(Uint16 x1,Uint16 y1,Uint16 x2,Uint16 y2,edir &dir)
 {
