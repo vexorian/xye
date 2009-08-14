@@ -6681,7 +6681,7 @@ void beast::Draw(unsigned int x, unsigned int y,btype kind, edir fac, unsigned c
             ty=anim+6;
             break;
         case(BT_BLOBBOSS):
-            tx=15;
+            tx=19;
             ty=anim+12;
             break;
 
@@ -6832,8 +6832,10 @@ bool beast::Loop(bool* died)
                 NewAnim();
             break;
         case BT_STATIC:
-            if( !AIValue || (game::counter2!=0) )
-                break;
+            if( AIValue || (game::counter7==0) )
+                NewAnim();
+            break;
+                
         default:
             if(game::counter7==0)
                  NewAnim(); 
