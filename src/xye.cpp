@@ -1183,7 +1183,7 @@ void game::loop()
             i++;
         }
         while (undo || (FastForward&&(i<XYE_FASTFORWARD_SPEED)));
-        UpdateAll=true;
+        if(i!=1) UpdateAll=true;
             
     }
 
