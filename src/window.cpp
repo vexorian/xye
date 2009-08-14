@@ -252,6 +252,8 @@ void window::SetTransition( voidFunction tra )
     transition = tra;
 }
 
+
+using namespace std;
 void window::loop(double fps)
 {
     bool &done=halt;
@@ -265,9 +267,16 @@ void window::loop(double fps)
     SDL_TimerID tim = SDL_AddTimer( per, window::timer,0);
     while (!done)
     {
+        int t=0;
+        
         // message processing loop
         while (SDL_PollEvent(&event) && (!done))
         {
+            if((transition!=NULL) && (event.type==SDL_USEREVENT))
+            {
+                TriggeredLoop=false;
+                continue;
+            }
 
             // check for messages
             switch (event.type)
@@ -326,7 +335,8 @@ void window::loop(double fps)
                 //if (
                 break;
 
-            } // end switchm
+                
+            } // end switch
 
 
 
@@ -338,7 +348,7 @@ void window::loop(double fps)
             transition = NULL;
         }
 
-        if  (!done) SDL_Delay((InActive?1000:1));
+        if  (!done) SDL_Delay((InActive?1000:10));
         
         
         
