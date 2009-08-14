@@ -1381,8 +1381,6 @@ class game
 
 
     static bool UpdateAll;
-    static bool InActive;
-    static bool TriggeredGameLoop;
 
     static bool CoordMode;
 
@@ -1395,7 +1393,7 @@ class game
     static int DK_PRESSED_FIRST;
     static bool DK_GO;
     static edir DK_DIR;
-    static void TriggerGameLoop();
+
     static void DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h);
     static bool EvalDirKeys();
 
