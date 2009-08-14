@@ -6592,7 +6592,7 @@ void beast::PickFirstAnim()
         case (BT_BLOB): case (BT_BLOBBOSS):
             anim=GetRandom<char>(0,2);break;
         case (BT_SPINNER) : case(BT_ASPINNER):
-            anim=GetRandom<char>(0,3);break;
+            anim=GetRandom<char>(0,1)*2;break;
         default: anim=GetRandom<char>(0,1);
     }
 }
