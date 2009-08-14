@@ -272,12 +272,6 @@ void window::loop(double fps)
         // message processing loop
         while (SDL_PollEvent(&event) && (!done))
         {
-            if((transition!=NULL) && (event.type==SDL_USEREVENT))
-            {
-                TriggeredLoop=false;
-                continue;
-            }
-
             // check for messages
             switch (event.type)
             {
@@ -323,14 +317,17 @@ void window::loop(double fps)
                 break;
 
             case (SDL_USEREVENT): //the only user event is the normal loop:
+                if(transition==NULL)
+                {
+                    st=SDL_GetAppState();
+                    if ( st & (SDL_APPMOUSEFOCUS | SDL_APPINPUTFOCUS) )
+                    {
+                        loopControls();
+                        draw();
+                    }
+                }
                 TriggeredLoop=false;
 
-                st=SDL_GetAppState();
-                if ( st & (SDL_APPMOUSEFOCUS | SDL_APPINPUTFOCUS) )
-                {
-                    loopControls();
-                    draw();
-                }
 
                 //if (
                 break;
