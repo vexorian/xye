@@ -1845,6 +1845,7 @@ void game::end()
     char i,j;
     gameover=FinishedLevel=false;
     square* sq;
+    recycle::run();
     for (i=0;i<XYE_HORZ;i++) for (j=0;j<XYE_VERT;j++)
     {
         sq=&grid[i][j];
@@ -1867,7 +1868,7 @@ void game::end()
     }
     started=false;
     deathqueue::reset();
-    recycle::run();
+
 }
 
 
@@ -8954,7 +8955,7 @@ void recycle::init()
 void recycle::run()
 {
     recycle_entry* tm;
-    while(first)
+    while(first!=NULL)
     {
         tm=first;
         first=first->next;
@@ -8966,12 +8967,9 @@ void recycle::run()
 void recycle::add(obj* o)
 {
     recycle_entry* nw=new recycle_entry;
-    nw->next=NULL;
+    nw->next=first;
     nw->o=o;
-    if(first)
-        first->next=nw;
-    else
-        first=nw;
+    first=nw;
 }
 
 /** end class recycle **/
