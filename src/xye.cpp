@@ -6051,6 +6051,9 @@ bool dangerous::Loop(bool* died)
     }
     else if (fire)
     {
+        bool Moved=false;
+        if (DoMagnetism(true,true,&Moved) && Moved) return Moved;
+
         UpdateSquare();
         mov=(mov>=1)?0:mov+1;
         mov=0;
