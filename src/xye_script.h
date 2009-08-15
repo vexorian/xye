@@ -42,7 +42,7 @@ class LevelPack
     static bool FromEditor;
     static void Init();
     static void Clean();
-    static void Default();
+    static void Default(const char* msg = NULL);
     static void Error(const char * msg);
 
     static string CurrentLevelTitle;
@@ -50,6 +50,7 @@ class LevelPack
     static string Author;
     static string Name;
     static string CurrentLevelBye;
+    static string LevelError;
 
     static string OpenFile;
     static unsigned int OpenFileLn;
