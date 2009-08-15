@@ -311,7 +311,9 @@ int game::Init(const char* levelfile)
 
         D.Draw(icon,(unsigned int)((32-sz)/2),(unsigned int)((32-sz)/2));
     }
-    SDL_WM_SetIcon(icon,NULL);
+    SDL_WM_SetIcon(icon,NULL)    ;
+    
+    SDL_FreeSurface(icon);
     //</window icon>
 
     //SDL_ShowCursor(SDL_DISABLE);
