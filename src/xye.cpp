@@ -1254,6 +1254,10 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
     {
         hintx = "Hint - "+string(hint::GetActiveText() );
     }
+    else if (LevelPack::LevelError != "")
+    {
+        hintx = LevelPack::LevelError;
+    }
 
 
 

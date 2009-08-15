@@ -28,6 +28,7 @@ Permission is granted to anyone to use this software for any purpose, including 
 
 /** Class LevelPack begin**/
 unsigned int LevelPack::n;
+string LevelPack::LevelError;
 string LevelPack::Author;
 string LevelPack::Name;
 string LevelPack::Desc;
@@ -139,6 +140,7 @@ bool LevelPack::HasSolution()
 
 void  LevelPack::LoadInformation()
 {
+    LevelError = "";
     int a,b,c;
     a=0;
 
@@ -152,7 +154,7 @@ void  LevelPack::LoadInformation()
     }
 
 
-    if (!n) {LevelPack::Error("No levels on file"); return;}
+    if (!n) {LevelPack::Error("The file is a valid Xye XML level file. But it contains no <level> tags."); return;}
 
     //Pack name:
     pEChild= pack->FirstChildElement("name");
@@ -210,7 +212,7 @@ bool LevelPack::GetFileData(const char* filename, string &au, string &ds, string
             return false;
         }
         au="";
-        ds=".KYE level file";
+        ds=".kye level file";
         return true;
     }
 
@@ -334,6 +336,7 @@ return(val);
 
 void LevelPack::Load(const char *filename, unsigned int ln, const char* replay)
 {
+    LevelError = "";
     OpenFile=filename;
     OpenFileLn=ln;
     if (Doc!=NULL)
@@ -428,8 +431,9 @@ void LevelPack::Load(const char *filename, unsigned int ln, const char* replay)
     }
     else
     {
-        fprintf(stderr,"Invalid / Missing Level xml file [%s]", filename);
-        LevelPack::Error(Doc->ErrorDesc());
+        string s=string("Invalid / Missing Level xml file: "+string(filename)+" ["+string(Doc->ErrorDesc())+"]")  ;
+        fprintf(stderr,"%s", s.c_str() );
+        LevelPack::Error(s.c_str());
     }
 
 
@@ -1719,7 +1723,7 @@ void LoadFloor(TiXmlElement* floor)
 //==========================
 // Default level, in case there were errors:
 //
-void LevelPack::Default()
+void LevelPack::Default(const char* msg)
 {
     defmode=true;
     n=1; //one level
@@ -1730,18 +1734,41 @@ void LevelPack::Default()
     LevelPack::CurrentLevelTitle= "Xye - Could not open level file";
     SDL_WM_SetCaption(LevelPack::CurrentLevelTitle.c_str(),0);
     
+    const char* err[5]=
+    {"###.##..##...##..##.",
+     "#...#.#.#.#.#..#.#.#",
+     "##..##..##..#..#.##.",
+     "#...#.#.#.#.#..#.#.#",
+     "###.#.#.#.#..##..#.#"};
+    for (int i=0;i<5; i++)
+        for (int j=0;j<20; j++)
+        {
+            if(err[i][j]=='#') {
+                block* b =  new block(game::Square(5+j,12-i) , B_RED, false);
+            }
+        }
+    
+    
+    
+    
     LevelPack::SetLevelBye("Sorry");
     hint::SetGlobalHint(Desc.c_str());    
     LevelPack::Solution="";
     
     palette::Clear();
+    if(msg!=NULL) 
+        LevelError = msg;
+    
+
+    
+    
     game::XYE= new xye(game::Square(0,0));
 }
 
 
 void LevelPack::Error(const char * msg)
 {
-    Default();
+    Default(msg);
 }
 
 //===========================================================================================
