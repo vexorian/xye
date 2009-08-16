@@ -49,6 +49,8 @@ feel free to change them, just keep good contrast-->
 
 <!-- wall default color: -->
 <color type ="WALL" red="192" green="192" blue="192" />
+<!-- wall color in the sprites: -->
+<color type ="WALL_SPRITE" red="255" green="255" blue="255" />
 
 <!--
 <color type="F" bc="Y" red='255' green='0' blue='0'/ >

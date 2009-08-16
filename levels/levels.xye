@@ -8424,6 +8424,7 @@
 <bye>Fun!</bye>
     <palette>
         <color id='1' red='255' green='172' blue='111' mode='RECOLOR' />
+        
     </palette>
     <default>
         <wall color='1' />
