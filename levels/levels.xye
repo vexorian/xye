@@ -8423,14 +8423,11 @@
 <hint>You&apos;ll need a shield to block those arrows. Get at least two keys to win.</hint>
 <bye>Fun!</bye>
     <palette>
-<!--        <color id='1' red='255' green='200' blue='200' />
-        <color id='2' red='255' green='50' blue='50' />-->
-        <color id='1' red='224' green='255' blue='5' />
-        <color id='2' red='192' green='192' blue='192' />
+        <color id='1' red='255' green='172' blue='111' mode='RECOLOR' />
     </palette>
     <default>
         <wall color='1' />
-        <earth color='2' />
+        <earth color='1' />
     </default>
 
 
