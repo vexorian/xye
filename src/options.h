@@ -3,6 +3,8 @@
 
 using std::string;
 
+const int XYE_WALL_VARIATIONS = 6; 
+
 class options
 {
  private:
@@ -70,8 +72,8 @@ class options
 
     inline static bool UndoEnabled() {return enundo; }
 
-    static SDL_Color WallColor;
-    static SDL_Color WallSpriteColor;
+    static SDL_Color WallColor      [XYE_WALL_VARIATIONS];
+    static SDL_Color WallSpriteColor[XYE_WALL_VARIATIONS];
     
     static SDL_Color BFColor[4];
     static SDL_Color BKColor[4];
