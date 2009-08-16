@@ -63,10 +63,17 @@ int SDL_FillRect(SDL_Surface *dst, Sint16 x, Sint16 y, Uint16 w, Uint16 h, Uint3
 #ifndef DEF_DAVINCI
 #define DEF_DAVINCI 1
 
+struct LuminositySprites
+{
+    SDL_Surface* sprites;
+    SDL_Surface* luminosity;
+};
+
 class DaVinci
 {
  private:
   SDL_Surface* src;
+  SDL_Surface* src_lights;
   Uint8 R;
   Uint8 G;
   Uint8 B;
@@ -77,6 +84,10 @@ class DaVinci
 
   DaVinci(SDL_Surface*SourceTexture, SDL_Rect* rect);
   DaVinci(SDL_Surface*SourceTexture, Sint16 x, Sint16 y, Uint16 w, Uint16 h);
+
+  DaVinci(LuminositySprites & Source, SDL_Rect* rect);
+  DaVinci(LuminositySprites & Source, Sint16 x, Sint16 y, Uint16 w, Uint16 h);
+
 
   void ChangeRect(Sint16 x, Sint16 y, Uint16 w, Uint16 h);
   void ChangeRect(SDL_Rect* nw);
