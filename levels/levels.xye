@@ -3979,7 +3979,7 @@
         <title>Strawberry pie</title>
         <bye>It was just a training</bye>
         <palette>
-            <color id="1" red="255" green="200" blue="200"/>
+            <color id="1" red="253" green="161" blue="199" mode="RECOLOR" />
             <color id="2" red="250" green="250" blue="250"/>
         </palette>
         <default>
@@ -6982,8 +6982,7 @@
 </solution>
         <bye>Congratulations!</bye>
         <palette>
-            <color id="1" red="255" green="255" blue="100"/>
-            <color id="2" red="250" green="250"  blue="250"/>
+            <color id="1" red="228" green="222" blue="130" mode="RECOLOR" />
         </palette>
         <default>
             <wall color="1" type="1"/>
