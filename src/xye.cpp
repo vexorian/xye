@@ -286,7 +286,8 @@ int game::Init(const char* levelfile)
         RecolorCache::savecolor(&options::BFColor[i]);
         RecolorCache::savecolor(&options::BKColor[i]);
     }
-    RecolorCache::savecolor(&options::WallColor);
+    for (int i=0; i<wall::MAX_VARIATIONS; i++)
+        RecolorCache::savecolor(&options::WallColor[i]);
 
     RecolorCache::savecolor(&PlayerColor);
 
@@ -3117,13 +3118,13 @@ bool roboxye::Loop(bool* died)
 
 
 /**Class wall**/
-const int WALL_KINDS = 6;
-SDL_Color wall::DefaultColor;
+SDL_Color wall::DefaultColor[wall::MAX_VARIATIONS];
 unsigned char wall::defkind=0;
 
 void wall::ResetDefaults()
 {
-    DefaultColor=options::WallColor;
+    for (int i=0; i<MAX_VARIATIONS; i++)
+        DefaultColor[i] = options::WallColor[i];
     defkind=0;
 }
 
@@ -3145,7 +3146,6 @@ void wall_convertColor(Uint8 sprite, Uint8 wanted, Uint8 &c)
         x = std::min<int>(x,255);
         c = (Uint8)(x);
     }
-    
 }
 
 
@@ -3153,34 +3153,41 @@ void wall::ChangeColor(Uint8 nR, Uint8 nG, Uint8 nB, bool multiply)
 {
     if(multiply)
     {
-        wall_multiplyColor( options::WallColor.r, nR, R);
-        wall_multiplyColor( options::WallColor.g, nG, G);
-        wall_multiplyColor( options::WallColor.b, nB, B);
+        wall_multiplyColor( options::WallColor[kind].r, nR, R);
+        wall_multiplyColor( options::WallColor[kind].g, nG, G);
+        wall_multiplyColor( options::WallColor[kind].b, nB, B);
     }
     else
     {
-        wall_convertColor( options::WallSpriteColor.r, nR, R);
-        wall_convertColor( options::WallSpriteColor.g, nG, G);
-        wall_convertColor( options::WallSpriteColor.b, nB, B);
+        wall_convertColor( options::WallSpriteColor[kind].r, nR, R);
+        wall_convertColor( options::WallSpriteColor[kind].g, nG, G);
+        wall_convertColor( options::WallSpriteColor[kind].b, nB, B);
     }
 }
 
-void wall::SetDefaultColor(SDL_Color cc, bool multiply)
+void wall::SetDefaultColor(SDL_Color cc, bool multiply, int var)
 {
     if(multiply)
     {
-        wall_multiplyColor( options::WallColor.r, cc.r, DefaultColor.r);
-        wall_multiplyColor( options::WallColor.g, cc.g, DefaultColor.g);
-        wall_multiplyColor( options::WallColor.b, cc.b, DefaultColor.b);
+        wall_multiplyColor( options::WallColor[var].r, cc.r, DefaultColor[var].r);
+        wall_multiplyColor( options::WallColor[var].g, cc.g, DefaultColor[var].g);
+        wall_multiplyColor( options::WallColor[var].b, cc.b, DefaultColor[var].b);
     }
     else
     {
-        wall_convertColor( options::WallSpriteColor.r, cc.r, DefaultColor.r);
-        wall_convertColor( options::WallSpriteColor.g, cc.g, DefaultColor.g);
-        wall_convertColor( options::WallSpriteColor.b, cc.b, DefaultColor.b);
+        wall_convertColor( options::WallSpriteColor[var].r, cc.r, DefaultColor[var].r);
+        wall_convertColor( options::WallSpriteColor[var].g, cc.g, DefaultColor[var].g);
+        wall_convertColor( options::WallSpriteColor[var].b, cc.b, DefaultColor[var].b);
     }
-    RecolorCache::savecolor(&DefaultColor);
-    
+    RecolorCache::savecolor(&DefaultColor[var]);
+}
+
+
+void wall::SetDefaultColor(SDL_Color cc, bool multiply)
+{
+    SetDefaultColor(cc,multiply, 0);
+    for (int i=1;i<MAX_VARIATIONS; i++)
+        DefaultColor[i] = DefaultColor[0];
 }
 
 
@@ -3188,18 +3195,19 @@ void wall::SetDefaultColor(SDL_Color cc, bool multiply)
 
 void wall::SetDefaultType(signed int def)
 {
-    defkind= def>5?5:def<0?0:def;
+    defkind= def>=MAX_VARIATIONS? 0:def<0?0:def;
 }
 
 wall::wall(square* sq,unsigned char t)
 {
      round7=round1=round3=round9=false;
     type=OT_WALL;
+    if(t>=MAX_VARIATIONS) t=0;
     ChangeKind(t);
 
-    R=DefaultColor.r;
-    G=DefaultColor.g;
-    B=DefaultColor.b;
+    R=DefaultColor[t].r;
+    G=DefaultColor[t].g;
+    B=DefaultColor[t].b;
     ObjectConstruct(sq);
 }
 
@@ -3208,17 +3216,22 @@ wall::wall(square* sq)
      round7=round1=round3=round9=false;
     type=OT_WALL;
     kind=defkind;
-    R=DefaultColor.r;
-    G=DefaultColor.g;
-    B=DefaultColor.b;
+    R=DefaultColor[defkind].r;
+    G=DefaultColor[defkind].g;
+    B=DefaultColor[defkind].b;
     ObjectConstruct(sq);
+
+
 }
 
 
 void wall::ChangeKind(unsigned char t)
 {
     kind=t;
-    if(kind>=WALL_KINDS) kind=0;
+    if(kind>=MAX_VARIATIONS) kind=0;
+    R=DefaultColor[kind].r;
+    G=DefaultColor[kind].g;
+    B=DefaultColor[kind].b;
 }
 
 bool wall::containsRoundCorner()
@@ -3232,7 +3245,6 @@ void wall::Draw(unsigned int x, unsigned int y)
     int sz2=sz/2;
     Sint16 ty;
     ty=sz*(kind);
-
     D.SetColors(R,G,B,255);
     
     char px=this->x, py=this->y;

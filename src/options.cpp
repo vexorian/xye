@@ -66,8 +66,8 @@ int options::GridSize;
 unsigned int options::lvnum;
 string options::ExecutablePath;
 
-SDL_Color options::WallColor;
-SDL_Color options::WallSpriteColor;
+SDL_Color options::WallColor      [XYE_WALL_VARIATIONS];
+SDL_Color options::WallSpriteColor[XYE_WALL_VARIATIONS];
 
 SDL_Color options::BFColor[4];
 SDL_Color options::BKColor[4];
@@ -454,18 +454,36 @@ bool TryWallColorOptions(TiXmlElement* skn)
     TiXmlElement* tem=skn->FirstChildElement("color");
     while (tem!=NULL)
     {
-
+        int variation = -1;
+        tem->QueryIntAttribute("variation", &variation);
         const char* e1 = tem->Attribute("type");
         SDL_Color * c=NULL;
-        if((e1!=NULL) && (string(e1)=="WALL") ) c=&options::WallColor;
-        else if( (e1!=NULL) && (string(e1)=="WALL_SPRITE") ) c=&options::WallSpriteColor;
+        int n = 1;
+        
+        if( (e1!=NULL) && (string(e1)=="WALL") )
+        {
+            c=options::WallColor;
+            if(variation==-1) n=XYE_WALL_VARIATIONS;
+            else c+=variation;
+        }
+        else if( (e1!=NULL) && (string(e1)=="WALL_SPRITE") )
+        {
+            c=options::WallSpriteColor;
+            if(variation==-1) n=XYE_WALL_VARIATIONS;
+            else c+=variation;
+        }
         if(c!=NULL)
         {
+            for (int j=0; j<n; j++)
+            {
+                
                 string quo;
                 int i=0;
-                quo=tem->Attribute("red");TryS2I(quo,i);c->r=i;
-                quo=tem->Attribute("green");TryS2I(quo,i);c->g=i;
-                quo=tem->Attribute("blue");TryS2I(quo,i);c->b=i;
+                quo=tem->Attribute("red");TryS2I(quo,i);c[j].r=i;
+                quo=tem->Attribute("green");TryS2I(quo,i);c[j].g=i;
+                quo=tem->Attribute("blue");TryS2I(quo,i);c[j].b=i;
+                c[j].unused=255;
+            }
         }
         tem=tem->NextSiblingElement("color");
     }
@@ -524,9 +542,12 @@ void options::LoadColors(TiXmlElement* skn)
     cname[B_BLUE]='B';
     cname[B_GREEN]='G';
     cname[B_RED]='R';
-    WallSpriteColor.r  =WallSpriteColor.g =WallSpriteColor.b = 192;
-    WallSpriteColor.unused = 255;
-    WallColor.r =WallColor.g =WallColor.b = WallColor.unused = 255;
+    for (int i=0; i<XYE_WALL_VARIATIONS; i++)
+    {
+        WallSpriteColor[i].r  =WallSpriteColor[i].g =WallSpriteColor[i].b = 192;
+        WallSpriteColor[i].unused = 255;
+        WallColor[i].r =WallColor[i].g =WallColor[i].b = WallColor[i].unused = 255;
+    }
     TryWallColorOptions(skn);
     for (i=0;i<4;i++)
     {

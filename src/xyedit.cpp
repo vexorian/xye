@@ -1438,7 +1438,7 @@ void editorboard::drawWallInBoard(SDL_Surface*target,int ox,int oy, int x, int y
     o.r3mem=(Uint8)(r3);
 
     DaVinci D(editor::sprites,0,0,0,0);
-    D.SetColors( options::WallColor, 255);
+    D.SetColors( &options::WallColor[variation], 255);
     Sint16 sz2=sz/2;
     Sint16 ty;
     ty=sz*(variation);
@@ -1718,6 +1718,7 @@ void drawWall( SDL_Surface * target, int x, int y, bool round, int variation)
     if(round) tx=10;
     else tx=9;
     DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+    D.SetColors( &options::WallColor[variation], 255);
     D.Draw(target,x,y);
 }
 
