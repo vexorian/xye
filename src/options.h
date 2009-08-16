@@ -71,6 +71,7 @@ class options
     inline static bool UndoEnabled() {return enundo; }
 
     static SDL_Color WallColor;
+    static SDL_Color WallSpriteColor;
     
     static SDL_Color BFColor[4];
     static SDL_Color BKColor[4];

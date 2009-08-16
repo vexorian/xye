@@ -3127,43 +3127,60 @@ void wall::ResetDefaults()
     defkind=0;
 }
 
+void wall_multiplyColor(Uint8 a, Uint8 b, Uint8 &c)
+{
+    int t = a;
+    t = (t*b/ 255.0 );
+    c=(unsigned char)(t);
+    
+}
+
+void wall_convertColor(Uint8 sprite, Uint8 wanted, Uint8 &c)
+{
+    if(sprite==255)
+        c=wanted;
+    else
+    {
+        int x = 255.0*(int)(wanted) / (int)(sprite);
+        x = std::min<int>(x,255);
+        c = (Uint8)(x);
+    }
+    
+}
+
+
 void wall::ChangeColor(Uint8 nR, Uint8 nG, Uint8 nB, bool multiply)
 {
     if(multiply)
     {
-        int t = options::WallColor.r;
-        t = (t*nR/ 255.0 );
-        R=(unsigned char)(t);
-        
-        t = options::WallColor.g;
-        t = (t*nG/ 255.0 );
-        G=(unsigned char)(t);
-        
-        t = options::WallColor.b;
-        t = (t*nB/ 255.0 );
-        B=(unsigned char)(t);
+        wall_multiplyColor( options::WallColor.r, nR, R);
+        wall_multiplyColor( options::WallColor.g, nG, G);
+        wall_multiplyColor( options::WallColor.b, nB, B);
     }
-    else R=nR, G=nG, B=nB;
+    else
+    {
+        wall_convertColor( options::WallSpriteColor.r, nR, R);
+        wall_convertColor( options::WallSpriteColor.g, nG, G);
+        wall_convertColor( options::WallSpriteColor.b, nB, B);
+    }
 }
 
 void wall::SetDefaultColor(SDL_Color cc, bool multiply)
 {
     if(multiply)
     {
-
-        int t = options::WallColor.r;
-        t = (t*cc.r/ 255.0 );
-        DefaultColor.r=(unsigned char)(t);
-        
-        t = options::WallColor.g;
-        t = (t*cc.g/ 255.0 );
-        DefaultColor.g=(unsigned char)(t);
-        
-        t = options::WallColor.b;
-        t = (t*cc.b/ 255.0 );
-        DefaultColor.b=(unsigned char)(t);
+        wall_multiplyColor( options::WallColor.r, cc.r, DefaultColor.r);
+        wall_multiplyColor( options::WallColor.g, cc.g, DefaultColor.g);
+        wall_multiplyColor( options::WallColor.b, cc.b, DefaultColor.b);
     }
-    else DefaultColor.r=cc.r, DefaultColor.g=cc.g, DefaultColor.b=cc.b;
+    else
+    {
+        wall_convertColor( options::WallSpriteColor.r, cc.r, DefaultColor.r);
+        wall_convertColor( options::WallSpriteColor.g, cc.g, DefaultColor.g);
+        wall_convertColor( options::WallSpriteColor.b, cc.b, DefaultColor.b);
+    }
+    RecolorCache::savecolor(&DefaultColor);
+    
 }
 
 
