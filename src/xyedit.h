@@ -175,7 +175,7 @@ class editor
 
     static Font* FontRes;
 
-    static SDL_Surface* sprites;
+    static LuminositySprites sprites;
 
     static int Width;
     static int Height;

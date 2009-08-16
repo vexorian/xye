@@ -1430,7 +1430,7 @@ class game
     static Font* FontRes;
     static Font* FontRes_White;
     static Font* FontRes_Bold;
-    static SDL_Surface* sprites;
+    static LuminositySprites sprites;
     static SDL_Surface* screen;
 
 

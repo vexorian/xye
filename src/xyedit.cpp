@@ -52,7 +52,7 @@ bool editor::ExitPrompt=false;
 
 button * editor::savebutton;
 button * editor::solutionbutton;
-SDL_Surface * editor::sprites;
+LuminositySprites editor::sprites;
 Font* editor::FontRes;
 bool SavedSolution = false;
 
@@ -1438,6 +1438,7 @@ void editorboard::drawWallInBoard(SDL_Surface*target,int ox,int oy, int x, int y
     o.r3mem=(Uint8)(r3);
 
     DaVinci D(editor::sprites,0,0,0,0);
+    D.SetColors( options::WallColor, 255);
     Sint16 sz2=sz/2;
     Sint16 ty;
     ty=sz*(variation);

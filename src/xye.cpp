@@ -68,8 +68,8 @@ square       game::grid[XYE_HORZ][XYE_VERT];
 unsigned int game::id_count;
 
 //Buffer of the sprites file
-SDL_Surface*     game::sprites;
-SDL_Surface*     game::screen;
+LuminositySprites game::sprites;
+SDL_Surface*      game::screen;
 
 //Game tic counter:
 unsigned int game::counter;
@@ -267,17 +267,26 @@ int game::Init(const char* levelfile)
 
     const char *tm=SKIN.c_str();
     printf("Loading %s\n",tm);
-    sprites=IMG_Load(tm);
-    if (!sprites)  game::Error( "Invalid/Missing Sprite File");
+    sprites.sprites=IMG_Load(tm);
+    {
+        tm = options::GetLuminositySpriteFile();
+        if(tm!=NULL)
+        {
+            printf("Loading %s\n",tm);
+            sprites.luminosity=IMG_Load(tm);
+        }
+    }
+    if (  sprites.sprites == NULL)  game::Error( "Invalid/Missing Sprite File");
 
     //Init cache
     printf("Initializing Recolor cache...\n");
-    RecolorCache::restart(sprites);
+    RecolorCache::restart(sprites.sprites);
     for (i=0;i<4;i++)
     {
         RecolorCache::savecolor(&options::BFColor[i]);
         RecolorCache::savecolor(&options::BKColor[i]);
     }
+    RecolorCache::savecolor(&options::WallColor);
 
     RecolorCache::savecolor(&PlayerColor);
 
@@ -364,7 +373,7 @@ int game::Init(const char* levelfile)
     dialogs::TextBoxColor = options::LevelMenu_menu;
     
     button::FontResource=FontRes;
-    button::SourceSurface=sprites;
+    button::SourceSurface=sprites.sprites;
     button::LongTextureX=7;
     button::ShortTextureX=6;
     button::PressedTextureY=18;
@@ -442,7 +451,7 @@ int game::Init(const char* levelfile)
 
 
     printf("cleaning sprites\n");
-    SDL_FreeSurface(sprites);
+    SDL_FreeSurface(sprites.sprites);
 
     #ifndef NOTRUETYPE
         printf("Shutting down SDL_ttf\n");
@@ -1566,7 +1575,7 @@ void game::draw(Sint16 px, Sint16 py)
                 {
                     sq= SquareN(xx+incx[i],xy+incy[i]);
                     sq->Update=true;
-                    SDL_BlitSurface(sprites,atx[i]*GRIDSIZE,aty[i]*GRIDSIZE,GRIDSIZE,GRIDSIZE,
+                    SDL_BlitSurface(sprites.sprites,atx[i]*GRIDSIZE,aty[i]*GRIDSIZE,GRIDSIZE,GRIDSIZE,
                                     screen,sq->x,sq->y);
                 }
             }
@@ -3114,7 +3123,7 @@ unsigned char wall::defkind=0;
 
 void wall::ResetDefaults()
 {
-    DefaultColor.r=DefaultColor.g=DefaultColor.b=DefaultColor.unused=255;
+    DefaultColor=options::WallColor;
     defkind=0;
 }
 

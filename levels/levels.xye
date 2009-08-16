@@ -8425,7 +8425,7 @@
     <palette>
 <!--        <color id='1' red='255' green='200' blue='200' />
         <color id='2' red='255' green='50' blue='50' />-->
-        <color id='1' red='230' green='255' blue='255' />
+        <color id='1' red='224' green='255' blue='5' />
         <color id='2' red='192' green='192' blue='192' />
     </palette>
     <default>
