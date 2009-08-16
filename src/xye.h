@@ -315,6 +315,7 @@ class roboxye : public obj
 class wall : public obj
 {
  private:
+     
      unsigned int color;
 
      bool round7;
@@ -329,9 +330,9 @@ class wall : public obj
      Uint8 B;
      
      bool containsRoundCorner();
-     static SDL_Color DefaultColor;
+     static SDL_Color DefaultColor[6];
  public:
-
+     static const int MAX_VARIATIONS = 6;
      wall(square* sq,unsigned char t);
      wall(square* sq);
      bool ResistsFire();
@@ -344,6 +345,7 @@ class wall : public obj
      bool Loop(bool* died);
      bool HasBlockColor(blockcolor bc);
      static void SetDefaultColor(SDL_Color cc, bool multiply=true);
+     static void SetDefaultColor(SDL_Color cc, bool multiply, int var);
      static void SetDefaultType(signed int def);
      static void ResetDefaults();
      static wall* find(char sx, char sy, unsigned char kind = 6);
