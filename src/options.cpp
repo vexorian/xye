@@ -67,6 +67,7 @@ unsigned int options::lvnum;
 string options::ExecutablePath;
 
 SDL_Color options::WallColor;
+SDL_Color options::WallSpriteColor;
 
 SDL_Color options::BFColor[4];
 SDL_Color options::BKColor[4];
@@ -457,6 +458,7 @@ bool TryWallColorOptions(TiXmlElement* skn)
         const char* e1 = tem->Attribute("type");
         SDL_Color * c=NULL;
         if((e1!=NULL) && (string(e1)=="WALL") ) c=&options::WallColor;
+        else if( (e1!=NULL) && (string(e1)=="WALL_SPRITE") ) c=&options::WallSpriteColor;
         if(c!=NULL)
         {
                 string quo;
@@ -522,6 +524,8 @@ void options::LoadColors(TiXmlElement* skn)
     cname[B_BLUE]='B';
     cname[B_GREEN]='G';
     cname[B_RED]='R';
+    WallSpriteColor.r  =WallSpriteColor.g =WallSpriteColor.b = 192;
+    WallSpriteColor.unused = 255;
     WallColor.r =WallColor.g =WallColor.b = WallColor.unused = 255;
     TryWallColorOptions(skn);
     for (i=0;i<4;i++)
