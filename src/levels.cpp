@@ -582,6 +582,7 @@ void OpenEditor()
 
 void PlayLevel()
 {
+    if(!ActiveIsValid) return;
     CurrentFileName = FoundFile[Active];
     CurrentFileLevelN = 1;
     game::PlayLevel(CurrentFileName.c_str(), CurrentFileLevelN);
