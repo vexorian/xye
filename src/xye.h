@@ -329,7 +329,7 @@ class wall : public obj
      Uint8 B;
      
      bool containsRoundCorner();
-
+     static SDL_Color DefaultColor;
  public:
 
      wall(square* sq,unsigned char t);
@@ -337,13 +337,13 @@ class wall : public obj
      bool ResistsFire();
      void Draw(unsigned int x, unsigned int y);
      void ChangeKind(unsigned char t);
-     void ChangeColor(Uint8 nR, Uint8 nG, Uint8 nB);
+     void ChangeColor(Uint8 nR, Uint8 nG, Uint8 nB, bool multiply=true);
      void SetRoundCorners(bool r7, bool r1, bool r3, bool r9);
      bool trypush(edir dir,obj* pusher);
      bool HasRoundCorner(roundcorner rnc);
      bool Loop(bool* died);
      bool HasBlockColor(blockcolor bc);
-     static SDL_Color DefaultColor;
+     static void SetDefaultColor(SDL_Color cc, bool multiply=true);
      static void SetDefaultType(signed int def);
      static void ResetDefaults();
      static wall* find(char sx, char sy, unsigned char kind = 6);

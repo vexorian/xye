@@ -93,6 +93,12 @@ class Level
 
 };
 
+
+enum palette_mode
+{
+    PM_MULTIPLY,
+    PM_RECOLOR
+};
 struct colorentry
 {
     unsigned int id;
@@ -100,6 +106,7 @@ struct colorentry
     Uint8 R;
     Uint8 G;
     Uint8 B;
+    palette_mode pm;
     colorentry* next;
 };
 
@@ -111,10 +118,11 @@ class palette
     static colorentry* GetEntry(int id, bool create=false);
     palette() {}
  public:
-    static void SetColor(int id, unsigned int color);
-    static void SetColor(int id, int r, int g, int b);
+    static void SetColor(int id, unsigned int color, palette_mode pm=PM_MULTIPLY);
+    static void SetColor(int id, int r, int g, int b, palette_mode pm=PM_MULTIPLY);
     static unsigned int GetColor(int id);
     static void GetColor(int id, Uint8 &R, Uint8 &G,Uint8 &B);
+    static void GetColor(int id, Uint8 &R, Uint8 &G,Uint8 &B, palette_mode& pm);
     static void Clear();
 };
 
