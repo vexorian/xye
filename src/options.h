@@ -13,6 +13,7 @@ class options
 //    static TiXmlElement* ele;
     static string LevelFile;
     static char* Texture;
+    static char* LuminosityTexture;
     static int   FontSize;
     static int   FontBoldSize;
     static char* Font;
@@ -51,6 +52,7 @@ class options
     
     
     static const char* GetSpriteFile();
+    static const char* GetLuminositySpriteFile();
 
     static int GetFontSize();
     static int GetFontBoldSize();
@@ -68,6 +70,8 @@ class options
 
     inline static bool UndoEnabled() {return enundo; }
 
+    static SDL_Color WallColor;
+    
     static SDL_Color BFColor[4];
     static SDL_Color BKColor[4];
 

@@ -54,6 +54,7 @@ string options::Dir;
 
 string options::LevelFile;
 char* options::Texture;
+char* options::LuminosityTexture;
 char* options::Font;
 char* options::FontBold;
 
@@ -64,6 +65,8 @@ unsigned char options::r,options::g,options::b;
 int options::GridSize;
 unsigned int options::lvnum;
 string options::ExecutablePath;
+
+SDL_Color options::WallColor;
 
 SDL_Color options::BFColor[4];
 SDL_Color options::BKColor[4];
@@ -309,6 +312,16 @@ void options::Init()
                  strcat(Texture,tm);
 
              }
+             LuminosityTexture=NULL;
+             if (tm=ele->Attribute("luminosity"))
+             {
+                 b1=false;
+                 LuminosityTexture=new char[5+strlen(tm)];
+                 strcpy(LuminosityTexture,"res/");
+                 strcat(LuminosityTexture,tm);
+
+             }
+
 
              if (tm=ele->Attribute("xyedirections"))
              {
@@ -381,6 +394,8 @@ char* tem;
 tem = fixpath(Font,true);delete[] Font;Font=tem;
 tem = fixpath(FontBold,true);delete[] FontBold;FontBold=tem;
 tem = fixpath(Texture,true);delete[] Texture;Texture=tem;
+if( LuminosityTexture!=NULL)
+{ tem = fixpath(LuminosityTexture,true);delete[] LuminosityTexture;LuminosityTexture=tem; }
 
 if (LevelFile != "#browse#")
 {
@@ -433,6 +448,30 @@ bool TryColorOptions(TiXmlElement* skn, SDL_Color* c,char type,char bc)
     return false;
 }
 
+bool TryWallColorOptions(TiXmlElement* skn)
+{
+    TiXmlElement* tem=skn->FirstChildElement("color");
+    while (tem!=NULL)
+    {
+
+        const char* e1 = tem->Attribute("type");
+        SDL_Color * c=NULL;
+        if((e1!=NULL) && (string(e1)=="WALL") ) c=&options::WallColor;
+        if(c!=NULL)
+        {
+                string quo;
+                int i=0;
+                quo=tem->Attribute("red");TryS2I(quo,i);c->r=i;
+                quo=tem->Attribute("green");TryS2I(quo,i);c->g=i;
+                quo=tem->Attribute("blue");TryS2I(quo,i);c->b=i;
+        }
+        tem=tem->NextSiblingElement("color");
+    }
+
+}
+        
+
+
 void TryLoadLevelMenuColor(TiXmlElement* levelmenu, const char* name, SDL_Color & c, Uint8 dR, Uint8 dG, Uint8 dB)
 {
     if(levelmenu==NULL)
@@ -483,9 +522,11 @@ void options::LoadColors(TiXmlElement* skn)
     cname[B_BLUE]='B';
     cname[B_GREEN]='G';
     cname[B_RED]='R';
-
+    WallColor.r =WallColor.g =WallColor.b = WallColor.unused = 255;
+    TryWallColorOptions(skn);
     for (i=0;i<4;i++)
     {
+       
         if (! TryColorOptions(skn, options::BKColor+i, 'B', cname[i]   ))
         switch(i)
         {
@@ -556,6 +597,7 @@ void options::Clean()
     {
         PerformLevelFileSave();
         delete [] Texture;
+        delete [] LuminosityTexture;
         delete [] Font;
         delete [] FontBold;
 
@@ -589,6 +631,13 @@ const char* options::GetSpriteFile()
     ! bini? Error("Attempt to call unitialized options"):0;
     return (Texture);
 }
+
+const char* options::GetLuminositySpriteFile()
+{
+    ! bini? Error("Attempt to call unitialized options"):0;
+    return (LuminosityTexture);
+}
+
 
 const char* options::GetFontFile()
 {

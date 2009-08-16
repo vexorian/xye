@@ -25,61 +25,61 @@ bool LookSet=false;
 void Init_RecolorTable()
 {
     RecolorCache::init();
-	if (! LookSet)
-	{
+    if (! LookSet)
+    {
     LookSet=true;
-	Uint32 i,j;
-	for ( i=0; i<256;i++)
+    Uint32 i,j;
+    for ( i=0; i<256;i++)
         for ( j=0; j<256;j++)
             {
-            	Look[i][j]= (Uint8)( ( i / 255.)*j);
+                Look[i][j]= (Uint8)( ( i / 255.)*j);
             }
-	}
+    }
 
 }
 /*
 Uint32 FixedRGBAPixel(Uint8 R, Uint8 G, Uint8 B, Uint8 A)
 {
-	FixedRGBA F;
-	F.r=R;
-	F.g=G;
-	F.b=B;
-	F.a=A;
-	return *((Uint32*)(&F));
+    FixedRGBA F;
+    F.r=R;
+    F.g=G;
+    F.b=B;
+    F.a=A;
+    return *((Uint32*)(&F));
 }
 
 Uint32 SDL_Color2FixedRGBAPixel(SDL_Color& S)
 {
-	FixedRGBA F;
-	F.r=S.r;
-	F.g=S.g;
-	F.b=S.b;
-	F.a=S.unused;
-	return *((Uint32*)(&F));
+    FixedRGBA F;
+    F.r=S.r;
+    F.g=S.g;
+    F.b=S.b;
+    F.a=S.unused;
+    return *((Uint32*)(&F));
 
 }
 */
 
 Uint32 SDL_MapRGB(SDL_PixelFormat *fmt, SDL_Color&S)
 {
-	return SDL_MapRGB(fmt,S.r,S.g,S.b);
+    return SDL_MapRGB(fmt,S.r,S.g,S.b);
 }
 
 /*
 Uint32 RGBAfromSDLColor(SDL_Color&S)
 {
-	FixedRGBA F;
-	F.r=S.r;
-	F.g=S.g;
-	F.b=S.b;
-	F.a=S.unused;
-	return *((Uint32*)(&F));
+    FixedRGBA F;
+    F.r=S.r;
+    F.g=S.g;
+    F.b=S.b;
+    F.a=S.unused;
+    return *((Uint32*)(&F));
 }
 */
 
 SDL_Surface * CreateFixedRGBASurface(Uint32 flags, int width, int height)
 {
-	return (SDL_CreateRGBSurface(SDL_SRCALPHA|flags,width,height,32,
+    return (SDL_CreateRGBSurface(SDL_SRCALPHA|flags,width,height,32,
     #if SDL_BYTEORDER == SDL_BIG_ENDIAN
         0xff000000,0x00ff0000, 0x0000ff00, 0x000000ff));
     #else
@@ -117,12 +117,12 @@ SDL_Surface * RecolorPartOfSurface(SDL_Surface *src, Sint16 sx, Sint16 sy, Uint1
 
    for (i=sx;i<(sx+sw);i++)
    {
-   	   l=0;
+       l=0;
        for (j=sy;j<(sy+sh);j++)
        {
-           	tm= *(src_pix + (j * siw) +  i);
+            tm= *(src_pix + (j * siw) +  i);
 
-           	SDL_GetRGBA(tm, src->format, &rd, &g, &b, &a);
+            SDL_GetRGBA(tm, src->format, &rd, &g, &b, &a);
             if (a>0)
             {
                 rd =  Look[newR][rd];
@@ -138,8 +138,8 @@ SDL_Surface * RecolorPartOfSurface(SDL_Surface *src, Sint16 sx, Sint16 sy, Uint1
             //if ( (col.b|col.g|col.r) == 0) col.a=255;
 
 
-           	*(r_pix + ((l) * sw) +  (k)) = *colInt32;
-           	l++;
+            *(r_pix + ((l) * sw) +  (k)) = *colInt32;
+            l++;
         }
         k++;
    }
@@ -156,7 +156,7 @@ SDL_Surface * RecolorPartOfSurface(SDL_Surface *src, Sint16 sx, Sint16 sy, Uint1
 
 SDL_Surface * RecolorPartOfSurface(SDL_Surface *src, SDL_Rect *srcrect, Uint8 newR, Uint8 newG, Uint8 newB, Uint8 newA)
 {
-	return(RecolorPartOfSurface(src,srcrect->x, srcrect->y, srcrect->w, srcrect->h, newR, newG, newB, newA));
+    return(RecolorPartOfSurface(src,srcrect->x, srcrect->y, srcrect->w, srcrect->h, newR, newG, newB, newA));
 }
 
 int SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect, Uint8 newR, Uint8 newG, Uint8 newB, Uint8 newA)
@@ -169,7 +169,7 @@ int SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_R
 
 
 
-   tm= RecolorPartOfSurface(src,srcrect,newR,newG,newB,newA)	;
+   tm= RecolorPartOfSurface(src,srcrect,newR,newG,newB,newA)    ;
    int Result=SDL_BlitSurface(tm,0,dst,dstrect);
    SDL_FreeSurface(tm);
    return(Result);
@@ -196,7 +196,7 @@ int SDL_BlitSurface(SDL_Surface *src, Sint16 sx, Sint16 sy, Uint16 sw, Uint16 sh
    }
 
 
-   tm=RecolorPartOfSurface(src,sx,sy,sw,sh,newR,newG,newB,newA)	;
+   tm=RecolorPartOfSurface(src,sx,sy,sw,sh,newR,newG,newB,newA) ;
    int Result=SDL_BlitSurface(tm,0,dst,&tar);
    SDL_FreeSurface(tm);
    return(Result);
@@ -204,12 +204,12 @@ int SDL_BlitSurface(SDL_Surface *src, Sint16 sx, Sint16 sy, Uint16 sw, Uint16 sh
 
 int SDL_BlitSurface(SDL_Surface *src, Sint16 sx, Sint16 sy, Uint16 sw, Uint16 sh, SDL_Surface *dst, Sint16 dx, Sint16 dy)
 {
-	SDL_Rect srr;
-	SDL_Rect tar;
-	srr.x=sx;
-	srr.y=sy;
-	srr.w=sw;
-	srr.h=sh;
+    SDL_Rect srr;
+    SDL_Rect tar;
+    srr.x=sx;
+    srr.y=sy;
+    srr.w=sw;
+    srr.h=sh;
 
     tar.x=dx;
     tar.y=dy;
@@ -223,12 +223,12 @@ int SDL_BlitSurface(SDL_Surface *src, Sint16 sx, Sint16 sy, Uint16 sw, Uint16 sh
 
 int SDL_FillRect(SDL_Surface *dst, Sint16 x, Sint16 y, Uint16 w, Uint16 h, Uint32 color)
 {
-	SDL_Rect R;
-	R.x=x;
-	R.y=y;
-	R.w=w;
-	R.h=h;
-	return SDL_FillRect(dst, &R, color);
+    SDL_Rect R;
+    R.x=x;
+    R.y=y;
+    R.w=w;
+    R.h=h;
+    return SDL_FillRect(dst, &R, color);
 }
 
 
@@ -236,60 +236,86 @@ int SDL_FillRect(SDL_Surface *dst, Sint16 x, Sint16 y, Uint16 w, Uint16 h, Uint3
 /*** Class DaVinci - Our Artist **/
 DaVinci::DaVinci(SDL_Surface*SourceTexture, SDL_Rect* rect)
 {
-	R=G=B=A=255;recolor=false;
-	sr.x=rect->x; sr.y=rect->y;	sr.w=rect->w; sr.h=rect->h;
-	src=SourceTexture;
+    R=G=B=A=255;recolor=false;
+    sr.x=rect->x; sr.y=rect->y; sr.w=rect->w; sr.h=rect->h;
+    src=SourceTexture;
+    src_lights = NULL;
 }
 
 DaVinci::DaVinci(SDL_Surface*SourceTexture, Sint16 x, Sint16 y, Uint16 w, Uint16 h)
 {
-	R=G=B=A=255;recolor=false;
-	sr.x=x; sr.y=y;	sr.w=w;	sr.h=h;
-	src=SourceTexture;
+    R=G=B=A=255;recolor=false;
+    sr.x=x; sr.y=y; sr.w=w; sr.h=h;
+    src=SourceTexture;
+    src_lights = NULL;
 }
+
+DaVinci::DaVinci( LuminositySprites & source, SDL_Rect* rect)
+{
+    R=G=B=A=255;recolor=false;
+    sr.x=rect->x; sr.y=rect->y; sr.w=rect->w; sr.h=rect->h;
+    src=source.sprites;
+    src_lights = source.luminosity;
+}
+
+DaVinci::DaVinci(LuminositySprites & source, Sint16 x, Sint16 y, Uint16 w, Uint16 h)
+{
+    R=G=B=A=255;recolor=false;
+    sr.x=x; sr.y=y; sr.w=w; sr.h=h;
+    src=source.sprites;
+    src_lights = source.luminosity;
+}
+
 
 void DaVinci::ChangeRect(Sint16 x, Sint16 y, Uint16 w, Uint16 h)
 {
-	sr.x=x; sr.y=y;	sr.w=w;	sr.h=h;
+    sr.x=x; sr.y=y; sr.w=w; sr.h=h;
 }
 
 void DaVinci::ChangeRect(SDL_Rect* rect)
 {
-    sr.x=rect->x; sr.y=rect->y;	sr.w=rect->w; sr.h=rect->h;
+    sr.x=rect->x; sr.y=rect->y; sr.w=rect->w; sr.h=rect->h;
 }
 
 void DaVinci::SetColors(Uint8 nR, Uint8 nG, Uint8 nB, Uint8 nA)
 {
-	R=nR;G=nG;B=nB;A=nA;
-	recolor=((R!=255) || (G!=255) || (B!=255) || (A!=255));
+    R=nR;G=nG;B=nB;A=nA;
+    recolor=((R!=255) || (G!=255) || (B!=255) || (A!=255));
 }
 
 void DaVinci::SetColors(SDL_Color* C,Uint8 alpha)
 {
-	R=C->r;G=C->g;B=C->b;A=alpha;
-	recolor=((R!=255) || (G!=255) || (B!=255) || (A!=255) );
+    R=C->r;G=C->g;B=C->b;A=alpha;
+    recolor=((R!=255) || (G!=255) || (B!=255) || (A!=255) );
 }
 
 void DaVinci::SetColors(SDL_Color& C,Uint8 alpha)
 {
-	R=C.r;G=C.g;B=C.b;A=alpha;
-	recolor=((R!=255) || (G!=255) || (B!=255) || (A!=255) );
+    R=C.r;G=C.g;B=C.b;A=alpha;
+    recolor=((R!=255) || (G!=255) || (B!=255) || (A!=255) );
 }
 
 
 int DaVinci::Draw(SDL_Surface* target, Sint16 x, Sint16 y)
 {
-	SDL_Rect T;
-	T.x=x;
-	T.y=y;
-	T.w=sr.w;
-	T.h=sr.h;
+    SDL_Rect T;
+    T.x=x;
+    T.y=y;
+    T.w=sr.w;
+    T.h=sr.h;
+    int r;
     if (recolor)
-        return
-        (SDL_BlitSurface(src, &sr, target, &T, R, G, B, A));
+        r=SDL_BlitSurface(src, &sr, target, &T, R, G, B, A);
     else
-        return
-        (SDL_BlitSurface(src, &sr, target, &T));
+        r=SDL_BlitSurface(src, &sr, target, &T);
+        
+    if( src_lights != NULL)
+    {
+        if(SDL_BlitSurface(src_lights, &sr, target, &T) == -1)
+            r=-1;
+    }
+    
+    return r;
 
 
 }
