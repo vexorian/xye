@@ -642,7 +642,8 @@ void Load_Wall(TiXmlElement* el, bool defround)
 
     round= (r1 || r3 || r7 || r9);
     Uint8 R,G,B;
-    if (cid) palette::GetColor(cid,R,G,B);
+    palette_mode pm = PM_MULTIPLY;
+    if (cid) palette::GetColor(cid,R,G,B,pm);
 
 
     for (i=LastX;i<=x2;i++) for (j=LastY;j<=y2;j++)
@@ -657,7 +658,7 @@ void Load_Wall(TiXmlElement* el, bool defround)
             (r3 && (i==x2) && (j==LastY)),
             (r9 && (i==x2) && (j==y2))
         );
-        if (cid) wl->ChangeColor(R,G,B);
+        if (cid) wl->ChangeColor(R,G,B, (pm==PM_MULTIPLY) );
 
     }
 
@@ -1562,9 +1563,17 @@ void LoadPalette(TiXmlElement* pal)
         pEChild->QueryIntAttribute("red",&r);
         pEChild->QueryIntAttribute("green",&g);
         pEChild->QueryIntAttribute("blue",&b);
+        const char* mode = pEChild->Attribute("mode");
+        if( (mode!=NULL) && (strcmp(mode,"RECOLOR")==0) )
+        {
+            palette::SetColor(id,r%256,g%256,b%256, PM_RECOLOR);
+        }
+        else
+        {
+            palette::SetColor(id,r%256,g%256,b%256, PM_MULTIPLY);
+        }
 
-
-        palette::SetColor(id,r%256,g%256,b%256);
+        
 
 
         pEChild= pEChild->NextSiblingElement("color"); //Next color element
@@ -1582,7 +1591,12 @@ void LoadDefaults_Wall(TiXmlElement* el)
         el->QueryIntAttribute("type",&t);
 
     if (cid)
-        palette::GetColor(cid,wall::DefaultColor.r,wall::DefaultColor.g,wall::DefaultColor.b);
+    {
+        SDL_Color tm;
+        palette_mode pm;
+        palette::GetColor(cid,tm.r, tm.g, tm.b, pm);
+        wall::SetDefaultColor(tm, (pm==PM_MULTIPLY) );
+    }
 
 
     if (t) wall::SetDefaultType(t);
@@ -2047,23 +2061,25 @@ colorentry* palette::GetEntry(int id, bool create)
  return (NULL);
 }
 
-void palette::SetColor(int id, unsigned int color)
+void palette::SetColor(int id, unsigned int color, palette_mode pm)
 {
     colorentry *ce=GetEntry(id,true);
     ce->color=color;
     ce->R=255;
     ce->G=255;
     ce->B=255;
+    ce->pm = pm;
 
 }
 
-void palette::SetColor(int id, int r,int  g,int b)
+void palette::SetColor(int id, int r,int  g,int b, palette_mode pm)
 {
     colorentry *ce=GetEntry(id,true);
     ce->color=  (0xFF000000) | (r << 16) | (g << 8) | (b)  ;
     ce->R=r;
     ce->G=g;
     ce->B=b;
+    ce->pm = pm;
 }
 
 unsigned int palette::GetColor(int id)
@@ -2074,10 +2090,8 @@ unsigned int palette::GetColor(int id)
     return 0xFFFFFFFF;
 }
 
-
 void palette::GetColor(int id, Uint8 &R, Uint8 &G,Uint8 &B)
 {
-
     colorentry *ce=GetEntry(id,false);
     if (ce)
     {
@@ -2086,7 +2100,27 @@ void palette::GetColor(int id, Uint8 &R, Uint8 &G,Uint8 &B)
         B=ce->B;
     }
     else
+    {
         R=G=B=255;
+    }
+
+}
+
+void palette::GetColor(int id, Uint8 &R, Uint8 &G,Uint8 &B, palette_mode& pm)
+{
+    colorentry *ce=GetEntry(id,false);
+    if (ce)
+    {
+        R=ce->R;
+        G=ce->G;
+        B=ce->B;
+        pm = ce->pm;
+    }
+    else
+    {
+        R=G=B=255;
+        pm = PM_MULTIPLY;
+    }
 
 }
 

@@ -3127,6 +3127,48 @@ void wall::ResetDefaults()
     defkind=0;
 }
 
+void wall::ChangeColor(Uint8 nR, Uint8 nG, Uint8 nB, bool multiply)
+{
+    if(multiply)
+    {
+        int t = options::WallColor.r;
+        t = (t*nR/ 255.0 );
+        R=(unsigned char)(t);
+        
+        t = options::WallColor.g;
+        t = (t*nG/ 255.0 );
+        G=(unsigned char)(t);
+        
+        t = options::WallColor.b;
+        t = (t*nB/ 255.0 );
+        B=(unsigned char)(t);
+    }
+    else R=nR, G=nG, B=nB;
+}
+
+void wall::SetDefaultColor(SDL_Color cc, bool multiply)
+{
+    if(multiply)
+    {
+
+        int t = options::WallColor.r;
+        t = (t*cc.r/ 255.0 );
+        DefaultColor.r=(unsigned char)(t);
+        
+        t = options::WallColor.g;
+        t = (t*cc.g/ 255.0 );
+        DefaultColor.g=(unsigned char)(t);
+        
+        t = options::WallColor.b;
+        t = (t*cc.b/ 255.0 );
+        DefaultColor.b=(unsigned char)(t);
+    }
+    else DefaultColor.r=cc.r, DefaultColor.g=cc.g, DefaultColor.b=cc.b;
+}
+
+
+
+
 void wall::SetDefaultType(signed int def)
 {
     defkind= def>5?5:def<0?0:def;
@@ -3284,10 +3326,6 @@ void wall::Draw(unsigned int x, unsigned int y)
     D.Draw(game::screen,x+sz2,y+sz2);
 }
 
-void wall::ChangeColor(Uint8 nR, Uint8 nG, Uint8 nB)
-{
-    R=nR;G=nG;B=nB;
-}
 
 bool wall::Loop(bool* died)
 {
