@@ -3274,10 +3274,11 @@ void wall::Draw(unsigned int x, unsigned int y)
     bool inborder = (!left||!up||!right||!down);
     if( !inborder && (!upright || !upleft || !downright ||!downleft) )
     {
-        inborder = !(   find( px, uy, kind)->containsRoundCorner() 
+        /*inborder = !(   find( px, uy, kind)->containsRoundCorner() 
                     || find( px, dy, kind)->containsRoundCorner()
                     || find( lx, py, kind)->containsRoundCorner()
-                    || find( rx, py, kind)->containsRoundCorner() );
+                    || find( rx, py, kind)->containsRoundCorner() );*/
+        inborder=true;
 
     }
     
