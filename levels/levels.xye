@@ -6988,10 +6988,10 @@
 </solution>
         <bye>Congratulations!</bye>
         <palette>
-            <color id="1" red="228" green="222" blue="130" mode="RECOLOR" />
+            <color id="1" red="230" green="222" blue="99" mode="RECOLOR" />
         </palette>
         <default>
-            <wall color="1" type="1"/>
+            <wall color="1" type="2"/>
         </default>
         <floor>
 
