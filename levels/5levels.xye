@@ -164,15 +164,15 @@
 <title>Brick game</title>
 <bye>Is Xye a puzzle game or an arcade game?</bye>
 <palette>
-    <color id='1' red='170' green='170' blue='170' />
-    <color id='2' red='255' green='100' blue='100' />
-    <color id='3' red='255' green='255' blue='0' />
-    <color id='4' red='0' green='170' blue='0' />
-    <color id='5' red='96' green='96' blue='255' />
-    <color id='6' red='75' green='75' blue='192' />
+    <color id='1' red='100' green='100' blue='100' mode="RECOLOR" />
+    <color id='2' red='255' green='73' blue='45' mode="RECOLOR" />
+    <color id='3' red='255' green='255' blue='0' mode="RECOLOR" />
+    <color id='4' red='0' green='170' blue='0' mode="RECOLOR" />
+    <color id='5' red='0' green='39' blue='238' mode="RECOLOR" />
+    
 </palette>
 <floor>
-    <area x='24' y='11' color='6' />
+    <area x='24' y='11' color='5' />
 </floor>
 <ground>
 </ground>

@@ -52,14 +52,13 @@ feel free to change them, just keep good contrast-->
 
 <!--color type ="WALL" variation='1' red="171" green="199" blue="179" /-->
 <color type ="WALL" variation='2' red="255" green="172" blue="61" />
-<color type ="WALL" variation='3' red="255" green="255" blue="255" />
+
 <color type ="WALL" variation='4' red="255" green="255" blue="255" />
 <color type ="WALL" variation='5' red="255" green="255" blue="255" />
 
 <!-- wall color in the sprites: -->
 <color type ="WALL_SPRITE" red="255" green="255" blue="255" />
 
-<color type ="WALL_SPRITE" variation='3' red="192" green="192" blue="192" />
 <color type ="WALL_SPRITE" variation='4' red="192" green="192" blue="192" />
 <color type ="WALL_SPRITE" variation='5' red="192" green="192" blue="192" />
 
