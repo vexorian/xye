@@ -1472,10 +1472,11 @@ void editorboard::drawWallInBoard(SDL_Surface*target,int ox,int oy, int x, int y
     bool inborder = (!left||!up||!right||!down);
     if( !inborder && (!upright || !upleft || !downright ||!downleft) )
     {
-        inborder = !(   wallContainsRoundCorners(px,uy) 
+        /*inborder = !(   wallContainsRoundCorners(px,uy) 
                     || wallContainsRoundCorners(px,dy)
                     || wallContainsRoundCorners(lx, py)
-                    || wallContainsRoundCorners(rx, py) );
+                    || wallContainsRoundCorners(rx, py) );*/
+        inborder = true;
 
     }
     
