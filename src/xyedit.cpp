@@ -55,6 +55,7 @@ button * editor::solutionbutton;
 LuminositySprites editor::sprites;
 Font* editor::FontRes;
 bool SavedSolution = false;
+bool EnterPressed = false;
 
 
 void editor::onExitWithoutSavingClick(bool yes)
@@ -413,6 +414,9 @@ void editor::onKeyDown(SDLKey keysim, Uint16 unicode)
         case (SDLK_ESCAPE): //ESC
             editorEscapePressed=true;
             break;
+        case (SDLK_RETURN): case (SDLK_KP_ENTER): //Enter
+            EnterPressed = true;
+            break;
     };
 
 }
@@ -432,7 +436,11 @@ void editor::onKeyUp(SDLKey keysim, Uint16 unicode)
             onBrowseClick(NULL);
             break;
         case(SDLK_RETURN): case(SDLK_KP_ENTER): //Enter
-            test(false);
+            if(EnterPressed)
+            {
+                EnterPressed=false;
+                test(false);
+            }
             break;
     };
 }
