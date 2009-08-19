@@ -72,6 +72,7 @@ class options
 
     inline static bool UndoEnabled() {return enundo; }
 
+    static SDL_Color OneWayDoorColor;
     static SDL_Color WallColor      [XYE_WALL_VARIATIONS];
     static SDL_Color WallSpriteColor[XYE_WALL_VARIATIONS];
     

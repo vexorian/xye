@@ -2290,7 +2290,7 @@ void drawOneDir( SDL_Surface * target, int x, int y, int direction, int variatio
         else tx=8;
 
         DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
-        D.SetColors(255,0,0,255);
+        D.SetColors( &options::OneWayDoorColor, 255);
         D.Draw(target,x,y);
 
         switch(direction)

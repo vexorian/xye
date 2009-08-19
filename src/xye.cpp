@@ -7825,10 +7825,7 @@ bool tdoor::CanLeave(obj *entering, edir dir) { return true; }
 
 void tdoor::ResetDefaults()
 {
-    DefColor.r=255;
-    DefColor.g=0;
-    DefColor.b=0;
-    DefColor.unused=255;
+    DefColor = options::OneWayDoorColor; 
     ForceArrowDefColor.r=100;
     ForceArrowDefColor.g=200;
     ForceArrowDefColor.b=200;

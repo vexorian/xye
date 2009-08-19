@@ -66,6 +66,7 @@ int options::GridSize;
 unsigned int options::lvnum;
 string options::ExecutablePath;
 
+SDL_Color options::OneWayDoorColor;
 SDL_Color options::WallColor      [XYE_WALL_VARIATIONS];
 SDL_Color options::WallSpriteColor[XYE_WALL_VARIATIONS];
 
@@ -449,7 +450,7 @@ bool TryColorOptions(TiXmlElement* skn, SDL_Color* c,char type,char bc)
     return false;
 }
 
-bool TryWallColorOptions(TiXmlElement* skn)
+bool TryMiscColorOptions(TiXmlElement* skn)
 {
     TiXmlElement* tem=skn->FirstChildElement("color");
     while (tem!=NULL)
@@ -471,6 +472,11 @@ bool TryWallColorOptions(TiXmlElement* skn)
             c=options::WallSpriteColor;
             if(variation==-1) n=XYE_WALL_VARIATIONS;
             else c+=variation;
+        }
+        else if ( (e1!=NULL) && (string(e1)=="ONEWAYDOOR" ) )
+        {
+            c=&options::OneWayDoorColor;
+            n=1;
         }
         if(c!=NULL)
         {
@@ -548,7 +554,8 @@ void options::LoadColors(TiXmlElement* skn)
         WallSpriteColor[i].unused = 255;
         WallColor[i].r =WallColor[i].g =WallColor[i].b = WallColor[i].unused = 255;
     }
-    TryWallColorOptions(skn);
+    OneWayDoorColor.r = 255, OneWayDoorColor.g = OneWayDoorColor.b = OneWayDoorColor.unused = 0 ;
+    TryMiscColorOptions(skn);
     for (i=0;i<4;i++)
     {
        
