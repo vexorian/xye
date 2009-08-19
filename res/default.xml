@@ -63,6 +63,8 @@ feel free to change them, just keep good contrast-->
 <color type ="WALL_SPRITE" variation='5' red="192" green="192" blue="192" />
 
 
+<color type='ONEWAYDOOR' red='255' green='0' blue='0' />
+
 <!--
 <color type="F" bc="Y" red='255' green='0' blue='0'/ >
 <color type="F" bc="R" red='255' green='255' blue='0'/>
