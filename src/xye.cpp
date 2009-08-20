@@ -5502,8 +5502,8 @@ void surprise::Transform()
                 if (b4) b4->IntelligentUpdateCorners(wl);
                 if (b2) b2->IntelligentUpdateCorners(wl);
                 if (b6) b6->IntelligentUpdateCorners(wl);
-                wl->ChangeColor(BC.r+(255-BC.r)/2,BC.g+(255-BC.g)/2,BC.b+(255-BC.b)/2);
-                //wl->ChangeColor(BC.r,BC.g,BC.b);
+                wl->ChangeColor(BC.r+(options::WallColor[0].r-BC.r)/2,BC.g+(options::WallColor[0].g-BC.g)/2,BC.b+(options::WallColor[0].b-BC.b)/2, false);
+                //wl->ChangeColor(BC.r,BC.g,BC.b, false);
                 break;
             }
 
@@ -5570,7 +5570,9 @@ void surprise::Draw(unsigned int x, unsigned int y)
                     if (b6) b6->IntelligentUpdateCorners(wl);
 
 
-                wl->ChangeColor(SprColor.r+(255-SprColor.r)/2,SprColor.g+(255-SprColor.g)/2,SprColor.b+(255-SprColor.b)/2);
+                //wl->ChangeColor(SprColor.r+(255-SprColor.r)/2,SprColor.g+(255-SprColor.g)/2,SprColor.b+(255-SprColor.b)/2 , false);
+                //wl->ChangeColor(SprColor.r,SprColor.g,SprColor.b , false);
+                wl->ChangeColor(SprColor.r+(options::WallColor[0].r-SprColor.r)/2,SprColor.g+(options::WallColor[0].g-SprColor.g)/2,SprColor.b+(options::WallColor[0].b-SprColor.b)/2 , false);
                 wl->Draw(x,y);
                 break;
 
