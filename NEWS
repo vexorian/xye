@@ -1,3 +1,19 @@
+Version 0.9.1
+=============
+- Game, editor and editor test all execute in the same process.
+- The editor is now able to record and save solutions for your levels.
+- Xye will remember the last level number you played in up to 100 level files.
+- Xye now supports .slc sokoban level file format (XML).
+- Added some few small levels to balance the load of larger levels. Level count raises to 25 tutorials, 41 official levels.
+- Sprite rendering system now allows a luminosity mask.
+- Wall color for each wall type and also the door color can be set in the skin file.
+- Wall color supports real recolor when the skin supports so, allowing many more wall colors in level files. Take a look at the levels in levels.xye and the skin in default.xml for more information.
+- Some minor graphic updates for the default skin.
+- In the classic skin, monsters such as the wards and the spinners were modified to look closer to the ones in the default skin.
+- The movement of the spinner beasts looks better.
+- In *n*x* environments, documentation dir has been changed to $prefix/share/doc/xye .
+
+
 Version 0.9.0
 ==============
 - The interface is a little easier to use, adding GUI buttons for actions that were previously only accessible through keyboard.
