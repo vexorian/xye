@@ -233,7 +233,7 @@ res/DejaVuSans-Bold.ttf \
 res/fon.bmp \
 res/fon_bold.bmp
 
-EXTRA_DIST = readme.txt \
+EXTRA_DIST1 = readme.txt \
              autogen.sh \
              clean.sh \
              build-linux.sh \
@@ -245,7 +245,8 @@ xye.ico \
 res/kye.xcf \
 res/xye.xcf \
 xye.svg \
-src/resource.rc
+src/resource.rc \
+src/Makefile.in
 
 xye_SOURCES = src/main.cpp src/browser.cpp \
 src/font.cpp src/gen.cpp src/kye_script.cpp src/levels.cpp src/list.cpp src/options.cpp \
@@ -272,6 +273,7 @@ src/command.cpp \
 src/command.h \
 src/window.cpp
 
+EXTRA_DIST = ${EXTRA_DIST1} ${xye_SOURCES} ${res_DATA} ${levels_DATA} ${doce_DATA}
 all: all-am
 
 .SUFFIXES:
@@ -805,7 +807,7 @@ distclean-tags:
 distdir: $(DISTFILES)
 	$(am__remove_distdir)
 	mkdir $(distdir)
-	$(mkdir_p) $(distdir)/res $(distdir)/src
+	$(mkdir_p) $(distdir)/levels $(distdir)/res $(distdir)/src $(distdir)/src/tinyxml
 	@srcdirstrip=`echo "$(srcdir)" | sed 's|.|.|g'`; \
 	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's|.|.|g'`; \
 	list='$(DISTFILES)'; for file in $$list; do \
