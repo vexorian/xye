@@ -39,7 +39,7 @@ res/fon_bold.bmp
 
 
 
-EXTRA_DIST = readme.txt \
+EXTRA_DIST1 = readme.txt \
              autogen.sh \
              clean.sh \
              build-linux.sh \
@@ -51,8 +51,8 @@ xye.ico \
 res/kye.xcf \
 res/xye.xcf \
 xye.svg \
-src/resource.rc
-
+src/resource.rc \
+src/Makefile.in
 
 
 
@@ -81,6 +81,8 @@ src/dialogs.cpp \
 src/command.cpp \
 src/command.h \
 src/window.cpp
+
+EXTRA_DIST = ${EXTRA_DIST1} ${xye_SOURCES} ${res_DATA} ${levels_DATA} ${doce_DATA}
 
 DEFS=@data_path_flag@
 
