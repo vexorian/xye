@@ -4,11 +4,10 @@ DISTCLEANFILES = *~ *.~*
 
 
 bin_PROGRAMS = xye
-#in case of debugging comment next line
 xye_LDFLAGS = 
 
 
-docedir = $(doc_dir)/@PACKAGE@
+docedir = $(docdir)
 doce_DATA = README GAMEINTRO.txt xye.svg NEWS COPYING AUTHORS INSTALL
 
 levelsdir= $(datadir)/@PACKAGE@/levels
@@ -29,6 +28,7 @@ resdir= $(datadir)/@PACKAGE@/res
 res_DATA = res/default.xml \
 res/classic.xml \
 res/xye.png \
+res/xye_luminosity.png \
 res/kye.png \
 res/DejaVuSans.ttf \
 res/DejaVuSans-Bold.ttf \
