@@ -493,7 +493,7 @@ bool TryMiscColorOptions(TiXmlElement* skn)
         }
         tem=tem->NextSiblingElement("color");
     }
-
+    return false;
 }
         
 
