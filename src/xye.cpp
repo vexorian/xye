@@ -1324,7 +1324,7 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
 
     }
 
-    if (key::GetXyesKeys(yl,rd,bl,gr))
+    if (key::GetXyesKeys(yl,rd,bl,gr) || star::GetAcquired() )
     {
         cx+=5;
         FontRes->Write(screen,cx, y+2+dif ,"Got: ");
@@ -1337,6 +1337,10 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
             DrawPanelInfo(D, cx,cy, 6, 4, yl,dif, options::BKColor[B_YELLOW] );
         if (rd)
             DrawPanelInfo(D, cx,cy, 6, 4, rd,dif, options::BKColor[B_RED] );
+        
+        if(star::GetAcquired()) {
+            DrawPanelInfo(D, cx,cy, 9, 12, star::GetAcquired() ,dif);
+        }
 
     }
     
