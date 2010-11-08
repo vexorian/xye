@@ -199,6 +199,7 @@ class button : public control
 
         bool Visible;
         bool Enabled;
+        bool ToggleButton;
         button(int sx, int sy, int sw, int sh);
         ~button();
         void draw(SDL_Surface* target);

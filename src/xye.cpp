@@ -932,6 +932,7 @@ void game::InitGameSection(window* wind)
     bt->depth=1;
     bt->onPress = HintDownCommand;
     bt->onRelease = HintUpCommand;
+    bt->ToggleButton = true;
     wind->addControl(bt);
     Button_Hint=bt;
 
