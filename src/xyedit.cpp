@@ -938,6 +938,7 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
                 case 4: text="Color marked area"; break;
                 case 5: text="Color requirement-block"; break;
                 case 6: text="Color marked area (with block)"; break;
+                case 7: text="Color marked area (with wildcard block)"; break;
 
             }
             break;
@@ -1120,7 +1121,7 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
     {
         case EDOT_GEM: colorchoice=2; break;
 
-        case EDOT_COLORSYSTEM: colorchoice=1; maxvariations=7; break;
+        case EDOT_COLORSYSTEM: colorchoice=1; maxvariations=8; break;
         case EDOT_RATTLERHEAD: maxvariations=10; break;
 
         case EDOT_NUMBER: colorchoice=1; roundchoice=1; maxvariations=10; break;
@@ -1815,7 +1816,10 @@ void drawColorSystem( SDL_Surface * target, int x, int y, editorcolor color, int
             drawBlock(target,x,y,false,color);
             tx=6,ty=5;
             break;
-
+        case 7:
+            drawBlock(target,x,y,false,EDCO_WILD);
+            tx=6,ty=5;
+            break;
     }
 
     DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
