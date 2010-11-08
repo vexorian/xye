@@ -562,9 +562,25 @@ bool editor_LoadBlock(TiXmlElement* el)
         int x, y;
         if(! getElementPosition(el, x , y, true) ) return false;
         boardelement &o1=editorload_objects[x][y];
-        if((o1.type != EDOT_COLORSYSTEM) && (o1.variation!=0))
+        if((o1.type != EDOT_COLORSYSTEM) || (o1.variation!=4))
             return false;
         o1.variation = 6;
+        
+    }
+    return true;
+}
+
+bool editor_LoadWildCardBlock(TiXmlElement* el)
+{
+    if(! editor_LoadGenR(el,EDOT_BLOCK,0, EDCO_WILD    ))
+    {
+        //handle special block above marked aread case.
+        int x, y;
+        if(! getElementPosition(el, x , y, true) ) return false;
+        boardelement &o1=editorload_objects[x][y];
+        if((o1.type != EDOT_COLORSYSTEM) || (o1.variation!=4))
+            return false;
+        o1.variation = 7;
         
     }
     return true;
@@ -605,7 +621,7 @@ bool editor_LoadObjects(TiXmlElement* el)
         else if (v=="bot")  { if (! editor_LoadGen(ch,EDOT_BOT,0)) return false; }
         else if (v=="star")  { if (! editor_LoadStar(ch)) return false;}
         else if (v=="rfood")  { if (! editor_LoadGen(ch,EDOT_FOOD,0)) return false; }
-        else if (v=="wild")  { if (! editor_LoadGenR(ch,EDOT_BLOCK,0, EDCO_WILD    )) return false; }
+        else if (v=="wild")  { if (! editor_LoadWildCardBlock(ch) ) return false; }
         else if (v=="metalblock")  { if (! editor_LoadGenR(ch,EDOT_BLOCK,0 , EDCO_METAL )) return false; }
         else if (v=="window")  { if (! editor_LoadGenC(ch,EDOT_COLORSYSTEM,5)) return false; }
         else if (v=="lock")  { if (! editor_LoadGenC(ch,EDOT_KEYSYSTEM,1)) return false; }

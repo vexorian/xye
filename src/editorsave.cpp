@@ -287,6 +287,10 @@ void saveNormalObject(std::ofstream &file, boardelement &o, int x, int y)
                 savePosition(file,x,y);
                 saveColor(file,o);
                 file<<"/>\n";                
+            } else if (o.variation==7) { //wildcard block on top of area
+                file<<"\t\t<wild ";
+                savePosition(file,x,y);
+                file<<"/>\n";                
             }
             break;
 
@@ -455,6 +459,7 @@ void saveGroundObject(std::ofstream &file,boardelement &o, int x, int y)
                 case 3 /*open trap*/: file<<"blocktrap open='1' ";break;
                 case 4 /*marked area*/: file<<"marked ";break;
                 case 6 /*block above area*/: file<<"marked "; break;
+                case 7 /*wildcard above area*/: file<<"marked "; break;
 
             }
             savePosition(file,x,y);
