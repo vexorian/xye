@@ -534,6 +534,7 @@ button::button(int sx, int sy, int sw, int sh)
     click=false;
     flashperiod=0;
     iconx = icony = -1;
+    ToggleButton = false;
 }
 
 void button::Icon(int ix, int iy)
@@ -612,7 +613,7 @@ void button::draw(SDL_Surface* target)
 
 void button::onMouseOut()
 {
-    if( click )
+    if( click && ! ToggleButton)
     {
         if(onRelease!=NULL) onRelease(data);
         click=false;
@@ -620,17 +621,21 @@ void button::onMouseOut()
 }
 void button::onMouseDown(int px,int py)
 {
-    
-    if( (!Visible) || (!Enabled) ) return;
-    if (onPress!=NULL) onPress(data);
-    click=true;
+    if( ToggleButton && click) {
+        if(onRelease!=NULL) onRelease(data);
+        click = false;
+    } else {
+        if( (!Visible) || (!Enabled) ) return;
+        if (onPress!=NULL) onPress(data);
+        click=true;
+    }
 }
 
 void button::onMouseUp(int px,int py)
 {
+    if(ToggleButton) return;
     if(onRelease!=NULL) onRelease(data);
     if(onClick && click && Visible) onClick(data);
-    click=false;
 }
 
 void button::flash()
