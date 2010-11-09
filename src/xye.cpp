@@ -582,6 +582,7 @@ void game::AfterLevelLoad()
         options::SaveLevelFile( LevelPack::OpenFile.c_str(), LevelPack::OpenFileLn);
     Button_Solution->Enabled = ( (LevelPack::HasSolution()) && !playingrec);
     Button_Hint->Enabled= (hint::GlobalHintExists());
+    Button_Hint->resetToggle();
     Button_NextLevel->Enabled = Button_PrevLevel->Enabled  = (LevelPack::n > 1);
     Button_Undo->Visible = (game::IsUndoAllowed() || xye_fromeditortest);
     Button_Undo->Enabled = game::IsUndoAllowed();
@@ -1147,7 +1148,7 @@ void game::loop_gameplay()
 }
 void game::loop()
 {
-    if (FinishedLevel)
+    if (FinishedLevel) 
     {
         incCounters();
         //Just draw;
@@ -2143,10 +2144,12 @@ void game::GameOver(bool good)
             }
             else
                 SDL_WM_SetCaption("Xye - YOU WIN!",0);
-            FinishedLevel=true;
         }
         else
             SDL_WM_SetCaption("Xye - Game over!",0);
+   }
+   if (good) {
+       FinishedLevel = true;
    }
    //else if(xye_fromeditortest)
    //{
