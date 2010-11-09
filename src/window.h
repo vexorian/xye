@@ -217,6 +217,7 @@ class button : public control
         void onMouseOut();
         void onMouseDown(int px,int py);
         void onMouseUp(int px,int py);
+        void resetToggle();        
         inline void onMouseRightUp(int px,int py) {}
 
         void flash();

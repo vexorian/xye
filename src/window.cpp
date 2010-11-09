@@ -543,6 +543,11 @@ void button::Icon(int ix, int iy)
     iconx=ix, icony=iy;
 }
 
+void button::resetToggle()
+{
+    click = false;
+}
+
 void button::draw(SDL_Surface* target)
 {
     const Uint8 disablealpha = 128;//64;
