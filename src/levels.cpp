@@ -771,9 +771,9 @@ void StartSection(window* wind)
     cx+=w+1;
     
     //== Run Editor button
-    w = button::recommendedWidth("[F1] Run Editor");
+    w = button::recommendedWidth("[F1] Editor");
     but = new button( cx, wind->Height - game::GRIDSIZE, w, game::GRIDSIZE);
-    but->text = "[F1] Run Editor";
+    but->text = "[F1] Editor";
     but->depth = 3;
     but->onClick = OnEditorButtonClick;
 
