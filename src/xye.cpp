@@ -49,7 +49,7 @@ SDL_Color game::PlayerColor;
 
 
 //Restard signal
-bool game::gameover=false;
+bool game::GameOver=false;
 bool xye_fromeditortest = false;
 bool xye_recordingsolution = false;
 bool xye_playsolution = false;
@@ -1236,12 +1236,12 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
     {
         if(xye_fromeditortest)
         {
-            if (gameover)
+            if (GameOver)
                 hintx="** The movie has ended ** Press [Enter] to play the level - [Backspace] to return to the level editor.";
             else
                 hintx="** Playing Movie ** - Press [Enter] to play the level. [Ctrl] - Fast Forward. [Backspace] - Return to the level editor.";
         }
-        else if (gameover)
+        else if (GameOver)
             hintx="** The movie has ended ** Press [Enter] to play the level - [Backspace] to return to the level file menu";
         else
             hintx="** Playing Movie ** - Press [Enter] to play the level. [Ctrl] - Fast Forward";
@@ -1257,7 +1257,7 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
     {
         hintx = LevelPack::CurrentLevelBye;
     }
-    else if (gameover)
+    else if (GameOver)
     {
         hintx="Game over , press [Enter] to restart the level";
     }
@@ -1564,7 +1564,7 @@ void game::draw(Sint16 px, Sint16 py)
         if (counter5==0) FlashPos--;
 
     }
-    DoArrowThing = (!gameover &&  (DoArrowThing || (ShiftPressed && (counter9<5)) ));
+    DoArrowThing = (!GameOver &&  (DoArrowThing || (ShiftPressed && (counter9<5)) ));
 
     if (DoArrowThing && (!playingrec))
     {
@@ -1724,7 +1724,7 @@ bool game::TryMoveXye(edir dir)
 
 void game::MoveXye()
 {
-    if (gameover) return;
+    if (GameOver) return;
     
     if ( (LastXyeMove+1) < counter)
     {
@@ -1733,7 +1733,7 @@ void game::MoveXye()
             bool nm;
 
             if (! recording::get(DK_DIR,nm))
-                game::GameOver(false);
+                game::TerminateGame(false);
 
             if ((!nm) && TryMoveXye(DK_DIR) )
                 LastXyeMove=counter;
@@ -1863,7 +1863,7 @@ void game::end()
 
 
     char i,j;
-    gameover=FinishedLevel=false;
+    GameOver=FinishedLevel=false;
     square* sq;
     recycle::run();
     for (i=0;i<XYE_HORZ;i++) for (j=0;j<XYE_VERT;j++)
@@ -2124,7 +2124,7 @@ void game::SaveReplay()
     delete[] lastgame;
 }
 
-void game::GameOver(bool good)
+void game::TerminateGame(bool good)
 {
 
    if (!playingrec)
@@ -2159,7 +2159,7 @@ void game::GameOver(bool good)
    if(xye_recordingsolution)
        xye_recordingsolution=false;
     //counter=counter2=counter3=counter4=counter5=counter7=counter8=counter9=1;
-    gameover=true;
+    GameOver=true;
 }
 
 /**end fake class game**/
@@ -2914,7 +2914,7 @@ inline unsigned char xye::GetLives() { return(lives); }
 void xye::SetLives(unsigned char nlives)
 {
     if (nlives==0)
-        game::GameOver();
+        game::TerminateGame();
     lives=nlives;
 }
 
@@ -2950,7 +2950,7 @@ void xye::Kill()
         {
             game::deathsq1=game::Square(x,y);
             lives=0;
-            game::GameOver();
+            game::TerminateGame();
 
                square* sq=game::Square(x,y);
             gobj *gobject = sq->gobject;
@@ -7653,7 +7653,7 @@ bool gem::trypush(edir dir,obj* pusher)
         count[4]--;
         count[(unsigned int)(gemkind)]--;
         if (! count[4])
-            game::GameOver(true);
+            game::TerminateGame(true);
 
 
         recycle::add(this);;
