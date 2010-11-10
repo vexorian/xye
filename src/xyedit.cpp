@@ -26,7 +26,6 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include "xye_script.h"
 #include "options.h"
 #include "dialogs.h"
-#include "command.h"
 
 
 #define sz editor::GRIDSIZE //typing game::GRIDSIZE is an annoyance

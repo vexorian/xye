@@ -22,7 +22,6 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include "levels.h"
 #include "options.h"
 #include "vxsdl.h"
-#include "command.h"
 #include<string>
 #include<cstring>
 #include<algorithm>
