@@ -14,10 +14,6 @@ Permission is granted to anyone to use this software for any purpose, including 
     3. This notice may not be removed or altered from any source distribution.
 
 */
-
-const int MAX_FILENAMES_TO_REMEMBER = 100;
-
-
 #include "options.h"
 #include "gen.h"
 
@@ -29,6 +25,39 @@ const int MAX_FILENAMES_TO_REMEMBER = 100;
 #include<string>
 using std::string;
 
+namespace options
+{
+
+void LoadColors(TiXmlElement* skn);
+void LoadLevelFile();
+
+// Public variables:
+    bool  xyeDirectionSprites;
+    string Dir;
+   
+    SDL_Color OneWayDoorColor;
+    SDL_Color WallColor      [XYE_WALL_VARIATIONS];
+    SDL_Color WallSpriteColor[XYE_WALL_VARIATIONS];
+    
+    SDL_Color BFColor[4];
+    SDL_Color BKColor[4];
+    
+    SDL_Color LevelMenu_info;
+    SDL_Color LevelMenu_selected;
+    SDL_Color LevelMenu_selectederror;
+    SDL_Color LevelMenu_menu;
+    SDL_Color LevelMenu_menutext;
+    SDL_Color LevelMenu_selectedtext;   
+    SDL_Color LevelMenu_infotext;
+    
+    string ExecutablePath;
+
+
+const int MAX_FILENAMES_TO_REMEMBER = 100;
+
+
+
+
 //for simplicity's sake I copied it, hopefully we won't ever change this enum
 enum blockcolor
 {
@@ -38,50 +67,33 @@ enum blockcolor
     B_GREEN=3
 };
 
+string homefolder;
+bool enundo=false;
+bool bini=false;
 
-bool options::enundo=false;
-bool options::bini=false;
-
-/*TiXmlDocument* options::cnf;
-TiXmlDocument* options::skin;
-TiXmlElement* options::ele;
-TiXmlElement* options::skinele;
+/*TiXmlDocument* cnf;
+TiXmlDocument* skin;
+TiXmlElement* ele;
+TiXmlElement* skinele;
 */
 
-string options::Dir;
 
 
 
-string options::LevelFile;
-char* options::Texture;
-char* options::LuminosityTexture;
-char* options::Font;
-char* options::FontBold;
 
-int options::FontSize=0;
-int options::FontBoldSize=0;
+string LevelFile;
+char* Texture;
+char* LuminosityTexture;
+char* Font;
+char* FontBold;
 
-unsigned char options::r,options::g,options::b;
-int options::GridSize;
-unsigned int options::lvnum;
-string options::ExecutablePath;
+int FontSize=0;
+int FontBoldSize=0;
 
-SDL_Color options::OneWayDoorColor;
-SDL_Color options::WallColor      [XYE_WALL_VARIATIONS];
-SDL_Color options::WallSpriteColor[XYE_WALL_VARIATIONS];
+unsigned char r,g,b;
+int GridSize;
+unsigned int lvnum;
 
-SDL_Color options::BFColor[4];
-SDL_Color options::BKColor[4];
-
-
-SDL_Color options::LevelMenu_info;
-SDL_Color options::LevelMenu_selected;
-SDL_Color options::LevelMenu_selectederror;
-SDL_Color options::LevelMenu_menu;
-SDL_Color options::LevelMenu_menutext;
-SDL_Color options::LevelMenu_selectedtext;
-SDL_Color options::LevelMenu_infotext;
-bool options::xyeDirectionSprites = false;
 
 
 // Used for saving level file numbers and recent level files...
@@ -91,15 +103,321 @@ std::map< std::pair<int, string>, int> MemFileLevelNumber;
 std::map< string, int> MemFileLevelTime;
 
 
+//--------
+// skin parser
+struct parsedSkinFile
+{
+    string sprites;
+    string lum;
+    string font;
+    string boldFont;
+    bool   directionSprites;
+    int    ttfSize;
+    int    gridSize;
+    
+    SDL_Color OneWayDoorColor;
+    SDL_Color WallColor      [XYE_WALL_VARIATIONS];
+    SDL_Color WallSpriteColor[XYE_WALL_VARIATIONS];
+    
+    SDL_Color BFColor[4];
+    SDL_Color BKColor[4];
+    
+    SDL_Color LevelMenu_info;
+    SDL_Color LevelMenu_selected;
+    SDL_Color LevelMenu_selectederror;
+    SDL_Color LevelMenu_menu;
+    SDL_Color LevelMenu_menutext;
+    SDL_Color LevelMenu_selectedtext;   
+    SDL_Color LevelMenu_infotext;
+
+};
+
+bool tryParseColorOptions(TiXmlElement* skn, SDL_Color* c,char type,char bc)
+{
+    if (!skn) return false;
+    TiXmlElement* tem=skn->FirstChildElement("color");
+    const char* e1,*e2;
+    char alt= bc-'A'+'a';
+    while (tem)
+    {
+        e1=tem->Attribute("bc");
+        if (e1 && ((*e1==bc) || (*e1==alt)) )
+        {
+            e2=tem->Attribute("type");
+            if (e2 && (*e2==type))
+            {
+                string quo;
+                int i=0;
+                quo=tem->Attribute("red");TryS2I(quo,i);c->r=i;
+                quo=tem->Attribute("green");TryS2I(quo,i);c->g=i;
+                quo=tem->Attribute("blue");TryS2I(quo,i);c->b=i;
 
 
-bool options::Error(const char* msg)
+                return true;
+            }
+        }
+
+        tem=tem->NextSiblingElement("color");
+    }
+    return false;
+}
+
+void TryLoadLevelMenuColor(TiXmlElement* levelmenu, const char* name, SDL_Color & c, Uint8 dR, Uint8 dG, Uint8 dB)
+{
+    if(levelmenu==NULL)
+    {
+        c.r=dR;
+        c.g=dG;
+        c.b=dB;
+    }
+    else
+    {
+        TiXmlElement* el=levelmenu->FirstChildElement(name);
+        if(el!=NULL)
+        {
+            string quo;
+            int i;
+            quo=el->Attribute("red");TryS2I(quo,i);c.r=i;
+            quo=el->Attribute("green");TryS2I(quo,i);c.g=i;
+            quo=el->Attribute("blue");TryS2I(quo,i);c.b=i;
+        }
+        else
+        {
+            c.r=dR;
+            c.g=dG;
+            c.b=dB;
+        }
+    }
+    c.unused=255;
+}
+
+string parseSkinMenuColors(TiXmlElement* ele, parsedSkinFile & ps) {
+    TiXmlElement* el=ele->FirstChildElement("levelmenu");
+    TryLoadLevelMenuColor(el,"info"         ,ps.LevelMenu_info         ,239,235,231);
+    TryLoadLevelMenuColor(el,"selected"     ,ps.LevelMenu_selected     ,250,211,150);
+    TryLoadLevelMenuColor(el,"selectederror",ps.LevelMenu_selectederror,255,  0,  0);
+    TryLoadLevelMenuColor(el,"menu"         ,ps.LevelMenu_menu         ,255,255,255);
+    TryLoadLevelMenuColor(el,"menutext"     ,ps.LevelMenu_menutext     ,  0,  0,  0);
+    TryLoadLevelMenuColor(el,"selectedtext" ,ps.LevelMenu_selectedtext ,  0,  0,  0);
+    TryLoadLevelMenuColor(el,"infotext"     ,ps.LevelMenu_infotext     ,  0,  0,  0);
+
+    return "";
+}
+
+string parseMiscColorOptions(TiXmlElement* skn, parsedSkinFile & ps) {
+    TiXmlElement* tem=skn->FirstChildElement("color");
+    while (tem!=NULL)
+    {
+        int variation = -1;
+        tem->QueryIntAttribute("variation", &variation);
+        const char* e1 = tem->Attribute("type");
+        SDL_Color * c=NULL;
+        int n = 1;
+        
+        if( (e1!=NULL) && (string(e1)=="WALL") )
+        {
+            c=ps.WallColor;
+            if(variation==-1) n=XYE_WALL_VARIATIONS;
+            else c+=variation;
+        }
+        else if( (e1!=NULL) && (string(e1)=="WALL_SPRITE") )
+        {
+            c=ps.WallSpriteColor;
+            if(variation==-1) n=XYE_WALL_VARIATIONS;
+            else c+=variation;
+        }
+        else if ( (e1!=NULL) && (string(e1)=="ONEWAYDOOR" ) )
+        {
+            c=&ps.OneWayDoorColor;
+            n=1;
+        }
+        if(c!=NULL)
+        {
+            for (int j=0; j<n; j++)
+            {
+                
+                string quo;
+                int i=0;
+                quo=tem->Attribute("red");TryS2I(quo,i);c[j].r=i;
+                quo=tem->Attribute("green");TryS2I(quo,i);c[j].g=i;
+                quo=tem->Attribute("blue");TryS2I(quo,i);c[j].b=i;
+                c[j].unused=255;
+            }
+        }
+        tem=tem->NextSiblingElement("color");
+    }
+    return "";
+
+}
+
+
+string parseSkinColors(TiXmlElement* ele, parsedSkinFile & ps) {
+    string tm = parseSkinMenuColors(ele, ps);
+    if(tm != "") {
+        return tm;
+    }
+    int i;
+    char cname[4];
+    cname[B_YELLOW]='Y';
+    cname[B_BLUE]='B';
+    cname[B_GREEN]='G';
+    cname[B_RED]='R';
+    //defaults:
+    for (int i=0; i<XYE_WALL_VARIATIONS; i++)
+    {
+        ps.WallSpriteColor[i].r = ps.WallSpriteColor[i].g = ps.WallSpriteColor[i].b = 192;
+        ps.WallSpriteColor[i].unused = 255;
+        ps.WallColor[i].r = ps.WallColor[i].g = ps.WallColor[i].b = ps.WallColor[i].unused = 255;
+    }
+    ps.OneWayDoorColor.r = 255, ps.OneWayDoorColor.g = ps.OneWayDoorColor.b = ps.OneWayDoorColor.unused = 0 ;
+    tm = parseMiscColorOptions(ele,ps);
+    if(tm != "") {
+        return "";
+    }
+    for (i=0;i<4;i++)
+    {
+        if (! tryParseColorOptions(ele, ps.BKColor+i, 'B', cname[i] ) )
+        switch(i)
+        {
+            case(B_YELLOW):
+                ps.BKColor[i].r=255;
+                ps.BKColor[i].g=255;
+                ps.BKColor[i].b=0;
+                break;
+
+            case(B_RED):
+                ps.BKColor[i].r=255;
+                ps.BKColor[i].g=0;
+                ps.BKColor[i].b=0;
+                break;
+
+            case(B_BLUE):
+                ps.BKColor[i].r=0;
+                ps.BKColor[i].g=0;
+                ps.BKColor[i].b=255;
+                break;
+
+            default: //green
+                ps.BKColor[i].r=0;
+                ps.BKColor[i].g=170;
+                ps.BKColor[i].b=0;
+        }
+        ps.BKColor[i].unused=255;
+        if (! tryParseColorOptions(ele, ps.BFColor+i, 'F', cname[i]   ))
+        switch(i)
+        {
+            case(B_YELLOW):
+                ps.BFColor[i].r=255;
+                ps.BFColor[i].g=0;
+                ps.BFColor[i].b=0;
+                break;
+
+
+            case(B_RED):
+                ps.BFColor[i].r=255;
+                ps.BFColor[i].g=255;
+                ps.BFColor[i].b=0;
+                break;
+
+            case(B_BLUE):
+                //
+                ps.BFColor[i].r=0;
+                ps.BFColor[i].g=255;
+                ps.BFColor[i].b=255;
+                break;
+
+            default: //Green
+                //
+                ps.BFColor[i].r=255;
+                ps.BFColor[i].g=255;
+                ps.BFColor[i].b=255;
+                break;
+
+        }
+        ps.BFColor[i].unused=255;
+
+    }
+
+    return "";
+}
+
+string parseSkinFile(const char*filename, parsedSkinFile & ps)
+{
+    bool correct = false;
+    TiXmlDocument skinxml(filename);
+    if ( ! skinxml.LoadFile()) {
+        return "Not a valid XML file";
+    }
+    TiXmlElement* ele=skinxml.FirstChild("xyeskin")->ToElement();
+    if ( ele == NULL ) {
+        return "Not a valid Xye skin file.";
+    }
+    string err = parseSkinColors(ele, ps);
+    if ( err != "") {
+        return err;
+    }
+    const char* tm;
+    if (tm=ele->Attribute("sprites")) {
+        ps.sprites = fixpath(string("res/")+string(tm),true);
+        if (access(ps.sprites.c_str(),0)!=0) {
+            return "Missing sprites file: "+ps.sprites;
+        }
+    } else {
+        return "No sprites file specified in skin XML.";
+    }
+    if (tm=ele->Attribute("luminosity")) {
+        ps.lum = fixpath(string("res/")+string(tm),true);
+        if (access(ps.lum.c_str(),0)!=0) {
+            return "Missing sprites luminosity file: "+ps.lum;
+        }
+    }
+    ps.directionSprites = false;
+    if (tm=ele->Attribute("xyedirections"))
+    {
+        ps.directionSprites = ( (strlen(tm) >= 1) && ((tm[0]=='y') || (tm[0]=='Y') ));
+    }
+    if (tm=ele->Attribute("fontfile")) {
+        ps.font = fixpath(string("res/")+string(tm),true);
+        if (access(ps.font.c_str(),0)!=0) {
+            return "Missing font file: "+ps.font;
+        }
+    } else {
+        return "No font file specified in skin XML.";
+    }
+    if (tm=ele->Attribute("boldfontfile")) {
+        ps.boldFont = fixpath(string("res/")+string(tm),true);
+        if (access(ps.boldFont.c_str(),0)!=0) {
+            return "Missing bold font file: "+ps.boldFont;
+        }
+    } else {
+        ps.boldFont = ps.font;
+    }
+    ps.ttfSize = 0;
+    if (tm=ele->Attribute("truetypesize")) {
+        sscanf(tm,"%d",&ps.ttfSize);
+    }
+    if (tm=ele->Attribute("size")) {
+        if(sscanf(tm,"%d",&ps.gridSize)!=1) {
+            return "Invalid grid size.";
+        }
+    } else {
+        return "Unspecified grid size.";
+    }
+    return "";
+}
+
+//---
+
+
+
+
+bool Error(const char* msg)
 {
     fprintf(stderr,"%s",msg);
     throw msg;
 }
 
-TiXmlElement* options::GetOptionsElement(TiXmlDocument* cnf)
+TiXmlElement* GetOptionsElement(TiXmlDocument* cnf)
 {
     TiXmlElement* ele;
     if (cnf->LoadFile())
@@ -110,16 +428,16 @@ TiXmlElement* options::GetOptionsElement(TiXmlDocument* cnf)
  return NULL;
 }
 
-string* options::fixpath(string& path,bool dohomecheck)
+string fixpath(const string path, bool dohomecheck)
 {
     char* fx=fixpath( path.c_str(),dohomecheck);
-    string* s=new string(fx);
+    string s=fx;
     delete [] fx;
     return s;
-
 }
+
 //
-char* options::fixpath(const char * path,bool dohomecheck)
+char* fixpath(const char * path,bool dohomecheck)
 {
     const char* home=getenv("HOME");
     int L1= strlen(path);
@@ -132,7 +450,6 @@ char* options::fixpath(const char * path,bool dohomecheck)
         strcat(homeloc,path);
         if (access(homeloc,/*R_OK*/0)==0)
         {
-            printf("found %s\n",homeloc);
             return homeloc;
         }
         delete[] homeloc;
@@ -150,12 +467,12 @@ char* options::fixpath(const char * path,bool dohomecheck)
 }
 
 
-void options::Default()
+void Default()
 {
     LevelFile = "#browse";
 }
 
-TiXmlDocument* options::defaultxyeconf(const char* path,TiXmlElement *&options)
+TiXmlDocument* defaultxyeconf(const char* path,TiXmlElement *&options)
 {
     std::ofstream file;
     file.open (path,std::ios::trunc | std::ios::out );
@@ -167,7 +484,7 @@ TiXmlDocument* options::defaultxyeconf(const char* path,TiXmlElement *&options)
 
     file.close();
     TiXmlDocument* r=new TiXmlDocument(path);
-    if (options=options::GetOptionsElement(r))
+    if (options=GetOptionsElement(r))
         return r;
     delete r;
     return NULL;
@@ -175,7 +492,7 @@ TiXmlDocument* options::defaultxyeconf(const char* path,TiXmlElement *&options)
 
 
 
-TiXmlDocument* options::getxyeconf(TiXmlElement *&options  )
+TiXmlDocument* getxyeconf(TiXmlElement *&options  )
 {
     printf("looking for valid xyeconf.xml:\n");
     const char* home=NULL;
@@ -186,7 +503,7 @@ TiXmlDocument* options::getxyeconf(TiXmlElement *&options  )
         string loc = string(home)+"/.xye/xyeconf.xml";
         //string loc="./xyeconf.xml";
         r= new TiXmlDocument(loc.c_str());
-        if (options=options::GetOptionsElement(r))
+        if (options=GetOptionsElement(r))
         {
             printf("found %s\n",loc.c_str() );
             return (r);
@@ -207,7 +524,7 @@ TiXmlDocument* options::getxyeconf(TiXmlElement *&options  )
 
 
     r= new TiXmlDocument("./xyeconf.xml");
-    if (options=options::GetOptionsElement(r))
+    if (options=GetOptionsElement(r))
     {
         printf("found ./xyeconf.xml\n");
         return (r);
@@ -228,7 +545,7 @@ TiXmlDocument* options::getxyeconf(TiXmlElement *&options  )
 }
 
 
-void options::Init()
+void Init()
 {
 
 
@@ -246,7 +563,7 @@ void options::Init()
     b1=b2=b3=b4=true;
     bini=true;
     TiXmlElement* ele;
-    TiXmlDocument* cnf = options::getxyeconf(ele);
+    TiXmlDocument* cnf = getxyeconf(ele);
 
     if (!ele)
     {
@@ -355,8 +672,6 @@ void options::Init()
 
 
              ele->QueryIntAttribute("size",&GridSize);
-
-
          }
      }
 
@@ -409,7 +724,7 @@ if (LevelFile != "#browse#")
 }
 
 
-    tem = options::fixpath("./", true);
+    tem = fixpath("./", true);
     homefolder=tem;
     if( (homefolder.length() >= 3) && (homefolder.substr( homefolder.length()-3, 3)=="/./") )
         homefolder.resize( homefolder.length() - 2);
@@ -418,36 +733,6 @@ if (LevelFile != "#browse#")
     LoadLevelFile();
     delete cnf;
 
-}
-
-bool TryColorOptions(TiXmlElement* skn, SDL_Color* c,char type,char bc)
-{
-    if (!skn) return false;
-    TiXmlElement* tem=skn->FirstChildElement("color");
-    const char* e1,*e2;
-    char alt= bc-'A'+'a';
-    while (tem)
-    {
-        e1=tem->Attribute("bc");
-        if (e1 && ((*e1==bc) || (*e1==alt)) )
-        {
-            e2=tem->Attribute("type");
-            if (e2 && (*e2==type))
-            {
-                string quo;
-                int i=0;
-                quo=tem->Attribute("red");TryS2I(quo,i);c->r=i;
-                quo=tem->Attribute("green");TryS2I(quo,i);c->g=i;
-                quo=tem->Attribute("blue");TryS2I(quo,i);c->b=i;
-
-
-                return true;
-            }
-        }
-
-        tem=tem->NextSiblingElement("color");
-    }
-    return false;
 }
 
 bool TryMiscColorOptions(TiXmlElement* skn)
@@ -463,19 +748,19 @@ bool TryMiscColorOptions(TiXmlElement* skn)
         
         if( (e1!=NULL) && (string(e1)=="WALL") )
         {
-            c=options::WallColor;
+            c=WallColor;
             if(variation==-1) n=XYE_WALL_VARIATIONS;
             else c+=variation;
         }
         else if( (e1!=NULL) && (string(e1)=="WALL_SPRITE") )
         {
-            c=options::WallSpriteColor;
+            c=WallSpriteColor;
             if(variation==-1) n=XYE_WALL_VARIATIONS;
             else c+=variation;
         }
         else if ( (e1!=NULL) && (string(e1)=="ONEWAYDOOR" ) )
         {
-            c=&options::OneWayDoorColor;
+            c=&OneWayDoorColor;
             n=1;
         }
         if(c!=NULL)
@@ -498,48 +783,20 @@ bool TryMiscColorOptions(TiXmlElement* skn)
         
 
 
-void TryLoadLevelMenuColor(TiXmlElement* levelmenu, const char* name, SDL_Color & c, Uint8 dR, Uint8 dG, Uint8 dB)
-{
-    if(levelmenu==NULL)
-    {
-        c.r=dR;
-        c.g=dG;
-        c.b=dB;
-    }
-    else
-    {
-        TiXmlElement* el=levelmenu->FirstChildElement(name);
-        if(el!=NULL)
-        {
-            string quo;
-            int i;
-            quo=el->Attribute("red");TryS2I(quo,i);c.r=i;
-            quo=el->Attribute("green");TryS2I(quo,i);c.g=i;
-            quo=el->Attribute("blue");TryS2I(quo,i);c.b=i;
-        }
-        else
-        {
-            c.r=dR;
-            c.g=dG;
-            c.b=dB;
-        }
-    }
-    c.unused=255;
-}
 
 void LoadMenuColors(TiXmlElement* levelmenu)
 {
     TiXmlElement* el=levelmenu->FirstChildElement("levelmenu");
-    TryLoadLevelMenuColor(el,"info"         ,options::LevelMenu_info         ,239,235,231);
-    TryLoadLevelMenuColor(el,"selected"     ,options::LevelMenu_selected     ,250,211,150);
-    TryLoadLevelMenuColor(el,"selectederror",options::LevelMenu_selectederror,255,  0,  0);
-    TryLoadLevelMenuColor(el,"menu"         ,options::LevelMenu_menu         ,255,255,255);
-    TryLoadLevelMenuColor(el,"menutext"     ,options::LevelMenu_menutext     ,  0,  0,  0);
-    TryLoadLevelMenuColor(el,"selectedtext" ,options::LevelMenu_selectedtext ,  0,  0,  0);
-    TryLoadLevelMenuColor(el,"infotext"     ,options::LevelMenu_infotext     ,  0,  0,  0);
+    TryLoadLevelMenuColor(el,"info"         ,LevelMenu_info         ,239,235,231);
+    TryLoadLevelMenuColor(el,"selected"     ,LevelMenu_selected     ,250,211,150);
+    TryLoadLevelMenuColor(el,"selectederror",LevelMenu_selectederror,255,  0,  0);
+    TryLoadLevelMenuColor(el,"menu"         ,LevelMenu_menu         ,255,255,255);
+    TryLoadLevelMenuColor(el,"menutext"     ,LevelMenu_menutext     ,  0,  0,  0);
+    TryLoadLevelMenuColor(el,"selectedtext" ,LevelMenu_selectedtext ,  0,  0,  0);
+    TryLoadLevelMenuColor(el,"infotext"     ,LevelMenu_infotext     ,  0,  0,  0);
 }
 
-void options::LoadColors(TiXmlElement* skn)
+void LoadColors(TiXmlElement* skn)
 {
     LoadMenuColors(skn);
     int i;
@@ -559,71 +816,73 @@ void options::LoadColors(TiXmlElement* skn)
     for (i=0;i<4;i++)
     {
        
-        if (! TryColorOptions(skn, options::BKColor+i, 'B', cname[i]   ))
+        if (! tryParseColorOptions(skn, BKColor+i, 'B', cname[i]   ))
         switch(i)
         {
             case(B_YELLOW):
-                options::BKColor[i].r=255;
-                options::BKColor[i].g=255;
-                options::BKColor[i].b=0;
+                BKColor[i].r=255;
+                BKColor[i].g=255;
+                BKColor[i].b=0;
                 break;
 
             case(B_RED):
-                options::BKColor[i].r=255;
-                options::BKColor[i].g=0;
-                options::BKColor[i].b=0;
+                BKColor[i].r=255;
+                BKColor[i].g=0;
+                BKColor[i].b=0;
                 break;
 
             case(B_BLUE):
-                options::BKColor[i].r=0;
-                options::BKColor[i].g=0;
-                options::BKColor[i].b=255;
+                BKColor[i].r=0;
+                BKColor[i].g=0;
+                BKColor[i].b=255;
                 break;
 
             default: //green
-                options::BKColor[i].r=0;
-                options::BKColor[i].g=170;
-                options::BKColor[i].b=0;
+                BKColor[i].r=0;
+                BKColor[i].g=170;
+                BKColor[i].b=0;
         }
-        options::BKColor[i].unused=255;
-        if (! TryColorOptions(skn, options::BFColor+i, 'F', cname[i]   ))
+        BKColor[i].unused=255;
+        if (! tryParseColorOptions(skn, BFColor+i, 'F', cname[i]   ))
         switch(i)
         {
             case(B_YELLOW):
-                options::BFColor[i].r=255;
-                options::BFColor[i].g=0;
-                options::BFColor[i].b=0;
+                BFColor[i].r=255;
+                BFColor[i].g=0;
+                BFColor[i].b=0;
                 break;
 
 
             case(B_RED):
-                options::BFColor[i].r=255;
-                options::BFColor[i].g=255;
-                options::BFColor[i].b=0;
+                BFColor[i].r=255;
+                BFColor[i].g=255;
+                BFColor[i].b=0;
                 break;
 
             case(B_BLUE):
                 //
-                options::BFColor[i].r=0;
-                options::BFColor[i].g=255;
-                options::BFColor[i].b=255;
+                BFColor[i].r=0;
+                BFColor[i].g=255;
+                BFColor[i].b=255;
                 break;
 
             default: //Green
                 //
-                options::BFColor[i].r=255;
-                options::BFColor[i].g=255;
-                options::BFColor[i].b=255;
+                BFColor[i].r=255;
+                BFColor[i].g=255;
+                BFColor[i].b=255;
                 break;
 
         }
-        options::BFColor[i].unused=255;
+        BFColor[i].unused=255;
 
     }
 
 }
 
-void options::Clean()
+
+void PerformLevelFileSave();
+void Clean()
 {
     if (bini)
     {
@@ -643,14 +902,14 @@ void options::Clean()
     
 }
 
-string options::GetDir()
+string GetDir()
 {
     ! bini? Error("Attempt to call unitialized options"):0;
     return Dir;
 }
 
 
-const char* options::GetLevelFile()
+const char* GetLevelFile()
 {
     ! bini? Error("Attempt to call unitialized options"):0;
     if(LevelFile == "#browse#") return NULL;
@@ -658,51 +917,50 @@ const char* options::GetLevelFile()
 }
 
 
-const char* options::GetSpriteFile()
+const char* GetSpriteFile()
 {
     ! bini? Error("Attempt to call unitialized options"):0;
     return (Texture);
 }
 
-const char* options::GetLuminositySpriteFile()
+const char* GetLuminositySpriteFile()
 {
     ! bini? Error("Attempt to call unitialized options"):0;
     return (LuminosityTexture);
 }
 
 
-const char* options::GetFontFile()
+const char* GetFontFile()
 {
     ! bini? Error("Attempt to call unitialized options"):0;
     return (Font);
 }
 
-const char* options::GetFontBoldFile()
+const char* GetFontBoldFile()
 {
     ! bini? Error("Attempt to call unitialized options"):0;
     return (FontBold);
 }
 
-int options::GetFontSize()
+int GetFontSize()
 {
     ! bini? Error("Attempt to call unitialized options"):0;
     return (FontSize);
 }
 
-int options::GetFontBoldSize()
+int GetFontBoldSize()
 {
     ! bini? Error("Attempt to call unitialized options"):0;
     return (FontBoldSize);
 }
 
-int options::GetGridSize()
+int GetGridSize()
 {
     ! bini? Error("Attempt to call unitialized options"):0;
     return GridSize;
 }
 
-string options::homefolder;
-const string& options::GetHomeFolder()
+const string& GetHomeFolder()
 {
     ! bini? Error("Attempt to call unitialized options"):0;
     return homefolder;
@@ -710,22 +968,22 @@ const string& options::GetHomeFolder()
 
 
 
-unsigned char options::Red()
+unsigned char Red()
 {
     return(r);
 }
-unsigned char options::Green()
+unsigned char Green()
 {
     return(g);
 }
-unsigned char options::Blue()
+unsigned char Blue()
 {
     return(b);
 }
 
 bool options_saveignored = false;
 
-void options::IgnoreLevelSave()
+void IgnoreLevelSave()
 {
     options_saveignored = true;
 }
@@ -734,7 +992,7 @@ void options::IgnoreLevelSave()
 
 
 
-void options::SaveLevelFile(const char* filename, int levelNumber)
+void SaveLevelFile(const char* filename, int levelNumber)
 {
     if(filename == NULL) return;
     
@@ -766,7 +1024,7 @@ void options::SaveLevelFile(const char* filename, int levelNumber)
 }
 
 
-unsigned int options::GetLevelNumber(const char* filename)
+unsigned int GetLevelNumber(const char* filename)
 {
     if(filename==NULL) return 1;
     string s=filename;
@@ -778,7 +1036,7 @@ unsigned int options::GetLevelNumber(const char* filename)
     return 1;
 }
 
-void options::PerformLevelFileSave()
+void PerformLevelFileSave()
 {
     if(options_saveignored) return;
     std::ofstream file;
@@ -796,7 +1054,7 @@ void options::PerformLevelFileSave()
 }
 
 
-void options::LoadLevelFile()
+void LoadLevelFile()
 {
     MemTime = 0;
     MemFileLevelNumber.clear();
@@ -822,4 +1080,34 @@ void options::LoadLevelFile()
         SaveLevelFile(LevelFile.c_str(), lvnum);
         getline(file,LevelFile);
     }
+}
+
+bool UndoEnabled() {return enundo; }
+
+bool GetSkinInformation(const char* file, SkinInformation & si)
+{
+    si.title = "";
+    si.author = "";
+    si.description = "";
+    if(si.preview != NULL) {
+        SDL_FreeSurface(si.preview);
+    }
+    si.preview = NULL;
+    parsedSkinFile ps;
+    string error = parseSkinFile(file, ps);
+    if(error!="") {
+        si.description = error;
+        return false;
+    }
+    //Make preview...
+    si.preview=SDL_CreateRGBSurface(0,si.pw,si.ph,32,SDL_ENDIAN32MASKS);
+    //SDL_FillRect(si.preview, 0, 0, si.pw, si.ph, 0xFFFF00FF);
+    SDL_FillRect(si.preview, 0, 0, si.pw, si.ph, SDL_MapRGB(si.preview->format, ps.BKColor[0]));
+    
+
+    return true;
+    
+    
+}
+
 }
