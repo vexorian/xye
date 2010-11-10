@@ -1360,7 +1360,7 @@ class game
     static bool mouse_valid;
     static unsigned int mouse_x,mouse_y;
 
-    static bool gameover;
+    static bool GameOver;
     static bool FinishedLevel;
     static square grid[XYE_HORZ][XYE_VERT];
     static unsigned int id_count;
@@ -1504,7 +1504,7 @@ class game
     static void FlashXyePosition();
 
     static bool Moved(edir d);
-    static void GameOver(bool good=false);
+    static void TerminateGame(bool good=false);
 
     static void Davinci(Sint16 sx, Sint16 sy, Uint16 sw, Uint16 sh,Sint16 dx, Sint16 dy);
     static void Error(const char* msg);
