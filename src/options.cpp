@@ -635,7 +635,7 @@ void Init()
         strcpy(FontBold, ps.boldFont.c_str());
         GridSize = ps.gridSize;
     } else {
-        printf((tms+"\n").c_str());
+        printf("%s",(tms+"\n").c_str());
     }
 
 
@@ -891,7 +891,125 @@ void LoadLevelFile()
     }
 }
 
-bool UndoEnabled() {return enundo; }
+bool UndoEnabled() {
+    return enundo;
+}
+
+struct previewMaker {
+    int w,h;
+    int sz;
+    parsedSkinFile* ps;
+    DaVinci* D;
+    LuminositySprites ls;
+    
+    SDL_Surface * result;
+    previewMaker(parsedSkinFile& ps, int w, int h) {
+        this->w = w;
+        this->h = h;
+        this->ps = &ps;
+        this->sz = ps.gridSize;
+        ls.sprites = IMG_Load( ps.sprites.c_str() );
+        if(ps.lum == "") {
+            ls.luminosity = NULL;
+        } else {
+            ls.luminosity = IMG_Load( ps.lum.c_str() );
+        }
+
+        D = new DaVinci(ls,0,0,sz,sz);
+        result = SDL_CreateRGBSurface(0,w,h,32,SDL_ENDIAN32MASKS);
+        SDL_FillRect(result, 0, 0, w, h, 0xFFFFFFFF);
+        
+        draw(0,0,          1,0, Red(), Green(), Blue());
+        
+        //blocks
+        draw(1,0,2,0, ps.BKColor[0]);
+        draw(1,0,3,0, ps.BKColor[1]);
+        draw(1,0,4,0, ps.BKColor[2]);
+        draw(1,0,5,0, ps.BKColor[3]);
+
+        //gems
+        draw(2,3+rand()%2,1,1);
+        draw(3,3+rand()%2,4,1);
+        draw(4,3+rand()%2,3,1);
+        draw(5,3+rand()%2,2,1);
+        draw(9,12+rand()%2,5,1);
+        
+        //monsters
+        draw(16, rand()%2, 1,2);
+        draw(19, rand()%2, 2,2);
+        draw(19, 6+rand()%3, 3,2);
+        draw(19, 9+rand()%3, 4,2);
+        draw(10,12+rand()%2, 5,2);
+        
+        //pusher
+        int d=rand()%2;
+        draw(4+d,5, 6,0, ps.BKColor[0]);
+        draw(4+d,7, 6,0, ps.BFColor[0]);
+        d=rand()%2;
+        draw(4+d,6, 7,0, ps.BKColor[2]);
+        draw(4+d,8, 7,0, ps.BFColor[2]);
+        
+        //wall time ! 
+        sz /= 2;
+        draw(18,0, 0,0, ps.WallColor[0]);
+        draw(19,0, 1,0, ps.WallColor[0]);
+        for (int i=0; i<6; i++) {
+            draw(24,i%2==0, 0,1+i, ps.WallColor[0]);
+            draw(25,i%2==0, 1,1+i, ps.WallColor[0]);
+        }
+        draw(18,1, 0,7, ps.WallColor[0]);
+        draw(19,1, 1,7, ps.WallColor[0]);
+        //--
+        draw(18,4, 12,2, ps.WallColor[2]);
+        draw(19,4, 13,2, ps.WallColor[2]);
+        for (int i=0; i<4; i++) {
+            draw(24,4+(i%2==0), 12,3+i, ps.WallColor[2]);
+            draw(25,4+(i%2==0), 13,3+i, ps.WallColor[2]);
+        }
+        draw(18,5, 12,7, ps.WallColor[2]);
+        draw(19,5, 13,7, ps.WallColor[2]);
+        //--
+        draw(18,10, 16,0, ps.WallColor[5]);
+        draw(19,10, 17,0, ps.WallColor[5]);
+        for (int i=0; i<6; i++) {
+            draw(24,10+(i%2==0), 16,1+i, ps.WallColor[5]);
+            draw(25,10+(i%2==0), 17,1+i, ps.WallColor[5]);
+        }
+        draw(18,11, 16,7, ps.WallColor[5]);
+        draw(19,11, 17,7, ps.WallColor[5]);
+
+    }
+    ~previewMaker() {
+        SDL_FreeSurface(ls.sprites);
+        if(ls.luminosity != NULL) {
+            SDL_FreeSurface(ls.luminosity);
+        }
+        delete D;
+    }
+    
+    void draw(int sx, int sy, int tx, int ty, SDL_Color col) {
+        D->ChangeRect(sx*sz, sy*sz, sz, sz);
+        D->SetColors(col,255);
+        D->Draw(result, tx*sz, ty*sz);
+    }
+    void draw(int sx, int sy, int tx, int ty, Uint8 r, Uint8 g, Uint8 b) {
+        SDL_Color col;
+        col.unused = 255;
+        col.r = r, col.g = g, col.b = b;
+        draw(sx,sy,tx,ty, col);
+    }
+    void draw(int sx, int sy, int tx, int ty) {
+        SDL_Color col;
+        col.unused = col.r = col.g = col.b = 255;
+        draw(sx,sy,tx,ty, col);
+    }
+
+};
+
+SDL_Surface* makeSkinPreview(parsedSkinFile & ps, int w, int h) {
+    previewMaker pr(ps,w,h);
+    return pr.result;    
+}
 
 bool GetSkinInformation(const char* file, SkinInformation & si)
 {
@@ -909,14 +1027,8 @@ bool GetSkinInformation(const char* file, SkinInformation & si)
         return false;
     }
     //Make preview...
-    si.preview=SDL_CreateRGBSurface(0,si.pw,si.ph,32,SDL_ENDIAN32MASKS);
-    //SDL_FillRect(si.preview, 0, 0, si.pw, si.ph, 0xFFFF00FF);
-    SDL_FillRect(si.preview, 0, 0, si.pw, si.ph, SDL_MapRGB(si.preview->format, ps.BKColor[0]));
-    
-
+    si.preview= makeSkinPreview(ps, si.pw, si.ph);
     return true;
-    
-    
 }
 
 }

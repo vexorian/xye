@@ -515,8 +515,8 @@ void FillArrayWithFilenames()
 void LoadActiveFileInfo()
 {
     string &fl=FoundFile[Active];
-    SkinData.pw = 100;
-    SkinData.ph = 100;
+    SkinData.pw = 21*options::GetGridSize();
+    SkinData.ph = 200;
     ActiveIsValid= options::GetSkinInformation(fl.c_str(),SkinData);
     
     
