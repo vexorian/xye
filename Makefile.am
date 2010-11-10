@@ -80,7 +80,9 @@ src/dialogs.h \
 src/dialogs.cpp \
 src/command.cpp \
 src/command.h \
-src/window.cpp
+src/window.cpp \
+src/skins.cpp \
+src/skins.h
 
 EXTRA_DIST = ${EXTRA_DIST1} ${xye_SOURCES} ${res_DATA} ${levels_DATA} ${doce_DATA}
 
