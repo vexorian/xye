@@ -7189,6 +7189,7 @@ void rnode::OnDeath()
 {
     if (forgetkill) return;
 
+    //head->grow = 0;
 
     //Make sure previous rattler/node knows they lost this node.
     if (prevhead)
@@ -7201,8 +7202,11 @@ void rnode::OnDeath()
     {
         prev->next=NULL;
         prev->UpdateSquare();
+        
     }
-
+    if ( head->last == this ) {
+        head->last = prev;
+    }
 
     if (next) //replace next node with a new head
     {
