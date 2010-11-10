@@ -78,8 +78,6 @@ src/xyedit.h \
 src/window.h \
 src/dialogs.h \
 src/dialogs.cpp \
-src/command.cpp \
-src/command.h \
 src/window.cpp \
 src/skins.cpp \
 src/skins.h
