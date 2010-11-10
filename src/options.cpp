@@ -28,7 +28,8 @@ using std::string;
 namespace options
 {
 
-void LoadColors(TiXmlElement* skn);
+struct parsedSkinFile;
+void LoadColors(parsedSkinFile & ps);
 void LoadLevelFile();
 
 // Public variables:
@@ -559,8 +560,6 @@ void Init()
     g=255;
     bini=true;
     GridSize=20;
-    bool b1,b2,b3,b4;
-    b1=b2=b3=b4=true;
     bini=true;
     TiXmlElement* ele;
     TiXmlDocument* cnf = getxyeconf(ele);
@@ -594,6 +593,7 @@ void Init()
 
     LevelFile = tm;
 
+   
     const char * sknfile = ele->Attribute("skinfile");
     char *skin;
 
@@ -602,7 +602,7 @@ void Init()
          //12345678901234567
          //"res/default.xml";
          skin = fixpath("res/default.xml",true);
-         printf("No skin file selection found in xyeconf.xml, will use default.xml");
+         printf("No skin file selection found in xyeconf.xml, will use default.xml.\n");
     }
     else
     {
@@ -614,105 +614,34 @@ void Init()
     }
 
     TiXmlDocument skinxml(skin);
+    parsedSkinFile ps;
+    string tms = parseSkinFile(skin, ps);
     delete[] skin;
-
-    if (skinxml.LoadFile())
-    {
-         ele=skinxml.FirstChild("xyeskin")->ToElement();
-         if (ele)
-         {
-             LoadColors(ele);
-             b4=false;
-             if (tm=ele->Attribute("sprites"))
-             {
-                 b1=false;
-                 Texture=new char[5+strlen(tm)];
-                 strcpy(Texture,"res/");
-                 strcat(Texture,tm);
-
-             }
-             LuminosityTexture=NULL;
-             if (tm=ele->Attribute("luminosity"))
-             {
-                 b1=false;
-                 LuminosityTexture=new char[5+strlen(tm)];
-                 strcpy(LuminosityTexture,"res/");
-                 strcat(LuminosityTexture,tm);
-
-             }
-
-
-             if (tm=ele->Attribute("xyedirections"))
-             {
-                 xyeDirectionSprites = ( (strlen(tm) >= 1) && ((tm[0]=='y') || (tm[0]=='Y') ));
-             }
-
-
-             if (tm=ele->Attribute("fontfile"))
-             {
-                 b2=false;
-                 Font=new char[5+strlen(tm)];
-                 strcpy(Font,"res/");
-                 strcat(Font,tm);
-             }
-
-             if (tm=ele->Attribute("boldfontfile"))
-             {
-                 b3=false;
-                 FontBold=new char[5+strlen(tm)];
-                 strcpy(FontBold,"res/");
-                 strcat(FontBold,tm);
-             }
-             if (tm=ele->Attribute("truetypesize"))
-             {
-                 sscanf(tm,"%d",&FontSize);
-                 FontBoldSize=FontSize;
-                 printf("Fontsize is %d\n",FontSize);
-             }
-
-
-             ele->QueryIntAttribute("size",&GridSize);
-         }
-     }
-
-    //Default colors:
-    if(b4)
-        LoadColors(ele);
-
-
-    //Set default values for skin stuff:
-    if (b1)
-    {
-        //123456789012345
-        //res/xye_big.png
-        Texture=new char[16];
-        strcpy(Texture,"res/xye_big.png");
+    if(tms=="") {
+        LoadColors(ps);
+        Texture = new char[ps.sprites.length()+1];
+        strcpy(Texture, ps.sprites.c_str());
+        if(ps.lum == "") {
+            LuminosityTexture = NULL;
+        } else {
+            LuminosityTexture = new char[ps.lum.length()+1];
+            strcpy(LuminosityTexture, ps.lum.c_str());
+        }
+        FontBoldSize = FontSize = ps.ttfSize;
+        xyeDirectionSprites = ps.directionSprites;
+        Font = new char[ps.font.length()+1];
+        strcpy(Font, ps.font.c_str());
+        FontBold = new char[ps.boldFont.length()+1];
+        strcpy(FontBold, ps.boldFont.c_str());
+        GridSize = ps.gridSize;
+    } else {
+        printf((tms+"\n").c_str());
     }
 
-    if (b2)
-    {
-        //12345678901
-        //res/fon.nmp
-        Font=new char[12];
-        strcpy(Font,"res/fon.bmp");
-    }
-
-    if (b3)
-    {
-        //123456789012345
-        //res/fonbold.nmp
-        FontBold=new char[16];
-        strcpy(FontBold,"res/fonbold.bmp");
-    }
 
 //fix the paths of all the options that are file locations:
 
 char* tem;
-tem = fixpath(Font,true);delete[] Font;Font=tem;
-tem = fixpath(FontBold,true);delete[] FontBold;FontBold=tem;
-tem = fixpath(Texture,true);delete[] Texture;Texture=tem;
-if( LuminosityTexture!=NULL)
-{ tem = fixpath(LuminosityTexture,true);delete[] LuminosityTexture;LuminosityTexture=tem; }
 
 if (LevelFile != "#browse#")
 {
@@ -735,149 +664,29 @@ if (LevelFile != "#browse#")
 
 }
 
-bool TryMiscColorOptions(TiXmlElement* skn)
+void LoadMenuColors(parsedSkinFile & ps)
 {
-    TiXmlElement* tem=skn->FirstChildElement("color");
-    while (tem!=NULL)
-    {
-        int variation = -1;
-        tem->QueryIntAttribute("variation", &variation);
-        const char* e1 = tem->Attribute("type");
-        SDL_Color * c=NULL;
-        int n = 1;
-        
-        if( (e1!=NULL) && (string(e1)=="WALL") )
-        {
-            c=WallColor;
-            if(variation==-1) n=XYE_WALL_VARIATIONS;
-            else c+=variation;
-        }
-        else if( (e1!=NULL) && (string(e1)=="WALL_SPRITE") )
-        {
-            c=WallSpriteColor;
-            if(variation==-1) n=XYE_WALL_VARIATIONS;
-            else c+=variation;
-        }
-        else if ( (e1!=NULL) && (string(e1)=="ONEWAYDOOR" ) )
-        {
-            c=&OneWayDoorColor;
-            n=1;
-        }
-        if(c!=NULL)
-        {
-            for (int j=0; j<n; j++)
-            {
-                
-                string quo;
-                int i=0;
-                quo=tem->Attribute("red");TryS2I(quo,i);c[j].r=i;
-                quo=tem->Attribute("green");TryS2I(quo,i);c[j].g=i;
-                quo=tem->Attribute("blue");TryS2I(quo,i);c[j].b=i;
-                c[j].unused=255;
-            }
-        }
-        tem=tem->NextSiblingElement("color");
-    }
-    return false;
-}
-        
-
-
-
-void LoadMenuColors(TiXmlElement* levelmenu)
-{
-    TiXmlElement* el=levelmenu->FirstChildElement("levelmenu");
-    TryLoadLevelMenuColor(el,"info"         ,LevelMenu_info         ,239,235,231);
-    TryLoadLevelMenuColor(el,"selected"     ,LevelMenu_selected     ,250,211,150);
-    TryLoadLevelMenuColor(el,"selectederror",LevelMenu_selectederror,255,  0,  0);
-    TryLoadLevelMenuColor(el,"menu"         ,LevelMenu_menu         ,255,255,255);
-    TryLoadLevelMenuColor(el,"menutext"     ,LevelMenu_menutext     ,  0,  0,  0);
-    TryLoadLevelMenuColor(el,"selectedtext" ,LevelMenu_selectedtext ,  0,  0,  0);
-    TryLoadLevelMenuColor(el,"infotext"     ,LevelMenu_infotext     ,  0,  0,  0);
+    LevelMenu_info          = ps.LevelMenu_info;
+    LevelMenu_selected      = ps.LevelMenu_selected;
+    LevelMenu_selectederror = ps.LevelMenu_selectederror;
+    LevelMenu_menu          = ps.LevelMenu_menu;
+    LevelMenu_menutext      = ps.LevelMenu_menutext;
+    LevelMenu_selectedtext  = ps.LevelMenu_selectedtext;
+    LevelMenu_infotext      = ps.LevelMenu_infotext;
 }
 
-void LoadColors(TiXmlElement* skn)
+void LoadColors(parsedSkinFile & ps)
 {
-    LoadMenuColors(skn);
-    int i;
-    char cname[4];
-    cname[B_YELLOW]='Y';
-    cname[B_BLUE]='B';
-    cname[B_GREEN]='G';
-    cname[B_RED]='R';
-    for (int i=0; i<XYE_WALL_VARIATIONS; i++)
-    {
-        WallSpriteColor[i].r  =WallSpriteColor[i].g =WallSpriteColor[i].b = 192;
-        WallSpriteColor[i].unused = 255;
-        WallColor[i].r =WallColor[i].g =WallColor[i].b = WallColor[i].unused = 255;
+    LoadMenuColors(ps);
+    for (int i=0; i<4; i++) {
+        BFColor[i] = ps.BFColor[i];
+        BKColor[i] = ps.BKColor[i];
     }
-    OneWayDoorColor.r = 255, OneWayDoorColor.g = OneWayDoorColor.b = OneWayDoorColor.unused = 0 ;
-    TryMiscColorOptions(skn);
-    for (i=0;i<4;i++)
-    {
-       
-        if (! tryParseColorOptions(skn, BKColor+i, 'B', cname[i]   ))
-        switch(i)
-        {
-            case(B_YELLOW):
-                BKColor[i].r=255;
-                BKColor[i].g=255;
-                BKColor[i].b=0;
-                break;
-
-            case(B_RED):
-                BKColor[i].r=255;
-                BKColor[i].g=0;
-                BKColor[i].b=0;
-                break;
-
-            case(B_BLUE):
-                BKColor[i].r=0;
-                BKColor[i].g=0;
-                BKColor[i].b=255;
-                break;
-
-            default: //green
-                BKColor[i].r=0;
-                BKColor[i].g=170;
-                BKColor[i].b=0;
-        }
-        BKColor[i].unused=255;
-        if (! tryParseColorOptions(skn, BFColor+i, 'F', cname[i]   ))
-        switch(i)
-        {
-            case(B_YELLOW):
-                BFColor[i].r=255;
-                BFColor[i].g=0;
-                BFColor[i].b=0;
-                break;
-
-
-            case(B_RED):
-                BFColor[i].r=255;
-                BFColor[i].g=255;
-                BFColor[i].b=0;
-                break;
-
-            case(B_BLUE):
-                //
-                BFColor[i].r=0;
-                BFColor[i].g=255;
-                BFColor[i].b=255;
-                break;
-
-            default: //Green
-                //
-                BFColor[i].r=255;
-                BFColor[i].g=255;
-                BFColor[i].b=255;
-                break;
-
-        }
-        BFColor[i].unused=255;
-
+    for (int i=0; i<XYE_WALL_VARIATIONS; i++) {
+        WallSpriteColor[i] = ps.WallSpriteColor[i];
+        WallColor[i] = ps.WallColor[i];
     }
-
+    OneWayDoorColor = ps.OneWayDoorColor;
 }
 
 
