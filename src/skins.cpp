@@ -15,16 +15,11 @@ Permission is granted to anyone to use this software for any purpose, including 
 
 */
 
-//levels.cpp contains the level browser, this is my first experience at GUI development so no wonder it actually
-//blows. It will eventually improve or under the license you can always contribute.
-//
-
 
 #include "xye.h"
 #include "xyedit.h"
 #include "xye_script.h"
 #include "levels.h"
-#include "skins.h"
 #include "options.h"
 #include "vxsdl.h"
 #include "command.h"
@@ -37,21 +32,20 @@ using std::sort;
 
 #include "browser.h"
 
-#define levsfolder "levels/"
+#define themesfolder "res/"
 //#define levsfolder "levels/kye/charity/"
 
+using options::SkinInformation;
 
-namespace LevelBrowser
+namespace SkinBrowser
 {
 
-void PlayLevel();
-void OpenEditor();
-void EditLevel();
+
+    
 
 
 window* thewindow;
-button* PlayButton;
-button* EditButton;
+button* SetButton;
 
 Font* MenuFont;
 Font* MenuSelectedFont;
@@ -63,9 +57,7 @@ string CurrentFileName;
 int    CurrentFileLevelN=1;
 bool runeditor;
 bool editfile;
-string FileDesc;
-string FileTitle;
-string FileAuthor;
+SkinInformation SkinData;
 unsigned int FileLevelsN;
 
 string* FoundFile=NULL;
@@ -76,7 +68,6 @@ string* FoundFile=NULL;
 unsigned int FileN=0;
 int Active;
 bool ActiveIsValid;
-bool ActiveIsEditable;
 
 void LoadActiveFileInfo();
 
@@ -107,11 +98,11 @@ return tm;
 
 }
 
-class LevelList: public control
+class SkinList: public control
 {
 public:
 
-    LevelList(int sx, int sy, int sw, int sh)
+    SkinList(int sx, int sy, int sw, int sh)
     {
         x=sx, y=sy, w=sw, h=sh;
         
@@ -200,7 +191,7 @@ public:
         {
             if (Active==j)
             {
-                PlayLevel();
+                //PlayLevel();
                 return;
             }
             Active=j;
@@ -212,11 +203,11 @@ public:
     void onMouseRightUp(int px,int py) {}
 };
 
-class LevelInfo: public control
+class SkinInfoControl: public control
 {
 public:
 
-    LevelInfo(int sx, int sy, int sw, int sh)
+    SkinInfoControl(int sx, int sy, int sw, int sh)
     {
         x=sx, y=sy, w=sw, h=sh;
         
@@ -247,16 +238,17 @@ public:
 
         cx+=5;
         Sint16 nw = cx+InfoFont->TextWidth("        ");;
-
-        InfoBoldFont->Write(target,cx,cy,"Title:");
-        cy+=fh;
-        InfoFont->Write(target,nw,cy, FileTitle);
-        cy+=fh;
-        if (FileAuthor[0]!='\0')
+        if(SkinData.title != "") {
+            InfoBoldFont->Write(target,cx,cy,"Title:");
+            cy+=fh;
+            InfoFont->Write(target,nw,cy, SkinData.title);
+            cy+=fh;
+        }
+        if (SkinData.author != "")
         {
             InfoBoldFont->Write(target,cx,cy,"Author:");
             cy+=fh;
-            InfoFont->Write(target,nw,cy, FileAuthor);
+            InfoFont->Write(target,nw,cy, SkinData.author);
             cy+=fh;
         }
 
@@ -281,30 +273,22 @@ public:
 
 
 
-
-        InfoBoldFont->Write(target,cx,cy,"Description:");
-        cy+=fh;
-        string tm=" "+FileDesc;
-        InfoFont->WriteWrap(target,nw,cy,x+w - nw-5,y+h-cy, tm);
-
-     /*
-        if(ActiveIsValid) InfoFont->Write(game::screen,cx,sh-3*fh,"[Enter] - Play");
-        if(ActiveIsEditable)
-        {
-            int temwa=InfoFont->TextWidth("[Enter] - Play");
-            int temwb=InfoFont->TextWidth("[F1] - Editor");
-            int temw;
-            InfoFont->Write(game::screen,cx,sh-2*fh,"[F1] - Editor");
-            if(temwa>temwb) temw=temwa;
-            else temw=temwb;
-            
-            InfoFont->Write(game::screen,cx+temw+10,sh-2*fh,"[F2] - Edit level");
+        if(SkinData.description != "") {
+            InfoBoldFont->Write(target,cx,cy,"Description:");
+            cy+=fh;
+            string tm=" "+SkinData.description;
+            InfoFont->WriteWrap(target,nw,cy,x+w - nw-5,y+h-cy, tm);
+            cy+=fh;
         }
-        else
-        {
-            InfoFont->Write(game::screen,cx,sh-2*fh,"[F1] - Editor");
+        
+        if(SkinData.preview != NULL) {
+            InfoBoldFont->Write(target,cx,cy,"Preview:");
+            cy+=fh;
+            SDL_BlitSurface(SkinData.preview,0,0,SkinData.pw,SkinData.ph,
+                                    target,cx,cy);
+            cy+=SkinData.ph;
+
         }
-        **/
 
 
 
@@ -320,10 +304,9 @@ public:
 };
 
 
-bool Akyexyelevel(const char* f)
+bool Axyeskin(const char* f)
 {
-    return (HasExtension(f,"slc") || HasExtension(f,"xsb") || HasExtension(f,"kye") || HasExtension(f,"KYE") || HasExtension(f,"xye") || HasExtension(f,"xyr") );
-    // the standard forces xye extension to be lower case.
+    return HasExtension(f,"xml");
 }
 
 char* getHomeDir()
@@ -333,7 +316,7 @@ char* getHomeDir()
     if (f)
     {
         tm=f;
-        tm+="/.xye/levels/";       
+        tm+="/.xye/res/";       
     }
     char * fm = new char[tm.length()+1];
     strcpy(fm, tm.c_str());
@@ -349,10 +332,10 @@ unsigned int CountMatchingFiles(const char* nf)
     const char* N;
     if (! F.Open())
     {
-        printf ("No levels found on %s \n",nf);
+        printf ("No skins found on %s \n",nf);
         return 0;
     }
-    while (N=F.NextFileMatching(Akyexyelevel)) if (strlen(N)<=20) c++;
+    while (N=F.NextFileMatching(Axyeskin)) if (strlen(N)<=20) c++;
     F.Reset();
     while (N=F.NextSubFolder())
     {
@@ -369,7 +352,7 @@ unsigned int CountMatchingFiles(const char* nf)
 
 unsigned int CountMatchingFiles()
 {
-    char* nf=options::fixpath(levsfolder);
+    char* nf=options::fixpath(themesfolder);
     char *hm=getHomeDir();
     unsigned int c;
 
@@ -390,7 +373,7 @@ void FillArrayWithFilenames(const char* nf, const char* lvp, unsigned int &c)
     unsigned int L;
     Folder F(nf);
     if (! F.Open()) return;
-    while ((c<FileN) && (N=F.NextFileMatching(Akyexyelevel)))
+    while ((c<FileN) && (N=F.NextFileMatching(Axyeskin)))
     {
         L=strlen(N);
 
@@ -470,7 +453,7 @@ struct LevelSorting
 void FillArrayWithFilenames()
 {
 
-    char* nf=options::fixpath(levsfolder);
+    char* nf=options::fixpath(themesfolder);
     Folder F(nf);
 
     if (! F.Open()) game::Error("cannot find a levels folder");
@@ -480,7 +463,7 @@ void FillArrayWithFilenames()
     unsigned int L;
     string aux;
 
-    while ((c<FileN) && (N=F.NextFileMatching(Akyexyelevel)))
+    while ((c<FileN) && (N=F.NextFileMatching(Axyeskin)))
     {
         L=strlen(N);
         if (L<=20)
@@ -510,7 +493,7 @@ void FillArrayWithFilenames()
 
     char * levelsfolder = nf;
 
-    //Add levels on %home%/.xye/levels
+    //Add levels on %home%/.xye/res
     nf=getHomeDir();
     if ((strlen(nf)!=0) && c) FillArrayWithFilenames(nf,nf,c);
     delete[] nf;
@@ -533,75 +516,17 @@ void FillArrayWithFilenames()
 void LoadActiveFileInfo()
 {
     string &fl=FoundFile[Active];
-    
-    ActiveIsValid= LevelPack::GetFileData(fl.c_str(),FileAuthor,FileDesc,FileTitle,FileLevelsN);
-    
-    
-    ActiveIsEditable= ActiveIsValid && (fl.substr(0,editor::myLevelsPath.size()) == editor::myLevelsPath);
-    ActiveIsEditable= ActiveIsEditable && (fl.substr(fl.length()-4)==".xye");
+    SkinData.pw = 100;
+    SkinData.ph = 100;
+    ActiveIsValid= options::GetSkinInformation(fl.c_str(),SkinData);
     
     
-    PlayButton->Visible = ActiveIsValid;
-    EditButton->Visible = ActiveIsEditable;
+    SetButton->Visible = ActiveIsValid;
     
     
 }
-
-void EditFile()
-{
-    CurrentFileName = FoundFile[Active];
-    editor::SetFile(editor::myLevelsPath,CurrentFileName.substr(editor::myLevelsPath.size() ) );
-    thewindow->SetTransition(editor::StartSection);
-/*        string commandline=options::ExecutablePath;
-        commandline+=" --edit ";
-        commandline+=CurrentFileName.substr(editor::myLevelsPath.size() );
-        commandline+=" ";
-        commandline+=options::Dir;
-        
-
-        Command::executeParallel(commandline);
-        
-        
-        CurrentFileName="";
-        thewindow->stop();*/
-}
-
-void OpenEditor()
-{
-    CurrentFileName = editor::myLevelsPath+"editortest.xye";
-    editor::SetFile(editor::myLevelsPath,"editortest.xye");
-    thewindow->SetTransition(editor::StartSection);
-/*        string commandline=options::ExecutablePath;
-        commandline+=" --edit editortest.xye ";
-        commandline+=options::Dir;
-
-        Command::executeParallel(commandline);
-
-        CurrentFileName = "";
-        thewindow->stop();*/
-}
-
-void PlayLevel()
-{
-    if(!ActiveIsValid) return;
-    CurrentFileName = FoundFile[Active];
-    CurrentFileLevelN = 1;
-    game::PlayLevel(CurrentFileName.c_str(), CurrentFileLevelN);
-    
-    
-}
-
 void onKeyDown(SDLKey keysim, Uint16 unicode)
 {
-}
-
-
-void attemptEditFile()
-{
-    if(ActiveIsEditable)
-    {
-        EditFile();
-    }
 }
 
 bool IsCharKeyEvent(SDLKey& k,char & a,char &b)
@@ -618,9 +543,13 @@ bool IsCharKeyEvent(SDLKey& k,char & a,char &b)
     return (a!='\0');
 }
 
-void OnSkinButtonClick(const buttondata* data)
+
+void OnSetButtonClick(const buttondata* data)
 {
-    thewindow->SetTransition(SkinBrowser::StartSection);
+}
+void OnCancelButtonClick(const buttondata* data)
+{
+    thewindow->SetTransition(LevelBrowser::StartSection);
 }
 
 void onKeyUp(SDLKey keysim, Uint16 unicode)
@@ -682,20 +611,8 @@ void onKeyUp(SDLKey keysim, Uint16 unicode)
             LoadActiveFileInfo();
             break;
 
-        case(SDLK_F1):
-             OpenEditor();
-             //return false;
-             break;
         case(SDLK_ESCAPE):
-             thewindow->Close();
-             break;
-
-        case(SDLK_F2):
-             attemptEditFile();
-             break;
-
-        case(SDLK_F3):
-             OnSkinButtonClick(NULL);
+             OnCancelButtonClick(NULL);
              break;
 
         case(SDLK_LEFT):
@@ -703,30 +620,10 @@ void onKeyUp(SDLKey keysim, Uint16 unicode)
         case(SDLK_RIGHT):
             break;
         case(SDLK_RETURN): case(SDLK_KP_ENTER): //Enter
-            PlayLevel();
+            OnSetButtonClick(NULL);
     }
 
 }
-
-void OnPlayButtonClick(const buttondata* data)
-{
-    PlayLevel();
-}
-void OnEditorButtonClick(const buttondata* data)
-{
-    OpenEditor();
-}
-void OnEditButtonClick(const buttondata* data)
-{
-    attemptEditFile();
-}
-
-
-void OnQuitButtonClick(const buttondata* data)
-{
-    thewindow->Close();
-}
-
 
 
 void Show()
@@ -762,63 +659,32 @@ void onExitAttempt()
 void StartSection(window* wind)
 {
     thewindow = wind;
-    wind->SetCaption("Xye - Select a level file");
+    wind->SetCaption("Xye - Select a theme");
     Sint16 lw = 2+game::FontRes->TextWidth(SPACING_TEXT);
-    LevelList* ll = new LevelList(0,0, lw , wind->Height);
+    SkinList* ll = new SkinList(0,0, lw , wind->Height);
     ll->depth= 1;
-    LevelInfo* li = new LevelInfo(lw, 0, wind->Width-lw, wind->Height);
+    SkinInfoControl* li = new SkinInfoControl(lw, 0, wind->Width-lw, wind->Height);
     li->depth= 2;
     
     Sint16 w,cx; button* but;
     cx = lw;
 
-    //== Play button
-    w = button::recommendedWidth("Play");
+    //== Use button
+    w = button::recommendedWidth("Use theme");
     but = new button( cx, wind->Height - game::GRIDSIZE, w, game::GRIDSIZE);
-    but->onClick = OnPlayButtonClick;
-    but->text = "Play";
+    but->onClick = OnSetButtonClick;
+    but->text = "Use theme";
     but->depth = 3;
-    PlayButton = but;
-    wind->addControl(but);
-    cx+=w+1;
-    
-    //== Run Editor button
-    w = button::recommendedWidth("[F1] Editor");
-    but = new button( cx, wind->Height - game::GRIDSIZE, w, game::GRIDSIZE);
-    but->text = "[F1] Editor";
-    but->depth = 3;
-    but->onClick = OnEditorButtonClick;
-
+    SetButton = but;
     wind->addControl(but);
     cx+=w+1;
 
-    //== Edit Level
-    w = button::recommendedWidth("[F2] Edit Level");
-    but = new button( cx, wind->Height - game::GRIDSIZE, w, game::GRIDSIZE);
-    but->text = "[F2] Edit Level";
-    but->depth = 3;
-    EditButton = but;
-    but->onClick = OnEditButtonClick;
-    wind->addControl(but);
-    cx+=w+1;
-
-    //== Pick skin
-    w = button::recommendedWidth("[F3] Theme");
-    but = new button( cx, wind->Height - game::GRIDSIZE, w, game::GRIDSIZE);
-    but->text = "[F3] Theme";
-    but->depth = 3;
-    but->onClick = OnSkinButtonClick;
-    wind->addControl(but);
-    cx+=w+1;
-    
-    
-    
     //== Quit
-    w = button::recommendedWidth("Quit");
+    w = button::recommendedWidth("Cancel");
     but = new button( wind->Width-1-w, wind->Height - game::GRIDSIZE, w, game::GRIDSIZE);
-    but->text = "Quit";
+    but->text = "Cancel";
     but->depth = 3;
-    but->onClick = OnQuitButtonClick;
+    but->onClick = OnCancelButtonClick;
     wind->addControl(but);
     
     //...    
@@ -834,13 +700,6 @@ void StartSection(window* wind)
     
     return;
 }
-
-const char* GetLevelFile()
-{
-    return CurrentFileName.c_str();
-}
-
-
 
 void SetupNormalFonts(SDL_Surface* SS)
 {
@@ -878,14 +737,10 @@ void DeleteFonts()
 
 void Clean()
 {
+    if(SkinData.preview != NULL) {
+        SDL_FreeSurface(SkinData.preview);
+    }
     DeleteFonts();
-    if(FoundFile != NULL) delete[] FoundFile;
-}
-
-void AssignLevelFile( const char * path, int n)
-{
-    CurrentFileName = path;
-    CurrentFileLevelN = n;
 }
 
 

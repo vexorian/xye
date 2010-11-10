@@ -25,7 +25,7 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include "record.h"
 #include "dialogs.h"
 #include "xyedit.h"
-
+#include "skins.h"
 
 
 #define sz game::GRIDSIZE //typing game::GRIDSIZE is an annoyance
@@ -339,6 +339,7 @@ int game::Init(const char* levelfile)
         FontRes_White=new Font(options::GetFontFile(),options::GetFontSize(), 255,255,255);
 
         LevelBrowser::SetupNormalFonts(options::GetFontFile(),options::GetFontSize() );
+        SkinBrowser::SetupNormalFonts(options::GetFontFile(),options::GetFontSize() );
     }
     else //do the giberish
     {
@@ -349,6 +350,7 @@ int game::Init(const char* levelfile)
         FontRes_White= new Font(SS,255,255,255);
 
         LevelBrowser::SetupNormalFonts(SS);
+        SkinBrowser::SetupNormalFonts(SS);
 
         SDL_FreeSurface(SS);
     }
@@ -356,6 +358,7 @@ int game::Init(const char* levelfile)
     {
         FontRes_Bold=new Font(options::GetFontBoldFile(),options::GetFontBoldSize(), 0,0,0);
         LevelBrowser::SetupBoldFonts(options::GetFontBoldFile(),options::GetFontBoldSize());
+        SkinBrowser::SetupBoldFonts(options::GetFontBoldFile(),options::GetFontBoldSize());
     }
     else
     {
@@ -366,6 +369,7 @@ int game::Init(const char* levelfile)
 
 
         LevelBrowser::SetupBoldFonts(SS);
+        SkinBrowser::SetupBoldFonts(SS);
 
         SDL_FreeSurface(SS);
     }
@@ -443,6 +447,7 @@ int game::Init(const char* levelfile)
     delete FontRes_Bold;
 
     LevelBrowser::Clean();
+    SkinBrowser::Clean();
 
     printf("cleaning recolor cache\n");
     RecolorCache::clean();
