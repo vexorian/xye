@@ -228,6 +228,7 @@ void game::InitGraphics()
     printf("Loading %s\n",tm);
     sprites.sprites=IMG_Load(tm);
     {
+        sprites.luminosity = NULL;
         tm = options::GetLuminositySpriteFile();
         if(tm!=NULL)
         {
