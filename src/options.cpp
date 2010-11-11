@@ -31,6 +31,7 @@ namespace options
 struct parsedSkinFile;
 void LoadColors(parsedSkinFile & ps);
 void LoadLevelFile();
+void LoadSkinFile(const char* file);
 
 // Public variables:
     bool  xyeDirectionSprites;
@@ -55,7 +56,7 @@ void LoadLevelFile();
 
 
 const int MAX_FILENAMES_TO_REMEMBER = 100;
-
+string currentSkinFile;
 
 
 
@@ -613,7 +614,7 @@ void Init()
          delete [] ttt;
     }
 
-    ChangeSkinFile(skin);
+    LoadSkinFile(skin);
     delete[] skin;
 
 
@@ -840,6 +841,37 @@ void PerformLevelFileSave()
     file.close();
 }
 
+string RemovePath( const string in)
+{
+    int i=in.length()-1;
+    while( i>=0 && (in[i]!='/') && (in[i]!='\\') ) {
+        i--;
+    }
+    return in.substr(i+1);
+}
+
+
+void SaveConfigFile()
+{
+    std::ofstream file;
+    string path = GetHomeFolder()+"xyeconf.xml";
+    file.open (path.c_str(),std::ios::trunc | std::ios::out );
+    if (!file.is_open()) return ; //ouch just halt.
+    file<<"<?xml version='1.0' encoding='ISO-8859-1'?>"<<endl;
+    file<<"<!--xye config file-->"<<endl;
+    file<<"<options levelfile='#browse#' ";
+    file<<"skinfile='"<<RemovePath(currentSkinFile)<<"' ";
+    file<<"red='"<<(int)Red()<<"' green='"<<(int)Green()<<"' blue='"<<(int)Blue()<<"' ";
+    if(UndoEnabled()) {
+        file<<"undo='YES' ";
+    }
+    
+    file<<"/>"<<endl;
+
+    file.close();
+
+}
+
 
 void LoadLevelFile()
 {
@@ -1009,11 +1041,11 @@ bool GetSkinInformation(const char* file, SkinInformation & si)
     return true;
 }
 
-void ChangeSkinFile(const char* file)
-{
+void LoadSkinFile(const char* file) {
     parsedSkinFile ps;
     string tms = parseSkinFile(file, ps);
     if(tms=="") {
+        currentSkinFile = file;
         LoadColors(ps);
         Texture = new char[ps.sprites.length()+1];
         strcpy(Texture, ps.sprites.c_str());
@@ -1030,10 +1062,17 @@ void ChangeSkinFile(const char* file)
         FontBold = new char[ps.boldFont.length()+1];
         strcpy(FontBold, ps.boldFont.c_str());
         GridSize = ps.gridSize;
-        game::RefreshGraphics();
     } else {
         printf("%s",(tms+"\n").c_str());
     }
+}
+
+
+void ChangeSkinFile(const char* file)
+{
+    LoadSkinFile(file);
+    game::RefreshGraphics();
+    options::SaveConfigFile();
 }
 
 }
