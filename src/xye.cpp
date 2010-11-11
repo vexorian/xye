@@ -210,25 +210,8 @@ class gamepanel : public control
 // Class game methods.
 //
 
-//Setups the game, initialize variable and that stuff
-int game::Init(const char* levelfile)
+void game::InitGraphics()
 {
-    printf("loading options...\n");
-    options::Init();
-    printf("initializing recorder...\n");
-    recording::init();
-    printf("initializing recycler...\n");
-    recycle::init();
-
-    printf("initializing level support...\n");
-    LevelPack::Init();
-
-
-    char i,j;
-    int ix,iy;
-    FastForward=false;
-    started=false;
-    
     xye::useDirectionSprites = options::xyeDirectionSprites;
 
     PlayerColor.r=options::Red();
@@ -238,30 +221,6 @@ int game::Init(const char* levelfile)
 
      GRIDSIZE=options::GetGridSize();
      SKIN=options::GetSpriteFile();
-
-
-
-    Randomize();
-
-    //Init SDL;
-    printf("Initializing SDL...\n");
-    if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER)<0)
-    {
-        fprintf(stderr, "Unable to init SDL: %s\n", SDL_GetError());
-        return(0);
-    }
-
-    #ifndef NOTRUETYPE
-        printf("Initializing SDL_ttf\n");
-        TTF_Init();
-    #endif
-
-
-
-    printf("Initializing Recolor Table...\n");
-    Init_RecolorTable();
-
-
 
 
 
@@ -281,7 +240,7 @@ int game::Init(const char* levelfile)
     //Init cache
     printf("Initializing Recolor cache...\n");
     RecolorCache::restart(sprites.sprites);
-    for (i=0;i<4;i++)
+    for (int i=0;i<4;i++)
     {
         RecolorCache::savecolor(&options::BFColor[i]);
         RecolorCache::savecolor(&options::BKColor[i]);
@@ -290,47 +249,7 @@ int game::Init(const char* levelfile)
         RecolorCache::savecolor(&options::WallColor[i]);
 
     RecolorCache::savecolor(&PlayerColor);
-
-    
-    if (!window::InitSDL()) return 0;
-    printf("Setting video mode...\n");
-    GameWidth=XYE_HORZ*GRIDSIZE+XYE_GAMEX+XYE_XTRA_X;
-    GameHeight=XYE_VERT*GRIDSIZE+XYE_GAMEY+2*XYE_XTRA_Y+ GRIDSIZE+2+1+GRIDSIZE;
-    gamewindow=window::create(GameWidth, GameHeight   ,"Xye");
-    screen= gamewindow->getDrawingSurface();
-
-
-    //<window icon> "Ahh, the horror!"
-    printf("Initializing window icon...\n");
-    SDL_Surface* icon=SDL_CreateRGBSurface(0,32,32,32,SDL_ENDIAN32MASKS);
-
-    //D.Draw(sprites,4,4);
-    //sz=48;
-    if (sz>32)
-    {
-        SDL_FillRect(icon, 0,0,32,32, SDL_MapRGB(icon->format,0,0,0 ) );
-        SDL_FillRect(icon, 2,2,28,28, SDL_MapRGB(icon->format,options::Red(),options::Green(),options::Blue()) );
-    }
-    else
-    {
-        DaVinci D(sprites,0,0,sz,sz);
-        D.SetColors(PlayerColor,255);
-        Uint32          colorkey=SDL_MapRGB(icon->format,255,0,255);
-        SDL_FillRect(icon, 0, colorkey );
-        SDL_SetColorKey(icon, SDL_SRCCOLORKEY, colorkey);
-
-        D.Draw(icon,(unsigned int)((32-sz)/2),(unsigned int)((32-sz)/2));
-    }
-    SDL_WM_SetIcon(icon,NULL)    ;
-    
-    SDL_FreeSurface(icon);
-    //</window icon>
-
-    //SDL_ShowCursor(SDL_DISABLE);
-    DK_PRESSED=DK_UP_PRESSED=DK_DOWN_PRESSED=DK_LEFT_PRESSED=DK_RIGHT_PRESSED=DK_GO=false;
-    DK_PRESSED_FIRST=0;
-    DK_DIR=D_DOWN;
-
+     
     SDL_Color c;
     SDL_Surface* SS;
     if(options::GetFontSize()) //if not 0 then we want a truetypefont.
@@ -388,6 +307,102 @@ int game::Init(const char* levelfile)
     editor::FontRes = game::FontRes;
     editor::sprites = game::sprites;
     editor::GRIDSIZE = game::GRIDSIZE;
+
+    GameWidth=XYE_HORZ*GRIDSIZE+XYE_GAMEX+XYE_XTRA_X;
+    GameHeight=XYE_VERT*GRIDSIZE+XYE_GAMEY+2*XYE_XTRA_Y+ GRIDSIZE+2+1+GRIDSIZE;
+ 
+}
+
+void game::RefreshGraphics()
+{
+    game::InitGraphics();
+    if(gamewindow != NULL) {
+        gamewindow->Resize(GameWidth, GameHeight);
+    }
+}
+
+//Setups the game, initialize variable and that stuff
+int game::Init(const char* levelfile)
+{
+    gamewindow = NULL;
+    printf("loading options...\n");
+    options::Init();
+    printf("initializing recorder...\n");
+    recording::init();
+    printf("initializing recycler...\n");
+    recycle::init();
+
+    printf("initializing level support...\n");
+    LevelPack::Init();
+
+
+    char i,j;
+    int ix,iy;
+    FastForward=false;
+    started=false;
+    
+    Randomize();
+
+    //Init SDL;
+    printf("Initializing SDL...\n");
+    if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER)<0)
+    {
+        fprintf(stderr, "Unable to init SDL: %s\n", SDL_GetError());
+        return(0);
+    }
+
+    #ifndef NOTRUETYPE
+        printf("Initializing SDL_ttf\n");
+        TTF_Init();
+    #endif
+
+
+
+    printf("Initializing Recolor Table...\n");
+    Init_RecolorTable();
+
+
+
+    game::InitGraphics();
+    
+    if (!window::InitSDL()) return 0;
+    printf("Setting video mode...\n");
+    gamewindow=window::create(GameWidth, GameHeight   ,"Xye");
+    screen= gamewindow->getDrawingSurface();
+     
+    
+
+    //<window icon> "Ahh, the horror!"
+    printf("Initializing window icon...\n");
+    SDL_Surface* icon=SDL_CreateRGBSurface(0,32,32,32,SDL_ENDIAN32MASKS);
+
+    //D.Draw(sprites,4,4);
+    //sz=48;
+    if (sz>32)
+    {
+        SDL_FillRect(icon, 0,0,32,32, SDL_MapRGB(icon->format,0,0,0 ) );
+        SDL_FillRect(icon, 2,2,28,28, SDL_MapRGB(icon->format,options::Red(),options::Green(),options::Blue()) );
+    }
+    else
+    {
+        DaVinci D(sprites,0,0,sz,sz);
+        D.SetColors(PlayerColor,255);
+        Uint32          colorkey=SDL_MapRGB(icon->format,255,0,255);
+        SDL_FillRect(icon, 0, colorkey );
+        SDL_SetColorKey(icon, SDL_SRCCOLORKEY, colorkey);
+
+        D.Draw(icon,(unsigned int)((32-sz)/2),(unsigned int)((32-sz)/2));
+    }
+    SDL_WM_SetIcon(icon,NULL)    ;
+    
+    SDL_FreeSurface(icon);
+    //</window icon>
+
+    //SDL_ShowCursor(SDL_DISABLE);
+    DK_PRESSED=DK_UP_PRESSED=DK_DOWN_PRESSED=DK_LEFT_PRESSED=DK_RIGHT_PRESSED=DK_GO=false;
+    DK_PRESSED_FIRST=0;
+    DK_DIR=D_DOWN;
+
 
 
     const char* r=options::GetLevelFile();

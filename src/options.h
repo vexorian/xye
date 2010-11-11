@@ -69,7 +69,8 @@ namespace options {
     
     extern string ExecutablePath;
     
-    bool GetSkinInformation(const char* file, SkinInformation & si); 
+    bool GetSkinInformation(const char* file, SkinInformation & si);
+    void ChangeSkinFile(const char* file);
 }
 
 #endif
