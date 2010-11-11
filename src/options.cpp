@@ -16,7 +16,7 @@ Permission is granted to anyone to use this software for any purpose, including 
 */
 #include "options.h"
 #include "gen.h"
-
+#include "xye.h"
 
 #include<iostream>
 #include<fstream>
@@ -613,30 +613,8 @@ void Init()
          delete [] ttt;
     }
 
-    TiXmlDocument skinxml(skin);
-    parsedSkinFile ps;
-    string tms = parseSkinFile(skin, ps);
+    ChangeSkinFile(skin);
     delete[] skin;
-    if(tms=="") {
-        LoadColors(ps);
-        Texture = new char[ps.sprites.length()+1];
-        strcpy(Texture, ps.sprites.c_str());
-        if(ps.lum == "") {
-            LuminosityTexture = NULL;
-        } else {
-            LuminosityTexture = new char[ps.lum.length()+1];
-            strcpy(LuminosityTexture, ps.lum.c_str());
-        }
-        FontBoldSize = FontSize = ps.ttfSize;
-        xyeDirectionSprites = ps.directionSprites;
-        Font = new char[ps.font.length()+1];
-        strcpy(Font, ps.font.c_str());
-        FontBold = new char[ps.boldFont.length()+1];
-        strcpy(FontBold, ps.boldFont.c_str());
-        GridSize = ps.gridSize;
-    } else {
-        printf("%s",(tms+"\n").c_str());
-    }
 
 
 //fix the paths of all the options that are file locations:
@@ -1029,6 +1007,33 @@ bool GetSkinInformation(const char* file, SkinInformation & si)
     //Make preview...
     si.preview= makeSkinPreview(ps, si.pw, si.ph);
     return true;
+}
+
+void ChangeSkinFile(const char* file)
+{
+    parsedSkinFile ps;
+    string tms = parseSkinFile(file, ps);
+    if(tms=="") {
+        LoadColors(ps);
+        Texture = new char[ps.sprites.length()+1];
+        strcpy(Texture, ps.sprites.c_str());
+        if(ps.lum == "") {
+            LuminosityTexture = NULL;
+        } else {
+            LuminosityTexture = new char[ps.lum.length()+1];
+            strcpy(LuminosityTexture, ps.lum.c_str());
+        }
+        FontBoldSize = FontSize = ps.ttfSize;
+        xyeDirectionSprites = ps.directionSprites;
+        Font = new char[ps.font.length()+1];
+        strcpy(Font, ps.font.c_str());
+        FontBold = new char[ps.boldFont.length()+1];
+        strcpy(FontBold, ps.boldFont.c_str());
+        GridSize = ps.gridSize;
+        game::RefreshGraphics();
+    } else {
+        printf("%s",(tms+"\n").c_str());
+    }
 }
 
 }
