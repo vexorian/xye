@@ -314,8 +314,26 @@ void game::InitGraphics()
  
 }
 
+void game::CleanGraphics()
+{
+    delete FontRes ;
+    delete FontRes_White ;
+    delete FontRes_Bold;
+
+    printf("cleaning recolor cache\n");
+    RecolorCache::clean();
+
+    printf("cleaning sprites\n");
+    SDL_FreeSurface(sprites.sprites);
+    if(sprites.luminosity==NULL) {
+        SDL_FreeSurface(sprites.luminosity);
+    }
+
+}
+
 void game::RefreshGraphics()
 {
+    CleanGraphics();
     game::InitGraphics();
     if(gamewindow != NULL) {
         gamewindow->Resize(GameWidth, GameHeight);
@@ -458,22 +476,15 @@ int game::Init(const char* levelfile)
 
     printf("cleaning fonts\n");
     //Delete things that have to be deleted
-    delete FontRes ;
-    delete FontRes_White ;
-    delete FontRes_Bold;
+    game::CleanGraphics();
 
     LevelBrowser::Clean();
     SkinBrowser::Clean();
 
-    printf("cleaning recolor cache\n");
-    RecolorCache::clean();
 
     printf("cleaning remaining objects\n");
     recycle::run();
 
-
-    printf("cleaning sprites\n");
-    SDL_FreeSurface(sprites.sprites);
 
     #ifndef NOTRUETYPE
         printf("Shutting down SDL_ttf\n");

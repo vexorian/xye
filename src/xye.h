@@ -1423,6 +1423,7 @@ class game
     static void onMouseDown(int x,int y);
     static void onMouseUp(int x,int y);
     static void InitGraphics();
+    static void CleanGraphics();
     
  public:
     static void RefreshGraphics();
