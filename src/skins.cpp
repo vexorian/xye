@@ -545,6 +545,10 @@ bool IsCharKeyEvent(SDLKey& k,char & a,char &b)
 
 void OnSetButtonClick(const buttondata* data)
 {
+    if(ActiveIsValid) {
+        options::ChangeSkinFile(FoundFile[Active].c_str());
+        thewindow->SetTransition(LevelBrowser::StartSection);
+    }
 }
 void OnCancelButtonClick(const buttondata* data)
 {

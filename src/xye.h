@@ -1422,10 +1422,11 @@ class game
     static void onMouseOut();
     static void onMouseDown(int x,int y);
     static void onMouseUp(int x,int y);
+    static void InitGraphics();
     
-
  public:
- 
+    static void RefreshGraphics();
+    
     static void PlayLevel( const char* levelfile, int level);
     static void TestLevel( const char* levelfile, int level, bool playsolution=true);
  
