@@ -841,14 +841,6 @@ void PerformLevelFileSave()
     file.close();
 }
 
-string RemovePath( const string in)
-{
-    int i=in.length()-1;
-    while( i>=0 && (in[i]!='/') && (in[i]!='\\') ) {
-        i--;
-    }
-    return in.substr(i+1);
-}
 
 
 void SaveConfigFile()
@@ -860,7 +852,7 @@ void SaveConfigFile()
     file<<"<?xml version='1.0' encoding='ISO-8859-1'?>"<<endl;
     file<<"<!--xye config file-->"<<endl;
     file<<"<options levelfile='#browse#' ";
-    file<<"skinfile='"<<RemovePath(currentSkinFile)<<"' ";
+    file<<"skinfile='"<<StripPath(currentSkinFile)<<"' ";
     file<<"red='"<<(int)Red()<<"' green='"<<(int)Green()<<"' blue='"<<(int)Blue()<<"' ";
     if(UndoEnabled()) {
         file<<"undo='YES' ";

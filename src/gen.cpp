@@ -127,6 +127,14 @@ std::string GetFileNameNoExtension( const char* filename )
     return name;
 }
 
+std::string StripPath( const std::string in)
+{
+    int i=in.length()-1;
+    while( i>=0 && (in[i]!='/') && (in[i]!='\\') ) {
+        i--;
+    }
+    return in.substr(i+1);
+}
 
 
 

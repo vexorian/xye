@@ -73,30 +73,6 @@ void LoadActiveFileInfo();
 #define SPACING_TEXT "                             "
 
 
-char* RemovePath(string *in)
-{
-    string &v=*in;
-    unsigned int L=v.length();
-    signed int i=L-1;
-
-    while ((i>=0) && (v[i]!='/'))
-        i--;
-
-    // 0  1  2  3  4  5  6
-    //[a][/][a][.][x][y][e]
-
-
-    char* tm=new char[L-i];
-    unsigned int j=0;
-    i++;
-    while (i<L)
-        tm[j++]=v[i++];
-    tm[j]='\0';
-return tm;
-
-
-}
-
 class SkinList: public control
 {
 public:
@@ -140,7 +116,7 @@ public:
         nw=w-2;
         while ((i<FileN) && (cy<sh))
         {
-            char * tm=RemovePath( FoundFile+i  );
+            string tm=StripPath( FoundFile[i] );
             if (Active==i)
             {
 
@@ -153,7 +129,6 @@ public:
             }
             else
                 MenuFont->Write(target,fp,cy+fof, tm);
-            delete[] tm;
             i++;
             cy+=fh;
         }
@@ -563,21 +538,17 @@ void onKeyUp(SDLKey keysim, Uint16 unicode)
     {
         int l=Active;
         int i=Active+1;
-        char * fn;
+        string fn;
         while (i!=Active)
         {
             if (i==FileN) i=0;
-            if ((fn= RemovePath(FoundFile+i) ) && (strlen(fn)>0) && ((fn[0]==a) || (fn[0]==b)) )
+            fn = StripPath(FoundFile[i]);
+            if ( (fn.length()!=0) && ((fn[0]==a) || (fn[0]==b)) )
             {
                 Active=i;
             }
             else
                 i++;
-            if(fn)
-            {
-                delete[] fn;
-                fn=NULL;
-            }
 
         }
         LoadActiveFileInfo();
