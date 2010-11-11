@@ -641,6 +641,7 @@ void button::onMouseUp(int px,int py)
     if(ToggleButton) return;
     if(onRelease!=NULL) onRelease(data);
     if(onClick && click && Visible) onClick(data);
+    click = false;
 }
 
 void button::flash()
