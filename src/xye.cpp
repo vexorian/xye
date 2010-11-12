@@ -748,7 +748,7 @@ void game::onKeyDown(SDLKey keysim, Uint16 unicode)
                         GoNextCommand();
                         break;
 
-                    case(SDLK_MINUS): case(SDLK_KP_MINUS): case(SDLK_b): //Minus - b
+                    case(SDLK_MINUS): case(SDLK_KP_MINUS): case(SDLK_b): case(SDLK_p): //Minus - b - p
                         GoPreviousCommand();
                         break;
 
