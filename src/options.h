@@ -71,6 +71,8 @@ namespace options {
     
     bool GetSkinInformation(const char* file, SkinInformation & si);
     void ChangeSkinFile(const char* file);
+    
+    string GetSkinFile();
 }
 
 #endif
