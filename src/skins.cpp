@@ -586,6 +586,7 @@ void onKeyUp(SDLKey keysim, Uint16 unicode)
             break;
 
         case(SDLK_ESCAPE):
+        case(SDLK_BACKSPACE):
              OnCancelButtonClick(NULL);
              break;
 
