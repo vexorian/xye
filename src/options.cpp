@@ -843,6 +843,10 @@ void PerformLevelFileSave()
 
 
 
+string GetSkinFile()
+{
+    return StripPath(currentSkinFile);
+}
 void SaveConfigFile()
 {
     std::ofstream file;
@@ -852,7 +856,7 @@ void SaveConfigFile()
     file<<"<?xml version='1.0' encoding='ISO-8859-1'?>"<<endl;
     file<<"<!--xye config file-->"<<endl;
     file<<"<options levelfile='#browse#' ";
-    file<<"skinfile='"<<StripPath(currentSkinFile)<<"' ";
+    file<<"skinfile='"<<GetSkinFile()<<"' ";
     file<<"red='"<<(int)Red()<<"' green='"<<(int)Green()<<"' blue='"<<(int)Blue()<<"' ";
     if(UndoEnabled()) {
         file<<"undo='YES' ";
