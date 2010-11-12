@@ -154,6 +154,10 @@
 <beast x='16' y='8' kind='6' dir="DOWN" />
 <beast y='17' kind='6' dir="DOWN" />
 
+<wall x='1' x2='8' y='1' y2='7' />
+<wall x='19' x2='29' y='0' y2='11' />
+<wall x='28' x2='29' y='12' y2='19' />
+<wall x='19' x2='27' y='18' y2='19' />
 
 </objects>
 <xye x="14" y="17" lives='1' />
@@ -565,6 +569,7 @@
 <wall x="15" y="17" />
 <wall x="15" y="19" />
 <wall x="16" y="0" />
+
 <earth x="16" y="1" />
 <wall x="16" y="7" />
 <wall x="16" y="12" />
