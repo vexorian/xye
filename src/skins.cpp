@@ -52,8 +52,6 @@ Font* InfoFont;
 Font* InfoBoldFont;
 
 
-string CurrentFileName;
-int    CurrentFileLevelN=1;
 bool runeditor;
 bool editfile;
 SkinInformation SkinData;
@@ -477,8 +475,9 @@ void FillArrayWithFilenames()
     delete[] levelsfolder;
 
     //Finally find the value of res and if someone has it, make sure Active points to it
+    string tm = options::GetSkinFile();
     for (i=0;i<c;i++)
-        if (FoundFile[i]==CurrentFileName)
+        if (StripPath(FoundFile[i])==tm)
         {
             Active=i;
             return;
@@ -620,7 +619,6 @@ void Show()
     bool loop=true;
     
     //
-    //CurrentFileName = FoundFile[Active];
     //delete[] FoundFile;
     //FoundFile=NULL;
 
