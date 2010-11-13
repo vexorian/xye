@@ -7,7 +7,7 @@ bin_PROGRAMS = xye
 xye_LDFLAGS = 
 
 
-docedir = $(docdir)
+docedir = $(datadir)/@PACKAGE@
 doce_DATA = README GAMEINTRO.txt xye.svg NEWS COPYING AUTHORS INSTALL
 
 levelsdir= $(datadir)/@PACKAGE@/levels

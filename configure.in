@@ -2,12 +2,12 @@
 
 # Process this file with autoconf to produce a configure script.
 PROJ_NAME=xye
-PROJ_VERSION=0.9.1
+PROJ_VERSION=0.9.2
 
 
 
 
-AC_INIT(xye,0.9.1,vexorian@gmail.com)
+AC_INIT(xye,0.9.2,vexorian@gmail.com)
 
 # Setup for automake
 AM_INIT_AUTOMAKE
@@ -53,7 +53,7 @@ AC_SUBST(data_path_flag)
 
 
 dnl documentation path
-doc_dir="$prefix/doc"
+doc_dir="$prefix/"
 dnl check if manually overwriting doc path
 AC_ARG_WITH( docdir,
 [  --with-docdir=DPATH       Directory where documentation is saved.],
@@ -90,7 +90,6 @@ AC_SUBST(doc_dir)
 # Finally create all the generated files
 AC_OUTPUT(Makefile src/Makefile)
 
-doc_dir="$prefix/doc"
 
 
 
