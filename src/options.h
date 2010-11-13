@@ -13,6 +13,7 @@ namespace options {
     struct SkinInformation
     {
         int    pw,ph;
+        int    dimx,dimy;
         string title;
         string author;
         string description;

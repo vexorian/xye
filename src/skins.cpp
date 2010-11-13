@@ -261,6 +261,15 @@ public:
             cy+=SkinData.ph;
 
         }
+        
+        {   char buf[100];
+            sprintf(buf," %d x %d", SkinData.dimx, SkinData.dimy);
+            InfoBoldFont->Write(target,cx,cy,"Size:");
+            cy+=fh;
+            InfoFont->WriteWrap(target,nw,cy,x+w - nw-5,y+h-cy, buf);
+            cy+=fh;
+        }
+
 
 
 

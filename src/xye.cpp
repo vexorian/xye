@@ -7826,7 +7826,7 @@ void tdoor::Draw(unsigned int x, unsigned int y)
             ty=11;
     }
 
-    if ((game::counter7==0)) anim=!anim;
+    if ((game::counter8==0)) anim=!anim;
     DaVinci D(game::sprites,tx*sz,ty*sz,sz,sz);
     D.SetColors(R,G,B,255);
     D.Draw(game::screen,x,y);
