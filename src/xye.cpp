@@ -1415,15 +1415,16 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
         if(HintRead>FADETICS)
             HintSurf=NULL;
         else
-            HintSurf =CreateFixedRGBASurface(SDL_SRCALPHA, Aw, Ah-1);
+            HintSurf =CreateFixedRGBASurface(SDL_SRCALPHA, Aw, Ah/*-1*/);
         cx=x;
         cy=y+1; //Ah-HintRead;
+        cy--;
 
-        if(HintRead<=FADETICS)
-              SDL_FillRect(HintSurf, 0,0, Aw, Ah-1, SDL_MapRGB(HintSurf->format, 255, 255, 200));
-        else
-            SDL_FillRect(screen, cx,cy, Aw, Ah-1, SDL_MapRGB(screen->format, 255, 255, 200));
-
+        if(HintRead<=FADETICS) {
+            SDL_FillRect(HintSurf, 0,0, Aw, Ah/*-1*/, SDL_MapRGB(HintSurf->format, 255, 255, 200));
+        } else {
+            SDL_FillRect(screen, cx,cy, Aw, Ah/*-1*/, SDL_MapRGB(screen->format, 255, 255, 200));
+        }
         Uint16 TW=FontRes->TextWidth(hintx.c_str());
 
         if ((cx+TW>Aw) && (HintRead>=MARQUEETICS))
@@ -1435,22 +1436,21 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
 
 
         Uint8 alpha;
-        if(HintRead<=FADETICS)
+        if(HintRead<=FADETICS) {
             alpha=(Uint8)(int)(  (double)(HintRead*HintRead) * 255.0/(FADETICS*FADETICS)   );
-        else alpha=255;
+        } else {
+            alpha=255;
+        }
 
 
         if (HintRead<=FADETICS)
         {
-             SDL_BlitSurface(HintSurf,0,0,Aw,Ah-1, screen, cx,cy,255,255,255,alpha);
+            SDL_BlitSurface(HintSurf,0,0,Aw,Ah/*-1*/, screen, cx,cy,255,255,255,alpha);
             SDL_FreeSurface(HintSurf);
-        }
-
-
-        if(HintRead<=FADETICS)
-             FontRes->Write(screen,3+HintMarquee+x,cy+1+dif,hintx.c_str(), 255,255,255,alpha);
-        else
+            FontRes->Write(screen,3+HintMarquee+x,cy+1+dif,hintx.c_str(), 255,255,255,alpha);
+        } else {
             FontRes->Write(screen,3+HintMarquee+x,cy+1+dif,hintx.c_str());
+        }
 
 
         if (hintactive)
