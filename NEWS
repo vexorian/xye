@@ -1,3 +1,13 @@
+Version 0.9.2
+=============
+- There is now a working GUI to easily change the game's theme.
+- The bottom panel will now show the number of acquired stars while playing a level.
+- Hint button will now only require a single click to begin showing the hint and another click to stop it.
+- The editor can now place wild card blocks above marked areas.
+- Various graphical updates, including polishing of the skins and the addition of two new skins: classic32 (the classic skin now resized to have a 32 pizels cell size) and celan40 (the default skin resized to have a 40 pixels cell size). The new skins should be useful in larger resolutions.
+- Small bug fix regarding snakes sometimes causing graphical glitches when their last segment is killed.
+- New levels: "Choose your own adventure" in the main level list and the xmas level pack.
+
 Version 0.9.1
 =============
 - Game, editor and editor test all execute in the same process.
