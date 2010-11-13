@@ -1034,6 +1034,8 @@ bool GetSkinInformation(const char* file, SkinInformation & si)
     }
     //Make preview...
     si.preview= makeSkinPreview(ps, si.pw, si.ph);
+    si.dimx = ps.gridSize * 30;
+    si.dimy = ps.gridSize * 22;
     return true;
 }
 
