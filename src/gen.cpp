@@ -19,6 +19,8 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include "gen.h"
 #include "vxsdl.h"
 #include<cstdio>
+#include<iostream>
+#include<fstream>
 
 const float F_RAND_MAX = (float)(RAND_MAX);
 
@@ -136,6 +138,25 @@ std::string StripPath( const std::string in)
     return in.substr(i+1);
 }
 
+bool DoesFileExist( const char* filename)
+{
+    #ifdef _WIN32
+        std::ifstream st;
+        st.open(filename,std::ios::in);
+        if (st.is_open()) {
+            st.close();
+            return true;
+        } else {
+            return false;
+        }
+    #else
+        return (access(filename,0)==0);
+    #endif
+}
+bool DoesFileExist( const string filename)
+{
+    return DoesFileExist(filename.c_str());
+}
 
 
 

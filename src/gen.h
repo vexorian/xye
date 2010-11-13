@@ -33,3 +33,5 @@ bool TryS2I(std::string &str, int& r);
 
 std::string GetFileNameNoExtension( const char* filename );
 std::string StripPath(const string filename);
+bool DoesFileExist(const char* filename);
+bool DoesFileExist( const string filename);
