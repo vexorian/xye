@@ -361,7 +361,7 @@ string parseSkinFile(const char*filename, parsedSkinFile & ps)
     const char* tm;
     if (tm=ele->Attribute("sprites")) {
         ps.sprites = fixpath(string("res/")+string(tm),true);
-        if (access(ps.sprites.c_str(),0)!=0) {
+        if  ( ! DoesFileExist(ps.sprites) ) {
             return "Missing sprites file: "+ps.sprites;
         }
     } else {
@@ -369,7 +369,7 @@ string parseSkinFile(const char*filename, parsedSkinFile & ps)
     }
     if (tm=ele->Attribute("luminosity")) {
         ps.lum = fixpath(string("res/")+string(tm),true);
-        if (access(ps.lum.c_str(),0)!=0) {
+        if  ( ! DoesFileExist(ps.lum) ) {
             return "Missing sprites luminosity file: "+ps.lum;
         }
     }
@@ -380,7 +380,7 @@ string parseSkinFile(const char*filename, parsedSkinFile & ps)
     }
     if (tm=ele->Attribute("fontfile")) {
         ps.font = fixpath(string("res/")+string(tm),true);
-        if (access(ps.font.c_str(),0)!=0) {
+        if (! DoesFileExist(ps.font) ) {
             return "Missing font file: "+ps.font;
         }
     } else {
@@ -388,7 +388,7 @@ string parseSkinFile(const char*filename, parsedSkinFile & ps)
     }
     if (tm=ele->Attribute("boldfontfile")) {
         ps.boldFont = fixpath(string("res/")+string(tm),true);
-        if (access(ps.boldFont.c_str(),0)!=0) {
+        if (! DoesFileExist(ps.boldFont.c_str()) ) {
             return "Missing bold font file: "+ps.boldFont;
         }
     } else {
@@ -450,7 +450,7 @@ char* fixpath(const char * path,bool dohomecheck)
         strcpy(homeloc,home);
         strcat(homeloc,"/.xye/");
         strcat(homeloc,path);
-        if (access(homeloc,/*R_OK*/0)==0)
+        if (DoesFileExist(homeloc))
         {
             return homeloc;
         }
