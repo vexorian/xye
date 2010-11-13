@@ -69,6 +69,7 @@
 			<Option compilerVar="WINDRES" />
 			<Option target="win32" />
 		</Unit>
+		<Unit filename="skins.cpp" />
 		<Unit filename="tinyxml\xye_tinystr.cpp" />
 		<Unit filename="tinyxml\xye_tinystr.h" />
 		<Unit filename="tinyxml\xye_tinyxml.cpp" />
