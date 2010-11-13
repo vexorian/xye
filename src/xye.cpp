@@ -1432,19 +1432,14 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
 
 
         Uint8 alpha;
-        if(HintRead<=FADETICS) {
-            alpha=(Uint8)(int)(  (double)(HintRead*HintRead) * 255.0/(FADETICS*FADETICS)   );
-        } else {
-            alpha=255;
-        }
-
-
         if (HintRead<=FADETICS)
         {
+            alpha=(Uint8)(int)(  (double)(HintRead*HintRead) * 255.0/(FADETICS*FADETICS)   );
             SDL_BlitSurface(HintSurf,0,0,Aw,Ah, screen, cx,cy,255,255,255,alpha);
             SDL_FreeSurface(HintSurf);
             FontRes->Write(screen,3+HintMarquee+x,cy+1+dif,hintx.c_str(), 255,255,255,alpha);
         } else {
+            alpha=255;
             FontRes->Write(screen,3+HintMarquee+x,cy+1+dif,hintx.c_str());
         }
 
