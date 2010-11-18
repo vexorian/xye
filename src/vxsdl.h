@@ -69,7 +69,7 @@ struct LuminositySprites
     SDL_Surface* luminosity;
 };
 
-class DaVinci
+class Drawer
 {
  private:
   SDL_Surface* src;
@@ -82,11 +82,11 @@ class DaVinci
   bool recolor;
  public:
 
-  DaVinci(SDL_Surface*SourceTexture, SDL_Rect* rect);
-  DaVinci(SDL_Surface*SourceTexture, Sint16 x, Sint16 y, Uint16 w, Uint16 h);
+  Drawer(SDL_Surface*SourceTexture, SDL_Rect* rect);
+  Drawer(SDL_Surface*SourceTexture, Sint16 x, Sint16 y, Uint16 w, Uint16 h);
 
-  DaVinci(LuminositySprites & Source, SDL_Rect* rect);
-  DaVinci(LuminositySprites & Source, Sint16 x, Sint16 y, Uint16 w, Uint16 h);
+  Drawer(LuminositySprites & Source, SDL_Rect* rect);
+  Drawer(LuminositySprites & Source, Sint16 x, Sint16 y, Uint16 w, Uint16 h);
 
 
   void ChangeRect(Sint16 x, Sint16 y, Uint16 w, Uint16 h);

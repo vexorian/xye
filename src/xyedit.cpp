@@ -1445,7 +1445,7 @@ void editorboard::drawWallInBoard(SDL_Surface*target,int ox,int oy, int x, int y
     o.r9mem=(Uint8)(r9);
     o.r3mem=(Uint8)(r3);
 
-    DaVinci D(editor::sprites,0,0,0,0);
+    Drawer D(editor::sprites,0,0,0,0);
     D.SetColors( &options::WallColor[variation], 255);
     Sint16 sz2=sz/2;
     Sint16 ty;
@@ -1656,7 +1656,7 @@ void editorboard::applyFromButtons(int x, int y)
 
 void drawXye( SDL_Surface * target, int x, int y, int variation)
 {
-    DaVinci D(editor::sprites,0,0,sz,sz);
+    Drawer D(editor::sprites,0,0,sz,sz);
     D.SetColors( &game::PlayerColor);
     D.Draw(target,x,y);
     if(variation)
@@ -1682,7 +1682,7 @@ void drawRattlerHead( SDL_Surface * target, int x, int y, int variation, int dir
         case EDITORDIRECTION_RIGHT: tx=14,ty=10; break;
         case EDITORDIRECTION_DOWN: tx=15,ty=10; break;
     }
-    DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
 
     if(variation)
     {
@@ -1715,7 +1715,7 @@ void drawGem( SDL_Surface * target, int x, int y, editorcolor color)
         default:
            ty = 13, tx=9;
     }
-    DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
 
     D.Draw(target,x,y);
 }
@@ -1726,7 +1726,7 @@ void drawWall( SDL_Surface * target, int x, int y, bool round, int variation)
     ty=variation;
     if(round) tx=10;
     else tx=9;
-    DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
     D.SetColors( &options::WallColor[variation], 255);
     D.Draw(target,x,y);
 }
@@ -1736,7 +1736,7 @@ void drawBlock( SDL_Surface * target, int x, int y, bool round, editorcolor colo
     Uint8 tx,ty=0;
     if(round) tx=2;
     else tx=1;
-    DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
     if( color==EDCO_WILD)
     {
         ty = 2, tx = 1+round;
@@ -1757,7 +1757,7 @@ void drawBlock( SDL_Surface * target, int x, int y, bool round, editorcolor colo
 void drawPortal( SDL_Surface * target, int x, int y, editorcolor color, int variation)
 {
     Uint8 tx=8,ty=0;
-    DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
 
     Uint8 alpha = 255;
     if(variation>0) alpha = 127;
@@ -1781,14 +1781,14 @@ void drawMetalBlock( SDL_Surface * target, int x, int y, bool round)
     Uint8 tx,ty=8;
     if(round) tx=10;
     else tx=9;
-    DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
     D.Draw(target,x,y);
 }
 
 void drawGemBlock( SDL_Surface * target, int x, int y, editorcolor color)
 {
     Uint8 tx=6,ty=9;
-    DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
 
     D.SetColors(&options::BKColor[color],255);
     D.Draw(target,x,y);
@@ -1821,7 +1821,7 @@ void drawColorSystem( SDL_Surface * target, int x, int y, editorcolor color, int
             break;
     }
 
-    DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
 
     D.SetColors(&options::BKColor[color],255);
     D.Draw(target,x,y);
@@ -1841,7 +1841,7 @@ void drawKeySystem( SDL_Surface * target, int x, int y, editorcolor color, int v
 
     }
 
-    DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
 
     D.SetColors(&options::BKColor[color],255);
     D.Draw(target,x,y);
@@ -1855,7 +1855,7 @@ void drawEarth( SDL_Surface * target, int x, int y, bool round)
     Uint8 tx,ty=1;
     if(round) tx=2;
     else tx=1;
-    DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
     D.SetColors(&options::BKColor[0],255);
     D.Draw(target,x,y);
 }
@@ -1870,7 +1870,7 @@ void drawNumber( SDL_Surface * target, int x, int y, editorcolor color, bool rou
     Uint8 tx,ty;
     tx = 16+round;
     ty = 6 + variation;
-    DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
     D.SetColors(&options::BKColor[color],255);
     D.Draw(target,x,y);
     tx = 18;
@@ -1912,7 +1912,7 @@ void drawSpecialBlocks( SDL_Surface * target, int x, int y, bool round, editorco
     else if (variation==4) tx=3,ty=12;
     else tx=3,ty=7;
 
-    DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
 
     D.SetColors(&options::BFColor[color],255);
     D.Draw(target,x,y);
@@ -1927,7 +1927,7 @@ void drawTurner( SDL_Surface * target, int x, int y, bool round, editorcolor col
     if(variation) ty=10;
     else ty=11;
 
-    DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
 
     if(color!=EDCO_WHITE) D.SetColors(&options::BFColor[color],255);
     else D.SetColors(0,0,0,255);
@@ -1967,7 +1967,7 @@ void drawLargeBlockByFlags( SDL_Surface * target, int x, int y, editorcolor colo
 
     tx = 10;
     ty = var + 15;
-    DaVinci D(editor::sprites, tx*sz,  ty*sz,sz2,sz2);
+    Drawer D(editor::sprites, tx*sz,  ty*sz,sz2,sz2);
     Uint8 alpha = 255, white=255;
     if( doalpha) alpha = 128;
     if(editor::buttons->SelectedObjectType == EDOT_LARGEBLOCK) white = 220;
@@ -2151,7 +2151,7 @@ void drawMagnet( SDL_Surface * target, int x, int y, int variation, int directio
     tx=6+variation;
 
 
-    DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
 
     D.Draw(target,x,y);
 }
@@ -2167,7 +2167,7 @@ void drawPusher( SDL_Surface * target, int x, int y, editorcolor color, int dire
         case EDITORDIRECTION_DOWN :tx=4;ty=6; break;
         case EDITORDIRECTION_UP :tx=5;ty=6; break;
     }
-    DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
     D.SetColors(&options::BKColor[color],255);
     D.Draw(target,x,y);
 
@@ -2196,7 +2196,7 @@ void drawArrowMaker( SDL_Surface * target, int x, int y, bool round, editorcolor
         case 2: tx=3;ty=15; break;
     }
     if(round)tx--;
-    DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
     D.SetColors(&options::BKColor[color],255);
     D.Draw(target,x,y);
 
@@ -2220,7 +2220,7 @@ void drawHazard( SDL_Surface * target, int x, int y, int variation)
     Uint8 tx,ty;
     if(variation==0)
     {
-        DaVinci Black(editor::sprites,0,sz*4,sz,sz);
+        Drawer Black(editor::sprites,0,sz*4,sz,sz);
         Black.Draw(target,x,y);
     }
 
@@ -2230,7 +2230,7 @@ void drawHazard( SDL_Surface * target, int x, int y, int variation)
         case 1: tx=0;ty=7; break;
         case 2: tx=4;ty=19; break;
     }
-    DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
     D.Draw(target,x,y);
 }
 
@@ -2246,26 +2246,26 @@ void drawTeleport( SDL_Surface * target, int x, int y, int direction)
         default: /*up*/            tx=7;
     }
     ty=2;
-    DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
     D.Draw(target,x,y);
 }
 
 
 void drawBot( SDL_Surface * target, int x, int y)
 {
-    DaVinci D(editor::sprites,3*sz,1*sz,sz,sz);
+    Drawer D(editor::sprites,3*sz,1*sz,sz,sz);
     D.Draw(target,x,y);
 }
 
 void drawFirePad( SDL_Surface * target, int x, int y)
 {
-    DaVinci D(editor::sprites,2*sz,5*sz,sz,sz);
+    Drawer D(editor::sprites,2*sz,5*sz,sz,sz);
     D.Draw(target,x,y);
 }
 
 void drawFood( SDL_Surface * target, int x, int y)
 {
-    DaVinci D(editor::sprites,11*sz,13*sz,sz,sz);
+    Drawer D(editor::sprites,11*sz,13*sz,sz,sz);
     D.Draw(target,x,y);
 }
 
@@ -2274,7 +2274,7 @@ void drawWildCard( SDL_Surface * target, int x, int y, bool round)
     Uint8 tx;
     if(round)tx=2;
     else tx=1;
-    DaVinci D(editor::sprites,tx*sz,2*sz,sz,sz);
+    Drawer D(editor::sprites,tx*sz,2*sz,sz,sz);
     D.Draw(target,x,y);
 }
 
@@ -2290,7 +2290,7 @@ void drawOneDir( SDL_Surface * target, int x, int y, int direction, int variatio
             case EDITORDIRECTION_RIGHT:  tx=9; ty=10; break;
             default:  tx=10; ty=10; break;
         }
-        DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+        Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
         D.SetColors(100,200,200,255);
         D.Draw(target,x,y);
     }
@@ -2300,7 +2300,7 @@ void drawOneDir( SDL_Surface * target, int x, int y, int direction, int variatio
         if( (direction==EDITORDIRECTION_DOWN) || (direction==EDITORDIRECTION_UP) ) tx=7;
         else tx=8;
 
-        DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+        Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
         D.SetColors( &options::OneWayDoorColor, 255);
         D.Draw(target,x,y);
 
@@ -2379,7 +2379,7 @@ void drawBeast( SDL_Surface * target, int x, int y, int direction, int variation
 
 
     }
-    DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
 
 
     if(( (variation==(int)(BT_SPINNER) ) ||  (variation==(int)(BT_ASPINNER) ) ) && (editor::tic4<2) && !noDirectionAid)
@@ -2414,7 +2414,7 @@ void drawFactoryTop( SDL_Surface * target, int x, int y, int direction, bool dot
         case(EDITORDIRECTION_LEFT): tx=8; break;
         default: tx=9;
     }
-    DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
     if( dotrans )
     {
         Uint8 alpha = 255;
