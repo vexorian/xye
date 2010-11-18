@@ -572,7 +572,7 @@ void button::draw(SDL_Surface* target)
         int ty=NormalTextureY;
         int tx=LongTextureX;
         if(pressed) ty=PressedTextureY;
-        DaVinci A(button::SourceSurface,tx*sz,ty*sz,  std::max(std::min(w-sz ,sz),0)  ,sz);
+        Drawer A(button::SourceSurface,tx*sz,ty*sz,  std::max(std::min(w-sz ,sz),0)  ,sz);
         if(! Enabled)
             A.SetColors(255,255,255,disablealpha);
 
@@ -594,7 +594,7 @@ void button::draw(SDL_Surface* target)
         int ty=NormalTextureY;
         int tx=ShortTextureX;
         if(pressed) ty=PressedTextureY;
-        DaVinci C(button::SourceSurface,tx*sz,ty*sz,sz,sz);
+        Drawer C(button::SourceSurface,tx*sz,ty*sz,sz,sz);
         if(! Enabled)
             C.SetColors(255,255,255,disablealpha);
 
@@ -609,7 +609,7 @@ void button::draw(SDL_Surface* target)
     }
     if ( (iconx!=-1) )
     {
-        DaVinci I(button::SourceSurface, iconx*sz, icony*sz, sz,sz);
+        Drawer I(button::SourceSurface, iconx*sz, icony*sz, sz,sz);
         if(! Enabled)
             I.SetColors(0,0,0,64);
         I.Draw(target,x+o +(w-sz)/2,y+o);

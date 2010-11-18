@@ -404,7 +404,7 @@ int game::Init(const char* levelfile)
     }
     else
     {
-        DaVinci D(sprites,0,0,sz,sz);
+        Drawer D(sprites,0,0,sz,sz);
         D.SetColors(PlayerColor,255);
         Uint32          colorkey=SDL_MapRGB(icon->format,255,0,255);
         SDL_FillRect(icon, 0, colorkey );
@@ -1214,7 +1214,7 @@ bool CloseEnough(int x1, int y1, int x2, int y2)
 }
 
 
-void game::DrawPanelInfo(DaVinci& D, Sint16 &cx,Sint16 &cy, Uint8 spx, Uint8 spy , unsigned int num, Uint8 fonadd, Uint8 R, Uint8 G, Uint8 B, Uint8 A)
+void game::DrawPanelInfo(Drawer& D, Sint16 &cx,Sint16 &cy, Uint8 spx, Uint8 spy , unsigned int num, Uint8 fonadd, Uint8 R, Uint8 G, Uint8 B, Uint8 A)
 {
     D.ChangeRect(spx*GRIDSIZE,spy*GRIDSIZE,GRIDSIZE,GRIDSIZE);
     D.SetColors(R,G,B,A);
@@ -1233,7 +1233,7 @@ void game::DrawPanelInfo(DaVinci& D, Sint16 &cx,Sint16 &cy, Uint8 spx, Uint8 spy
 
 }
 
-void game::DrawPanelInfo(DaVinci& D, Sint16 &cx,Sint16 &cy, Uint8 spx, Uint8 spy , unsigned int num, Uint8 fonadd, SDL_Color col)
+void game::DrawPanelInfo(Drawer& D, Sint16 &cx,Sint16 &cy, Uint8 spx, Uint8 spy , unsigned int num, Uint8 fonadd, SDL_Color col)
 {
     DrawPanelInfo(D,cx,cy,spx,spy,num,fonadd, col.r , col.g, col.b, col.unused);
 }
@@ -1309,7 +1309,7 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
     //Lives
     int L=XYE->GetLives()-1;
 
-    DaVinci D(game::sprites,0,0,0,0);
+    Drawer D(game::sprites,0,0,0,0);
     if (L>0)
     {
         XYE->Draw(x+2,y+2);
@@ -1475,7 +1475,7 @@ void game::draw(Sint16 px, Sint16 py)
 
 
     square* sq;
-    DaVinci D(game::sprites,0,0,0,0);
+    Drawer D(game::sprites,0,0,0,0);
 
 
     //let's paint the ground
@@ -2912,7 +2912,7 @@ void xye::Draw(unsigned int x, unsigned int y)
         }
         
         
-        DaVinci D(game::sprites,tx*sz,ty*sz,sz,sz);
+        Drawer D(game::sprites,tx*sz,ty*sz,sz,sz);
 
         D.SetColors( &game::PlayerColor,alpha);
 
@@ -2998,7 +2998,7 @@ roboxye::roboxye(square* sq)
 
 void roboxye::Draw(unsigned int x,unsigned int y)
 {
-    DaVinci D(game::sprites,3*sz,anim*sz,sz,sz);
+    Drawer D(game::sprites,3*sz,anim*sz,sz,sz);
     D.Draw(game::screen,x,y);
 }
 
@@ -3272,7 +3272,7 @@ bool wall::containsRoundCorner()
 
 void wall::Draw(unsigned int x, unsigned int y)
 {
-    DaVinci D(game::sprites,0,0,0,0);
+    Drawer D(game::sprites,0,0,0,0);
     int sz2=sz/2;
     Sint16 ty;
     ty=sz*(kind);
@@ -3562,7 +3562,7 @@ block::block(square* sq,blockcolor tc,bool makeround)
 
 void block::Draw(unsigned int x, unsigned int y,bool colorless, blockcolor c, bool round)
 {
-    DaVinci D(game::sprites,0, 0 ,0,0);
+    Drawer D(game::sprites,0, 0 ,0,0);
     if (round)
         D.ChangeRect(game::GRIDSIZE*2 , 0 , game::GRIDSIZE, game::GRIDSIZE);
     else
@@ -3636,7 +3636,7 @@ void largeblock::Draw(unsigned int x, unsigned int y)
     
     tx = 10;
     ty = var + 15;
-    DaVinci D(game::sprites, tx*sz,  ty*sz,sz2,sz2);
+    Drawer D(game::sprites, tx*sz,  ty*sz,sz2,sz2);
     Uint8 alpha = 255, white=255;   
     if(! colorless) D.SetColors(&options::BKColor[(int)(c)],alpha);
     else D.SetColors(white,white,white,alpha);
@@ -4086,7 +4086,7 @@ void metalblock::Draw(unsigned int x, unsigned int y, bool round)
 {
     Uint8 tx=9;
     if(round) tx=10;
-    DaVinci D(game::sprites,tx*sz, 8*sz ,sz,sz);
+    Drawer D(game::sprites,tx*sz, 8*sz ,sz,sz);
 
     D.Draw(game::screen,x,y);
 }
@@ -4135,7 +4135,7 @@ void scrollblock::Draw(unsigned int x, unsigned int y)
     if (round) tx=2;
     else tx=1;
 
-    DaVinci D(game::sprites,sz*tx,sz*ty,sz,sz);
+    Drawer D(game::sprites,sz*tx,sz*ty,sz,sz);
     D.SetColors(&options::BKColor[c],255);
     D.Draw(game::screen,x,y);
 
@@ -4224,7 +4224,7 @@ void wildcard::Draw(unsigned int x, unsigned int y)
     Uint8 tx;
     if (round) tx=2;
     else tx=1;
-    DaVinci D(game::sprites,tx*sz,sz*2,sz,sz);
+    Drawer D(game::sprites,tx*sz,sz*2,sz,sz);
     D.Draw(game::screen,x,y);
 
 }
@@ -4264,7 +4264,7 @@ void gemblock::Draw(unsigned int x, unsigned int y)
     Uint8 tx,ty=9;
     bool movable=gem::GotAllGems(c);
     tx=(movable?7:6);
-    DaVinci D(game::sprites,sz*tx,sz*ty,sz,sz);
+    Drawer D(game::sprites,sz*tx,sz*ty,sz,sz);
     D.SetColors(options::BKColor[c],255);
     D.Draw(game::screen,x,y);
 
@@ -4339,7 +4339,7 @@ void magnetic::Draw(unsigned int x, unsigned int y)
         case(T_ANTIMAGNET): tx=7; break;
         default: tx=8;
     }
-    DaVinci D(game::sprites,sz*tx,sz*ty,sz,sz);
+    Drawer D(game::sprites,sz*tx,sz*ty,sz,sz);
     D.Draw(game::screen,x,y);
 
 }
@@ -4465,7 +4465,7 @@ void number::Draw(unsigned int x, unsigned int y)
     Uint8 tx,ty;
     tx = 16+round;
     ty = 6 + time;
-    DaVinci D(game::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(game::sprites,tx*sz,ty*sz,sz,sz);
 
     SDL_Color mx = options::BKColor[c];
 
@@ -4615,7 +4615,7 @@ void impacter::Draw(unsigned int x, unsigned int y,blockcolor c,edir fac)
         case(D_UP): tx=5; ty=6; break;
         default: tx=4; ty=6;
     }
-    DaVinci D(game::sprites,sz*tx,sz*ty,sz,sz);
+    Drawer D(game::sprites,sz*tx,sz*ty,sz,sz);
     D.SetColors(options::BKColor[c],255);
     D.Draw(game::screen,x,y);
 
@@ -4788,7 +4788,7 @@ void arrow::DrawF(unsigned int x, unsigned int y,blockcolor c, edir fac,bool rou
     }
     if (round) ty+=2;
 
-    DaVinci D(game::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(game::sprites,tx*sz,ty*sz,sz,sz);
     D.SetColors(&options::BFColor[c],255);
     D.Draw(game::screen,x,y);
 
@@ -4897,7 +4897,7 @@ void autoarrow::Draw(unsigned int x, unsigned int y)
     if (round) tx=1;
     else tx=2;
 
-    DaVinci D(game::sprites,sz*tx,sz*ty,sz,sz);
+    Drawer D(game::sprites,sz*tx,sz*ty,sz,sz);
 
     D.SetColors(options::BKColor[c],255);
     D.Draw(game::screen,x,y);
@@ -5021,7 +5021,7 @@ void factory::DrawSub(unsigned int x,unsigned int y)
 void factory::Draw(unsigned int x, unsigned int y)
 {
     Uint8 tx,ty;
-    DaVinci D(game::sprites,0,0,0,0);
+    Drawer D(game::sprites,0,0,0,0);
     //step 1: Draw the result:
 
     if ( ((!created) || (created+2<=game::counter)) && (limit))
@@ -5161,7 +5161,7 @@ void filler::Draw(unsigned int x, unsigned int y)
     if (round) tx=0;
     else tx=1;
 
-    DaVinci D(game::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(game::sprites,tx*sz,ty*sz,sz,sz);
     D.SetColors(options::BKColor[c],255);
 
     D.Draw(game::screen,x,y);
@@ -5233,7 +5233,7 @@ void sniper::Draw(unsigned int x, unsigned int y)
     if (round) tx=2;
     else tx=3;
 
-    DaVinci D(game::sprites,sz*tx,sz*ty,sz,sz);
+    Drawer D(game::sprites,sz*tx,sz*ty,sz,sz);
     D.SetColors(options::BKColor[c],255);
     D.Draw(game::screen,x,y);
     switch(fac)
@@ -5323,7 +5323,7 @@ void lowdensity::Activate(edir D)
 }
 void lowdensity::DrawF(unsigned int x, unsigned int y,blockcolor c, bool round)
 {
-    DaVinci D(game::sprites,3*sz,12*sz,sz,sz);
+    Drawer D(game::sprites,3*sz,12*sz,sz,sz);
     D.SetColors(&options::BFColor[c],255);
     D.Draw(game::screen,x,y);
 
@@ -5404,7 +5404,7 @@ void turner::Draw(unsigned int x, unsigned int y)
     if (cwise) ty=11;
     else ty=10;
 
-    DaVinci D(game::sprites,sz*tx,sz*ty,sz,sz);
+    Drawer D(game::sprites,sz*tx,sz*ty,sz,sz);
     if (colorless) D.SetColors(0,0,0);
     else D.SetColors(options::BFColor[c]);
         D.Draw(game::screen,x,y);
@@ -5531,7 +5531,7 @@ void surprise::Transform()
 void surprise::Draw(unsigned int x, unsigned int y)
 {
     Uint8 tx,ty;
-    DaVinci D(game::sprites,0,0,0,0);
+    Drawer D(game::sprites,0,0,0,0);
     SDL_Color SprColor;
     SDL_Color BC = options::BKColor[c] ,FBC= options::BFColor[c];
 
@@ -5688,7 +5688,7 @@ toggle::toggle(square* sq,blockcolor tc,bool makeround, bool state)
 void toggle::Draw(unsigned int x, unsigned int y)
 {
     Uint8 tx,ty;
-    DaVinci D(game::sprites,0,0,0,0);
+    Drawer D(game::sprites,0,0,0,0);
     if (round)
         D.ChangeRect(sz*2,0,sz,sz);
     else
@@ -5926,7 +5926,7 @@ void teleport::Draw(unsigned int x, unsigned int y)
         else ty=1;
         if (game::Mod2()) anim=! anim;
     }
-    DaVinci D(game::sprites,sz*tx,sz*ty,sz,sz);
+    Drawer D(game::sprites,sz*tx,sz*ty,sz,sz);
     D.Draw(game::screen,x,y);
 }
 
@@ -6005,7 +6005,7 @@ void dangerous::BlackHole()
 
 void dangerous::DrawMine(unsigned int x, unsigned int y)
 {
-    DaVinci D(game::sprites,0,7*sz,sz,sz);
+    Drawer D(game::sprites,0,7*sz,sz,sz);
     D.Draw(game::screen,x,y);
 }
 
@@ -6017,7 +6017,7 @@ void dangerous::Draw(unsigned int x, unsigned int y)
         return;
     }
     Uint8 tx,ty;
-    DaVinci D(game::sprites,0,0,0,0);
+    Drawer D(game::sprites,0,0,0,0);
 
     if (fire)
     {
@@ -6826,7 +6826,7 @@ void beast::Draw(unsigned int x, unsigned int y,btype kind, edir fac, unsigned c
     }
 
 
-    DaVinci D(game::sprites,sz*tx,ty*sz,sz,sz);
+    Drawer D(game::sprites,sz*tx,ty*sz,sz,sz);
     D.Draw(game::screen,x,y);
 }
 
@@ -7074,7 +7074,7 @@ void rattler::Draw(unsigned int x, unsigned int y,bool anim,edir fac, rnode* fir
             default:
                 tx=14;
     }
-    DaVinci D(game::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(game::sprites,tx*sz,ty*sz,sz,sz);
     D.Draw(game::screen,x,y);
 }
 
@@ -7325,7 +7325,7 @@ void rnode::Draw(unsigned int drawx, unsigned int drawy)
         }
 
     }
-    DaVinci D(game::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(game::sprites,tx*sz,ty*sz,sz,sz);
     D.Draw(game::screen,drawx,drawy);
 
 }
@@ -7340,7 +7340,7 @@ rfood::rfood(square* sq)
 }
 void rfood::Draw(unsigned int x,unsigned int y,bool anim)
 {
-    DaVinci D(game::sprites,11*sz, (13+anim)*sz ,sz,sz);
+    Drawer D(game::sprites,11*sz, (13+anim)*sz ,sz,sz);
     D.Draw(game::screen,x,y);
 }
 
@@ -7407,7 +7407,7 @@ void earth::Draw(unsigned int x, unsigned int y)
     Uint8 tx;
     if (round) tx=2;
     else tx=1;
-    DaVinci D(game::sprites,sz*tx,sz,sz,sz);
+    Drawer D(game::sprites,sz*tx,sz,sz,sz);
     D.SetColors(R,G,B,255); //alpha now depends on the skin
     D.Draw(game::screen,x,y);
 
@@ -7463,7 +7463,7 @@ key::key(square* sq, blockcolor color)
 }
 void key::Draw(unsigned int x, unsigned int y)
 {
-    DaVinci D(game::sprites,sz*6,sz*4,sz,sz);
+    Drawer D(game::sprites,sz*6,sz*4,sz,sz);
     D.SetColors(options::BKColor[c],255);
     D.Draw(game::screen,x,y);
 
@@ -7543,7 +7543,7 @@ lock::lock(square* sq, blockcolor color)
 }
 void lock::Draw(unsigned int x, unsigned int y)
 {
-    DaVinci D(game::sprites,sz*7,sz*4,sz,sz);
+    Drawer D(game::sprites,sz*7,sz*4,sz,sz);
     D.SetColors(options::BKColor[c],255);
     D.Draw(game::screen,x,y);
 }
@@ -7631,7 +7631,7 @@ void gem::Draw(unsigned int x, unsigned int y,gemtype gemkind,bool anim)
         case(GEM_EMERALD): tx=4; break;
         default: tx=5; break;
     }
-    DaVinci D(game::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(game::sprites,tx*sz,ty*sz,sz,sz);
     D.Draw(game::screen,x,y);
 }
 
@@ -7717,7 +7717,7 @@ void star::Draw(unsigned int x, unsigned int y)
     tx=9;
     if (anim) ty=12;
     else ty=13;
-    DaVinci D(game::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(game::sprites,tx*sz,ty*sz,sz,sz);
     D.Draw(game::screen,x,y);
 }
 
@@ -7808,7 +7808,7 @@ void tdoor::Draw(unsigned int x, unsigned int y)
     }
 
     if ((game::counter8==0)) anim=!anim;
-    DaVinci D(game::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(game::sprites,tx*sz,ty*sz,sz,sz);
     D.SetColors(R,G,B,255);
     D.Draw(game::screen,x,y);
 
@@ -7914,7 +7914,7 @@ void blockdoor::Draw(unsigned int x, unsigned int y)
     if(trap) tx++;
 
 
-    DaVinci D(game::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(game::sprites,tx*sz,ty*sz,sz,sz);
     D.SetColors(options::BKColor[c],255);
     D.Draw(game::screen,x,y);
 
@@ -7966,7 +7966,7 @@ void marked::OnDeath()
 void marked::Draw(unsigned int x, unsigned int y)
 {
     Uint8 tx=6,ty=anim+5;
-    DaVinci D(game::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(game::sprites,tx*sz,ty*sz,sz,sz);
     D.SetColors(options::BKColor[c],255 );
     D.Draw(game::screen,x,y);
     if (active)
@@ -8045,7 +8045,7 @@ void firepad::Draw(unsigned int x, unsigned int y)
         default: tx=2; ty=5;
     }
     if (anim) anim=(anim==3)?0:anim+1;
-    DaVinci D(game::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(game::sprites,tx*sz,ty*sz,sz,sz);
     D.Draw(game::screen,x,y);
 
 }
@@ -8138,7 +8138,7 @@ if (dis) return;
         }
         else
         {
-            DaVinci D(sur,0,0,sz,sz);
+            Drawer D(sur,0,0,sz,sz);
             D.SetColors(sq->R,sq->G,sq->B,alpha);
             D.Draw(game::screen,x,y);
 
@@ -8149,7 +8149,7 @@ if (dis) return;
     else
     {
 
-        DaVinci D(game::sprites,4*sz,19*sz,sz,sz);
+        Drawer D(game::sprites,4*sz,19*sz,sz,sz);
         D.SetColors(sq->R,sq->G,sq->B,255);
         D.Draw(game::screen,x,y);
     }
@@ -8195,7 +8195,7 @@ void pit::OnEnter(obj *entering)
         end= true;
         entering->Draw(1,1);
 
-        DaVinci D(game::sprites,5*sz ,19*sz,sz,sz);
+        Drawer D(game::sprites,5*sz ,19*sz,sz,sz);
 
         D.SetColors(sq->R,sq->G,sq->B,255);
         D.Draw(sur,0,0);
@@ -8236,7 +8236,7 @@ hint::hint(square* sq, string ihint,bool warning)
 
 void hint::Draw(unsigned int x, unsigned int y)
 {
-    DaVinci D(game::sprites,0,0,0,0);
+    Drawer D(game::sprites,0,0,0,0);
     if (xcla)
         D.ChangeRect(7*sz,3*sz,sz,sz);
     else
@@ -8247,7 +8247,7 @@ void hint::Draw(unsigned int x, unsigned int y)
 }
 void hint::Draw(unsigned int x, unsigned int y,bool xcla)
 {
-    DaVinci D(game::sprites,0,0,0,0);
+    Drawer D(game::sprites,0,0,0,0);
     if (xcla)
         D.ChangeRect(7*sz,3*sz,sz,sz);
     else
@@ -8366,7 +8366,7 @@ void portal::Draw(unsigned int x, unsigned int y)
     Uint8 tx,ty;
 
 
-    DaVinci D(game::sprites,8*sz,canim*sz,sz,sz);
+    Drawer D(game::sprites,8*sz,canim*sz,sz,sz);
 
     D.SetColors(R,G,B,255);
     D.Draw(game::screen,x,y);
@@ -8456,7 +8456,7 @@ void windowblock::Draw(unsigned int x, unsigned int y)
     Uint8 tx,ty;
     ty=7;
     tx=9+anim;
-    DaVinci D(game::sprites,tx*sz,ty*sz,sz,sz);
+    Drawer D(game::sprites,tx*sz,ty*sz,sz,sz);
     D.SetColors(options::BKColor[bc],255);
     D.Draw(game::screen,x,y);
 }
@@ -8703,7 +8703,7 @@ void explosion::Draw(unsigned int x, unsigned int y)
             default: tx=1; ty=14;
         }
         tx+=type*2;
-        DaVinci D(game::sprites,tx*sz,ty*sz,sz,sz);
+        Drawer D(game::sprites,tx*sz,ty*sz,sz,sz);
         D.Draw(game::screen,x,y);
     }
 }

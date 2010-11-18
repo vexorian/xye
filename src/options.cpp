@@ -905,7 +905,7 @@ struct previewMaker {
     int w,h;
     int sz;
     parsedSkinFile* ps;
-    DaVinci* D;
+    Drawer* D;
     LuminositySprites ls;
     
     SDL_Surface * result;
@@ -921,7 +921,7 @@ struct previewMaker {
             ls.luminosity = IMG_Load( ps.lum.c_str() );
         }
 
-        D = new DaVinci(ls,0,0,sz,sz);
+        D = new Drawer(ls,0,0,sz,sz);
         result = SDL_CreateRGBSurface(0,w,h,32,SDL_ENDIAN32MASKS);
         SDL_FillRect(result, 0, 0, w, h, 0xFFFFFFFF);
         

@@ -233,8 +233,8 @@ int SDL_FillRect(SDL_Surface *dst, Sint16 x, Sint16 y, Uint16 w, Uint16 h, Uint3
 
 
 
-/*** Class DaVinci - Our Artist **/
-DaVinci::DaVinci(SDL_Surface*SourceTexture, SDL_Rect* rect)
+/*** Class Drawer - Our Artist **/
+Drawer::Drawer(SDL_Surface*SourceTexture, SDL_Rect* rect)
 {
     R=G=B=A=255;recolor=false;
     sr.x=rect->x; sr.y=rect->y; sr.w=rect->w; sr.h=rect->h;
@@ -242,7 +242,7 @@ DaVinci::DaVinci(SDL_Surface*SourceTexture, SDL_Rect* rect)
     src_lights = NULL;
 }
 
-DaVinci::DaVinci(SDL_Surface*SourceTexture, Sint16 x, Sint16 y, Uint16 w, Uint16 h)
+Drawer::Drawer(SDL_Surface*SourceTexture, Sint16 x, Sint16 y, Uint16 w, Uint16 h)
 {
     R=G=B=A=255;recolor=false;
     sr.x=x; sr.y=y; sr.w=w; sr.h=h;
@@ -250,7 +250,7 @@ DaVinci::DaVinci(SDL_Surface*SourceTexture, Sint16 x, Sint16 y, Uint16 w, Uint16
     src_lights = NULL;
 }
 
-DaVinci::DaVinci( LuminositySprites & source, SDL_Rect* rect)
+Drawer::Drawer( LuminositySprites & source, SDL_Rect* rect)
 {
     R=G=B=A=255;recolor=false;
     sr.x=rect->x; sr.y=rect->y; sr.w=rect->w; sr.h=rect->h;
@@ -258,7 +258,7 @@ DaVinci::DaVinci( LuminositySprites & source, SDL_Rect* rect)
     src_lights = source.luminosity;
 }
 
-DaVinci::DaVinci(LuminositySprites & source, Sint16 x, Sint16 y, Uint16 w, Uint16 h)
+Drawer::Drawer(LuminositySprites & source, Sint16 x, Sint16 y, Uint16 w, Uint16 h)
 {
     R=G=B=A=255;recolor=false;
     sr.x=x; sr.y=y; sr.w=w; sr.h=h;
@@ -267,36 +267,36 @@ DaVinci::DaVinci(LuminositySprites & source, Sint16 x, Sint16 y, Uint16 w, Uint1
 }
 
 
-void DaVinci::ChangeRect(Sint16 x, Sint16 y, Uint16 w, Uint16 h)
+void Drawer::ChangeRect(Sint16 x, Sint16 y, Uint16 w, Uint16 h)
 {
     sr.x=x; sr.y=y; sr.w=w; sr.h=h;
 }
 
-void DaVinci::ChangeRect(SDL_Rect* rect)
+void Drawer::ChangeRect(SDL_Rect* rect)
 {
     sr.x=rect->x; sr.y=rect->y; sr.w=rect->w; sr.h=rect->h;
 }
 
-void DaVinci::SetColors(Uint8 nR, Uint8 nG, Uint8 nB, Uint8 nA)
+void Drawer::SetColors(Uint8 nR, Uint8 nG, Uint8 nB, Uint8 nA)
 {
     R=nR;G=nG;B=nB;A=nA;
     recolor=((R!=255) || (G!=255) || (B!=255) || (A!=255));
 }
 
-void DaVinci::SetColors(SDL_Color* C,Uint8 alpha)
+void Drawer::SetColors(SDL_Color* C,Uint8 alpha)
 {
     R=C->r;G=C->g;B=C->b;A=alpha;
     recolor=((R!=255) || (G!=255) || (B!=255) || (A!=255) );
 }
 
-void DaVinci::SetColors(SDL_Color& C,Uint8 alpha)
+void Drawer::SetColors(SDL_Color& C,Uint8 alpha)
 {
     R=C.r;G=C.g;B=C.b;A=alpha;
     recolor=((R!=255) || (G!=255) || (B!=255) || (A!=255) );
 }
 
 
-int DaVinci::Draw(SDL_Surface* target, Sint16 x, Sint16 y)
+int Drawer::Draw(SDL_Surface* target, Sint16 x, Sint16 y)
 {
     SDL_Rect T;
     T.x=x;
@@ -320,7 +320,7 @@ int DaVinci::Draw(SDL_Surface* target, Sint16 x, Sint16 y)
 
 }
 
-/** endo of class DaVinci **/
+/** endo of class Drawer **/
 
 /** start of recolor cache **/
 
