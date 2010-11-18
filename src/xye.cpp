@@ -4463,9 +4463,9 @@ number::number(square* sq,blockcolor tc, unsigned char t,bool makeround)
 void number::Draw(unsigned int x, unsigned int y)
 {
     Uint8 tx,ty;
-    if(round) tx=2;
-    else tx=1;
-    DaVinci D(game::sprites,tx*sz,0,sz,sz);
+    tx = 16+round;
+    ty = 6 + time;
+    DaVinci D(game::sprites,tx*sz,ty*sz,sz,sz);
 
     SDL_Color mx = options::BKColor[c];
 
@@ -4477,35 +4477,16 @@ void number::Draw(unsigned int x, unsigned int y)
         mx=MixColors(tm,mx);
         GreenFlash=false;
     }
-    Uint8 alpha;
-    if (c!=B_RED)
+    Uint8 alpha = 255;
+    /*if (c!=B_RED)
         alpha= 255 - (9-time)*14;
     else
-        alpha=255;
+        alpha=255;*/
     D.SetColors(&mx,alpha);
     D.Draw(game::screen,x,y);
 
-    switch(time)
-    {
-        case (7): case (8): case (9):
-            ty=12; break;
-        case (4): case (5): case (6):
-            ty=11; break;
-        case (1): case (2): case (3):
-            ty=10; break;
-        default: // 0
-            ty=9;
-    }
-
-    switch(time)
-    {
-        case (3): case (6): case (9):
-            tx=2; break;
-        case (2): case (5): case (8):
-            tx=1; break;
-        default: //0 1 4 7
-            tx=0;
-    }
+    tx=18;
+    ty = 6 + time;
 
     D.ChangeRect(tx*sz,ty*sz,sz,sz);
     D.SetColors( &options::BFColor[c],255);
