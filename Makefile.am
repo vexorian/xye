@@ -33,7 +33,13 @@ res/kye.png \
 res/DejaVuSans.ttf \
 res/DejaVuSans-Bold.ttf \
 res/fon.bmp \
-res/fon_bold.bmp
+res/fon_bold.bmp \
+res/clean40.xml \
+res/clean40.png \
+res/classic32.xml \
+res/kye32.png \
+res/kye32_luminosity.png \
+res/kye_luminosity.png
 
 
 
