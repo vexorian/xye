@@ -1864,17 +1864,17 @@ void drawEarth( SDL_Surface * target, int x, int y, bool round)
 
 void drawNumber( SDL_Surface * target, int x, int y, editorcolor color, bool round, int variation)
 {
-    drawBlock(target,x,y,round,color);
+    //drawBlock(target,x,y,round,color);
 
 
     Uint8 tx,ty;
-    if(variation==0) tx=0,ty=9;
-    else if (variation<=3) tx=variation-1,ty=10;
-    else if (variation<=6) tx=variation-4,ty=11;
-    else tx=variation-7,ty=12;
-
+    tx = 16+round;
+    ty = 6 + variation;
     DaVinci D(editor::sprites,tx*sz,ty*sz,sz,sz);
-
+    D.SetColors(&options::BKColor[color],255);
+    D.Draw(target,x,y);
+    tx = 18;
+    D.ChangeRect(tx*sz,ty*sz,sz,sz);
     D.SetColors(&options::BFColor[color],255);
     D.Draw(target,x,y);
 }
