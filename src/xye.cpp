@@ -1506,7 +1506,6 @@ void game::draw(Sint16 px, Sint16 py)
 
             if (dodraw)
             {
-
             x=sq->x;
             y=sq->y;
             object=sq->object;
@@ -5514,7 +5513,20 @@ void surprise::Transform()
                 if (b4) b4->IntelligentUpdateCorners(wl);
                 if (b2) b2->IntelligentUpdateCorners(wl);
                 if (b6) b6->IntelligentUpdateCorners(wl);
+
+                wall *b7= wall::find(ox-1,oy+1),
+                     *b9= wall::find(ox+1,oy+1),
+                     *b3= wall::find(ox+1,oy-1),
+                     *b1= wall::find(ox-1,oy-1);
+                // After the addition of special borders to the skin capabilities, it is necessary
+                // to update the walls in the corners as well:
+                
                 wl->ChangeColor(BC.r+(options::WallColor[0].r-BC.r)/2,BC.g+(options::WallColor[0].g-BC.g)/2,BC.b+(options::WallColor[0].b-BC.b)/2, false);
+                if(b7) b7->UpdateSquare();
+                if(b9) b9->UpdateSquare();
+                if(b3) b3->UpdateSquare();
+                if(b1) b1->UpdateSquare();
+
                 //wl->ChangeColor(BC.r,BC.g,BC.b, false);
                 break;
             }
@@ -5580,6 +5592,14 @@ void surprise::Draw(unsigned int x, unsigned int y)
                     if (b4) b4->IntelligentUpdateCorners(wl);
                     if (b2) b2->IntelligentUpdateCorners(wl);
                     if (b6) b6->IntelligentUpdateCorners(wl);
+                    wall *b7= wall::find(ox-1,oy+1),
+                         *b9= wall::find(ox+1,oy+1),
+                         *b3= wall::find(ox+1,oy-1),
+                         *b1= wall::find(ox-1,oy-1);
+                    if(b7) b7->UpdateSquare();
+                    if(b9) b9->UpdateSquare();
+                    if(b3) b3->UpdateSquare();
+                    if(b1) b1->UpdateSquare();
 
 
                 //wl->ChangeColor(SprColor.r+(255-SprColor.r)/2,SprColor.g+(255-SprColor.g)/2,SprColor.b+(255-SprColor.b)/2 , false);
