@@ -405,7 +405,6 @@ void LevelPack::Load(const char *filename, unsigned int ln, const string replay)
                 if (pack=pack->FirstChildElement("moves"))
                 {
                     bf=pack->GetText();
-                    printf("I want to rock!\n%s\n",bf);
                     if(bf!=NULL)
                     {
                         LevelPack::Load(tm,ln,bf);
