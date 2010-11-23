@@ -61,7 +61,7 @@ class LevelPack
     static void SetLevelBye(const char* bye);
     static string Desc;
 
-    static void Load(const char *filename, unsigned int ln=0, const char* replay=NULL);
+    static void Load(const char *filename, unsigned int ln=0, const string replay="");
     //static void Load(const char *filename, unsigned int ln);
     //static void Load(const char *filename);
     static void Restart();

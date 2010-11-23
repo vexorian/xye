@@ -1511,7 +1511,7 @@ class game
     static void Davinci(Sint16 sx, Sint16 sy, Uint16 sw, Uint16 sh,Sint16 dx, Sint16 dy);
     static void Error(const char* msg);
 
-    static void PlayRecording(const char* rc);
+    static void PlayRecording(const string rc);
     static void SaveReplay();
     static void Undo();
 };

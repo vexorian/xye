@@ -334,7 +334,7 @@ return(val);
 
 
 
-void LevelPack::Load(const char *filename, unsigned int ln, const char* replay)
+void LevelPack::Load(const char *filename, unsigned int ln, const string replay)
 {
     LevelError = "";
     OpenFile=filename;
@@ -361,8 +361,9 @@ void LevelPack::Load(const char *filename, unsigned int ln, const char* replay)
         LevelPack::Desc="";
         xsbmode=!(kyemode=true);
         KyeLevelPack::Load(filename,ln);
-        if (replay)
+        if (replay!="") {
             game::PlayRecording(replay);
+        }
 
         return;
     }
@@ -376,8 +377,9 @@ void LevelPack::Load(const char *filename, unsigned int ln, const char* replay)
         LevelPack::Desc="";
         kyemode=!(xsbmode=true);
         XsbLevelPack::Load(filename,ln);
-        if (replay)
+        if (replay!="") {
             game::PlayRecording(replay);
+        }
 
         return;
     }
@@ -403,6 +405,7 @@ void LevelPack::Load(const char *filename, unsigned int ln, const char* replay)
                 if (pack=pack->FirstChildElement("moves"))
                 {
                     bf=pack->GetText();
+                    printf("I want to rock!\n%s\n",bf);
                     if(bf!=NULL)
                     {
                         LevelPack::Load(tm,ln,bf);
@@ -425,8 +428,9 @@ void LevelPack::Load(const char *filename, unsigned int ln, const char* replay)
         }
         LoadInformation();
         LoadNthLevel(ln);
-        if (replay)
+        if (replay!="") {
             game::PlayRecording(replay);
+        }
 
     }
     else
