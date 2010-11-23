@@ -602,9 +602,9 @@ bool game::EvalDirKeys()
     }
  return(false);
 }
-void game::PlayRecording(const char* rc)
+void game::PlayRecording(const string rc)
 {
-    recording::load(rc);
+    recording::load(rc.c_str());
     playingrec=true;
 }
 
@@ -1069,11 +1069,10 @@ void game::start(bool undotime)
     cameraon=!undotime;
     playingrec=false; //true;
 
-    if (undo=undotime)
-    {
-    }
-    else
+    if (undo=undotime) {
+    } else {
         recording::clean();
+    }
 
     deathqueue::reset();
 
@@ -1266,17 +1265,18 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
 
     if (playingrec)
     {
-        if(xye_fromeditortest)
-        {
-            if (GameOver)
+        if(xye_fromeditortest) {
+            if (GameOver) {
                 hintx="** The movie has ended ** Press [Enter] to play the level - [Backspace] to return to the level editor.";
-            else
+            } else {
                 hintx="** Playing Movie ** - Press [Enter] to play the level. [Ctrl] - Fast Forward. [Backspace] - Return to the level editor.";
+            }
         }
-        else if (GameOver)
+        else if (GameOver) {
             hintx="** The movie has ended ** Press [Enter] to play the level - [Backspace] to return to the level file menu";
-        else
+        } else {
             hintx="** Playing Movie ** - Press [Enter] to play the level. [Ctrl] - Fast Forward";
+        }
 
     }
     else if (CoordMode)
