@@ -8140,14 +8140,11 @@ else alpha=0;
 
 void pit::Draw(unsigned int x, unsigned int y)
 {
-
-if (dis) return;
+    if (dis) return;
     square* sq=game::Square(pit::x,pit::y);
 
-    if (end)
-    {
-        if (alpha<=31)
-        {
+    if (end) {
+        if (alpha<=31) {
             alpha=0;
             SDL_FreeSurface(sur);
             sur=NULL;
@@ -8155,25 +8152,17 @@ if (dis) return;
             dis=true;
             Kill();
 
-        }
-        else
-        {
+        } else {
             Drawer D(sur,0,0,sz,sz);
-            D.SetColors(sq->R,sq->G,sq->B,alpha);
+            D.SetColors(255,255,255,alpha);
             D.Draw(game::screen,x,y);
-
-
         }
-        //game::Error("A");
-    }
-    else
-    {
+    } else {
 
         Drawer D(game::sprites,4*sz,19*sz,sz,sz);
         D.SetColors(sq->R,sq->G,sq->B,255);
         D.Draw(game::screen,x,y);
     }
-
 }
 
 bool pit::CanConsume(obj* object)
