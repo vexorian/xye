@@ -8131,8 +8131,6 @@ void pit::Loop()
         obj* object = sq->object;
         if (object!=NULL) {
             OnEnter(object);
-        } else {
-            printf("NOT FOUND!!\n");
         }
     }
     if (dis || !end) {
