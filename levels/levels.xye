@@ -11501,413 +11501,411 @@
         <wall color='1' />
         <earth color='2' />
     </default>
-    <ground>
-        <pit x='5' y='5' />
-        <pit x='7' y='8' />
-        <marked x='8' y='18' bc='G' />
-        <blockdoor x='9' y='15' bc='G' />
-        <pit x='10' y='7' />
-        <pit x='12' y='10' />
-        <marked x='17' y='5' bc='R' />
-        <pit x='19' y='15' />
-        <pit x='20' y='15' />
-        <pit x='21' y='15' />
-        <oneway dir='L' x='21' y='5' />
-        <oneway dir='L' x='21' y='4' />
-        <oneway dir='L' x='21' y='3' />
-        <blockdoor x='21' y='1' bc='R' />
-        <pit x='23' y='15' />
-        <blockdoor x='23' y='5' bc='R' />
-        <oneway dir='L' x='23' y='3' />
-        <oneway dir='L' x='23' y='2' />
-        <oneway dir='L' x='23' y='1' />
-        <pit x='24' y='15' />
-        <oneway dir='L' x='25' y='5' />
-        <oneway dir='L' x='25' y='4' />
-        <oneway dir='L' x='25' y='3' />
-        <blockdoor x='25' y='1' bc='R' />
-        <pit x='26' y='15' />
-        <oneway dir='U' x='26' y='8' />
-        <pit x='27' y='15' />
-        <blockdoor x='27' y='5' bc='R' />
-        <oneway dir='L' x='27' y='3' />
-        <oneway dir='L' x='27' y='2' />
-        <oneway dir='L' x='27' y='1' />
-        <pit x='28' y='15' />
-        <oneway dir='D' x='28' y='8' />
-    </ground>
-    <objects>
-        <wall x='0' y='19' />
-        <wall x='0' y='18' />
-        <wall x='0' y='17' />
-        <wall x='0' y='16' />
-        <wall x='0' y='15' />
-        <wall x='0' y='14' />
-        <wall x='0' y='13' />
-        <wall x='0' y='12' type='6' />
-        <wall x='0' y='11' />
-        <wall x='0' y='10' />
-        <wall x='0' y='9' />
-        <wall x='0' y='8' />
-        <wall x='0' y='7' />
-        <wall x='0' y='6' />
-        <wall x='0' y='5' />
-        <wall x='0' y='4' />
-        <wall x='0' y='3' />
-        <wall x='0' y='2' />
-        <wall x='0' y='1' />
-        <wall x='0' y='0' />
-        <wall x='1' y='19' />
-        <teleport x='1' y='18' dir='D' />
-        <wall x='1' y='16' />
-        <teleport x='1' y='14' dir='U' />
-        <wall x='1' y='13' />
-        <wall x='1' y='12' type='6' />
-        <wall x='1' y='11' />
-        <teleport x='1' y='1' dir='U' />
-        <wall x='1' y='0' />
-        <wall x='2' y='19' type='6' />
-        <wall x='2' y='18' />
-        <wall x='2' y='14' />
-        <wall x='2' y='13' type='6' />
-        <wall x='2' y='12' type='6' />
-        <wall x='2' y='11' />
-        <wall x='2' y='9' />
-        <wall x='2' y='8' />
-        <wall x='2' y='7' />
-        <wall x='2' y='6' />
-        <wall x='2' y='5' />
-        <wall x='2' y='4' />
-        <wall x='2' y='3' />
-        <wall x='2' y='0' />
-        <wall x='3' y='19' type='6' />
-        <wall x='3' y='18' />
-        <wall x='3' y='16' />
-        <wall x='3' y='14' />
-        <wall x='3' y='13' type='6' />
-        <wall x='3' y='12' type='6' />
-        <wall x='3' y='11' />
-        <timer x='3' y='7' bc='G' val='3' />
-        <arrow dir='U' x='3' y='6' bc='B' />
-        <arrow dir='U' x='3' y='5' bc='B' />
-        <gem x='3' y='4' bc='B' />
-        <wall x='3' y='3' />
-        <wall x='3' y='2' />
-        <wall x='3' y='0' />
-        <wall x='4' y='19' type='6' />
-        <wall x='4' y='18' />
-        <wall x='4' y='16' />
-        <wall x='4' y='14' />
-        <wall x='4' y='13' type='6' />
-        <wall x='4' y='12' type='6' />
-        <wall x='4' y='11' />
-        <wall x='4' y='9' />
-        <timer x='4' y='5' bc='G' val='3' />
-        <arrow dir='U' x='4' y='4' bc='B' />
-        <arrow dir='U' x='4' y='3' bc='B' />
-        <wall x='4' y='2' />
-        <wall x='4' y='0' />
-        <wall x='5' y='19' type='6' />
-        <wall x='5' y='18' />
-        <wall x='5' y='14' />
-        <wall x='5' y='13' type='6' />
-        <wall x='5' y='12' type='6' />
-        <wall x='5' y='11' />
-        <wall x='5' y='9' />
-        <wall x='5' y='8' />
-        <wall x='5' y='7' />
-        <wall x='5' y='6' />
-        <wall x='5' y='4' />
-        <wall x='5' y='3' />
-        <wall x='5' y='2' />
-        <wall x='5' y='0' />
-        <wall x='6' y='19' />
-        <wall x='6' y='18' />
-        <wall x='6' y='14' />
-        <wall x='6' y='13' type='6' />
-        <wall x='6' y='12' type='6' />
-        <wall x='6' y='11' />
-        <wall x='6' y='0' />
-        <wall x='7' y='19' />
-        <magnet x='7' y='18' horz='1' kind='1' />
-        <wall x='7' y='17' />
-        <wall x='7' y='15' />
-        <wall x='7' y='14' />
-        <wall x='7' y='13' type='6' />
-        <wall x='7' y='12' type='6' />
-        <wall x='7' y='11' />
-        <wall x='7' y='10' />
-        <wall x='7' y='9' />
-        <wall x='7' y='7' />
-        <wall x='7' y='6' />
-        <wall x='7' y='5' />
-        <wall x='7' y='4' />
-        <wall x='7' y='3' />
-        <wall x='7' y='2' />
-        <wall x='7' y='0' />
-        <wall x='8' y='19' />
-        <wall x='8' y='17' />
-        <filler x='8' y='15' dir='R' bc='G' round='1' />
-        <wall x='8' y='14' />
-        <wall x='8' y='13' type='6' />
-        <wall x='8' y='12' type='6' />
-        <wall x='8' y='11' type='6' />
-        <wall x='8' y='10' type='6' />
-        <wall x='8' y='9' />
-        <wall x='8' y='6' />
-        <wall x='8' y='5' type='6' />
-        <wall x='8' y='4' type='6' />
-        <wall x='8' y='3' type='6' />
-        <wall x='8' y='2' />
-        <wall x='8' y='0' />
-        <wall x='9' y='19' />
-        <toggle off='1' x='9' y='18' bc='G' />
-        <wall x='9' y='17' />
-        <wall x='9' y='14' />
-        <wall x='9' y='13' type='6' />
-        <wall x='9' y='12' type='6' />
-        <wall x='9' y='11' type='6' />
-        <wall x='9' y='10' type='6' />
-        <wall x='9' y='9' type='6' />
-        <wall x='9' y='8' />
-        <wall x='9' y='6' />
-        <wall x='9' y='5' type='6' />
-        <wall x='9' y='4' type='6' />
-        <wall x='9' y='3' type='6' />
-        <wall x='9' y='2' />
-        <wall x='9' y='0' />
-        <wall x='10' y='19' />
-        <wall x='10' y='14' />
-        <wall x='10' y='13' />
-        <wall x='10' y='12' />
-        <wall x='10' y='11' />
-        <wall x='10' y='10' />
-        <wall x='10' y='9' />
-        <wall x='10' y='8' />
-        <wall x='10' y='6' />
-        <wall x='10' y='5' />
-        <wall x='10' y='4' />
-        <wall x='10' y='3' />
-        <wall x='10' y='2' />
-        <wall x='10' y='0' />
-        <wall x='11' y='19' />
-        <wall x='11' y='18' />
-        <wall x='11' y='17' />
-        <wall x='11' y='14' />
-        <earth x='11' y='13' />
-        <block x='11' y='12' nocolor='1'/>
-        <block x='11' y='11' nocolor='1'/>
-        <blacky x='11' y='0' />
-        <wall x='12' y='19' />
-        <wall x='12' y='17' />
-        <wall x='12' y='14' />
-        <wall x='12' y='11' />
-        <wall x='12' y='9' />
-        <wall x='12' y='8' />
-        <wall x='12' y='7' />
-        <wall x='12' y='6' />
-        <wall x='12' y='5' />
-        <wall x='12' y='4' />
-        <wall x='12' y='3' />
-        <wall x='12' y='2' />
-        <wall x='12' y='0' />
-        <wall x='13' y='19' />
-        <wall x='13' y='17' />
-        <wall x='13' y='14' />
-        <wall x='13' y='9' />
-        <wall x='13' y='6' />
-        <wall x='13' y='5' type='6' />
-        <wall x='13' y='4' type='6' />
-        <wall x='13' y='3' />
-        <wall x='13' y='0' />
-        <wall x='14' y='19' />
-        <wall x='14' y='17' />
-        <wall x='14' y='14' />
-        <wall x='14' y='13' />
-        <wall x='14' y='11' />
-        <wall x='14' y='6' />
-        <wall x='14' y='5' type='6' />
-        <wall x='14' y='4' />
-        <arrow dir='D' x='14' y='3' bc='B' />
-        <earth x='14' y='2' />
-        <wall x='14' y='1' />
-        <wall x='14' y='0' />
-        <wall x='15' y='19' />
-        <toggle x='15' y='18' bc='G' />
-        <wall x='15' y='17' />
-        <wall x='15' y='14' />
-        <wall x='15' y='13' />
-        <wall x='15' y='11' />
-        <wall x='15' y='10' />
-        <wall x='15' y='9' />
-        <star x='15' y='8' />
-        <wall x='15' y='7' />
-        <wall x='15' y='6' />
-        <wall x='15' y='5' type='6' />
-        <wall x='15' y='4' type='6' />
-        <wall x='15' y='3' />
-        <wall x='15' y='0' />
-        <wall x='16' y='19' />
-        <pusher x='16' y='18' dir='L' bc='R' />
-        <wall x='16' y='17' />
-        <wall x='16' y='14' />
-        <wall x='16' y='11' />
-        <wall x='16' y='6' />
-        <wall x='16' y='5' />
-        <wall x='16' y='4' />
-        <wall x='16' y='3' />
-        <wall x='16' y='2' />
-        <wall x='16' y='0' />
-        <wall x='17' y='19' />
-        <wall x='17' y='18' />
-        <wall x='17' y='17' round3='1' />
-        <wall x='17' y='14' />
-        <lock x='17' y='12' bc='Y' />
-        <wall x='17' y='11' />
-        <wall x='17' y='6' />
-        <earth x='17' y='3' />
-        <earth x='17' y='2' />
-        <gem x='17' y='1' bc='B' />
-        <wall x='17' y='0' />
-        <wall x='18' y='19' />
-        <wall x='18' y='14' />
-        <magnet x='18' y='12' horz='1' kind='0' />
-        <wall x='18' y='11' />
-        <beast x='18' y='8' dir='U' kind='9' />
-        <wall x='18' y='6' />
-        <block x='18' y='5' bc='R' />
-        <wall x='18' y='3' />
-        <gem x='18' y='2' bc='B' />
-        <earth x='18' y='1' />
-        <wall x='18' y='0' />
-        <wall x='19' y='19' />
-        <aclocker x='19' y='18' bc='B' />
-        <aclocker x='19' y='17' bc='B' />
-        <wall x='19' y='16' />
-        <wall x='19' y='14' />
-        <wall x='19' y='12' />
-        <wall x='19' y='11' />
-        <block x='19' y='10' nocolor='1'/>
-        <block x='19' y='9' nocolor='1'/>
-        <block x='19' y='8' nocolor='1'/>
-        <block x='19' y='7' nocolor='1'/>
-        <wall x='19' y='6' />
-        <wall x='19' y='3' />
-        <wall x='19' y='2' />
-        <wall x='19' y='1' />
-        <wall x='19' y='0' />
-        <wall x='20' y='19' />
-        <wall x='20' y='16' round3='1' round9='1' />
-        <wall x='20' y='14' />
-        <wall x='20' y='6' />
-        <wall x='20' y='0' />
-        <aclocker x='21' y='19' bc='B' />
-        <wall x='21' y='14' />
-        <wall x='21' y='13' />
-        <wall x='21' y='12' />
-        <wall x='21' y='11' />
-        <wall x='21' y='10' />
-        <wall x='21' y='9' />
-        <wall x='21' y='8' />
-        <mine x='21' y='7' />
-        <wall x='21' y='6' />
-        <wall x='21' y='2' />
-        <arrow dir='R' x='21' y='0' bc='R' />
-        <wall x='22' y='19' />
-        <aclocker x='22' y='18' bc='B' />
-        <wall x='22' y='17' />
-        <wall x='22' y='16' />
-        <aclocker x='22' y='15' bc='B' />
-        <wall x='22' y='14' />
-        <wall x='22' y='13' type='6' />
-        <wall x='22' y='12' type='6' />
-        <wall x='22' y='11' type='6' />
-        <wall x='22' y='10' />
-        <wall x='22' y='8' />
-        <wall x='22' y='6' />
-        <beast x='22' y='3' dir='R' kind='0' />
-        <wall x='22' y='0' />
-        <wall x='23' y='19' />
-        <wall x='23' y='16' round3='1' round9='1' />
-        <wall x='23' y='14' />
-        <wall x='23' y='13' />
-        <wall x='23' y='12' />
-        <wall x='23' y='11' />
-        <wall x='23' y='10' />
-        <wall x='23' y='8' />
-        <mine x='23' y='7' />
-        <wall x='23' y='6' />
-        <wall x='23' y='4' />
-        <arrow dir='R' x='23' y='0' bc='R' />
-        <aclocker x='24' y='19' bc='B' />
-        <wall x='24' y='14' />
-        <wall x='24' y='10' />
-        <wall x='24' y='8' />
-        <wall x='24' y='6' />
-        <beast x='24' y='1' dir='R' kind='0' />
-        <wall x='24' y='0' />
-        <wall x='25' y='19' />
-        <aclocker x='25' y='18' bc='B' />
-        <wall x='25' y='17' />
-        <wall x='25' y='16' />
-        <aclocker x='25' y='15' bc='B' />
-        <wall x='25' y='14' />
-        <key x='25' y='12' bc='Y' />
-        <beast x='25' y='11' dir='L' kind='7' />
-        <wall x='25' y='10' />
-        <wall x='25' y='8' />
-        <mine x='25' y='7' />
-        <wall x='25' y='6' />
-        <wall x='25' y='2' />
-        <arrow dir='R' x='25' y='0' bc='R' />
-        <wall x='26' y='19' type='6' />
-        <wall x='26' y='18' />
-        <wall x='26' y='17' type='6' />
-        <wall x='26' y='16' />
-        <wall x='26' y='14' />
-        <wall x='26' y='10' />
-        <wall x='26' y='6' />
-        <beast x='26' y='3' dir='R' kind='0' />
-        <wall x='26' y='0' />
-        <wall x='27' y='19' type='6' />
-        <wall x='27' y='18' type='6' />
-        <wall x='27' y='17' type='6' />
-        <wall x='27' y='16' />
-        <wall x='27' y='14' />
-        <beast x='27' y='11' dir='L' kind='7' />
-        <wall x='27' y='10' />
-        <wall x='27' y='8' />
-        <wall x='27' y='6' />
-        <wall x='27' y='4' />
-        <arrow dir='R' x='27' y='0' bc='R' />
-        <wall x='28' y='19' type='6' />
-        <wall x='28' y='18' type='6' />
-        <wall x='28' y='17' type='6' />
-        <wall x='28' y='16' />
-        <wall x='28' y='10' />
-        <wall x='28' y='0' />
-        <wall x='29' y='19' type='6' />
-        <wall x='29' y='18' type='6' />
-        <wall x='29' y='17' type='6' />
-        <wall x='29' y='16' type='6' />
-        <wall x='29' y='15' />
-        <wall x='29' y='14' />
-        <wall x='29' y='13' />
-        <wall x='29' y='12' />
-        <wall x='29' y='11' />
-        <wall x='29' y='10' />
-        <wall x='29' y='9' />
-        <wall x='29' y='8' />
-        <wall x='29' y='7' />
-        <wall x='29' y='6' />
-        <wall x='29' y='5' />
-        <wall x='29' y='4' />
-        <wall x='29' y='3' />
-        <wall x='29' y='2' />
-        <wall x='29' y='1' />
-        <wall x='29' y='0' />
-    </objects>
-    <xye x='6' y='1' lives='1' />
+	<ground>
+		<pit x='5' y='5' />
+		<pit x='7' y='8' />
+		<marked x='8' y='18' bc='G' />
+		<blockdoor x='9' y='15' bc='G' />
+		<pit x='10' y='7' />
+		<pit x='12' y='10' />
+		<marked x='17' y='5' bc='R' />
+		<pit x='19' y='15' />
+		<pit x='20' y='15' />
+		<pit x='21' y='15' />
+		<oneway dir='L' x='21' y='5' />
+		<oneway dir='L' x='21' y='4' />
+		<oneway dir='L' x='21' y='3' />
+		<blockdoor x='21' y='1' bc='R' />
+		<pit x='23' y='15' />
+		<blockdoor x='23' y='5' bc='R' />
+		<oneway dir='L' x='23' y='3' />
+		<oneway dir='L' x='23' y='2' />
+		<oneway dir='L' x='23' y='1' />
+		<pit x='24' y='15' />
+		<oneway dir='L' x='25' y='5' />
+		<oneway dir='L' x='25' y='4' />
+		<oneway dir='L' x='25' y='3' />
+		<blockdoor x='25' y='1' bc='R' />
+		<pit x='26' y='15' />
+		<oneway dir='U' x='26' y='8' />
+		<pit x='27' y='15' />
+		<blockdoor x='27' y='5' bc='R' />
+		<oneway dir='L' x='27' y='3' />
+		<oneway dir='L' x='27' y='2' />
+		<oneway dir='L' x='27' y='1' />
+		<pit x='28' y='15' />
+		<oneway dir='D' x='28' y='8' />
+	</ground>
+	<objects>
+		<wall x='0' y='19' />
+		<wall x='0' y='18' />
+		<wall x='0' y='17' />
+		<wall x='0' y='16' />
+		<wall x='0' y='15' />
+		<wall x='0' y='14' />
+		<wall x='0' y='13' />
+		<wall x='0' y='12' type='6' />
+		<wall x='0' y='11' />
+		<wall x='0' y='10' />
+		<wall x='0' y='9' />
+		<wall x='0' y='8' />
+		<wall x='0' y='7' />
+		<wall x='0' y='6' />
+		<wall x='0' y='5' />
+		<wall x='0' y='4' />
+		<wall x='0' y='3' />
+		<wall x='0' y='2' />
+		<wall x='0' y='1' />
+		<wall x='0' y='0' />
+		<wall x='1' y='19' />
+		<teleport x='1' y='18' dir='D' />
+		<wall x='1' y='16' />
+		<teleport x='1' y='14' dir='U' />
+		<wall x='1' y='13' />
+		<wall x='1' y='12' type='6' />
+		<wall x='1' y='11' />
+		<teleport x='1' y='1' dir='U' />
+		<wall x='1' y='0' />
+		<wall x='2' y='19' />
+		<wall x='2' y='18' />
+		<wall x='2' y='14' />
+		<wall x='2' y='13' type='6' />
+		<wall x='2' y='12' type='6' />
+		<wall x='2' y='11' />
+		<wall x='2' y='9' />
+		<wall x='2' y='8' />
+		<wall x='2' y='7' />
+		<wall x='2' y='6' />
+		<wall x='2' y='5' />
+		<wall x='2' y='4' />
+		<wall x='2' y='3' />
+		<wall x='2' y='0' />
+		<wall x='3' y='19' />
+		<wall x='3' y='18' />
+		<wall x='3' y='16' />
+		<wall x='3' y='14' />
+		<wall x='3' y='13' type='6' />
+		<wall x='3' y='12' type='6' />
+		<wall x='3' y='11' />
+		<timer x='3' y='7' bc='G' val='3' />
+		<arrow dir='U' x='3' y='6' bc='B' />
+		<arrow dir='U' x='3' y='5' bc='B' />
+		<gem x='3' y='4' bc='B' />
+		<wall x='3' y='3' />
+		<wall x='3' y='2' />
+		<wall x='3' y='0' />
+		<wall x='4' y='19' />
+		<wall x='4' y='18' />
+		<wall x='4' y='16' />
+		<wall x='4' y='14' />
+		<wall x='4' y='13' type='6' />
+		<wall x='4' y='12' type='6' />
+		<wall x='4' y='11' />
+		<wall x='4' y='9' />
+		<wall x='4' y='7' />
+		<wall x='4' y='2' />
+		<wall x='4' y='0' />
+		<wall x='5' y='19' />
+		<wall x='5' y='18' />
+		<wall x='5' y='14' />
+		<wall x='5' y='13' type='6' />
+		<wall x='5' y='12' type='6' />
+		<wall x='5' y='11' />
+		<wall x='5' y='9' />
+		<wall x='5' y='8' />
+		<wall x='5' y='7' />
+		<wall x='5' y='6' />
+		<wall x='5' y='4' />
+		<wall x='5' y='3' />
+		<wall x='5' y='2' />
+		<wall x='5' y='0' />
+		<wall x='6' y='19' />
+		<wall x='6' y='18' />
+		<wall x='6' y='14' />
+		<wall x='6' y='13' type='6' />
+		<wall x='6' y='12' type='6' />
+		<wall x='6' y='11' />
+		<wall x='6' y='0' />
+		<wall x='7' y='19' />
+		<magnet x='7' y='18' horz='1' kind='1' />
+		<wall x='7' y='17' />
+		<wall x='7' y='15' />
+		<wall x='7' y='14' />
+		<wall x='7' y='13' type='6' />
+		<wall x='7' y='12' type='6' />
+		<wall x='7' y='11' />
+		<wall x='7' y='10' />
+		<wall x='7' y='9' />
+		<wall x='7' y='7' />
+		<wall x='7' y='6' />
+		<wall x='7' y='5' />
+		<wall x='7' y='4' />
+		<wall x='7' y='3' />
+		<wall x='7' y='2' />
+		<wall x='7' y='0' />
+		<wall x='8' y='19' />
+		<wall x='8' y='17' />
+		<filler x='8' y='15' dir='R' bc='G' round='1' />
+		<wall x='8' y='14' />
+		<wall x='8' y='13' type='6' />
+		<wall x='8' y='12' type='6' />
+		<wall x='8' y='11' type='6' />
+		<wall x='8' y='10' type='6' />
+		<wall x='8' y='9' />
+		<wall x='8' y='6' />
+		<wall x='8' y='5' type='6' />
+		<wall x='8' y='4' type='6' />
+		<wall x='8' y='3' type='6' />
+		<wall x='8' y='2' />
+		<wall x='8' y='0' />
+		<wall x='9' y='19' />
+		<toggle off='1' x='9' y='18' bc='G' />
+		<wall x='9' y='17' />
+		<wall x='9' y='14' />
+		<wall x='9' y='13' type='6' />
+		<wall x='9' y='12' type='6' />
+		<wall x='9' y='11' type='6' />
+		<wall x='9' y='10' type='6' />
+		<wall x='9' y='9' type='6' />
+		<wall x='9' y='8' />
+		<wall x='9' y='6' />
+		<wall x='9' y='5' type='6' />
+		<wall x='9' y='4' type='6' />
+		<wall x='9' y='3' type='6' />
+		<wall x='9' y='2' />
+		<wall x='9' y='0' />
+		<wall x='10' y='19' />
+		<wall x='10' y='14' />
+		<wall x='10' y='13' />
+		<wall x='10' y='12' />
+		<wall x='10' y='11' />
+		<wall x='10' y='10' />
+		<wall x='10' y='9' />
+		<wall x='10' y='8' />
+		<wall x='10' y='6' />
+		<wall x='10' y='5' />
+		<wall x='10' y='4' />
+		<wall x='10' y='3' />
+		<wall x='10' y='2' />
+		<wall x='10' y='0' />
+		<wall x='11' y='19' />
+		<wall x='11' y='18' />
+		<wall x='11' y='17' />
+		<wall x='11' y='14' />
+		<earth x='11' y='13' />
+		<block x='11' y='12' nocolor='1'/>
+		<block x='11' y='11' nocolor='1'/>
+		<blacky x='11' y='0' />
+		<wall x='12' y='19' />
+		<wall x='12' y='17' />
+		<wall x='12' y='14' />
+		<wall x='12' y='11' />
+		<wall x='12' y='9' />
+		<wall x='12' y='8' />
+		<wall x='12' y='7' />
+		<wall x='12' y='6' />
+		<wall x='12' y='5' />
+		<wall x='12' y='4' />
+		<wall x='12' y='3' />
+		<wall x='12' y='2' />
+		<wall x='12' y='0' />
+		<wall x='13' y='19' />
+		<wall x='13' y='17' />
+		<wall x='13' y='14' />
+		<wall x='13' y='9' />
+		<wall x='13' y='6' />
+		<wall x='13' y='5' type='6' />
+		<wall x='13' y='4' type='6' />
+		<wall x='13' y='3' />
+		<wall x='13' y='0' />
+		<wall x='14' y='19' />
+		<wall x='14' y='17' />
+		<wall x='14' y='14' />
+		<wall x='14' y='13' />
+		<wall x='14' y='11' />
+		<wall x='14' y='6' />
+		<wall x='14' y='5' type='6' />
+		<wall x='14' y='4' />
+		<arrow dir='D' x='14' y='3' bc='B' />
+		<earth x='14' y='2' />
+		<wall x='14' y='1' />
+		<wall x='14' y='0' />
+		<wall x='15' y='19' />
+		<toggle x='15' y='18' bc='G' />
+		<wall x='15' y='17' />
+		<wall x='15' y='14' />
+		<wall x='15' y='13' />
+		<wall x='15' y='11' />
+		<wall x='15' y='10' />
+		<wall x='15' y='9' />
+		<star x='15' y='8' />
+		<wall x='15' y='7' />
+		<wall x='15' y='6' />
+		<wall x='15' y='5' type='6' />
+		<wall x='15' y='4' type='6' />
+		<wall x='15' y='3' />
+		<wall x='15' y='0' />
+		<wall x='16' y='19' />
+		<pusher x='16' y='18' dir='L' bc='R' />
+		<wall x='16' y='17' />
+		<wall x='16' y='14' />
+		<wall x='16' y='11' />
+		<wall x='16' y='6' />
+		<wall x='16' y='5' />
+		<wall x='16' y='4' />
+		<wall x='16' y='3' />
+		<wall x='16' y='2' />
+		<wall x='16' y='0' />
+		<wall x='17' y='19' />
+		<wall x='17' y='18' />
+		<wall x='17' y='17' round3='1' />
+		<wall x='17' y='14' />
+		<lock x='17' y='12' bc='Y' />
+		<wall x='17' y='11' />
+		<wall x='17' y='6' />
+		<earth x='17' y='3' />
+		<earth x='17' y='2' />
+		<gem x='17' y='1' bc='B' />
+		<wall x='17' y='0' />
+		<wall x='18' y='19' />
+		<wall x='18' y='14' />
+		<magnet x='18' y='12' horz='1' kind='0' />
+		<wall x='18' y='11' />
+		<beast x='18' y='8' dir='U' kind='9' />
+		<wall x='18' y='6' />
+		<block x='18' y='5' bc='R' />
+		<wall x='18' y='3' />
+		<gem x='18' y='2' bc='B' />
+		<earth x='18' y='1' />
+		<wall x='18' y='0' />
+		<wall x='19' y='19' />
+		<aclocker x='19' y='18' bc='B' />
+		<aclocker x='19' y='17' bc='B' />
+		<wall x='19' y='16' />
+		<wall x='19' y='14' />
+		<wall x='19' y='12' />
+		<wall x='19' y='11' />
+		<block x='19' y='10' nocolor='1'/>
+		<block x='19' y='9' nocolor='1'/>
+		<block x='19' y='8' nocolor='1'/>
+		<block x='19' y='7' nocolor='1'/>
+		<wall x='19' y='6' />
+		<wall x='19' y='3' />
+		<wall x='19' y='2' />
+		<wall x='19' y='1' />
+		<wall x='19' y='0' />
+		<wall x='20' y='19' />
+		<wall x='20' y='16' round3='1' round9='1' />
+		<wall x='20' y='14' />
+		<wall x='20' y='6' />
+		<wall x='20' y='0' />
+		<aclocker x='21' y='19' bc='B' />
+		<wall x='21' y='14' />
+		<wall x='21' y='13' />
+		<wall x='21' y='12' />
+		<wall x='21' y='11' />
+		<wall x='21' y='10' />
+		<wall x='21' y='9' />
+		<wall x='21' y='8' />
+		<mine x='21' y='7' />
+		<wall x='21' y='6' />
+		<wall x='21' y='2' />
+		<arrow dir='R' x='21' y='0' bc='R' />
+		<wall x='22' y='19' />
+		<aclocker x='22' y='18' bc='B' />
+		<wall x='22' y='17' />
+		<wall x='22' y='16' />
+		<aclocker x='22' y='15' bc='B' />
+		<wall x='22' y='14' />
+		<wall x='22' y='13' type='6' />
+		<wall x='22' y='12' type='6' />
+		<wall x='22' y='11' type='6' />
+		<wall x='22' y='10' />
+		<wall x='22' y='8' />
+		<wall x='22' y='6' />
+		<beast x='22' y='3' dir='R' kind='0' />
+		<wall x='22' y='0' />
+		<wall x='23' y='19' />
+		<wall x='23' y='16' round3='1' round9='1' />
+		<wall x='23' y='14' />
+		<wall x='23' y='13' />
+		<wall x='23' y='12' />
+		<wall x='23' y='11' />
+		<wall x='23' y='10' />
+		<wall x='23' y='8' />
+		<mine x='23' y='7' />
+		<wall x='23' y='6' />
+		<wall x='23' y='4' />
+		<arrow dir='R' x='23' y='0' bc='R' />
+		<aclocker x='24' y='19' bc='B' />
+		<wall x='24' y='14' />
+		<wall x='24' y='10' />
+		<wall x='24' y='8' />
+		<wall x='24' y='6' />
+		<beast x='24' y='1' dir='R' kind='0' />
+		<wall x='24' y='0' />
+		<wall x='25' y='19' />
+		<aclocker x='25' y='18' bc='B' />
+		<wall x='25' y='17' />
+		<wall x='25' y='16' />
+		<aclocker x='25' y='15' bc='B' />
+		<wall x='25' y='14' />
+		<key x='25' y='12' bc='Y' />
+		<beast x='25' y='11' dir='L' kind='7' />
+		<wall x='25' y='10' />
+		<wall x='25' y='8' />
+		<mine x='25' y='7' />
+		<wall x='25' y='6' />
+		<wall x='25' y='2' />
+		<arrow dir='R' x='25' y='0' bc='R' />
+		<wall x='26' y='19' />
+		<wall x='26' y='18' />
+		<wall x='26' y='17' />
+		<wall x='26' y='16' />
+		<wall x='26' y='14' />
+		<wall x='26' y='10' />
+		<wall x='26' y='6' />
+		<beast x='26' y='3' dir='R' kind='0' />
+		<wall x='26' y='0' />
+		<wall x='27' y='19' />
+		<wall x='27' y='18' />
+		<wall x='27' y='17' />
+		<wall x='27' y='16' />
+		<wall x='27' y='14' />
+		<beast x='27' y='11' dir='L' kind='7' />
+		<wall x='27' y='10' />
+		<wall x='27' y='8' />
+		<wall x='27' y='6' />
+		<wall x='27' y='4' />
+		<arrow dir='R' x='27' y='0' bc='R' />
+		<wall x='28' y='19' />
+		<wall x='28' y='18' />
+		<wall x='28' y='17' />
+		<wall x='28' y='16' />
+		<wall x='28' y='10' />
+		<wall x='28' y='0' />
+		<wall x='29' y='19' />
+		<wall x='29' y='18' />
+		<wall x='29' y='17' />
+		<wall x='29' y='16' />
+		<wall x='29' y='15' />
+		<wall x='29' y='14' />
+		<wall x='29' y='13' />
+		<wall x='29' y='12' />
+		<wall x='29' y='11' />
+		<wall x='29' y='10' />
+		<wall x='29' y='9' />
+		<wall x='29' y='8' />
+		<wall x='29' y='7' />
+		<wall x='29' y='6' />
+		<wall x='29' y='5' />
+		<wall x='29' y='4' />
+		<wall x='29' y='3' />
+		<wall x='29' y='2' />
+		<wall x='29' y='1' />
+		<wall x='29' y='0' />
+	</objects>
+	<xye x='6' y='1' lives='1' />
 </level>
 
 
