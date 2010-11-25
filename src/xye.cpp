@@ -8125,17 +8125,29 @@ void pit::OnDeath()
 
 void pit::Loop()
 {
-if (dis || !end) return;
-
-
-if (alpha>=31)
-{
-if (! dec)
-     alpha-=31;
-else dec--;
-}
-else alpha=0;
-
+    if(!end && !dis) {
+        //verify lone big blocks...
+        square* sq=game::Square(pit::x,pit::y);
+        obj* object = sq->object;
+        if (object!=NULL) {
+            OnEnter(object);
+        } else {
+            printf("NOT FOUND!!\n");
+        }
+    }
+    if (dis || !end) {
+        return;
+    }
+    
+    if (alpha>=31) {
+        if (! dec) {
+            alpha-=31;
+        } else {
+            dec--;
+        }
+    } else {
+        alpha=0;
+    }
 }
 
 void pit::Draw(unsigned int x, unsigned int y)
