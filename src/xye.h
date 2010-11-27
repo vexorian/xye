@@ -984,7 +984,7 @@ class teleport : public obj
      teleport* FindExit(char stx,char sty);
      edir dir;
      bool Loop(bool* died);
-     bool FindCleanExit(obj* ForObject, char &nx, char &ny);
+     bool FindCleanExit(obj* ForObject, char &nx, char &ny, bool AI=false);
      bool HasBlockColor(blockcolor bc);
 };
 

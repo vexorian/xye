@@ -2680,7 +2680,7 @@ bool obj::GoFindASquare(bool (*cond)(square* sq), edir res[], int &resn, bool &f
                                     if (ignoreSp) go=true; // Will try to go there
                                     else
                                     {
-                                        go=tele->FindCleanExit(this, nx, ny);
+                                        go=tele->FindCleanExit(this, nx, ny, true);
                                         if (go)
                                         {
                                             go= sqMem::mem[nx][ny];
@@ -5893,7 +5893,7 @@ bool teleport::tryteleport(edir odir, obj* moving, char& nx, char& ny ,dangerous
  return false;
 }
 
-bool teleport::FindCleanExit(obj* ForObject, char &nx, char &ny)
+bool teleport::FindCleanExit(obj* ForObject, char &nx, char &ny, bool AI)
 {
     //Find exit
     teleport* exit=FindExit(-1,-1);
@@ -5915,7 +5915,7 @@ bool teleport::FindCleanExit(obj* ForObject, char &nx, char &ny)
         nx=(nx<0?XYE_HORZ-1:(nx>=XYE_HORZ?0:nx));
         ny=(ny<0?XYE_VERT-1:(ny>=XYE_VERT?0:ny));
             sq=game::Square(nx,ny);
-            if (sq->object==NULL)
+            if (sq->object==NULL || (AI &&(ForObject==sq->object) ) )
             {
                 gobject=sq->gobject;
                 if ((gobject==NULL) || (gobject->CanEnter(ForObject,odir)))
