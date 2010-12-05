@@ -6,6 +6,7 @@
   do not want a truetype font-->
 <xyeskin
 sprites="clean40.png"
+luminosity="clean40_luminosity.png"
 size='40'
 fontfile="DejaVuSans.ttf"
 boldfontfile="DejaVuSans-Bold.ttf"
@@ -50,4 +51,15 @@ feel free to change them, just keep good contrast-->
 <color type="F" bc="B" red='0' green='255' blue='255'/>
 <color type="F" bc="G" red='255' green='255' blue='255'/>
 -->
+
+<color type="WALL_SPRITE" red='255' green='255' blue='255' />
+<color type="WALL_SPRITE" variation='2' red='192' green='192' blue='192' />
+<color type="WALL_SPRITE" variation='4' red='192' green='192' blue='192' />
+<color type="WALL_SPRITE" variation='5' red='192' green='192' blue='192' />
+
+<color type="WALL" red='200' green='200' blue='200' />
+<color type="WALL" variation='2' red='255' green='255' blue='255' />
+<color type="WALL" variation='4' red='255' green='255' blue='255' />
+<color type="WALL" variation='5' red='255' green='255' blue='255' />
+
 </xyeskin>
