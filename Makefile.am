@@ -39,6 +39,7 @@ res/clean40.png \
 res/classic32.xml \
 res/kye32.png \
 res/kye32_luminosity.png \
+res/clean40_luminosity.png \
 res/kye_luminosity.png
 
 
