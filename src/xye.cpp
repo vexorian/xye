@@ -2884,7 +2884,7 @@ void gobj::Kill()
 
 /**Class xye**/
 bool xye::useDirectionSprites = false;
-
+void InitRoundRandom(int w, int z);
 xye::xye(square* sq)
 {
     alpha=255;
@@ -2894,6 +2894,7 @@ xye::xye(square* sq)
     deadtic=0;
     moved=false;
     ObjectConstruct(sq);
+    InitRoundRandom(checkpoint->sqx, checkpoint->sqy);
 }
 
 void xye::Draw(unsigned int x, unsigned int y)
@@ -3470,6 +3471,22 @@ unsigned int BC2FColor(blockcolor bc)
 
 
 /** General Stuff (Round alg)**/
+
+Uint32 round_random_w = 452;
+Uint32 round_random_z = 777;
+void InitRoundRandom(int w, int z) {
+    round_random_w = w;
+    round_random_z = z;
+}
+
+
+Uint32 GetRandom32() {
+    round_random_z = 36969 * (round_random_z & 65535) + (round_random_z >> 16);
+    round_random_w = 18000 * (round_random_w & 65535) + (round_random_w >> 16);
+    return (round_random_z << 16) + round_random_w;  /* 32-bit result */
+}
+
+
 square* RoundAvance_Sub(obj* ToMove,
      edir dir,char wx, char wy,
      roundcorner rca, edir adir, char ax1, char ay1, char ax2, char ay2,
@@ -3500,11 +3517,20 @@ square* RoundAvance_Sub(obj* ToMove,
         sq22=game::SquareN(bx2,by2);
         b= (Allowed(ToMove,bdir,sq21) && Allowed(ToMove,dir,sq22) );
     }
-    if ((a) && ((!b) || (((game::Counter()+ax1*XYE_VERT+ay1) %11)%2==0  )  ))
-         return sq12;
-    else if (b)
-         return sq22;
-    return NULL;
+    if (a && b) {
+        int x = (GetRandom32()+game::Counter()+ax1*XYE_VERT+ay1)%120;
+        if  ( x<60 ) {
+            return sq11;
+        } else {
+            return sq22;
+        }
+    } else if (a) {
+        return sq11;
+    } else if (b) {
+        return sq22;
+    } else {
+        return NULL;
+    }
 
 
 
