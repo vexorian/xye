@@ -48,9 +48,20 @@ void saveRound(std::ofstream &file,boardelement &o)
     if(o.round) file << "round='1' ";
 }
 
+int savePosition_lastx = -1;
+void resetSavedPosition()
+{
+    savePosition_lastx = -1;
+}
 void savePosition(std::ofstream &file, int x ,int y)
 {
-    file << "x='"<<x<<"' y='"<<y<<"' ";
+    if(x!=savePosition_lastx) {
+        file << "x='"<<x<<"' y='"<<y<<"' ";
+        savePosition_lastx = x;
+    } else {
+        file << "y='"<<y<<"' ";
+    }
+    
 }
 
 void saveLargeBlock(std::ofstream &file, boardelement &o, int x ,int y)
@@ -537,9 +548,11 @@ bool editor::save(const string &target)
 
     int i,j;
     file << "\t<ground>\n";
+    resetSavedPosition();
     for (i=0;i<XYE_HORZ;i++) for (j=0;j<XYE_VERT;j++) saveGroundObject(file,editor::board->objects[i][j],i,XYE_VERT-j-1);
     file << "\t</ground>\n";
     file << "\t<objects>\n";
+    resetSavedPosition();
     for (i=0;i<XYE_HORZ;i++) for (j=0;j<XYE_VERT;j++)
     {
         saveNormalObject(file,editor::board->objects[i][j],i,XYE_VERT-j-1);
@@ -552,6 +565,7 @@ bool editor::save(const string &target)
 
     if(editor::board->xye_x>=0)
     {
+        resetSavedPosition();
         file << "\t<xye x='"<<editor::board->xye_x<<"' y='"<<(XYE_VERT-editor::board->xye_y-1)<<"' lives='"<<(editor::board->objects[editor::board->xye_x][editor::board->xye_y].variation+1)<<"' />\n";
     }
 
