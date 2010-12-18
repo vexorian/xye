@@ -8238,7 +8238,8 @@ void pit::OnEnter(obj *entering)
         SDL_FillRect(sur, 0,0,sz,sz, SDL_MapRGB(sur->format,sq->R,sq->G,sq->B ) );
         Draw(0,0);
         end= true;
-        entering->Draw(1,1);
+        Sint16 off = std::max<Sint16>( (Sint16)(sz/15.0+0.5),1);
+        entering->Draw(off,off);
 
         Drawer D(game::sprites,5*sz ,19*sz,sz,sz);
 
