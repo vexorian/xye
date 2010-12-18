@@ -12,12 +12,18 @@ int editorload_portal_y[5][2];
 
 string editor::loadError;
 
+int getElementPosition_lastx = 400;
 
 bool getElementPosition(TiXmlElement *el, int &x , int &y, bool allowSamePos=false)
 {
     x=400;
     y=400;
     el->QueryIntAttribute("x",&x);
+    if(x==400) {
+        x = getElementPosition_lastx;
+    } else {
+        getElementPosition_lastx = x;
+    }
     el->QueryIntAttribute("y",&y);
 
     if((x<0) || (x>=XYE_HORZ) || (y<0) || (y>=XYE_VERT) )
