@@ -1567,13 +1567,13 @@ void LoadPalette(TiXmlElement* pal)
         pEChild->QueryIntAttribute("green",&g);
         pEChild->QueryIntAttribute("blue",&b);
         const char* mode = pEChild->Attribute("mode");
-        if( (mode!=NULL) && (strcmp(mode,"RECOLOR")==0) )
+        if( (mode!=NULL) && (strcmp(mode,"MULTIPLY")==0) )
         {
-            palette::SetColor(id,r%256,g%256,b%256, PM_RECOLOR);
+            palette::SetColor(id,r%256,g%256,b%256, PM_MULTIPLY);
         }
         else
         {
-            palette::SetColor(id,r%256,g%256,b%256, PM_MULTIPLY);
+            palette::SetColor(id,r%256,g%256,b%256, PM_RECOLOR);
         }
 
         
