@@ -2077,11 +2077,14 @@ void game::SmallBoom(square* sq,bool ConditionalFx, int xo, int yo)
 {
 
     obj *object=sq->object;
-    if ((object!=NULL) || (!ConditionalFx))
+    unsigned char kind = 2;
+    if (  ( (object!=NULL) && !ObjectResistsFire(object) ) || (!ConditionalFx))
     {
-        explosion* ex=new explosion(sq,1);
-        ex->setDrawingXYOffset(xo,yo);
+        kind = 1;
     }
+    explosion* ex=new explosion(sq,kind);
+    ex->setDrawingXYOffset(xo,yo);
+
     if ((object!=NULL) && ! (ObjectResistsFire(object)))
     {
         if(object->GetType()==OT_XYE)
@@ -3520,12 +3523,12 @@ square* RoundAvance_Sub(obj* ToMove,
     if (a && b) {
         int x = (GetRandom32()+game::Counter()+ax1*XYE_VERT+ay1)%120;
         if  ( x<60 ) {
-            return sq11;
+            return sq12;
         } else {
             return sq22;
         }
     } else if (a) {
-        return sq11;
+        return sq12;
     } else if (b) {
         return sq22;
     } else {
@@ -4521,7 +4524,7 @@ void number::Draw(unsigned int x, unsigned int y)
 void number::explode()
 {
     deathqueue::add(x,y,KT_FIRE);
-    explosion *ex = new explosion(game::SquareN(x,y));
+    explosion *ex = new explosion(game::SquareN(x,y),1);
 }
 
 bool number::trypush(edir dir,obj* pusher) {
@@ -6145,10 +6148,10 @@ inline bool dangerous::trypush(edir dir,obj* pusher) {
                 }
                 switch(dir)
                 {
-                    case D_UP: game::SmallBoom(game::SquareN(nx,ny),false, 0, -1 ); break;
-                    case D_DOWN: game::SmallBoom(game::SquareN(nx,ny),false, 0, 1 ); break;
-                    case D_RIGHT: game::SmallBoom(game::SquareN(nx,ny),false, 1, 0 ); break;
-                    case D_LEFT: game::SmallBoom(game::SquareN(nx,ny),false, -1, 0 ); break;
+                    case D_UP: game::SmallBoom(game::SquareN(nx,ny),true, 0, -1 ); break;
+                    case D_DOWN: game::SmallBoom(game::SquareN(nx,ny),true, 0, 1 ); break;
+                    case D_RIGHT: game::SmallBoom(game::SquareN(nx,ny),true, 1, 0 ); break;
+                    case D_LEFT: game::SmallBoom(game::SquareN(nx,ny),true, -1, 0 ); break;
                 }
                 if(fire) new explosion(game::Square(x,y), 0);
 
@@ -6964,8 +6967,9 @@ bool beast::Loop(bool* died)
 
     if (OnTime && Loop_Sub(died))
     {
-        if (! (*died) )
+        if (! (*died) ) {
             deathqueue::add(x,y,KT_KILLXYE);
+        }
         return (true);
     }
     deathqueue::add(x,y,KT_KILLXYE);
@@ -8625,8 +8629,9 @@ void KillZone_KillXye(killzone *K)
     char dy=K->y - XYE->Y();
     dx= dx<0?-dx:dx;
     dy= dy<0?-dy:dy;
-    if (( (dx==0) && (dy<=1)     ) || ((dy==0) && (dx<=1) ))
-    XYE->Kill();
+    if (( (dx==0) && (dy<=1)     ) || ((dy==0) && (dx<=1) )) {
+        XYE->Kill();
+    }
 
 }
 
@@ -8634,7 +8639,9 @@ void KillZone_Fire(killzone *K)
 {
     xye* XYE = game::XYE;
     char kx=K->x,ky=K->y , i;
-    for (i=0;i<5;i++) game::SmallBoom(game::SquareN(kx+deathqueue::incx[i],ky+deathqueue::incy[i]),true,deathqueue::incx[i],-deathqueue::incy[i]);
+    for (i=0;i<5;i++) {
+        game::SmallBoom(game::SquareN(kx+deathqueue::incx[i],ky+deathqueue::incy[i]),true,deathqueue::incx[i],-deathqueue::incy[i]);
+    }
 }
 
 
@@ -8662,8 +8669,6 @@ bool deathqueue::KillNow()
         ExecuteKillZone(c);
         tm=c;
         c=c->next;
-
-
         delete tm;
     } while (c!=NULL);
     return true;
@@ -8681,10 +8686,12 @@ void explosion::ex(square *sq, unsigned char kind)
     creation=game::counter;
     pos=sq;
     explosion* other= sq->ex;
-    if (other!=NULL)
+    if (other!=NULL) {
+        kind = std::min<unsigned char>(kind,sq->ex->type);
         delete other;
+    }
     sq->ex=this;
-    type= kind>1? 1: kind;
+    type= kind>2? 2: kind;
     xobjectoffset=0;
     yobjectoffset=0;
 
@@ -8711,7 +8718,7 @@ void explosion::getDrawingXYOffset(int &xo, int &yo)
 
     }
 
-    if (type>0)
+    if (type==1)
     {
         xo*=2;
         yo*=2;
@@ -8738,7 +8745,7 @@ void explosion::Draw(unsigned int x, unsigned int y)
         pos->Update=true;
         delete this;
     }
-    else
+    else if (type!=2)
     {
         Uint8 tx,ty;
         switch (anim)
