@@ -364,7 +364,8 @@ bool editor_LoadLargeBlock(TiXmlElement * el)
 
 bool editor_LoadPortal(TiXmlElement * el)
 {
-    int x=-1,y=-1,tx=-1,ty=-1;
+    int &x = getElementPosition_lastx;
+    int y=-1,tx=-1,ty=-1;
     el->QueryIntAttribute("x", &x);
     el->QueryIntAttribute("y", &y);
 
