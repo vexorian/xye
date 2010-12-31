@@ -45,6 +45,12 @@ bool editor_LoadWall(TiXmlElement* el)
     int x,y; if(!getElementPosition(el,x,y)) return false;
     int t=0;
     el->QueryIntAttribute("type",&t);
+    if( t<0 || t>5 ) {
+        //fix variations...
+        cout<<"Found a unknown wall type: "<<t<<" set to 0."<<endl;
+        t = 0;
+    }
+        
     bool round=false;
     int test=0;
     el->QueryIntAttribute("round1",&test); round=round || test;
