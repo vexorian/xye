@@ -944,6 +944,412 @@
     <xye x='1' y='17' lives='1' />
 </level>
 <level>
+<title>Patterns</title>
+<hint>Three out of four portals lead to the monsters,  the remaining portal leads to the  gems.</hint>
+    <palette>
+        <color id='1' red='216' green='199' blue='144' mode="RECOLOR" />
+        <color id='2' red='0' green='0' blue='255' />
+    </palette>
+    <default>
+        <wall color='1' />
+        <trick color='2' />
+    </default>
+
+	<ground>
+		<force dir='R' x='4' y='19' />
+		<pit x='8' y='12' />
+		<force dir='R' x='10' y='19' />
+		<force dir='R' x='16' y='19' />
+		<oneway dir='L' x='18' y='18' />
+		<oneway dir='L' y='14' />
+		<oneway dir='L' y='10' />
+		<force dir='L' y='6' />
+		<oneway dir='R' x='22' y='18' />
+		<oneway dir='L' y='14' />
+		<oneway dir='R' y='10' />
+		<force dir='L' y='6' />
+	</ground>
+	<objects>
+		<wall x='0' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<block y='9' bc='Y' />
+		<block y='8' bc='Y' />
+		<largeblockpart y='7' bc='R' sharededges = 'URDL' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='1' y='19' />
+		<wall y='14' />
+		<wall y='10' />
+		<block y='9' bc='G' />
+		<block y='8' bc='Y' />
+		<largeblockpart y='7' bc='R' sharededges = 'URDL' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='2' y='19' />
+		<block y='17' bc='Y' />
+		<block y='16' bc='G' />
+		<wall y='14' />
+		<gem y='11' bc='Y' />
+		<wall y='10' />
+		<largeblockpart y='9' bc='R' sharededges = 'URDL' />
+		<largeblockpart y='8' bc='R' sharededges = 'URDL' />
+		<largeblockpart y='7' bc='R' sharededges = 'URDL' />
+		<wall y='6' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='3' y='19' />
+		<block y='17' bc='B' />
+		<block y='16' bc='R' />
+		<wall y='14' />
+		<gem y='12' bc='B' />
+		<wall y='10' />
+		<wall y='6' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='4' y='14' />
+		<wall y='10' />
+		<block y='9' bc='Y' />
+		<block y='8' bc='Y' />
+		<largeblockpart y='7' bc='R' sharededges = 'URDL' />
+		<wall y='6' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='5' y='19' />
+		<largeblockpart y='17' bc='Y' sharededges = 'URDL' />
+		<largeblockpart y='16' bc='R' sharededges = 'URDL' />
+		<wall y='14' />
+		<gem y='11' bc='R' />
+		<wall y='10' />
+		<block y='9' bc='Y' />
+		<block y='8' bc='G' />
+		<largeblockpart y='7' bc='R' sharededges = 'URDL' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='6' y='19' />
+		<largeblockpart y='17' bc='Y' sharededges = 'URDL' />
+		<largeblockpart y='16' bc='R' sharededges = 'URDL' />
+		<wall y='14' />
+		<gem y='13' bc='G' />
+		<wall y='10' />
+		<largeblockpart y='9' bc='R' sharededges = 'URDL' />
+		<largeblockpart y='8' bc='R' sharededges = 'URDL' />
+		<largeblockpart y='7' bc='R' sharededges = 'URDL' />
+		<wall y='6' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='7' y='19' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='6' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='8' y='19' />
+		<block y='17' bc='G' />
+		<block y='16' bc='R' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='11' />
+		<wall y='10' />
+		<largeblockpart y='9' bc='R' sharededges = 'URDL' />
+		<largeblockpart y='8' bc='R' sharededges = 'URDL' />
+		<largeblockpart y='7' bc='R' sharededges = 'URDL' />
+		<wall y='6' />
+		<wall y='0' />
+		<wall x='9' y='19' />
+		<block y='17' bc='Y' />
+		<block y='16' bc='G' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='11' />
+		<wall y='10' />
+		<largeblockpart y='9' bc='R' sharededges = 'URDL' />
+		<block y='8' bc='G' />
+		<block y='7' bc='Y' />
+		<largeblockpart y='4' bc='Y' sharededges = 'URDL' />
+		<block y='3' bc='G' />
+		<block y='2' bc='G' />
+		<wall y='0' />
+		<wall x='10' y='14' />
+		<beast y='13' dir='R' kind='7' />
+		<wall y='10' />
+		<largeblockpart y='9' bc='R' sharededges = 'URDL' />
+		<block y='8' bc='Y' />
+		<block y='7' bc='Y' />
+		<wall y='6' />
+		<largeblockpart y='4' bc='Y' sharededges = 'URDL' />
+		<block y='3' bc='G' />
+		<block y='2' bc='R' />
+		<wall y='0' />
+		<wall x='11' y='19' />
+		<largeblockpart y='17' bc='G' sharededges = 'RL' />
+		<largeblockpart y='16' bc='G' sharededges = 'RL' />
+		<wall y='14' />
+		<wall y='10' />
+		<wall y='6' />
+		<largeblockpart y='4' bc='Y' sharededges = 'URDL' />
+		<largeblockpart y='3' bc='Y' sharededges = 'URDL' />
+		<largeblockpart y='2' bc='Y' sharededges = 'URDL' />
+		<wall y='0' />
+		<wall x='12' y='19' />
+		<largeblockpart y='17' bc='G' sharededges = 'RL' />
+		<largeblockpart y='16' bc='G' sharededges = 'RL' />
+		<wall y='14' />
+		<wall y='10' />
+		<block y='9' bc='Y' />
+		<block y='8' bc='Y' />
+		<largeblockpart y='7' bc='G' sharededges = 'URDL' />
+		<wall y='6' />
+		<wall y='0' />
+		<wall x='13' y='19' />
+		<wall y='14' />
+		<wall y='10' />
+		<block y='9' bc='Y' />
+		<block y='8' bc='R' />
+		<largeblockpart y='7' bc='G' sharededges = 'URDL' />
+		<wall y='0' />
+		<wall x='14' y='19' />
+		<block y='17' bc='B' />
+		<block y='16' bc='G' />
+		<wall y='14' />
+		<wall y='10' />
+		<largeblockpart y='9' bc='G' sharededges = 'URDL' />
+		<largeblockpart y='8' bc='G' sharededges = 'URDL' />
+		<largeblockpart y='7' bc='G' sharededges = 'URDL' />
+		<wall y='6' />
+		<largeblockpart y='4' bc='G' sharededges = 'URDL' />
+		<largeblockpart y='3' bc='G' sharededges = 'URDL' />
+		<largeblockpart y='2' bc='G' sharededges = 'URDL' />
+		<wall y='0' />
+		<wall x='15' y='19' />
+		<block y='17' bc='G' />
+		<block y='16' bc='Y' />
+		<wall y='14' />
+		<beast y='13' dir='R' kind='7' />
+		<wall y='10' />
+		<wall y='6' />
+		<largeblockpart y='4' bc='G' sharededges = 'URDL' />
+		<block y='3' bc='Y' />
+		<block y='2' bc='R' />
+		<wall y='0' />
+		<wall x='16' y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<largeblockpart y='4' bc='G' sharededges = 'URDL' />
+		<block y='3' bc='R' />
+		<block y='2' bc='R' />
+		<wall y='0' />
+		<wall x='17' y='19' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='0' />
+		<wall x='18' y='19' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='0' />
+		<wall x='19' y='19' />
+		<largeblockpart y='17' bc='R' sharededges = 'URDL' />
+		<largeblockpart y='16' bc='Y' sharededges = 'URDL' />
+		<wall y='15' />
+		<largeblockpart y='13' bc='B' sharededges = 'URDL' />
+		<largeblockpart y='12' bc='Y' sharededges = 'URDL' />
+		<wall y='11' />
+		<largeblockpart y='9' bc='G' sharededges = 'URDL' />
+		<largeblockpart y='8' bc='B' sharededges = 'URDL' />
+		<wall y='7' />
+		<wall y='6' />
+		<largeblockpart y='4' bc='R' sharededges = 'URDL' />
+		<largeblockpart y='3' bc='R' sharededges = 'URDL' />
+		<largeblockpart y='2' bc='R' sharededges = 'URDL' />
+		<wall y='0' />
+		<wall x='20' y='19' />
+		<largeblockpart y='17' bc='R' sharededges = 'URDL' />
+		<largeblockpart y='16' bc='Y' sharededges = 'URDL' />
+		<wall y='15' />
+		<largeblockpart y='13' bc='B' sharededges = 'URDL' />
+		<largeblockpart y='12' bc='Y' sharededges = 'URDL' />
+		<wall y='11' />
+		<largeblockpart y='9' bc='G' sharededges = 'URDL' />
+		<largeblockpart y='8' bc='B' sharededges = 'URDL' />
+		<wall y='7' />
+		<wall y='6' />
+		<block y='4' bc='G' />
+		<block y='3' bc='Y' />
+		<largeblockpart y='2' bc='R' sharededges = 'URDL' />
+		<wall y='0' />
+		<wall x='21' y='19' />
+		<wall y='15' />
+		<wall y='11' />
+		<wall y='7' />
+		<wall y='6' />
+		<block y='4' bc='Y' />
+		<block y='3' bc='Y' />
+		<largeblockpart y='2' bc='R' sharededges = 'URDL' />
+		<wall y='0' />
+		<wall x='22' y='19' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='0' />
+		<wall x='23' y='19' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='0' />
+		<wall x='24' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<block y='4' bc='G' />
+		<block y='3' bc='G' />
+		<largeblockpart y='2' bc='Y' sharededges = 'URDL' />
+		<wall y='0' />
+		<wall x='25' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<block y='4' bc='G' />
+		<block y='3' bc='R' />
+		<largeblockpart y='2' bc='Y' sharededges = 'URDL' />
+		<wall y='0' />
+		<wall x='26' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<largeblockpart y='4' bc='Y' sharededges = 'URDL' />
+		<largeblockpart y='3' bc='Y' sharededges = 'URDL' />
+		<largeblockpart y='2' bc='Y' sharededges = 'URDL' />
+		<wall y='0' />
+		<wall x='27' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='0' />
+		<wall x='28' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='0' />
+		<wall x='29' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<portal x='13' y='6' defcolor='2' targetx='14' targety='12' />
+		<portal x='9' y='6' defcolor='2' targetx='13' targety='12' />
+		<portal x='1' y='6' defcolor='2' targetx='12' targety='12' />
+		<portal x='5' y='6' defcolor='2' targetx='4' targety='12' />
+	</objects>
+	<xye x='1' y='18' lives='1' />
+</level>
+
+<level>
 <title>The clues</title>
 <hint>Pay attention.</hint>
 <bye>Got to accept these are original levels.</bye>
