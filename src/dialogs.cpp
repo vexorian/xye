@@ -242,7 +242,11 @@ void dialogs::makeMessageDialog(window* target, string prompt, string buttoncapt
 
 
 //==================================
-
+void dialogs::textDialogClickClear(const buttondata* data)
+{
+    inputDialog& d= inputCurrent.top();
+    d.text = "";
+}
 
 void dialogs::textDialogClick(bool ok)
 {
@@ -284,6 +288,7 @@ void dialogs::inputOnKeyUp(SDLKey keysym,Uint16 unicode)
 {
     
 }
+
 
 void dialogs::makeTextInputDialog(window* target,  string prompt, string defaulttext, int lines, string okcaption, string cancelcaption, onTextDialogEnd func, inputDialogData* data)
 {
@@ -349,9 +354,9 @@ void dialogs::makeTextInputDialog(window* target,  string prompt, string default
     
     int buttonw = FontResource->TextWidth(cancelcaption)+button::Size;
     if (buttonw<ybuttonw) buttonw=ybuttonw;   
-    int buttonx=px+pw/2-buttonw-button::Size/2;
-    
-    
+
+
+    int buttonx=px + button::Size  /*+pw/2-buttonw-button::Size/2*/;
 
     int buttony=py+ph-2*button::Size+button::Size/2;
     button* tmbut= new button(buttonx,buttony,buttonw,button::Size);
@@ -359,10 +364,19 @@ void dialogs::makeTextInputDialog(window* target,  string prompt, string default
     tmbut->depth=20;
     tmbut->onClick=textDialogClickOk;
     tmbut->data=NULL;
-    
     target->addControl(tmbut);
 
-    buttonx=px+pw/2+button::Size/2;        
+    buttonx=/*px+pw/2+button::Size/2*/ px + pw/2 - buttonw/2;        
+    tmbut= new button(buttonx,buttony,buttonw,button::Size);
+    tmbut->text="Clear";
+    tmbut->depth=20;
+    tmbut->onClick=textDialogClickClear;
+    tmbut->data=NULL;
+    target->addControl(tmbut);
+    
+    
+    
+    buttonx=/*px+pw/2+button::Size/2*/ px + pw - buttonw - button::Size;        
     tmbut= new button(buttonx,buttony,buttonw,button::Size);
     tmbut->text=cancelcaption;
     tmbut->depth=20;
