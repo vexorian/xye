@@ -77,6 +77,7 @@ class dialogs
 
     static void textDialogClick(bool ok);
     static void textDialogClickOk(const buttondata* data) { textDialogClick(true); }
+    static void textDialogClickClear(const buttondata* data);
     static void textDialogClickCancel(const buttondata* data) { textDialogClick(false); }
     
     static string getCurrentInputText();
