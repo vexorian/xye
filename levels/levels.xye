@@ -10060,6 +10060,406 @@
 </level>
 
 <level>
+<title>Flee!</title>
+<hint>Fast but not too fast.</hint>
+<bye>Yeah, those things are not that smart... Get ready though, you will have to deal with those a lot more times...</bye>
+    <palette>
+        <color id='2' red='222' green='202' blue='147' />
+        <!--color id='3' red='225' green='235' blue='255' /-->
+    </palette>
+    <floor>
+        <!--area x='0' x2='29' y1='0' y2='19' color='3' /-->
+    </floor>
+    <default>
+        <wall color='2'  />
+    </default>
+
+	<ground>
+		<oneway dir='L' x='5' y='8' />
+		<oneway dir='L' x='8' y='18' />
+		<oneway dir='L' y='16' />
+		<oneway dir='L' y='14' />
+		<oneway dir='L' x='10' y='18' />
+		<oneway dir='L' y='17' />
+		<oneway dir='L' y='16' />
+		<blockdoor open='1' x='12' y='10' bc='Y' />
+		<marked x='13' y='17' bc='R' />
+		<marked y='16' bc='R' />
+		<force dir='R' x='14' y='9' />
+		<force dir='L' y='7' />
+		<blocktrap open='1' x='15' y='14' bc='Y' />
+		<marked x='16' y='17' bc='Y' />
+		<blocktrap y='16' bc='R' />
+		<force dir='R' y='2' />
+		<marked x='17' y='18' bc='Y' />
+		<blocktrap open='1' x='27' y='9' bc='Y' />
+		<blocktrap open='1' y='8' bc='Y' />
+		<blocktrap open='1' y='7' bc='Y' />
+		<firepad x='28' y='17' />
+	</ground>
+	<objects>
+		<wall x='0' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='1' y='19' />
+		<arrow dir='D' y='18' bc='Y' />
+		<arrow dir='D' y='17' bc='Y' />
+		<beast y='16' dir='D' kind='5' />
+		<timer y='15' bc='G' val='3' />
+		<timer y='14' bc='G' val='3' />
+		<wall y='7' />
+		<magnet y='1' horz='1' kind='0' />
+		<wall y='0' />
+		<wall x='2' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<timer y='14' bc='G' val='3' />
+		<wall y='12' />
+		<wall y='11' />
+		<clocker y='10' bc='Y' />
+		<wall y='9' />
+		<timer y='8' bc='G' val='2' />
+		<wall y='7' />
+		<wall y='0' />
+		<teleport x='3' y='19' dir='D' />
+		<earth y='12' />
+		<earth y='11' />
+		<earth y='10' />
+		<wall y='9' />
+		<earth y='8' />
+		<blacky y='7' />
+		<toggle y='1' bc='B' />
+		<wall y='0' />
+		<wall x='4' y='19' />
+		<wall y='17' />
+		<wall y='15' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<earth y='10' />
+		<wall y='9' />
+		<wall y='7' />
+		<teleport y='1' dir='U' />
+		<wall y='0' />
+		<wall x='5' y='19' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<filler y='10' dir='L' bc='Y' round='1' />
+		<wall y='9' />
+		<wall y='7' />
+		<pusher y='1' dir='L' bc='R' />
+		<wall y='0' />
+		<wall x='6' y='19' />
+		<wall y='13' />
+		<wall y='9' />
+		<toggle off='1' y='8' bc='B' />
+		<wall y='0' />
+		<wall x='7' y='19' />
+		<wall y='13' />
+		<wall y='9' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<timer y='3' bc='G' val='3' />
+		<timer y='2' bc='G' val='3' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='8' y='19' />
+		<lock y='17' bc='Y' />
+		<wall y='15' round1='1' round7='1' round3='1' round9='1' type='1' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<timer y='3' bc='G' val='3' />
+		<timer y='2' bc='G' val='3' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='9' y='19' />
+		<wall y='13' />
+		<wall y='12' />
+		<beast y='11' dir='R' kind='3' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='0' />
+		<wall x='10' y='19' />
+		<wall y='15' round1='1' round7='1' round3='1' round9='1' type='1' />
+		<wall y='13' />
+		<wall y='12' />
+		<beast y='11' dir='R' kind='13' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' type='1' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='0' />
+		<wall x='11' y='19' />
+		<wall y='13' />
+		<wall y='12' />
+		<timer y='11' bc='G' val='5' />
+		<wall y='10' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='0' />
+		<wall x='12' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<lock y='13' bc='R' />
+		<wall y='6' type='1' />
+		<wall y='5' />
+		<wall y='4' />
+		<teleport y='3' dir='L' />
+		<wall y='0' />
+		<wall x='13' y='19' />
+		<sniper y='18' dir='D' bc='R' />
+		<blacky y='15' />
+		<timer y='14' bc='G' val='1' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<toggle off='1' y='1' bc='R' />
+		<wall y='0' />
+		<wall x='14' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<earth y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='8' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<magnet y='1' kind='0' />
+		<blacky y='0' />
+		<wall x='15' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='8' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='16' y='19' />
+		<sniper y='18' dir='D' bc='Y' />
+		<blacky y='15' />
+		<wall y='11' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='17' y='19' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<key y='13' bc='Y' />
+		<wall y='11' />
+		<key y='8' bc='R' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' type='1' />
+		<wall y='1' type='1' />
+		<wall y='0' />
+		<wall x='18' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='11' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<timer y='2' bc='G' val='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='19' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' type='1' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<timer y='2' bc='G' val='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='20' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='0' />
+		<wall x='21' y='19' />
+		<star y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<largeblockpart y='3' bc='Y' sharededges = 'URDL' />
+		<wall y='0' />
+		<wall x='22' y='19' />
+		<wall y='17' />
+		<wall y='16' />
+		<clocker y='15' bc='B' />
+		<sniper y='13' dir='R' bc='R' />
+		<wall y='12' />
+		<scroll dir='L' y='10' bc='B' />
+		<scroll dir='L' y='9' bc='B' />
+		<scroll dir='L' y='8' bc='B' />
+		<scroll dir='L' y='7' bc='B' />
+		<scroll dir='L' y='6' bc='B' />
+		<blacky y='5' />
+		<largeblockpart y='3' bc='Y' sharededges = 'URDL' />
+		<teleport y='2' dir='R' />
+		<magnet y='1' kind='1' />
+		<wall y='0' />
+		<wall x='23' y='19' />
+		<toggle y='18' bc='R' />
+		<magnet y='16' kind='0' />
+		<wall y='15' />
+		<wall y='12' />
+		<beast y='9' dir='R' kind='6' />
+		<beast y='8' dir='R' kind='6' />
+		<beast y='7' dir='R' kind='6' />
+		<earth y='2' />
+		<earth y='1' />
+		<wall y='0' />
+		<clocker x='24' y='19' bc='B' />
+		<wall y='12' />
+		<wall y='11' />
+		<gem y='5' bc='B' />
+		<magnet y='3' horz='1' kind='1' />
+		<gem y='2' bc='B' />
+		<earth y='1' />
+		<wall y='0' />
+		<wall x='25' y='19' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<aclocker y='14' bc='B' />
+		<aclocker y='13' bc='B' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='5' />
+		<earth y='1' />
+		<wall y='0' />
+		<wall x='26' y='19' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='5' />
+		<gem y='3' bc='B' />
+		<earth y='1' />
+		<wall y='0' />
+		<wall x='27' y='19' />
+		<wall y='17' />
+		<beast y='13' dir='U' kind='6' />
+		<wall y='11' type='1' />
+		<gem y='5' bc='B' />
+		<earth y='1' />
+		<wall y='0' />
+		<wall x='28' y='19' />
+		<wall y='5' />
+		<gem y='2' bc='B' />
+		<earth y='1' />
+		<wall y='0' />
+		<wall x='29' y='19' />
+		<clocker y='18' bc='B' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<teleport y='3' dir='L' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+	</objects>
+	<xye x='12' y='8' lives='1' />
+</level>
+
+<level>
 <title>Keepers</title>
 <bye>Those things are vicious!</bye>
     <ground>
