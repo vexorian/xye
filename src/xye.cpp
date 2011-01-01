@@ -1423,12 +1423,16 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
         }
         Uint16 TW=FontRes->TextWidth(hintx.c_str());
 
-        if ((cx+TW>Aw) && (HintRead>=MARQUEETICS))
-        {
-            HintMarquee-=1;
-            if (cx+TW+HintMarquee<=0) HintMarquee=Aw;
+        static int marqueeloop  = 0;
+        marqueeloop ++;
+        
+        int fc = ( FastForward ? ( (marqueeloop%10==0) ? 100 : 0 ) : 1 );
+        if ((cx+TW>Aw) && (HintRead>=MARQUEETICS)) {
+            HintMarquee -= fc;
+            if (cx+TW+HintMarquee<=0) {
+                HintMarquee=Aw;
+            }
         }
-        //cx+=HintMarquee;
 
 
         Uint8 alpha;
@@ -1443,14 +1447,16 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
             FontRes->Write(screen,3+HintMarquee+x,cy+1+dif,hintx.c_str());
         }
 
-
-        if (hintactive)
-        {
-            if(HintRead<=MARQUEETICS) HintRead++;
+        if (hintactive) {
+            if(HintRead<=MARQUEETICS) {
+                HintRead+= fc;
+            }
+        } else {
+            HintRead -= fc;
         }
-        else HintRead--;
+    } else {
+        HintMarquee = HintRead = 0;
     }
-    else HintMarquee=HintRead=0;
 
 
 
