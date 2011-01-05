@@ -38,6 +38,7 @@ void LoadSkinFile(const char* file);
     string Dir;
    
     SDL_Color OneWayDoorColor;
+    SDL_Color ForceArrowColor;
     SDL_Color WallColor      [XYE_WALL_VARIATIONS];
     SDL_Color WallSpriteColor[XYE_WALL_VARIATIONS];
     
@@ -118,6 +119,7 @@ struct parsedSkinFile
     int    gridSize;
     
     SDL_Color OneWayDoorColor;
+    SDL_Color ForceArrowColor;
     SDL_Color WallColor      [XYE_WALL_VARIATIONS];
     SDL_Color WallSpriteColor[XYE_WALL_VARIATIONS];
     
@@ -233,6 +235,12 @@ string parseMiscColorOptions(TiXmlElement* skn, parsedSkinFile & ps) {
             c=&ps.OneWayDoorColor;
             n=1;
         }
+        else if ( (e1!=NULL) && (string(e1)=="FORCEARROW" ) )
+        {
+            c=&ps.ForceArrowColor;
+            n=1;
+        }
+
         if(c!=NULL)
         {
             for (int j=0; j<n; j++)
@@ -272,6 +280,7 @@ string parseSkinColors(TiXmlElement* ele, parsedSkinFile & ps) {
         ps.WallColor[i].r = ps.WallColor[i].g = ps.WallColor[i].b = ps.WallColor[i].unused = 255;
     }
     ps.OneWayDoorColor.r = 255, ps.OneWayDoorColor.g = ps.OneWayDoorColor.b = ps.OneWayDoorColor.unused = 0 ;
+    ps.ForceArrowColor.r = 100, ps.ForceArrowColor.g = 200, ps.ForceArrowColor.b = 200, ps.ForceArrowColor.unused = 0 ;
     tm = parseMiscColorOptions(ele,ps);
     if(tm != "") {
         return "";
@@ -666,6 +675,7 @@ void LoadColors(parsedSkinFile & ps)
         WallColor[i] = ps.WallColor[i];
     }
     OneWayDoorColor = ps.OneWayDoorColor;
+    ForceArrowColor = ps.ForceArrowColor;
 }
 
 
