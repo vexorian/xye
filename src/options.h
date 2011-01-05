@@ -54,6 +54,7 @@ namespace options {
     extern string Dir;
    
     extern SDL_Color OneWayDoorColor;
+    extern SDL_Color ForceArrowColor;
     extern SDL_Color WallColor      [XYE_WALL_VARIATIONS];
     extern SDL_Color WallSpriteColor[XYE_WALL_VARIATIONS];
     
