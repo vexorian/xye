@@ -330,8 +330,9 @@ class wall : public obj
      Uint8 B;
      
      bool containsRoundCorner();
-     static SDL_Color DefaultColor[6];
+     
  public:
+     static SDL_Color DefaultColor[6];
      static const int MAX_VARIATIONS = 6;
      wall(square* sq,unsigned char t);
      wall(square* sq);

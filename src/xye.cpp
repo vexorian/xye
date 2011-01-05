@@ -5556,7 +5556,15 @@ void surprise::Transform()
                 // After the addition of special borders to the skin capabilities, it is necessary
                 // to update the walls in the corners as well:
                 
-                wl->ChangeColor(BC.r+(options::WallColor[0].r-BC.r)/2,BC.g+(options::WallColor[0].g-BC.g)/2,BC.b+(options::WallColor[0].b-BC.b)/2, false);
+                //wl->ChangeColor(BC.r+(options::WallColor[0].r-BC.r)/2,BC.g+(options::WallColor[0].g-BC.g)/2,BC.b+(options::WallColor[0].b-BC.b)/2, false);
+                int r = BC.r;
+                int g = BC.g;
+                int b = BC.b;
+                r = (r+wall::DefaultColor[0].r)/2;
+                g = (g+wall::DefaultColor[0].g)/2;
+                b = (b+wall::DefaultColor[0].b)/2;
+                wl->ChangeColor(r,g,b, false);
+ 
                 if(b7) b7->UpdateSquare();
                 if(b9) b9->UpdateSquare();
                 if(b3) b3->UpdateSquare();
@@ -5636,10 +5644,14 @@ void surprise::Draw(unsigned int x, unsigned int y)
                     if(b3) b3->UpdateSquare();
                     if(b1) b1->UpdateSquare();
 
+                int r = SprColor.r;
+                int g = SprColor.g;
+                int b = SprColor.b;
+                r = (r+wall::DefaultColor[0].r)/2;
+                g = (g+wall::DefaultColor[0].g)/2;
+                b = (b+wall::DefaultColor[0].b)/2;
+                wl->ChangeColor(r,g,b, false);
 
-                //wl->ChangeColor(SprColor.r+(255-SprColor.r)/2,SprColor.g+(255-SprColor.g)/2,SprColor.b+(255-SprColor.b)/2 , false);
-                //wl->ChangeColor(SprColor.r,SprColor.g,SprColor.b , false);
-                wl->ChangeColor(SprColor.r+(options::WallColor[0].r-SprColor.r)/2,SprColor.g+(options::WallColor[0].g-SprColor.g)/2,SprColor.b+(options::WallColor[0].b-SprColor.b)/2 , false);
                 wl->Draw(x,y);
                 break;
 

@@ -55,7 +55,7 @@ feel free to change them, just keep good contrast-->
 
 
 <color type='ONEWAYDOOR' red='255' green='0' blue='0' />
-<color type='FORCEARROW' red='200' green='100' blue='100' />
+<color type='FORCEARROW' red='100' green='200' blue='200' />
 
 <!--
 <color type="F" bc="Y" red='255' green='0' blue='0'/ >
