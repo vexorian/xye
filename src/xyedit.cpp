@@ -2291,7 +2291,7 @@ void drawOneDir( SDL_Surface * target, int x, int y, int direction, int variatio
             default:  tx=10; ty=10; break;
         }
         Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
-        D.SetColors(100,200,200,255);
+        D.SetColors( &options::ForceArrowColor, 255);
         D.Draw(target,x,y);
     }
     else //door
