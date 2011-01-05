@@ -8978,6 +8978,7 @@
 		<wall y='11' />
 		<wall y='10' />
 		<wall y='9' />
+
 		<wall y='8' />
 		<wall y='7' />
 		<wall y='6' />
@@ -14253,7 +14254,8 @@
 <title>Deception</title>
 <hint>When options are limited, reuse as much as  possible.</hint>
         <palette>
-            <color id="1" red="0" green="190" blue="148" mode='RECOLOR' />
+            <!--<color id="1" red="0" green="190" blue="148" mode='RECOLOR' />-->
+            <color id="1" red="0" green="0" blue="0" mode='RECOLOR' />
         </palette>
         <default>
             <wall color='1'/>
