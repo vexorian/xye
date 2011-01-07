@@ -225,7 +225,7 @@ void editor::onBrowseClick(const buttondata* data)
     {
         dialogs::makeYesNoDialog(editorwindow,"Are you sure you want to close the editor before saving the level?","Yes","No",editor::onBrowseWithoutSavingClick);
     }
-    else 
+    else
         editor::editorwindow->SetTransition(LevelBrowser::StartSection);
 }
 
@@ -367,7 +367,7 @@ void editor::ResumeSection(window* wind)
 
     board   = new editorboard(3,by+3+sz);
     editorboard::LoadCopy(board);
-    
+
     buttons = new editorbuttons(5, XYE_VERT*sz + by+8+sz , Width-10, 2+(sz+2)*4 );
 
     board->depth = 3;
@@ -379,7 +379,7 @@ void editor::ResumeSection(window* wind)
 }
 
 void editor::StartSection(window* wind)
-{ 
+{
     ResumeSection(wind);
     if (!load())
     {
@@ -1297,7 +1297,7 @@ void editorboard::assign(editorboard* other)
     bye=other->bye;
     author=other->author;
     solution=other->solution;
-    
+
 }
 
 void editorboard::SaveCopy(editorboard* ed)
@@ -1452,14 +1452,14 @@ void editorboard::drawWallInBoard(SDL_Surface*target,int ox,int oy, int x, int y
     ty=sz*(variation);
 
     //D.SetColors(R,G,B,255);
-    
+
     char px=ox, py=oy;
     char rx=px+1, lx=px-1, dy=py+1, uy=py-1;
     if(rx>=XYE_HORZ) rx=0;
     if(dy>=XYE_VERT) dy=0;
     if(lx<0) lx=XYE_HORZ-1;
     if(uy<0) uy=XYE_VERT-1;
-    
+
     bool up =   findWall( px, uy, variation);
     bool down = findWall( px, dy, variation);
     bool left = findWall( lx, py, variation);
@@ -1471,23 +1471,23 @@ void editorboard::drawWallInBoard(SDL_Surface*target,int ox,int oy, int x, int y
     bool downleft = findWall( lx, dy, variation);
 
 
-    
+
     up = up && !r7 && !r9;
     down = down && !r1 && !r3;
     right = right && !r9 && !r3;
     left = left && !r7 && !r1;
-    
+
     bool inborder = (!left||!up||!right||!down);
     if( !inborder && (!upright || !upleft || !downright ||!downleft) )
     {
-        /*inborder = !(   wallContainsRoundCorners(px,uy) 
+        /*inborder = !(   wallContainsRoundCorners(px,uy)
                     || wallContainsRoundCorners(px,dy)
                     || wallContainsRoundCorners(lx, py)
                     || wallContainsRoundCorners(rx, py) );*/
         inborder = true;
 
     }
-    
+
 
     if (r7)
         D.ChangeRect(10*sz,ty,sz2,sz2);
@@ -1503,7 +1503,7 @@ void editorboard::drawWallInBoard(SDL_Surface*target,int ox,int oy, int x, int y
         D.ChangeRect(11*sz,ty,sz2,sz2);
     else
         D.ChangeRect(9*sz,ty,sz2,sz2);
-    
+
 
     D.Draw(target,x,y);
 
@@ -1541,8 +1541,9 @@ void editorboard::drawWallInBoard(SDL_Surface*target,int ox,int oy, int x, int y
     else
         D.ChangeRect(9*sz,ty+sz2,sz2,sz2);
 
-    
-    D.Draw(game::screen,x,y+sz2);
+
+
+    D.Draw(target,x,y+sz2);
 
     if (r3)
         D.ChangeRect(21*sz2,ty+sz2,sz2,sz2);
