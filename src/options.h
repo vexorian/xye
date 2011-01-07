@@ -55,6 +55,8 @@ namespace options {
    
     extern SDL_Color OneWayDoorColor;
     extern SDL_Color ForceArrowColor;
+    extern SDL_Color EarthColor;
+    extern SDL_Color FloorColor;
     extern SDL_Color WallColor      [XYE_WALL_VARIATIONS];
     extern SDL_Color WallSpriteColor[XYE_WALL_VARIATIONS];
     
