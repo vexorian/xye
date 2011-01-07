@@ -1131,7 +1131,9 @@ void game::start(bool undotime)
             sq->sqx=i;
             sq->sqy=j;
             sq->gs=GROUND_1;
-            sq->R=sq->B=sq->G=255;
+            sq->R=options::FloorColor.r;
+            sq->G=options::FloorColor.g;
+            sq->B=options::FloorColor.b;
             sq->Update=true;
             sq->UpdateLater=false;
 
@@ -1515,7 +1517,6 @@ void game::draw(Sint16 px, Sint16 py)
             x=sq->x;
             y=sq->y;
             object=sq->object;
-
             SDL_FillRect(screen, x,y,GRIDSIZE,GRIDSIZE, SDL_MapRGB(screen->format, sq->R , sq->G, sq->B));
 
             int xo,yo;
@@ -3178,10 +3179,9 @@ void wall_multiplyColor(Uint8 a, Uint8 b, Uint8 &c)
 
 void wall_convertColor(Uint8 sprite, Uint8 wanted, Uint8 &c)
 {
-    if(sprite==255)
+    if(sprite==255) {
         c=wanted;
-    else
-    {
+    } else {
         int x = 255.0*(int)(wanted) / (int)(sprite);
         x = std::min<int>(x,255);
         c = (Uint8)(x);
@@ -7459,8 +7459,9 @@ earth::earth(square* sq)
 
 void earth::ResetDefaults()
 {
-    dR=dG=255;
-    dB=0;
+    dR = options::EarthColor.r;
+    dG = options::EarthColor.g;
+    dB = options::EarthColor.b;
 }
 
 void earth::SetDefaultColor(Uint8 nR,Uint8 nG,Uint8 nB)

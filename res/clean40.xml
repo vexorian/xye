@@ -53,4 +53,17 @@ feel free to change them, just keep good contrast-->
 <!--color type="WALL" variation='4' red='128' green='128' blue='0' /-->
 <color type="WALL" variation='5' red='192' green='192' blue='192' />
 
+<!-- What color to use for one-way doors -->
+<color type='ONEWAYDOOR' red='255' green='0' blue='0' />
+
+<!-- What color to use for force arrows -->
+<color type='FORCEARROW' red='100' green='200' blue='200' />
+
+<!-- What color to use for earth / soft-blocks -->
+<color type='EARTH' red='255' green='255' blue='50' />
+
+<!-- What color to use for the background/floor -->
+<color type='FLOOR' red='250' green='250' blue='250' />
+
+
 </xyeskin>
