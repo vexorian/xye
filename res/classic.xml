@@ -27,4 +27,16 @@ truetypesize='11'
 <!-- wall color in the sprite: -->
 <color type ="WALL_SPRITE" red="255" green="255" blue="255" />
 
+<!-- What color to use for one-way doors -->
+<color type='ONEWAYDOOR' red='255' green='0' blue='0' />
+
+<!-- What color to use for force arrows -->
+<color type='FORCEARROW' red='100' green='200' blue='200' />
+
+<!-- What color to use for earth / soft-blocks -->
+<color type='EARTH' red='255' green='255' blue='0' />
+
+<!-- What color to use for the background/floor -->
+<color type='FLOOR' red='255' green='255' blue='255' />
+
 </xyeskin>

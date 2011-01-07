@@ -39,6 +39,8 @@ void LoadSkinFile(const char* file);
    
     SDL_Color OneWayDoorColor;
     SDL_Color ForceArrowColor;
+    SDL_Color EarthColor;
+    SDL_Color FloorColor;
     SDL_Color WallColor      [XYE_WALL_VARIATIONS];
     SDL_Color WallSpriteColor[XYE_WALL_VARIATIONS];
     
@@ -120,6 +122,8 @@ struct parsedSkinFile
     
     SDL_Color OneWayDoorColor;
     SDL_Color ForceArrowColor;
+    SDL_Color EarthColor;
+    SDL_Color FloorColor;
     SDL_Color WallColor      [XYE_WALL_VARIATIONS];
     SDL_Color WallSpriteColor[XYE_WALL_VARIATIONS];
     
@@ -240,6 +244,16 @@ string parseMiscColorOptions(TiXmlElement* skn, parsedSkinFile & ps) {
             c=&ps.ForceArrowColor;
             n=1;
         }
+        else if ( (e1!=NULL) && (string(e1)=="EARTH" ) )
+        {
+            c=&ps.EarthColor;
+            n=1;
+        }
+        else if ( (e1!=NULL) && (string(e1)=="FLOOR" ) )
+        {
+            c=&ps.FloorColor;
+            n=1;
+        }
 
         if(c!=NULL)
         {
@@ -281,6 +295,8 @@ string parseSkinColors(TiXmlElement* ele, parsedSkinFile & ps) {
     }
     ps.OneWayDoorColor.r = 255, ps.OneWayDoorColor.g = ps.OneWayDoorColor.b = ps.OneWayDoorColor.unused = 0 ;
     ps.ForceArrowColor.r = 100, ps.ForceArrowColor.g = 200, ps.ForceArrowColor.b = 200, ps.ForceArrowColor.unused = 0 ;
+    ps.EarthColor.r = ps.EarthColor.g = 255, ps.EarthColor.b = ps.EarthColor.unused = 0 ;
+    ps.FloorColor.r = ps.FloorColor.g = ps.FloorColor.b = 255, ps.FloorColor.unused = 0 ;
     tm = parseMiscColorOptions(ele,ps);
     if(tm != "") {
         return "";
@@ -676,6 +692,8 @@ void LoadColors(parsedSkinFile & ps)
     }
     OneWayDoorColor = ps.OneWayDoorColor;
     ForceArrowColor = ps.ForceArrowColor;
+    EarthColor = ps.EarthColor;
+    FloorColor = ps.FloorColor;
 }
 
 
