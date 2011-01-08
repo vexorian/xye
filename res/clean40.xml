@@ -60,7 +60,7 @@ feel free to change them, just keep good contrast-->
 <color type='FORCEARROW' red='100' green='200' blue='200' />
 
 <!-- What color to use for earth / soft-blocks -->
-<color type='EARTH' red='255' green='0' blue='50' />
+<color type='EARTH' red='255' green='255' blue='50' />
 
 <!-- What color to use for the background/floor -->
 <color type='FLOOR' red='250' green='250' blue='250' />

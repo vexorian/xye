@@ -4215,6 +4215,7 @@ bool scrollblock::trypush(edir dir,obj* pusher)
             if (t->cwise) fac=Clock(fac);
             else fac=AClock(fac);
             UpdateSquare();
+            break;
 
         case(OT_SURPRISE):
             sp=static_cast<surprise*>(object);
