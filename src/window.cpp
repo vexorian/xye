@@ -693,6 +693,7 @@ Sint16 button::recommendedWidth(const char* s)
 buttontooltip::buttontooltip() {
     enabled = false;
     x = y = w = h = 0;
+    drawnSwitch = NULL;
 }
 
 void buttontooltip::draw(SDL_Surface* target) {
@@ -709,5 +710,8 @@ void buttontooltip::draw(SDL_Surface* target) {
         button::FontResource->Write(target,x+3,y+3,text.c_str());
 
         enabled = false;
+        if(drawnSwitch != NULL) {
+            *drawnSwitch = true;
+        }
     }
 }
