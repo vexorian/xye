@@ -62,7 +62,9 @@ namespace options {
     
     extern SDL_Color BFColor[4];
     extern SDL_Color BKColor[4];
-    
+
+    extern SDL_Color HintColor;
+
     extern SDL_Color LevelMenu_info;
     extern SDL_Color LevelMenu_selected;
     extern SDL_Color LevelMenu_selectederror;
@@ -70,6 +72,7 @@ namespace options {
     extern SDL_Color LevelMenu_menutext;
     extern SDL_Color LevelMenu_selectedtext;   
     extern SDL_Color LevelMenu_infotext;
+    
     
     extern string ExecutablePath;
     

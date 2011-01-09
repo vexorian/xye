@@ -304,6 +304,7 @@ void game::InitGraphics()
     button::PressedTextureY=18;
     button::NormalTextureY=17;
     button::Size=sz;
+    button::ToolTipColor = options::HintColor;
     
     editor::FontRes = game::FontRes;
     editor::sprites = game::sprites;
@@ -1450,9 +1451,9 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
         cy=y;
 
         if(HintRead<=FADETICS) {
-            SDL_FillRect(HintSurf, 0,0, Aw, Ah, SDL_MapRGB(HintSurf->format, 255, 255, 200));
+            SDL_FillRect(HintSurf, 0,0, Aw, Ah, SDL_MapRGB(HintSurf->format, options::HintColor));
         } else {
-            SDL_FillRect(screen, cx,cy, Aw, Ah, SDL_MapRGB(screen->format, 255, 255, 200));
+            SDL_FillRect(screen, cx,cy, Aw, Ah, SDL_MapRGB(screen->format, options::HintColor));
         }
         Uint16 TW=FontRes->TextWidth(hintx.c_str());
 
