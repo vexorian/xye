@@ -181,18 +181,39 @@ class buttondata
         virtual ~buttondata() {};
 };
 
+class buttontooltip : public control
+{
+ public:
+    buttontooltip();
+    int maxx, maxy, minx, miny;
+    
+    int tx;
+    int ty;
+    string text;
+    bool enabled;
+    
+    
+    void draw(SDL_Surface* target);
+    void onMouseMove(int x,int y) {};
+    void onMouseOut() {};
+    void onMouseDown(int x,int y) {};
+    void onMouseUp(int x,int y) {};
+    void onMouseRightUp(int x,int y) {};
+    
+    void loop() {};
+     
+};
+
 class button : public control
 {
     private:
         int flashperiod;
         int iconx, icony;
+        int toolx, tooly;
+        int mouseInside;
 
     public:
         buttondata* data;
-        
-        
-        
-        
     
         string text;
         bool click;
@@ -213,7 +234,7 @@ class button : public control
         void (*onPress)(const buttondata* data);
         void (*onRelease)(const buttondata* data);
         
-        inline void onMouseMove(int px,int py){}
+        void onMouseMove(int px,int py);
         void onMouseOut();
         void onMouseDown(int px,int py);
         void onMouseUp(int px,int py);
@@ -232,8 +253,11 @@ class button : public control
         
         static Sint16 recommendedWidth(const char* s);
         static Sint16 recommendedWidth(const string s) { return recommendedWidth(s.c_str()); }
-        
-        
+      
+        string toolTip;
+        buttontooltip* toolTipControl; 
 };
+
+
 
 #endif

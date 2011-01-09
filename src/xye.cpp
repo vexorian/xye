@@ -906,6 +906,17 @@ void game::InitGameSection(window* wind)
     
     const char* cap;
     
+    
+    //*** button tooltip
+    buttontooltip* btt = new buttontooltip();
+    btt->depth = 2;
+    wind->addControl(btt);
+    btt->minx = 0;
+    btt->maxx = GameWidth;
+    btt->miny = 0;
+    btt->maxy = game::GRIDSIZE*2;
+    
+    
     //*** Browse button:
     cap = "Browse";
     button* bt  = new button(1,oy, sz32, game::GRIDSIZE);
@@ -913,7 +924,10 @@ void game::InitGameSection(window* wind)
     bt->Icon(5,15);
     bt->depth=1;
     bt->onClick = BrowseCommand;
+    bt->toolTipControl = btt;
+    bt->toolTip = "[Backspace] Level browser";
     wind->addControl(bt);
+    
 
     //*** Restart button:
     cap = "Restart";
@@ -922,6 +936,8 @@ void game::InitGameSection(window* wind)
     bt->Icon(7,3);
     bt->depth=1;
     bt->onClick = RestartCommand;
+    bt->toolTipControl = btt;
+    bt->toolTip = "[Enter] Restart";
     wind->addControl(bt);
 
     //*** Prev button:
@@ -931,6 +947,8 @@ void game::InitGameSection(window* wind)
     bt->Icon(4,18);
     bt->depth=1;
     bt->onClick = GoPreviousCommand;
+    bt->toolTipControl = btt;
+    bt->toolTip = "[P] Previous level";
     wind->addControl(bt);
     Button_PrevLevel = bt;
     
@@ -943,6 +961,8 @@ void game::InitGameSection(window* wind)
     bt->Icon(5,18);
     bt->depth=1;
     bt->onClick = GoNextCommand;
+    bt->toolTipControl = btt;
+    bt->toolTip = "[N] Next level";
     wind->addControl(bt);
     Button_NextLevel=bt;
 
@@ -954,6 +974,8 @@ void game::InitGameSection(window* wind)
     bt->depth=1;
     bt->onPress = FFDownCommand;
     bt->onRelease = FFUpCommand;
+    bt->toolTipControl = btt;
+    bt->toolTip = "[Ctrl] Fast forward";
     wind->addControl(bt);
 
 
@@ -966,6 +988,8 @@ void game::InitGameSection(window* wind)
     bt->onPress = HintDownCommand;
     bt->onRelease = HintUpCommand;
     bt->ToggleButton = true;
+    bt->toolTipControl = btt;
+    bt->toolTip = "[H] Show hint";
     wind->addControl(bt);
     Button_Hint=bt;
 
@@ -976,6 +1000,8 @@ void game::InitGameSection(window* wind)
     //bt->text = cap;
     bt->depth=1;
     bt->onClick = SolutionCommand;
+    bt->toolTipControl = btt;
+    bt->toolTip = "[S] Play solution";
     wind->addControl(bt);
     Button_Solution=bt;
 
@@ -987,6 +1013,8 @@ void game::InitGameSection(window* wind)
     bt->depth=1;
     bt->onClick = UndoCommand;
     Button_Undo = bt;
+    bt->toolTipControl = btt;
+    bt->toolTip = "[Del] Undo last movement";
     wind->addControl(bt);
 
     //*** Record button:
@@ -997,6 +1025,8 @@ void game::InitGameSection(window* wind)
     bt->depth=1;
     bt->onClick = RecordSolutionCommand;
     Button_RecordSolution = bt;
+    bt->toolTip = "Record solution";
+    bt->toolTipControl = btt;
     wind->addControl(bt);
 
 
@@ -1006,6 +1036,7 @@ void game::InitGameSection(window* wind)
     bt->text = cap; 
     bt->depth=1;
     bt->onClick = ExitCommand;
+    bt->toolTipControl = btt;
     wind->addControl(bt);
 
     
@@ -1501,7 +1532,9 @@ void game::draw(Sint16 px, Sint16 py)
             sq=&grid[i][j];
             gobject=sq->gobject;
             ex=sq->ex;
-            dodraw=((UpdateAll) || (sq->Update) || (gobject!=NULL) || (ex!=NULL) || CloseEnough(xx,xy,i,j)) ;
+            // the row 19 objects are always drawn provisionally due to tooltips
+            // being able to draw on top of them...
+            dodraw=( (j==19) || (UpdateAll) || (sq->Update) || (gobject!=NULL) || (ex!=NULL) || CloseEnough(xx,xy,i,j)) ;
 
             sq->Update=false;
             if(sq->UpdateLater)
