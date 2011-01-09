@@ -522,7 +522,6 @@ Uint8 button::NormalTextureY=17; //17
 Uint8 button::ShortTextureX=6;
 Uint8 button::LongTextureX=7;
 
-
 button::button(int sx, int sy, int sw, int sh)
 {
     Visible=Enabled=true;
@@ -535,6 +534,8 @@ button::button(int sx, int sy, int sw, int sh)
     flashperiod=0;
     iconx = icony = -1;
     ToggleButton = false;
+    mouseInside = 0;
+    toolTipControl = NULL;
 }
 
 void button::Icon(int ix, int iy)
@@ -548,6 +549,8 @@ void button::resetToggle()
     click = false;
 }
 
+
+
 void button::draw(SDL_Surface* target)
 {
     const Uint8 disablealpha = 128;//64;
@@ -556,16 +559,18 @@ void button::draw(SDL_Surface* target)
     int sz=button::Size;
     int x=this->x;
     int y=this->y;
-    if(flashperiod)
-    {
-        switch(flashperiod&3)
-        {
-            case 0: x--;y++; break;
-            case 2: x++;y--; break;
-
+    if(flashperiod) {
+        switch(flashperiod&3) {
+            case 0:
+                x--;y++;
+                break;
+            case 2:
+                x++;y--;
+                break;
         }
         flashperiod--;
     }
+    
 
     if(w>sz)
     {
@@ -606,6 +611,19 @@ void button::draw(SDL_Surface* target)
     if(button::FontResource!=NULL)
     {
         button::FontResource->Write(target,o+x+(w-button::FontResource->TextWidth(text.c_str()))/2 ,o+y+(sz-button::FontResource->Height())/2,text.c_str());
+        
+        if(mouseInside > 0) {
+            mouseInside ++;
+        }
+        
+        if( (mouseInside>=20) && (toolTipControl!=NULL) && (toolTip != "") ) {
+            toolTipControl->enabled = true; 
+            toolTipControl->x = toolx + x;
+            toolTipControl->y = tooly + y;
+            toolTipControl->text = toolTip;
+        }
+
+
     }
     if ( (iconx!=-1) )
     {
@@ -616,8 +634,17 @@ void button::draw(SDL_Surface* target)
     }
 }
 
+void button::onMouseMove(int px,int py)
+{
+    if(! mouseInside) {
+        mouseInside = 1;
+        toolx = px, tooly = py;
+    }
+}
+
 void button::onMouseOut()
 {
+    mouseInside = 0;
     if( click && ! ToggleButton)
     {
         if(onRelease!=NULL) onRelease(data);
@@ -659,4 +686,26 @@ Sint16 button::recommendedWidth(const char* s)
     Sint16 w=FontResource->TextWidth(s) + Size;
     if(w<Size*3) return Size*3;
     return w;
+}
+
+buttontooltip::buttontooltip() {
+    enabled = false;
+    x = y = w = h = 0;
+}
+
+void buttontooltip::draw(SDL_Surface* target) {
+    if(enabled) {
+        int th = button::FontResource->Height()+4;
+        int tw = button::FontResource->TextWidth(text)+4;
+        x = std::min(x, maxx - tw);
+        x = std::max(x, minx);
+        y = std::min(y, maxy - th);
+        y = std::max(y, miny);
+        SDL_FillRect(target, x,y,tw,th, SDL_MapRGB(target->format,0,0,0 ) );
+        SDL_FillRect(target, x+1,y+1,tw-2,th-2, SDL_MapRGB(target->format,255,255,255 ) );
+        
+        button::FontResource->Write(target,x+3,y+3,text.c_str());
+
+        enabled = false;
+    }
 }
