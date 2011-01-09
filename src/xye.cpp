@@ -143,6 +143,7 @@ button* Button_Solution;
 button* Button_Undo;
 button* Button_RecordSolution;
 
+bool Button_ToolTipWasDrawn;
 
 //======================================================================
 //gameboard methods:
@@ -907,7 +908,7 @@ void game::InitGameSection(window* wind)
     
     const char* cap;
     
-    
+    Button_ToolTipWasDrawn = false;
     //*** button tooltip
     buttontooltip* btt = new buttontooltip();
     btt->depth = 2;
@@ -916,6 +917,7 @@ void game::InitGameSection(window* wind)
     btt->maxx = GameWidth;
     btt->miny = 0;
     btt->maxy = game::GRIDSIZE*2;
+    btt->drawnSwitch = &Button_ToolTipWasDrawn;
     
     
     //*** Browse button:
@@ -1526,6 +1528,11 @@ void game::draw(Sint16 px, Sint16 py)
     int xx=XYE->X(),xy=XYE->Y();
     bool shadow=false;
     bool dodraw;
+    bool drawTopRow = false;
+    if(Button_ToolTipWasDrawn) {
+        drawTopRow = true;
+        Button_ToolTipWasDrawn = false;
+    }
     for (i=0;i<XYE_HORZ;i++)
     {
         for (j=0;j<XYE_VERT;j++)
@@ -1535,7 +1542,7 @@ void game::draw(Sint16 px, Sint16 py)
             ex=sq->ex;
             // the row 19 objects are always drawn provisionally due to tooltips
             // being able to draw on top of them...
-            dodraw=( (j==19) || (UpdateAll) || (sq->Update) || (gobject!=NULL) || (ex!=NULL) || CloseEnough(xx,xy,i,j)) ;
+            dodraw=( (drawTopRow && (j==19) ) || (UpdateAll) || (sq->Update) || (gobject!=NULL) || (ex!=NULL) || CloseEnough(xx,xy,i,j)) ;
 
             sq->Update=false;
             if(sq->UpdateLater)

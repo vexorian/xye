@@ -201,7 +201,9 @@ class buttontooltip : public control
     void onMouseRightUp(int x,int y) {};
     
     void loop() {};
-     
+    
+    
+    bool * drawnSwitch;
 };
 
 class button : public control
