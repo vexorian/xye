@@ -522,6 +522,8 @@ Uint8 button::NormalTextureY=17; //17
 Uint8 button::ShortTextureX=6;
 Uint8 button::LongTextureX=7;
 
+SDL_Color button::ToolTipColor;
+
 button::button(int sx, int sy, int sw, int sh)
 {
     Visible=Enabled=true;
@@ -702,7 +704,7 @@ void buttontooltip::draw(SDL_Surface* target) {
         y = std::min(y, maxy - th);
         y = std::max(y, miny);
         SDL_FillRect(target, x,y,tw,th, SDL_MapRGB(target->format,0,0,0 ) );
-        SDL_FillRect(target, x+1,y+1,tw-2,th-2, SDL_MapRGB(target->format,255,255,255 ) );
+        SDL_FillRect(target, x+1,y+1,tw-2,th-2, SDL_MapRGB(target->format, button::ToolTipColor ) );
         
         button::FontResource->Write(target,x+3,y+3,text.c_str());
 

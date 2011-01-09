@@ -253,6 +253,8 @@ class button : public control
         
         static Sint16 recommendedWidth(const char* s);
         static Sint16 recommendedWidth(const string s) { return recommendedWidth(s.c_str()); }
+        
+        static SDL_Color ToolTipColor;
       
         string toolTip;
         buttontooltip* toolTipControl; 

@@ -25,6 +25,9 @@ truetypesize='24'
     <selectedtext  red='255' green='255' blue='255' />
     <infotext      red='0' green='0' blue='0' />
 </levelmenu>
+<!-- Color used for the hint marquee and button tool tips -->
+<color type='HINT' red='255' green='255' blue='200' />
+
 
 <!--Color schemes are optional, left as an example:-->
 
