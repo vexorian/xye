@@ -44,6 +44,8 @@ void LoadSkinFile(const char* file);
     SDL_Color WallColor      [XYE_WALL_VARIATIONS];
     SDL_Color WallSpriteColor[XYE_WALL_VARIATIONS];
     
+    SDL_Color HintColor;
+    
     SDL_Color BFColor[4];
     SDL_Color BKColor[4];
     
@@ -129,6 +131,8 @@ struct parsedSkinFile
     
     SDL_Color BFColor[4];
     SDL_Color BKColor[4];
+    
+    SDL_Color HintColor;
     
     SDL_Color LevelMenu_info;
     SDL_Color LevelMenu_selected;
@@ -254,6 +258,11 @@ string parseMiscColorOptions(TiXmlElement* skn, parsedSkinFile & ps) {
             c=&ps.FloorColor;
             n=1;
         }
+        else if ( (e1!=NULL) && (string(e1)=="HINT" ) )
+        {
+            c=&ps.HintColor;
+            n=1;
+        }
 
         if(c!=NULL)
         {
@@ -297,6 +306,7 @@ string parseSkinColors(TiXmlElement* ele, parsedSkinFile & ps) {
     ps.ForceArrowColor.r = 100, ps.ForceArrowColor.g = 200, ps.ForceArrowColor.b = 200, ps.ForceArrowColor.unused = 0 ;
     ps.EarthColor.r = ps.EarthColor.g = 255, ps.EarthColor.b = ps.EarthColor.unused = 0 ;
     ps.FloorColor.r = ps.FloorColor.g = ps.FloorColor.b = 255, ps.FloorColor.unused = 0 ;
+    ps.HintColor.r = ps.HintColor.g = 255, ps.HintColor.b = 200, ps.HintColor.unused = 0; 
     tm = parseMiscColorOptions(ele,ps);
     if(tm != "") {
         return "";
@@ -694,6 +704,7 @@ void LoadColors(parsedSkinFile & ps)
     ForceArrowColor = ps.ForceArrowColor;
     EarthColor = ps.EarthColor;
     FloorColor = ps.FloorColor;
+    HintColor = ps.HintColor;
 }
 
 
