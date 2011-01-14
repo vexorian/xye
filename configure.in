@@ -2,7 +2,7 @@
 
 # Process this file with autoconf to produce a configure script.
 PROJ_NAME=xye
-PROJ_VERSION=0.9.2
+PROJ_VERSION=0.9.3
 
 
 
