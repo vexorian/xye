@@ -1,3 +1,27 @@
+Version 0.9.3
+=============
+- The in-game buttons now have tooltips.
+- Many graphical updates, specially to the clean40 skin.
+- Fast forward now also affects the game's hint marquee's speed.
+- The text input dialog used by the editor now has a clear button, in case you need to quickly erase long messages.
+- Change to sprites file: number blocks now have a sprite for each block, insteado of a hard coded alpha channel change.
+- Change to skin file features: It is now possible to alter the floor , earth, force arrow and hint colors.
+- Added new official levels, the current count is 25 tutorials, 50 official levels.
+- Added a new level to sphinx.xye
+- Some levels have also been updated to remove exploit solutions,  to make them more viable and also to look better.
+- Fixed a game bug that made red turner blocks explode when hit by a scroll (one way) block. This was not intended behavior.
+- Fixed a bug that made the editor crash or have a wall graphics glitch in the first load in some situations.
+- Fixed an issue with wall sprites not updating correctly after a blue surprise block becomes a wall nearby, this was not noticeable on skins with border-less walls.
+- Fixed an issue that stopped replay files from loading correctly.
+- Fixed a bug with how pits were recolored if they were above non-white floor.
+- Fixed a bug about large blocks or snakes above a pit that suddenly become  a single cell object, they were supposed to fall into the pit, they do now.
+- The way the side at which round objects slide when pushed against another round object has been updated. It is now guaranteed to pick the side to which the block slides at 50% chance. It was previously not the case and the distribution did not work correctly. This change may make replays/solutions from older versions stop working correctly.
+- Fixed a bug that made the more advanced monsters able to get confused some times when using teleports. This may also make some old custom solutions and levels stop working correctly.
+- Fixed a bug that made the editor unable load levels that use the deprecated wall type.
+
+
+
+
 Version 0.9.2
 =============
 - There is now a working GUI to easily change the game's theme.
