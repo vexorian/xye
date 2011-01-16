@@ -1849,8 +1849,8 @@ void game::MoveXye()
         }
         else
         {
-            if ((FlashPos==0) && (LastXyeMove+200<counter))
-                FlashXyePosition();
+            //No more flash after idle time. if ((FlashPos==0) && (LastXyeMove+200<counter))
+            //    FlashXyePosition();
             if (cameraon) recording::add_nomove();
         }
 
