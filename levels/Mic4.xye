@@ -18,7 +18,7 @@
 
 </ground>
 <palette>
-<color id='2' red='255' green='255' blue='200'/>
+<color id='2' red='255' green='255' blue='200' mode='MULTIPLY' />
 </palette>
 <default>
    <wall color='2' />
@@ -431,7 +431,7 @@
 <level>
 <title>4cols</title>
 <palette>
-<color id='2' red='255' green='255' blue='200'/>
+<color id='2' red='255' green='255' blue='200'  mode='MULTIPLY'/>
 </palette>
 <default>
    <wall color='2' />
