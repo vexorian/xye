@@ -591,7 +591,7 @@ void Init()
 
 
 
-    enundo=false;
+    enundo=true;
     r=b=0;
     g=255;
     bini=true;
@@ -621,8 +621,10 @@ void Init()
 
     if (tm=ele->Attribute("undo"))
     {
-        printf("NOTE: Undo is enabled!\n");
-        enundo=true;
+        if( tm[0] == 'N' || tm[0] == 'n' ) {
+            printf("NOTE: Undo is disabled!\n");
+        }
+        enundo=false;
     }
 
     tm=ele->Attribute("levelfile");
@@ -897,8 +899,8 @@ void SaveConfigFile()
     file<<"<options levelfile='#browse#' ";
     file<<"skinfile='"<<GetSkinFile()<<"' ";
     file<<"red='"<<(int)Red()<<"' green='"<<(int)Green()<<"' blue='"<<(int)Blue()<<"' ";
-    if(UndoEnabled()) {
-        file<<"undo='YES' ";
+    if(! UndoEnabled()) {
+        file<<"undo='NO' ";
     }
     
     file<<"/>"<<endl;

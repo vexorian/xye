@@ -95,13 +95,11 @@ Important gameplay differences between Xye and Kye
 
 About UNDO
 ==========
- As of version 0.8.0 undo was converted into a "cheat code". You must add undo="yes" to xyeconf.xml , see the readme for more info. There are two exceptions, if you are testing a level from the editor or if you are playing a sokoban level, then undo will be enabled without this tweak to the configuration file.
-  
- Xye is a real time, game so adding an UNDO option consisted on just making XYE restart the level and repeat all the previous moves but the last step in a silent way without delays / drawing of the screen. If you were playing a level for too long, then undo might take some time depending on the computer you are using. It will never take much more than the time you spent on the level already, it shouldn't really take more than 1/100 that time no matter what computer is. The most intensive processor operations in the game are after all drawing. Followed by the monster AI (some of the monsters have really smart AIs and those might use a lot of processor power). 
+ Xye is a real time, game so adding an UNDO option consists on just making XYE restart the level and repeat all the previous moves but the last step in a silent way without delays / drawing of the screen. If you were playing a level for too long, then undo might take some time depending on the computer you are using. It will never take much more than the time you spent on the level already, it shouldn't really take more than 1/100 that time no matter what computer it is. The most intensive processor operations in the game are after all drawing. Followed by the monster AI (some of the monsters have really smart AIs and those might use a lot of processor power). 
 
- In other words UNDO might take some time so don't get desperate if in some situations you have to wait 5 seconds after pressing the undo button. (5 seconds is an extreme value) t
+ In other words, there might be some delay in between responding to an UNDO command.In some situations (very long games and legacy computers) you may have to wait up to 5 seconds after pressing the undo button.
  
  
-
+ Also, if you are afraid that the undo option may be leading you to Save scumming then you can disable the option. The undo button will be missing of the game except in sokoban levels. Simple find your xyeconf.xml file and add the option undo='no' . xyeconf.xml should be in your Xye folder when playing in windows and in your /home/user/.xye folder in other cases.
 
 
