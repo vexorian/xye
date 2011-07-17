@@ -623,8 +623,9 @@ void Init()
     {
         if( tm[0] == 'N' || tm[0] == 'n' ) {
             printf("NOTE: Undo is disabled!\n");
+            enundo=false;
+            
         }
-        enundo=false;
     }
 
     tm=ele->Attribute("levelfile");
