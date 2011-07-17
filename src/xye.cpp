@@ -633,14 +633,22 @@ void game::RestartCommand( const buttondata*bd)
     AfterLevelLoad();
 }
 
+
+void game::ExitCommandYesHandler( bool yesClicked ) {
+    UpdateAll=true;
+    if ( yesClicked ) {
+        gamewindow->Close();
+    }
+}
 void game::ExitCommand( const buttondata*bd)
 {
     if(xye_fromeditortest)
     {
         gamewindow->SetTransition(editor::ResumeSectionAndQuit);
     }
-    else
-        gamewindow->Close(); //exit if Escape is Pressed
+    else {
+        dialogs::makeYesNoDialog(gamewindow, "Are you sure you want to exit the game?","Yes", "No" , game::ExitCommandYesHandler);
+    }
 }
 
 void game::GoPreviousCommand( const buttondata*bd)
