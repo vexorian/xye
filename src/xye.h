@@ -1343,6 +1343,7 @@ class game
     static bool IsUndoAllowed();
     
     static void AfterLevelLoad();
+    static void ExitCommandYesHandler(bool yesClicked);
     static void ExitCommand( const buttondata*bd = NULL);
     static void RestartCommand( const buttondata* bd = NULL);
     static void GoPreviousCommand( const buttondata*bd = NULL);
