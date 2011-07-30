@@ -1,3 +1,13 @@
+Version 0.10.0
+==============
+- Whenever you leave a level file, the positions of all objects and the UNDO history
+ will be saved automatically. The next time you open the level, it will be loaded
+ automatically.
+- The undo last move command is now enabled by default.
+- A prompt Yes/No dialog will ask for confirmation before leaving the game.
+- Moving Xye once will make the idle arrows go away permanently until Xye moves into a portal or dies.
+- Fixed colors in one of the extra level files: Mic4.
+
 Version 0.9.3
 =============
 - The in-game buttons now have tooltips.
