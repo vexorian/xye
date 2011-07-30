@@ -179,6 +179,7 @@ bool recording::load(const char* st)
         }
         i++;
     }
+    undos = first;
     return true;
 
 }
