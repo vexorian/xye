@@ -612,8 +612,11 @@ void game::PlayRecording(const string rc)
 
 void game::AfterLevelLoad()
 {
+    // load game?
+    loadGame();
+
     if(!xye_fromeditortest)
-        options::SaveLevelFile( LevelPack::OpenFile.c_str(), LevelPack::OpenFileLn);
+        options::SaveLevelFile( LevelPack::OpenFile, LevelPack::OpenFileLn);
     Button_Solution->Enabled = ( (LevelPack::HasSolution()) && !playingrec);
     Button_Hint->Enabled= (hint::GlobalHintExists());
     Button_Hint->resetToggle();
@@ -621,7 +624,7 @@ void game::AfterLevelLoad()
     Button_Undo->Visible = (game::IsUndoAllowed() || xye_fromeditortest);
     Button_Undo->Enabled = game::IsUndoAllowed();
     Button_RecordSolution->Visible = xye_fromeditortest;
-    Button_RecordSolution->Enabled = !xye_recordingsolution;    
+    Button_RecordSolution->Enabled = !xye_recordingsolution;
 }
 
 void game::RestartCommand( const buttondata*bd)
@@ -637,6 +640,7 @@ void game::RestartCommand( const buttondata*bd)
 void game::ExitCommandYesHandler( bool yesClicked ) {
     UpdateAll=true;
     if ( yesClicked ) {
+        saveGame();
         gamewindow->Close();
     }
 }
@@ -647,12 +651,36 @@ void game::ExitCommand( const buttondata*bd)
         gamewindow->SetTransition(editor::ResumeSectionAndQuit);
     }
     else {
-        dialogs::makeYesNoDialog(gamewindow, "Are you sure you want to exit the game?","Yes", "No" , game::ExitCommandYesHandler);
+        dialogs::makeYesNoDialog(gamewindow, "Are you sure you want to exit the game? Your progress will be saved.","Yes", "No" , game::ExitCommandYesHandler);
     }
+}
+
+void game::loadGame()
+{
+    string s = options::LoadLevelGame(LevelPack::OpenFile.c_str(), LevelPack::OpenFileLn);
+    if (s != "") {
+        recording::load(s.c_str());
+        options::ForgetLevelGame(LevelPack::OpenFile.c_str(), LevelPack::OpenFileLn);
+        undo = true;
+        string oldcap = LevelPack::CurrentLevelTitle;
+        oldcap += " (Your previous game has been loaded.)";
+        SDL_WM_SetCaption(oldcap.c_str(),0);
+    }
+
+}
+
+
+void game::saveGame()
+{
+    char * tm = recording::save();
+    string s = tm;
+    options::SaveLevelGame(LevelPack::OpenFile.c_str(), LevelPack::OpenFileLn, s);
+    delete[]tm;
 }
 
 void game::GoPreviousCommand( const buttondata*bd)
 {
+    saveGame();
     end();
     start();
     LevelPack::Last();
@@ -661,6 +689,7 @@ void game::GoPreviousCommand( const buttondata*bd)
 
 void game::GoNextCommand( const buttondata*bd)
 {
+    saveGame();
     end();
     start();
     LevelPack::Next();
@@ -703,8 +732,13 @@ void game::RecordSolutionCommand( const buttondata*bd)
 
 void game::BrowseCommand( const buttondata*bd)
 {
-    if( xye_fromeditortest) gamewindow->SetTransition(editor::ResumeSection);
-    else gamewindow->SetTransition(LevelBrowser::StartSection);    
+    
+    if( xye_fromeditortest) {
+        gamewindow->SetTransition(editor::ResumeSection);
+    } else {
+        saveGame();
+        gamewindow->SetTransition(LevelBrowser::StartSection);
+    }
 }
 
 void game::SolutionCommand( const buttondata*bd)
@@ -1184,7 +1218,6 @@ void game::start(bool undotime)
         iy+=GRIDSIZE;
     }
     started=true;
-    
 }
 
 
@@ -1821,7 +1854,6 @@ void game::MoveXye()
         if (undo)
         {
             bool nm;
-
             if (! recording::get_undo(DK_DIR,nm))
             {
                 cameraon=true;
@@ -1835,7 +1867,6 @@ void game::MoveXye()
                       LastXyeMove=counter;
                 return;
             }
-
         }
 
 
@@ -2207,7 +2238,7 @@ void game::SaveReplay()
 
 void game::TerminateGame(bool good)
 {
-
+   undo = false;
    if (!playingrec)
    {
         SaveReplay();
@@ -2222,12 +2253,12 @@ void game::TerminateGame(bool good)
                 delete[]tm;
                 BrowseCommand();
 
-            }
-            else
+            } else { 
                 SDL_WM_SetCaption("Xye - YOU WIN!",0);
-        }
-        else
+            }
+        } else {
             SDL_WM_SetCaption("Xye - Game over!",0);
+        }
    }
    if (good) {
        FinishedLevel = true;
@@ -2237,8 +2268,9 @@ void game::TerminateGame(bool good)
    //    BrowseCommand();
    //}
    
-   if(xye_recordingsolution)
+   if(xye_recordingsolution) {
        xye_recordingsolution=false;
+   }
     //counter=counter2=counter3=counter4=counter5=counter7=counter8=counter9=1;
     GameOver=true;
 }

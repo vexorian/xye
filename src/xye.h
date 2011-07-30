@@ -1427,6 +1427,9 @@ class game
     static void InitGraphics();
     static void CleanGraphics();
     
+    static void loadGame();
+    static void saveGame();
+    
  public:
     static void RefreshGraphics();
     

@@ -41,7 +41,11 @@ namespace options {
     int GetGridSize();
     
     
-    void SaveLevelFile(const char* filename, int levelNumber = 0);
+    void SaveLevelFile(string filename, int levelNumber = 0);
+    void SaveLevelGame(string filename, int levelNumber, string moves);
+    
+    string LoadLevelGame(string filename, int levelNumber);
+    void ForgetLevelGame(string filename, int levelNumber);
     
     
     unsigned char Red();

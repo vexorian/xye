@@ -110,6 +110,8 @@ std::map< std::pair<int, string>, int> MemFileLevelNumber;
 std::map< string, int> MemFileLevelTime;
 
 
+std::map< std::pair<string,int> , string > MemSavedGame;
+
 //--------
 // skin parser
 struct parsedSkinFile
@@ -727,6 +729,7 @@ void Clean()
         MemTime = 0;
         MemFileLevelNumber.clear();
         MemFileLevelTime.clear();
+        MemSavedGame.clear();
 
     }
     
@@ -822,12 +825,12 @@ void IgnoreLevelSave()
 
 
 
-void SaveLevelFile(const char* filename, int levelNumber)
+void SaveLevelFile(string filename, int levelNumber)
 {
-    if(filename == NULL) return;
+    if(filename == "") return;
     
     MemTime++;
-    string s = filename;
+    string &s = filename;
     if( MemFileLevelTime.count(s) == 1)
     {
         int t = MemFileLevelTime[s];
@@ -851,6 +854,36 @@ void SaveLevelFile(const char* filename, int levelNumber)
    
     LevelFile = filename;
     lvnum = levelNumber;
+}
+
+void SaveLevelGame(string filename, int levelNumber, string moves)
+{
+    if ( moves == string(moves.length(), '0') ) {
+        ForgetLevelGame(filename,levelNumber);
+    } else {
+        pair<string,int> p = make_pair(filename, levelNumber);
+        MemSavedGame[p] = moves;
+    }
+}
+
+string LoadLevelGame(string filename, int levelNumber)
+{
+    pair<string,int> p = make_pair(filename, levelNumber);
+    map<pair<string,int>,string>::iterator q = MemSavedGame.find(p);
+    if ( q == MemSavedGame.end() ) {
+        return "";
+    } else {
+        return q->second;
+    }
+}
+void ForgetLevelGame(string filename, int levelNumber)
+{
+    pair<string,int> p = make_pair(filename, levelNumber);
+    map<pair<string,int>,string>::iterator q = MemSavedGame.find(p);
+    if ( q != MemSavedGame.end() ) {
+        MemSavedGame.erase(q);
+    }
+    
 }
 
 
@@ -881,6 +914,20 @@ void PerformLevelFileSave()
     
     
     file.close();
+
+    path = GetHomeFolder()+"savedgames.conf";
+    file.open (path.c_str(),std::ios::trunc | std::ios::out );
+    if (!file.is_open()) return ; //ouch just halt.
+    
+    for ( map< pair<string,int>, string >::iterator q = MemSavedGame.begin(); q!=MemSavedGame.end(); q++)
+    {
+        file<< q->first.first<< std::endl << q->first.second << " "<<q->second <<std::endl;
+    }
+    
+    
+    file.close();
+
+
 }
 
 
@@ -916,17 +963,42 @@ void LoadLevelFile()
     MemTime = 0;
     MemFileLevelNumber.clear();
     MemFileLevelTime.clear();
-    
+
+   
     std::ifstream file;
-    string path = GetHomeFolder()+"lastlevel.conf";
+
+    // ............. Load saved games
+    string path = GetHomeFolder()+"savedgames.conf";
+    file.open (path.c_str(), std::ios::in );
+    if ( file.is_open())
+    {
+        string LevelFile;
+        int lvnum;
+        string savedgame, empty;
+        
+        while( !file.eof()  )
+        {
+            getline(file,LevelFile);
+            if(LevelFile=="") break;
+            file>>lvnum;
+            file>>savedgame;
+            
+            SaveLevelGame(LevelFile.c_str(), lvnum, savedgame);
+            getline(file,LevelFile);
+        }
+    }
+    file.close();
+
+
+    path = GetHomeFolder()+"lastlevel.conf";
     file.open (path.c_str(), std::ios::in );
     if (!file.is_open())
     {
+        printf("Could not open lastlevel.conf\n");
         LevelFile = "#browse#";
         lvnum = 0;
         return ; //ouch just halt.
     }
-    std::cout<<file.eof()<<std::endl;
     string LevelFile;
     int lvnum;
     while( !file.eof()  )
@@ -937,7 +1009,10 @@ void LoadLevelFile()
         SaveLevelFile(LevelFile.c_str(), lvnum);
         getline(file,LevelFile);
     }
+
 }
+
+
 
 bool UndoEnabled() {
     return enundo;
