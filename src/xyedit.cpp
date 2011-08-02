@@ -208,7 +208,7 @@ void editor::saveAs(bool okclicked, const string text, inputDialogData * dat)
         filename_path=myLevelsPath;
         if (save())
         {
-            dialogs::makeMessageDialog(editorwindow, string(filename)+string(" saved succesfully."),"Ok",onDialogClickDoNothing);
+            dialogs::makeMessageDialog(editorwindow, string(filename)+string(" saved successfully."),"Ok",onDialogClickDoNothing);
         }
     }
 }

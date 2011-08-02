@@ -836,7 +836,7 @@ bool editor::load()
         {
             cout << "Notice: Unable to find xye in the level file.\n";
         }
-        cout << "File loaded succesfully.\n";
+        cout << "File loaded successfully.\n";
 
         for (i=0;i<XYE_HORZ;i++)for (j=0;j<XYE_VERT;j++)
         {
