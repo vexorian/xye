@@ -72,16 +72,14 @@ void editor::onBrowseWithoutSavingClick(bool yes)
 
 void editor::onExitAttempt()
 {
-    if(! SavedFile)
-    {
-        if(!ExitPrompt)
-        {
+    if(! SavedFile) {
+        if(!ExitPrompt) {
             ExitPrompt=true;
             dialogs::makeYesNoDialog(editorwindow,"Are you sure you want to close the editor before saving the level?","Yes","No",editor::onExitWithoutSavingClick);
         }
-    }
-    else
+    } else {
          cancel();
+    }
 };
 
 void editor::onQuitClick(const buttondata* data)
@@ -982,7 +980,7 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
                 case EDCO_GREEN: text="Emerald (green gem)"; break;
                 case EDCO_YELLOW: text="Topaz (yellow gem)"; break;
                 case EDCO_BLUE: text="Diamond (blue gem)"; break;
-                case EDCO_RED: text="Ruby (red gem)";
+                case EDCO_RED: text="Ruby (red gem)"; break;
                 default: text="Star (optional gem)";
             }
             break;
