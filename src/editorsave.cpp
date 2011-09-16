@@ -6,7 +6,7 @@
 
 void saveColor(std::ofstream &file,boardelement &o,bool allownocolor=false)
 {
-    if(allownocolor && (o.color==EDCO_WHITE)) file << "nocolor='1'";
+    if(allownocolor && (o.color==EDCO_WHITE)) file << "nocolor='1' ";
     else switch(o.color)
     {
         case EDCO_BLUE: file<<"bc='B' "; break;
