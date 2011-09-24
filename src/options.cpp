@@ -1077,6 +1077,23 @@ struct previewMaker {
         draw(1,0,3,0, ps.BKColor[1]);
         draw(1,0,4,0, ps.BKColor[2]);
         draw(1,0,5,0, ps.BKColor[3]);
+        
+        //arrows
+        draw(1,0,9,0, ps.BKColor[0]);
+        draw(4,9,9,0, ps.BFColor[0]);
+        draw(1,0,9,1, ps.BKColor[1]);
+        draw(4,10,9,1, ps.BFColor[1]);
+        draw(2,0,9,2, ps.BKColor[2]);
+        draw(5,12,9,2, ps.BFColor[2]);
+        draw(2,0,9,3, ps.BKColor[3]);
+        draw(5,11,9,3, ps.BFColor[3]);
+        
+        //magnets
+        draw(6,12,7,1);
+        
+        //wildcard
+        draw(1,2,7,2);
+        
 
         //gems
         draw(2,3+rand()%2,1,1);
@@ -1091,6 +1108,20 @@ struct previewMaker {
         draw(19, 6+rand()%3, 3,2);
         draw(19, 9+rand()%3, 4,2);
         draw(10,12+rand()%2, 5,2);
+        //robot
+        draw(3,rand()%3, 1,3);
+        //blackie
+        draw(0,3, 2,3);
+        draw(0,4, 2,3);
+        
+        //portal
+        draw(8,rand()%3, 3,3, ps.BKColor[(int)(rand()%4)] );
+        
+        { //turner
+            int d = rand()%4;
+            draw(1,0,7,3, ps.BKColor[d]);
+            draw(3,10,7,3, ps.BFColor[d]);
+        }
         
         //pusher
         int d=rand()%2;
