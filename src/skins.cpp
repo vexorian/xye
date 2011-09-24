@@ -68,7 +68,7 @@ bool ActiveIsValid;
 
 void LoadActiveFileInfo();
 
-#define SPACING_TEXT "                             "
+const char* SPACING_TEXT = "                             ";
 
 
 class SkinList: public control
@@ -223,7 +223,13 @@ public:
             InfoFont->Write(target,nw,cy, SkinData.author);
             cy+=fh;
         }
-
+        if(SkinData.description != "") {
+            InfoBoldFont->Write(target,cx,cy,"Description:");
+            cy+=fh;
+            string tm=" "+SkinData.description;
+            InfoFont->WriteWrap(target,nw,cy,x+w - nw-5,y+h-cy, tm);
+            cy+=fh;
+        }
         if(FileLevelsN>1)
         {
             char tml[6];
@@ -243,13 +249,11 @@ public:
         //delete pt;
         cy+=fh;
 
-
-
-        if(SkinData.description != "") {
-            InfoBoldFont->Write(target,cx,cy,"Description:");
+        {   char buf[100];
+            sprintf(buf," %d x %d", SkinData.dimx, SkinData.dimy);
+            InfoBoldFont->Write(target,cx,cy,"Size:");
             cy+=fh;
-            string tm=" "+SkinData.description;
-            InfoFont->WriteWrap(target,nw,cy,x+w - nw-5,y+h-cy, tm);
+            InfoFont->WriteWrap(target,nw,cy,x+w - nw-5,y+h-cy, buf);
             cy+=fh;
         }
         
@@ -262,13 +266,6 @@ public:
 
         }
         
-        {   char buf[100];
-            sprintf(buf," %d x %d", SkinData.dimx, SkinData.dimy);
-            InfoBoldFont->Write(target,cx,cy,"Size:");
-            cy+=fh;
-            InfoFont->WriteWrap(target,nw,cy,x+w - nw-5,y+h-cy, buf);
-            cy+=fh;
-        }
 
 
 
