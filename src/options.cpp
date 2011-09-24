@@ -120,6 +120,9 @@ struct parsedSkinFile
     string lum;
     string font;
     string boldFont;
+    string author;
+    string description;
+    string title;
     bool   directionSprites;
     int    ttfSize;
     int    gridSize;
@@ -286,6 +289,28 @@ string parseMiscColorOptions(TiXmlElement* skn, parsedSkinFile & ps) {
 }
 
 
+void parseSkinInformation(TiXmlElement* ele, parsedSkinFile & ps) {
+    TiXmlElement* tem=ele->FirstChildElement("author");
+    if (tem!=NULL) {
+        if (tem->GetText() != NULL) {
+            ps.author = tem->GetText();
+        }
+    }
+    tem=ele->FirstChildElement("description");
+    if (tem!=NULL) {
+        if (tem->GetText() != NULL) {
+            ps.description = tem->GetText();
+        }
+    }
+    tem=ele->FirstChildElement("title");
+    if (tem!=NULL) {
+        if (tem->GetText() != NULL) {
+            ps.title = tem->GetText();
+        }
+    }
+
+}
+
 string parseSkinColors(TiXmlElement* ele, parsedSkinFile & ps) {
     string tm = parseSkinMenuColors(ele, ps);
     if(tm != "") {
@@ -395,6 +420,9 @@ string parseSkinFile(const char*filename, parsedSkinFile & ps)
     if ( err != "") {
         return err;
     }
+    
+    parseSkinInformation(ele,ps);
+    
     const char* tm;
     if (tm=ele->Attribute("sprites")) {
         ps.sprites = fixpath(string("res/")+string(tm),true);
@@ -1139,6 +1167,7 @@ bool GetSkinInformation(const char* file, SkinInformation & si)
     si.title = "";
     si.author = "";
     si.description = "";
+    si.title = "";
     if(si.preview != NULL) {
         SDL_FreeSurface(si.preview);
     }
@@ -1153,6 +1182,9 @@ bool GetSkinInformation(const char* file, SkinInformation & si)
     si.preview= makeSkinPreview(ps, si.pw, si.ph);
     si.dimx = ps.gridSize * 30;
     si.dimy = ps.gridSize * 22;
+    si.author = ps.author;
+    si.description = ps.description;
+    si.title = ps.title;;
     return true;
 }
 
