@@ -227,8 +227,10 @@ public:
             InfoBoldFont->Write(target,cx,cy,"Description:");
             cy+=fh;
             string tm=" "+SkinData.description;
-            InfoFont->WriteWrap(target,nw,cy,x+w - nw-5,y+h-cy, tm);
-            cy+=fh;
+            int temh  = InfoFont->WrappedTextHeight(tm, x+w - nw-5)+fh/5;
+            temh = min(temh, y+h-cy);
+            InfoFont->WriteWrap(target,nw,cy,x+w - nw-5,temh, tm);
+            cy+= temh;
         }
         if(FileLevelsN>1)
         {
