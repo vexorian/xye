@@ -490,6 +490,7 @@ std::vector<std::string> Font::splitByLines(const char* text, int w) const
                 {
                     lineended=true;
                     r.push_back(line);
+                    strcat(word," ");
                     line=word;
                     lw=tw;
                 }
@@ -574,6 +575,11 @@ unsigned int Font::TextWidth(const char *text) const
 
     return width;
 
+}
+
+unsigned int Font::WrappedTextHeight(const string text, int w) const
+{
+    return Height() * splitByLines(text, w).size();
 }
 
 unsigned int Font::Height() const
