@@ -20,6 +20,7 @@ public:
  unsigned int Height() const;
  unsigned int TextWidth(const char* text) const;
  unsigned int TextWidth(const std::string text) const { return TextWidth(text.c_str()); };
+ unsigned int WrappedTextHeight(const std::string text, int w) const;
  unsigned int CharWidth(const char c) const;
 
 
