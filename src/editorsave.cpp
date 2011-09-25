@@ -483,7 +483,7 @@ void saveGroundObject(std::ofstream &file,boardelement &o, int x, int y)
 
 bool editor::save()
 {
-    if (save(filename))
+    if (save(filename, false))
     {
          SavedFile=true;
          return true;
@@ -521,56 +521,72 @@ string  stripXML(const string s)
     return r;
 }
 
-bool editor::save(const string &target)
+bool editor::save(const string &target, bool onlyOneLevel)
 {
     std::ofstream file;
     file.open (target.c_str(),std::ios::trunc | std::ios::out );
     if (!file.is_open()) return false; //ouch just halt.
+    
+    int oldcur = editorboard::CurrentLevelNumber();
+    int first = 0;
+    if (onlyOneLevel) {
+        first = oldcur;
+    }
+    editorboard::SaveCopy(board);
+    editorboard::LoadLevelNumber(board, first);
 
     file << "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
     file << "<pack>\n<name>"<< stripXML(board->title) <<"</name><author>"<< stripXML(board->author) <<"</author>\n<description>"<< stripXML(board->description) <<"</description>\n";
-    file << "\n<level>\n";
-    file << "<title>"<< stripXML(board->title) <<"</title>\n";
     
-    if(board->hint!="")
-    {
-        file << "<hint>"<< stripXML(board->hint) <<"</hint>\n";
-    }
-    if(board->solution!="")
-    {
-        file << "<solution>"<< stripXML(board->solution) <<"</solution>\n";
-    }
-
-    if(board->bye!="")
-    {
-        file << "<bye>"<< stripXML(board->bye) <<"</bye>\n";
-    }
-
-    int i,j;
-    file << "\t<ground>\n";
-    resetSavedPosition();
-    for (i=0;i<XYE_HORZ;i++) for (j=0;j<XYE_VERT;j++) saveGroundObject(file,editor::board->objects[i][j],i,XYE_VERT-j-1);
-    file << "\t</ground>\n";
-    file << "\t<objects>\n";
-    resetSavedPosition();
-    for (i=0;i<XYE_HORZ;i++) for (j=0;j<XYE_VERT;j++)
-    {
-        saveNormalObject(file,editor::board->objects[i][j],i,XYE_VERT-j-1);
-    }
-    savePortals( file, editor::board);
+    for (int i=first; i<editorboard::CountLevels(); i++) {
+        editorboard::LoadLevelNumber(board, i);
+        file << "\n<level>\n";
+        file << "<title>"<< stripXML(board->title) <<"</title>\n";
+        
+        if(board->hint!="")
+        {
+            file << "<hint>"<< stripXML(board->hint) <<"</hint>\n";
+        }
+        if(board->solution!="")
+        {
+            file << "<solution>"<< stripXML(board->solution) <<"</solution>\n";
+        }
     
+        if(board->bye!="")
+        {
+            file << "<bye>"<< stripXML(board->bye) <<"</bye>\n";
+        }
     
-    file << "\t</objects>\n";
-
-
-    if(editor::board->xye_x>=0)
-    {
+        int i,j;
+        file << "\t<ground>\n";
         resetSavedPosition();
-        file << "\t<xye x='"<<editor::board->xye_x<<"' y='"<<(XYE_VERT-editor::board->xye_y-1)<<"' lives='"<<(editor::board->objects[editor::board->xye_x][editor::board->xye_y].variation+1)<<"' />\n";
-    }
+        for (i=0;i<XYE_HORZ;i++) for (j=0;j<XYE_VERT;j++) saveGroundObject(file,editor::board->objects[i][j],i,XYE_VERT-j-1);
+        file << "\t</ground>\n";
+        file << "\t<objects>\n";
+        resetSavedPosition();
+        for (i=0;i<XYE_HORZ;i++) for (j=0;j<XYE_VERT;j++)
+        {
+            saveNormalObject(file,editor::board->objects[i][j],i,XYE_VERT-j-1);
+        }
+        savePortals( file, editor::board);
+        
+        
+        file << "\t</objects>\n";
+    
+    
+        if(editor::board->xye_x>=0)
+        {
+            resetSavedPosition();
+            file << "\t<xye x='"<<editor::board->xye_x<<"' y='"<<(XYE_VERT-editor::board->xye_y-1)<<"' lives='"<<(editor::board->objects[editor::board->xye_x][editor::board->xye_y].variation+1)<<"' />\n";
+        }
+    
+        file << "</level>\n";
 
-    file << "</level>\n";
+        if (onlyOneLevel) break;
+    }
+    
     file << "</pack>\n";
+    editorboard::LoadLevelNumber(board, oldcur);
 
 
 

@@ -298,14 +298,6 @@ void editor::ResumeSection(window* wind)
 
     button* tmbut;
 
-    bw=button::recommendedWidth("Set level text");
-    tmbut= new button(bx,0,bw,button::Size);
-    tmbut->text="Set level text";
-    tmbut->onClick = beginSetText;
-    tmbut->depth=20;
-    editorwindow->addControl(tmbut);
-    bx+=bw+1;
-
     bw=button::recommendedWidth("Test");
     tmbut= new button(bx,0,bw,button::Size);
     tmbut->text="Test";
@@ -342,8 +334,6 @@ void editor::ResumeSection(window* wind)
     editorwindow->addControl(tmbut);
     bx+=bw+1;
 
-    
-    
     bw=button::recommendedWidth("Clear");
     tmbut= new button(bx,0,bw,button::Size);
     tmbut->text="Clear";
@@ -352,6 +342,13 @@ void editor::ResumeSection(window* wind)
     editorwindow->addControl(tmbut);
     bx+=bw+1;
 
+    bw=button::recommendedWidth("Text...");
+    tmbut= new button(bx,0,bw,button::Size);
+    tmbut->text="Text...";
+    tmbut->onClick = beginSetText;
+    tmbut->depth=20;
+    editorwindow->addControl(tmbut);
+    bx+=bw+1;
 
     bw=button::recommendedWidth("Save");
     tmbut= new button(bx,0,bw,button::Size);
@@ -416,6 +413,9 @@ void editor::StartSection(window* wind)
     ResumeSection(wind);
     if (!load())
     {
+        editorboard::ResetLevels();
+        editorboard::LoadCopy(board);
+        
         dialogs::makeMessageDialog(editorwindow, editor::loadError,"Ok",onDialogClickDoNothing);
     } else if ( editor::loadError != "") {
         dialogs::makeMessageDialog(editorwindow, editor::loadError,"Ok",onDialogClickDoNothing);
@@ -481,7 +481,7 @@ void editor::onKeyUp(SDLKey keysim, Uint16 unicode)
 void editor::test(bool solution)
 {
     string nfilename = filename+"~";
-    if (! save(nfilename) )
+    if (! save(nfilename, true) )
     {
         dialogs::makeMessageDialog(editorwindow, string("Unable to test the level because xyedit cannot rewrite ")+string(filename+"~")+".","Ok",onDialogClickDoNothing);
         return;
@@ -1343,6 +1343,14 @@ void editorboard::SaveAtLevelNumber(editorboard* ed, int num)
     }
     levelList[num].assign(ed);
 }
+void editorboard::ResetLevels()
+{
+    levelList.resize(0);
+    levelList.resize(1);
+    currentLevel = 0;
+}
+
+
 int editorboard::CountLevels()
 {
     return levelList.size();
