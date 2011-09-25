@@ -382,6 +382,8 @@ void editor::StartSection(window* wind)
     if (!load())
     {
         dialogs::makeMessageDialog(editorwindow, editor::loadError,"Ok",onDialogClickDoNothing);
+    } else if ( editor::loadError != "") {
+        dialogs::makeMessageDialog(editorwindow, editor::loadError,"Ok",onDialogClickDoNothing);
     }
 
     editorwindow = wind;

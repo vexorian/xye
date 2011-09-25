@@ -782,6 +782,7 @@ bool editor::load()
         el=level->FirstChildElement();
 
 
+        bool colorWarn = false;
         while (el!=NULL)
         {
             string v=el->Value();
@@ -825,9 +826,13 @@ bool editor::load()
             }
             else
             {
-                cout << "Editor-incompatible <pack> child: "<<v<<"\n";
-                loadError="Found a tag "+v+" that is incompatible with the level editor.";
-                return false;
+                cout << "Editor-incompatible <level> child: "<<v<<"\n";
+                if ( v!="palette" && v!="floor" && v!="default") {
+                    loadError="Found a tag <"+v+"> that is incompatible with the level editor.";
+                    return false;
+                } else {
+                    colorWarn = true;
+                }
             }
             el=el->NextSiblingElement();
         }
@@ -855,6 +860,11 @@ bool editor::load()
         editor::board->author = lauthor;
         editor::board->bye = lbye;
         editor::board->solution = lsolution;
+        if (colorWarn) {
+            loadError = "Color information is not supported by this version of the editor. Colors were reset to default values. ";
+        } else {
+            loadError = "";
+        }
 
 
         return true;
