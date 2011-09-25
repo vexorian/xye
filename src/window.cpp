@@ -610,7 +610,7 @@ void button::draw(SDL_Surface* target)
     int o=0;
     if(pressed) o=1;
 
-    if(button::FontResource!=NULL)
+    if(button::FontResource!=NULL && Enabled)
     {
         button::FontResource->Write(target,o+x+(w-button::FontResource->TextWidth(text.c_str()))/2 ,o+y+(sz-button::FontResource->Height())/2,text.c_str());
         
