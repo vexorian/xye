@@ -1290,6 +1290,7 @@ void ChangeSkinFile(const char* file)
 {
     LoadSkinFile(file);
     game::RefreshGraphics();
+    haspickedtheme = true;
     options::SaveConfigFile();
 }
 

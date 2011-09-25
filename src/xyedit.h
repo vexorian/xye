@@ -44,6 +44,7 @@ enum contenttype
     CONTENT_MAKEROUND,
 
     CONTENT_RECOLOR,
+    CONTENT_DIRECTION,
     CONTENT_CHANGEOBJECT
 };
 
@@ -215,6 +216,7 @@ struct singleobject
 {
     contenttype      content;
     int              variation;
+    int              direction;
     editorobjecttype type;
     bool selected;
     bool flash;
@@ -250,8 +252,8 @@ class editorbuttons: public control
 
 
     void extendButtons(editorobjecttype ot, editorcolor color, bool round, int variation);
-    void switchToObject( editorobjecttype ot, editorcolor color, bool round, int variation);
-    void updateText( editorobjecttype ot, editorcolor color, bool round, int variation);
+    void switchToObject( editorobjecttype ot, editorcolor color, bool round, int variation, int direction);
+    void updateText( editorobjecttype ot, editorcolor color, bool round, int variation, int direction);
 
 
     string text;
@@ -261,10 +263,6 @@ class editorbuttons: public control
 
 
     bool clicked;
-
-
-    int direction;
-
 
 
     bool mouse;
@@ -280,6 +278,7 @@ class editorbuttons: public control
     editorobjecttype SelectedObjectType;
     editorcolor      SelectedColor;
     int              SelectedVariation;
+    int              SelectedDirection;
     bool             SelectedRound;
 
     editorbuttons(int sx, int sy, int sw, int sh);
