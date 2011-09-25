@@ -59,6 +59,9 @@ Font* editor::FontRes;
 bool SavedSolution = false;
 bool EnterPressed = false;
 
+string editorboard::filetitle;
+string editorboard::description;
+string editorboard::author;
 
 void editor::onExitWithoutSavingClick(bool yes)
 {
@@ -130,20 +133,36 @@ void editor::continueSetText(bool okclicked, const string text, inputDialogData 
     switch(setText_state)
     {
         case ASSIGN_TITLE:
-            board->title=text;
+            editorboard::filetitle=text;
             setText_state = ASSIGN_DESCRIPTION;
-            dialogs::makeTextInputDialog(editorwindow,"Enter description",board->description, 3, "Ok", "Cancel", continueSetText,NULL);
+            dialogs::makeTextInputDialog(editorwindow,"Enter file description",editorboard::description, 3, "Ok", "Cancel", continueSetText,NULL);
+            break;
+        case ASSIGN_LEVEL_TITLE:
+            board->title = text;
+            setText_state = ASSIGN_HINT;
+            dialogs::makeTextInputDialog(editorwindow,"Enter level hint (can leave empty)",board->hint, 3, "Ok", "Cancel", continueSetText,NULL);
             break;
         case ASSIGN_DESCRIPTION:
-            board->description=text;
+            editorboard::description=text;
             setText_state = ASSIGN_AUTHOR;
-            dialogs::makeTextInputDialog(editorwindow,"Enter level author(s)",board->author, 1, "Ok", "Cancel", continueSetText,NULL);
+            dialogs::makeTextInputDialog(editorwindow,"Enter file author(s)",editorboard::author, 1, "Ok", "Cancel", continueSetText,NULL);
             break;
 
         case ASSIGN_AUTHOR:
-            board->author=text;
-            setText_state = ASSIGN_HINT;
-            dialogs::makeTextInputDialog(editorwindow,"Enter level hint (Leave empty in case you do not want to add a hint)",board->hint, 3, "Ok", "Cancel", continueSetText,NULL);
+            editorboard::author=text;
+            if (editorboard::CountLevels() > 1) {
+                char x[30];
+                sprintf(x, "%d", editorboard::CurrentLevelNumber() + 1);
+                setText_state = ASSIGN_LEVEL_TITLE;
+                dialogs::makeTextInputDialog(editorwindow,"Enter level title (level "+string(x)+" )", board->title, 3, "Ok", "Cancel", continueSetText,NULL);
+            } else {
+                board->title = editorboard::filetitle;
+                setText_state = ASSIGN_HINT;
+                dialogs::makeTextInputDialog(editorwindow,"Enter level hint (can leave empty)",board->hint, 3, "Ok", "Cancel", continueSetText,NULL);
+
+            }
+
+
             break;
 
         case ASSIGN_HINT:
@@ -161,7 +180,7 @@ void editor::continueSetText(bool okclicked, const string text, inputDialogData 
 void editor::beginSetText(const buttondata* data)
 {
     setText_state=ASSIGN_TITLE;
-    dialogs::makeTextInputDialog(editorwindow,"Enter title",board->title, 1, "Ok", "Cancel", continueSetText,NULL);
+    dialogs::makeTextInputDialog(editorwindow,"Enter file title",editorboard::filetitle, 1, "Ok", "Cancel", continueSetText,NULL);
 
 }
 

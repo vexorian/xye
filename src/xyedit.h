@@ -133,7 +133,8 @@ class editor
           ASSIGN_DESCRIPTION=1,
           ASSIGN_AUTHOR=2,
           ASSIGN_HINT=3,
-          ASSIGN_BYE=4
+          ASSIGN_BYE=4,
+          ASSIGN_LEVEL_TITLE=5
           
      } setText_state;
      static void continueSetText(bool okclicked, const string text, inputDialogData * dat);
@@ -345,9 +346,11 @@ class editorboard: public control
     
       
     string title;
-    string description;
     string hint;
-    string author;
+    
+    static string filetitle;
+    static string description;
+    static string author;
     string bye;
     string solution;
 
