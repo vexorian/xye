@@ -184,6 +184,23 @@ void editor::onClearClick(const buttondata* data)
     dialogs::makeYesNoDialog(editorwindow,"Clearing will restore the entire level to the default layout, are you sure you want to clear the level?","Yes","No",editor::onClearConfirmation);
 }
 
+void editor::onPreviousLevelClick(const buttondata* data)
+{
+    editorboard::SaveCopy(board);
+    int n = ( editorboard::CountLevels()  );
+    int x = ( editorboard::CurrentLevelNumber() + n - 1 ) % n;
+    editorboard::LoadLevelNumber(board, x);
+}
+
+void editor::onNextLevelClick(const buttondata* data)
+{
+    editorboard::SaveCopy(board);
+    int n = ( editorboard::CountLevels()  );
+    int x = ( editorboard::CurrentLevelNumber() + 1 ) % n;
+    editorboard::LoadLevelNumber(board, x);
+}
+
+
 string editor::myLevelsPath;
 
 void editor::saveAs(bool okclicked, const string text, inputDialogData * dat)
@@ -309,6 +326,24 @@ void editor::ResumeSection(window* wind)
     solutionbutton=tmbut;
     bx+=bw+1;
 
+    bw=button::recommendedWidth("<");
+    tmbut= new button(bx,0,bw,button::Size);
+    tmbut->text="<";
+    tmbut->onClick = onPreviousLevelClick;
+    tmbut->depth=20;
+    editorwindow->addControl(tmbut);
+    bx+=bw+1;
+
+    bw=button::recommendedWidth(">");
+    tmbut= new button(bx,0,bw,button::Size);
+    tmbut->text=">";
+    tmbut->onClick = onNextLevelClick;
+    tmbut->depth=20;
+    editorwindow->addControl(tmbut);
+    bx+=bw+1;
+
+    
+    
     bw=button::recommendedWidth("Clear");
     tmbut= new button(bx,0,bw,button::Size);
     tmbut->text="Clear";
@@ -1308,6 +1343,15 @@ void editorboard::SaveAtLevelNumber(editorboard* ed, int num)
     }
     levelList[num].assign(ed);
 }
+int editorboard::CountLevels()
+{
+    return levelList.size();
+}
+int editorboard::CurrentLevelNumber()
+{
+    return currentLevel;
+}
+
 void editorboard::LoadLevelNumber(editorboard* ed, int num)
 {
     if( num >= levelList.size() ) {
@@ -1320,6 +1364,7 @@ void editorboard::LoadLevelNumber(editorboard* ed, int num)
     } else {
         ed->assign(&levelList[num] );
     }
+    currentLevel = num;
 }
 
 void editorboard::SaveCopy(editorboard* ed)
