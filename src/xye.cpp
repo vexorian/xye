@@ -399,13 +399,20 @@ int game::Init(const char* levelfile)
 
     //D.Draw(sprites,4,4);
     //sz=48;
-    if (sz>32)
-    {
+    if (options::GetWindowIconFile() != "") {
+        string s = options::GetWindowIconFile();
+        SDL_Surface*  ic =IMG_Load(s.c_str());
+        Drawer D(ic, 0,0,32,32);
+        D.SetColors(PlayerColor,255);
+        Uint32          colorkey=SDL_MapRGB(icon->format,255,0,255);
+        SDL_FillRect(icon, 0, colorkey );
+        SDL_SetColorKey(icon, SDL_SRCCOLORKEY, colorkey);
+        D.Draw(icon, 0,0);
+        SDL_FreeSurface(ic);
+    } else if (sz>32) {
         SDL_FillRect(icon, 0,0,32,32, SDL_MapRGB(icon->format,0,0,0 ) );
         SDL_FillRect(icon, 2,2,28,28, SDL_MapRGB(icon->format,options::Red(),options::Green(),options::Blue()) );
-    }
-    else
-    {
+    } else {
         Drawer D(sprites,0,0,sz,sz);
         D.SetColors(PlayerColor,255);
         Uint32          colorkey=SDL_MapRGB(icon->format,255,0,255);
