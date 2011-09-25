@@ -75,6 +75,7 @@ enum blockcolor
 };
 
 string homefolder;
+bool haspickedtheme=false;
 bool enundo=false;
 bool bini=false;
 
@@ -632,8 +633,7 @@ void Init()
     if (bini) return;
 
 
-
-
+    haspickedtheme = false;
     enundo=true;
     r=b=0;
     g=255;
@@ -671,6 +671,15 @@ void Init()
         }
     }
 
+    if (tm=ele->Attribute("pickedtheme"))
+    {
+        if( tm[0] == 'Y' || tm[0] == 'y' ) {
+            haspickedtheme=true;
+            
+        }
+    }
+    
+    
     tm=ele->Attribute("levelfile");
 
     LevelFile = tm;
@@ -998,6 +1007,9 @@ void SaveConfigFile()
     if(! UndoEnabled()) {
         file<<"undo='NO' ";
     }
+    if ( HasConsciouslyChosenTheme() ) {
+        file<<"pickedtheme='YES' ";
+    }
     
     file<<"/>"<<endl;
 
@@ -1064,6 +1076,10 @@ void LoadLevelFile()
 
 bool UndoEnabled() {
     return enundo;
+}
+
+bool HasConsciouslyChosenTheme() {
+    return haspickedtheme;
 }
 
 struct previewMaker {
@@ -1230,6 +1246,7 @@ bool GetSkinInformation(const char* file, SkinInformation & si)
         return false;
     }
     //Make preview...
+    haspickedtheme = true;
     si.preview= makeSkinPreview(ps, si.pw, si.ph);
     si.dimx = ps.gridSize * 30;
     si.dimy = ps.gridSize * 22;

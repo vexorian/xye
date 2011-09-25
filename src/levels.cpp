@@ -596,6 +596,11 @@ void OnSkinButtonClick(const buttondata* data)
 {
     thewindow->SetTransition(SkinBrowser::StartSection);
 }
+void OnWelcomeSkinButtonClick(bool x)
+{
+    thewindow->SetTransition(SkinBrowser::StartSection);
+}
+
 
 void onKeyUp(SDLKey keysim, Uint16 unicode)
 {
@@ -796,6 +801,11 @@ void StartSection(window* wind)
     wind->onKeyUp = onKeyUp;
     wind->onKeyDown = onKeyDown;
     wind->onExitAttempt = onExitAttempt;
+    
+    if (! options::HasConsciouslyChosenTheme() ) {
+        dialogs::makeMessageDialog(wind, "Welcome to Xye. Let us take you to the theme selector. There you will be able to pick the look and feel for the game that best suits your taste/screen size.","Ok",OnWelcomeSkinButtonClick);
+        
+    }
     
     
     Show();
