@@ -2,12 +2,12 @@
 
 # Process this file with autoconf to produce a configure script.
 PROJ_NAME=xye
-PROJ_VERSION=0.10.0
+PROJ_VERSION=0.11.0
 
 
 
 
-AC_INIT(xye,0.10.0,vexorian@gmail.com)
+AC_INIT(xye,0.11.0,vexorian@gmail.com)
 
 # Setup for automake
 AM_INIT_AUTOMAKE

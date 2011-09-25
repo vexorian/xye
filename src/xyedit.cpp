@@ -892,12 +892,12 @@ void editorbuttons::onMouseMove(int px,int py)
 
     if(clicked)
     {
-        //Drag and drop, handle rotation...
+        /*//Drag and drop, handle rotation...
         int rot=detectRotation(mousex,mousey,px,py);
-        if (selection != NULL) {
-            selection->direction+=rot+4;
-            selection->direction%=4;
-        }
+        if (clickedobject != NULL) {
+            clickedobject->direction+=rot+4;
+            clickedobject->direction%=4;
+        }*/
     }
     mousex=px;
     mousey=py;
@@ -1334,14 +1334,14 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
     bool roundchoice=false;
     int maxvariations=0;
     int colorchoice = 0;
-    bool dirchoice = false;
+    int dirchoice = 0;
 
     switch(ot)
     {
         case EDOT_GEM: colorchoice=2; break;
 
         case EDOT_COLORSYSTEM: colorchoice=1; maxvariations=8; break;
-        case EDOT_RATTLERHEAD: maxvariations=10;  dirchoice = true; break;
+        case EDOT_RATTLERHEAD: maxvariations=10;  dirchoice = 4;break;
 
         case EDOT_NUMBER: colorchoice=1; roundchoice=1; maxvariations=10; break;
 
@@ -1351,30 +1351,30 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
 
         case EDOT_XYE: maxvariations=4; break;
         case EDOT_WALL: maxvariations=6; roundchoice=true; break;
-        case EDOT_MAGNET: maxvariations=3;  dirchoice = true; break;
+        case EDOT_MAGNET: maxvariations=3;  dirchoice = 2; break;
 
         case EDOT_EARTH: roundchoice=true; break;
 
         case EDOT_KEYSYSTEM: colorchoice=1; maxvariations=2; break;
-        case EDOT_SPECIALBLOCKS: roundchoice=true; colorchoice=1; maxvariations=6; dirchoice = true; break;
-        case EDOT_GEMBLOCK: colorchoice=1; break;
+        case EDOT_SPECIALBLOCKS: roundchoice=true; colorchoice=1; maxvariations=6; dirchoice = 4; break;
+        case EDOT_GEMBLOCK: colorchoice=4; break;
 
 
 
 
-        case EDOT_ARROWMAKER: colorchoice=1; roundchoice=true; maxvariations=3;  dirchoice = true; break;
+        case EDOT_ARROWMAKER: colorchoice=1; roundchoice=true; maxvariations=3;  dirchoice = 4; break;
 
 
-        case EDOT_PUSHER: colorchoice=1;  dirchoice = true; break;
+        case EDOT_PUSHER: colorchoice=1;  dirchoice = 4; break;
 
         case EDOT_HAZARD: maxvariations=3; break;
-        case EDOT_ONEDIRECTION: maxvariations=2;  dirchoice = true; break;
-        case EDOT_BEAST: maxvariations=14; dirchoice = true; break;
+        case EDOT_ONEDIRECTION: maxvariations=2;  dirchoice = 4; break;
+        case EDOT_BEAST: maxvariations=14; dirchoice = 4; break;
 
-        case EDOT_LARGEBLOCK: maxvariations=5; colorchoice=2;  dirchoice = true; break;
+        case EDOT_LARGEBLOCK: maxvariations=5; colorchoice=2;  dirchoice = 4; break;
         case EDOT_PORTAL: maxvariations=3; colorchoice=2;  break;
-        case EDOT_COLORFACTORY: maxvariations=5; colorchoice=1; roundchoice=1; dirchoice=true; break;
-        case EDOT_DANGERFACTORY: maxvariations=17; dirchoice=true;  break;
+        case EDOT_COLORFACTORY: maxvariations=5; colorchoice=1; roundchoice=1; dirchoice=4; break;
+        case EDOT_DANGERFACTORY: maxvariations=17; dirchoice=4;  break;
 
         //default : //EDOT_TELEPORT,EDOT_BOT,EDOT_FIREPAD, EDOT_FOOD
     }
@@ -1398,8 +1398,8 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
     if (colorchoice) {
         upperlength =  upperlength + colorcount + ( upperlength? 1 : 0);
     }
-    if (dirchoice) {
-        upperlength =  upperlength + 4 + ( upperlength? 1 : 0);
+    if (dirchoice != 0) {
+        upperlength =  upperlength + dirchoice + ( upperlength? 1 : 0);
     }
     
     if (upperlength > 0) {
@@ -1441,12 +1441,13 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
     
     if (dirchoice) {
         dirstart = upperstart;
-        upperstart += 5;
-        for (int i=0; i<4; i++)
+        upperstart += dirchoice + 1;
+        for (int i=0; i<dirchoice; i++)
         {
             singleobject &o=buttons[dirstart+i][0];
             o.content= CONTENT_DIRECTION;
             o.direction=i;
+            
         }
         
     }
