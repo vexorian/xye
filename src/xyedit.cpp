@@ -51,6 +51,9 @@ bool editor::ExitPrompt=false;
 
 button * editor::savebutton;
 button * editor::solutionbutton;
+button * nextbutton;
+button * previousbutton;
+button * erasebutton;
 LuminositySprites editor::sprites;
 Font* editor::FontRes;
 bool SavedSolution = false;
@@ -190,6 +193,7 @@ void editor::onPreviousLevelClick(const buttondata* data)
     int n = ( editorboard::CountLevels()  );
     int x = ( editorboard::CurrentLevelNumber() + n - 1 ) % n;
     editorboard::LoadLevelNumber(board, x);
+    updateCountRelated();
 }
 
 void editor::onNextLevelClick(const buttondata* data)
@@ -198,8 +202,55 @@ void editor::onNextLevelClick(const buttondata* data)
     int n = ( editorboard::CountLevels()  );
     int x = ( editorboard::CurrentLevelNumber() + 1 ) % n;
     editorboard::LoadLevelNumber(board, x);
+    updateCountRelated();
 }
 
+void editor::onInsertLevelClick(const buttondata* data)
+{
+    SavedFile=false;
+    editorboard::CreateLevel(board);
+    updateCountRelated();
+}
+
+void editor::onEraseLevelConfirmation(bool yes)
+{
+    if(yes)
+    {
+        SavedFile=false;
+        editorboard::DeleteLevel(board);
+        updateCountRelated();
+    }
+}
+
+
+void editor::onEraseLevelClick(const buttondata* data)
+{
+dialogs::makeYesNoDialog(editorwindow,"Are you sure you want to erase this level?","Yes","No",editor::onEraseLevelConfirmation);    
+}
+
+void editor::updateCountRelated()
+{
+    int t = editorboard::CountLevels();
+    
+    if (t == 1) {
+        previousbutton->Enabled = false;
+        nextbutton->Enabled = false;
+        erasebutton->Enabled = false;
+    } else {
+        previousbutton->Enabled = true;
+        nextbutton->Enabled = true;
+        erasebutton->Enabled = true;
+    }
+    
+    char x[30];
+    char y[30];
+    sprintf(x,"%d", editorboard::CurrentLevelNumber()+1 );
+    sprintf(y,"%d", t );
+    string title = "Xye - Editor. Level "+string(x)+"/"+string(y);
+    SDL_WM_SetCaption(title.c_str(),0);
+    
+    
+}
 
 string editor::myLevelsPath;
 
@@ -298,6 +349,15 @@ void editor::ResumeSection(window* wind)
 
     button* tmbut;
 
+    //*** button tooltip
+    buttontooltip* btt = new buttontooltip();
+    btt->depth = 22;
+    wind->addControl(btt);
+    btt->minx = 0;
+    btt->maxx = Width;
+    btt->miny = 0;
+    btt->maxy = GRIDSIZE*2;
+    
     bw=button::recommendedWidth("Test");
     tmbut= new button(bx,0,bw,button::Size);
     tmbut->text="Test";
@@ -322,18 +382,46 @@ void editor::ResumeSection(window* wind)
     tmbut= new button(bx,0,bw,button::Size);
     tmbut->text="<";
     tmbut->onClick = onPreviousLevelClick;
+    tmbut->toolTipControl = btt;
+    tmbut->toolTip = "Edit previous level.";
     tmbut->depth=20;
+    previousbutton = tmbut;
     editorwindow->addControl(tmbut);
     bx+=bw+1;
 
     bw=button::recommendedWidth(">");
     tmbut= new button(bx,0,bw,button::Size);
     tmbut->text=">";
+    tmbut->toolTipControl = btt;
+    tmbut->toolTip = "Edit next level";
     tmbut->onClick = onNextLevelClick;
+    tmbut->depth=20;
+    nextbutton = tmbut;
+    editorwindow->addControl(tmbut);
+    bx+=bw+1;
+
+    bw=button::recommendedWidth("+");
+    tmbut= new button(bx,0,bw,button::Size);
+    tmbut->text="+";
+    tmbut->toolTipControl = btt;
+    tmbut->toolTip = "Insert new level.";
+    tmbut->onClick = onInsertLevelClick;
     tmbut->depth=20;
     editorwindow->addControl(tmbut);
     bx+=bw+1;
 
+    bw=button::recommendedWidth("x");
+    tmbut= new button(bx,0,bw,button::Size);
+    tmbut->text="x";
+    tmbut->toolTipControl = btt;
+    tmbut->toolTip = "Erase this level.";
+    tmbut->onClick = onEraseLevelClick;
+    tmbut->depth=20;
+    erasebutton = tmbut;
+    editorwindow->addControl(tmbut);
+    bx+=bw+1;
+    
+    
     bw=button::recommendedWidth("Clear");
     tmbut= new button(bx,0,bw,button::Size);
     tmbut->text="Clear";
@@ -1334,6 +1422,33 @@ void editorboard::assign(editorboard* other)
     author=other->author;
     solution=other->solution;
 
+}
+void editorboard::CreateLevel(editorboard* ed)
+{
+    
+    SaveCopy(ed);
+    int x = levelList.size();
+    levelList.resize(++x);
+    for (int i=x-1; i > currentLevel+1; i--) {
+        levelList[i] = levelList[i-1];
+    }
+    LoadLevelNumber(ed, currentLevel+1);
+    ed->objects[0][0].type = EDOT_NONE;
+    ed->makeDefaultLevel();
+   
+}
+
+void editorboard::DeleteLevel(editorboard* ed)
+{
+    int x = levelList.size();
+    if (x > 1) {
+        for (int i=currentLevel; i < x-1; i++) {
+            levelList[i] = levelList[i+1];
+        }
+        levelList.resize(x-1);
+        LoadCopy(ed);
+        
+    }
 }
 
 void editorboard::SaveAtLevelNumber(editorboard* ed, int num)
