@@ -536,7 +536,7 @@ bool editor::save(const string &target, bool onlyOneLevel)
     editorboard::LoadLevelNumber(board, first);
 
     file << "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
-    file << "<pack>\n<name>"<< stripXML(board->title) <<"</name><author>"<< stripXML(board->author) <<"</author>\n<description>"<< stripXML(board->description) <<"</description>\n";
+    file << "<pack>\n<name>"<< stripXML(editorboard::filetitle) <<"</name><author>"<< stripXML(editorboard::author) <<"</author>\n<description>"<< stripXML(editorboard::description) <<"</description>\n";
     
     for (int i=first; i<editorboard::CountLevels(); i++) {
         editorboard::LoadLevelNumber(board, i);
