@@ -1,6 +1,7 @@
 #include "xyedit.h"
 #include "tinyxml/xye_tinyxml.h"
 #include<iostream>
+#include<algorithm>
 using std::cout;
 
 boardelement editorload_objects[XYE_HORZ][XYE_VERT];
@@ -600,14 +601,21 @@ bool editor_LoadFactory(TiXmlElement* el)
 
 bool editor_LoadBlock(TiXmlElement* el)
 {
-    if(! editor_LoadGenRC(el,EDOT_BLOCK))
-    {
+    int x = errorPositions.size();
+    if( ! editor_LoadGenRC(el,EDOT_BLOCK)) {
+        return false;
+    }
+    if (x != errorPositions.size() ){
+        errorPositions.resize( std::max<int>(0, (int)errorPositions.size()-1) );
         //handle special block above marked aread case.
         int x, y;
         if(! getElementPosition(el, x , y, true) ) return false;
         boardelement &o1=editorload_objects[x][y];
-        if((o1.type != EDOT_COLORSYSTEM) || (o1.variation!=4))
+        /*if((o1.type != EDOT_COLORSYSTEM) || (o1.variation!=4)) {
+            cout<<"DASH "<<o1.variation<<endl;
             return false;
+        }*/
+        o1.type = EDOT_COLORSYSTEM;
         o1.variation = 6;
         
     }
@@ -616,14 +624,19 @@ bool editor_LoadBlock(TiXmlElement* el)
 
 bool editor_LoadWildCardBlock(TiXmlElement* el)
 {
-    if(! editor_LoadGenR(el,EDOT_BLOCK,0, EDCO_WILD    ))
-    {
+    int x = errorPositions.size();
+    if( ! editor_LoadGenR(el,EDOT_BLOCK,0, EDCO_WILD    ) ) {
+        return false;
+    }
+    if (x != errorPositions.size() ){
+        errorPositions.resize( std::max<int>(0, (int)errorPositions.size()-1) );
         //handle special block above marked aread case.
         int x, y;
         if(! getElementPosition(el, x , y, true) ) return false;
         boardelement &o1=editorload_objects[x][y];
-        if((o1.type != EDOT_COLORSYSTEM) || (o1.variation!=4))
-            return false;
+        /*if((o1.type != EDOT_COLORSYSTEM) || (o1.variation!=4))
+            return false;*/
+        o1.type = EDOT_COLORSYSTEM;
         o1.variation = 7;
         
     }
@@ -637,6 +650,7 @@ bool editor_LoadObjects(TiXmlElement* el)
 
     while(ch!=NULL)
     {
+        
         string v=ch->Value();
         if (v=="wall")     { if (! editor_LoadWall(ch)) return false;}
         else if (v=="gem")    { if (! editor_LoadGem(ch)) return false;}
@@ -684,14 +698,12 @@ bool editor_LoadObjects(TiXmlElement* el)
         else if (v=="portal")         { if (! editor_LoadPortal(ch)) return false; }
         else if (v=="factory")         { if (! editor_LoadFactory(ch)) return false; }
 
-
-
-
-
         else
         {
             cout << "Editor-incompatible object: "<<v<<"\n";
-            return false;
+            if (! editor_LoadGen(ch, EDOT_ERROR) ) {
+                return false;
+            }
         }
 
         ch=ch->NextSiblingElement();
@@ -717,7 +729,9 @@ bool editor_LoadGround(TiXmlElement* el)
         else
         {
             cout << "Editor-incompatible object: "<<v<<"\n";
-            return false;
+            if (! editor_LoadGen(ch, EDOT_ERROR) ) {
+                return false;
+            }
         }
 
         ch=ch->NextSiblingElement();
@@ -745,6 +759,7 @@ bool editor_LoadXye(TiXmlElement* el)
 
 bool editor::load()
 {
+    editorboard::ResetLevels();
     TiXmlDocument  fil(filename.c_str());
     if (fil.LoadFile())
     {
@@ -844,7 +859,7 @@ bool editor::load()
                 {
                     cout << "Editor-incompatible <level> child: "<<v<<"\n";
                     if ( v!="palette" && v!="floor" && v!="default") {
-                        loadError="Found a tag <"+v+"> that is incompatible with the level editor.";
+                        loadError="Found a tag <"+v+"> that is incompatible with the level editor. Had to stop loading, sorry.";
                         return false;
                     } else {
                         colorWarn = true;
@@ -857,7 +872,7 @@ bool editor::load()
             {
                 cout << "Notice: Unable to find xye in the level file.\n";
             }
-            cout << "File loaded successfully.\n";
+            cout << "Level loaded successfully.\n";
     
             for (i=0;i<XYE_HORZ;i++)for (j=0;j<XYE_VERT;j++)
             {
@@ -906,7 +921,7 @@ bool editor::load()
         if (errorsWarn )  {
             loadError += "There were issues when loading some of the objects, possibly related to features that the editor does not yet support. ";
         }
-        
+        cout << "File loaded successfully.\n";
         editorboard::LoadLevelNumber(editor::board, 0);
 
 
