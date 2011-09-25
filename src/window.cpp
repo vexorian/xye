@@ -686,7 +686,7 @@ button::~button()
 Sint16 button::recommendedWidth(const char* s)
 {
     Sint16 w=FontResource->TextWidth(s) + Size;
-    if(w<Size*3) return Size*3;
+    if(w<Size) return Size;
     return w;
 }
 

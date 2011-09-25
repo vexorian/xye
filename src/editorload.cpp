@@ -13,6 +13,7 @@ int editorload_portal_y[5][2];
 string editor::loadError;
 
 int getElementPosition_lastx = 400;
+int getElementPosition_lasty = 400;
 
 bool getElementPosition(TiXmlElement *el, int &x , int &y, bool allowSamePos=false)
 {
@@ -25,6 +26,11 @@ bool getElementPosition(TiXmlElement *el, int &x , int &y, bool allowSamePos=fal
         getElementPosition_lastx = x;
     }
     el->QueryIntAttribute("y",&y);
+    if(y==400) {
+        y = getElementPosition_lasty;
+    } else {
+        getElementPosition_lasty = y;
+    }
 
     if((x<0) || (x>=XYE_HORZ) || (y<0) || (y>=XYE_VERT) )
     {
@@ -33,8 +39,8 @@ bool getElementPosition(TiXmlElement *el, int &x , int &y, bool allowSamePos=fal
     }
     if((!allowSamePos) && (editorload_objects[x][y].type!=EDOT_NONE) )
     {
-        cout<<"Unable to load two objects in same position: "<<x<<","<<y<<" , tag: <"<<el->Value()<<">\n";
-        return false;
+        /*cout<<"Unable to load two objects in same position: "<<x<<","<<y<<" , tag: <"<<el->Value()<<">\n";
+        return false;*/
     }
     return true;
 }
@@ -47,7 +53,7 @@ bool editor_LoadWall(TiXmlElement* el)
     el->QueryIntAttribute("type",&t);
     if( t<0 || t>5 ) {
         //fix variations...
-        cout<<"Found a unknown wall type: "<<t<<" set to 0."<<endl;
+        if (t != 6) cout<<"Found a unknown wall type: "<<t<<" set to 0."<<endl;
         t = 0;
     }
         
@@ -80,10 +86,12 @@ editorcolor getElementColor(TiXmlElement* el)
     }
 
     string v=ptr;
-
-    if(v=="R") return EDCO_RED;
-    else if (v=="G") return EDCO_GREEN;
-    else if (v=="B") return EDCO_BLUE;
+    
+    if (v.length() >= 1) {
+        if(v[0]=='R') return EDCO_RED;
+        else if (v[0]=='G') return EDCO_GREEN;
+        else if (v[0]=='B') return EDCO_BLUE;
+    }
  return EDCO_YELLOW;
 }
 
@@ -749,11 +757,106 @@ bool editor::load()
         }
 
         int n=0;
-        level=el=pack->FirstChildElement("level");
-        while(el!=NULL)
+        level=pack->FirstChildElement("level");
+        bool colorWarn = false;
+        while(level!=NULL)
         {
+            int i,j;
+            editorload_xyex=-1;
+    
+            for (int i=0; i<5; i++)
+                for (int j=0; j<2;j++)
+                    editorload_portal_x[i][j] = editorload_portal_y[i][j] = -1;
+    
+            for (i=0;i<XYE_HORZ;i++)for (j=0;j<XYE_VERT;j++) editorload_objects[i][j].type=EDOT_NONE;
+    
+            loadError="Found tags and/or attributes that are not recognized by the current version.";
+            el=level->FirstChildElement();
+    
+    
+    
+            while (el!=NULL)
+            {
+                string v=el->Value();
+                if (v=="ground")
+                {
+                    if(!editor_LoadGround(el))
+                        return false;
+                }
+                else if (v=="objects" ||v=="ground" || v=="normal")
+                {
+                    if(!editor_LoadObjects(el))
+                        return false;
+                }
+                else if (v=="xye")
+                {
+                    if(! editor_LoadXye(el))
+                    {
+                        loadError="Invalid <xye> tag in the level file.";
+                        return false;
+                    }
+                }
+                else if (v=="title" || v=="name")
+                {
+                    const char* gt=el->GetText();
+                    ltitle= ( (gt!=NULL) ? gt : "");
+                }
+                else if (v=="hint")
+                {
+                    const char* gt=el->GetText();
+                    lhint= ( (gt!=NULL) ? gt : "");
+                }
+                else if (v=="bye")
+                {
+                    const char* gt=el->GetText();
+                    lbye= ( (gt!=NULL) ? gt : "");
+                }
+                else if (v=="solution")
+                {
+                    const char* gt=el->GetText();
+                    lsolution= ( (gt!=NULL) ? gt : "");
+                }
+                else
+                {
+                    cout << "Editor-incompatible <level> child: "<<v<<"\n";
+                    if ( v!="palette" && v!="floor" && v!="default") {
+                        loadError="Found a tag <"+v+"> that is incompatible with the level editor.";
+                        return false;
+                    } else {
+                        colorWarn = true;
+                    }
+                }
+                el=el->NextSiblingElement();
+            }
+    
+            if(editorload_xyex==-1)
+            {
+                cout << "Notice: Unable to find xye in the level file.\n";
+            }
+            cout << "File loaded successfully.\n";
+    
+            for (i=0;i<XYE_HORZ;i++)for (j=0;j<XYE_VERT;j++)
+            {
+                editor::board->objects[i][XYE_VERT-j-1]=editorload_objects[i][j];
+            }
+            for (int i=0; i<5; i++)
+                for (int j=0; j<2; j++)
+                    editor::board->portal_x[i][j] = editorload_portal_x[i][j],
+                    editor::board->portal_y[i][j] = XYE_VERT-editorload_portal_y[i][j]-1;
+    
+            editor::board->xye_x = editorload_xyex;
+            editor::board->xye_y = XYE_VERT-editorload_xyey-1;
+            editor::board->hint = lhint;
+            editor::board->title = ltitle;
+            editor::board->description = ldescription;
+            editor::board->author = lauthor;
+            editor::board->bye = lbye;
+            editor::board->solution = lsolution;
+            
+            editorboard::SaveAtLevelNumber(editor::board, n);
+
             n++;
-            el=el->NextSiblingElement("level");
+            level=level->NextSiblingElement("level");
         }
         if(n==0)
         {
@@ -761,110 +864,15 @@ bool editor::load()
             loadError="The level file is invalid (missing <level> tag)";
             return false;
         }
-        if (n>1)
-        {
-            cout<<"Unable to edit files with multiple levels.\n";
-            loadError="The level file contains multiple levels, this version of the editor does not support multiple levels.";
-            return false;
-        }
-        cout<<n<<" level found.\n";
+        cout<<n<<" levels found.\n";
 
-        int i,j;
-        editorload_xyex=-1;
-
-        for (int i=0; i<5; i++)
-            for (int j=0; j<2;j++)
-                editorload_portal_x[i][j] = editorload_portal_y[i][j] = -1;
-
-        for (i=0;i<XYE_HORZ;i++)for (j=0;j<XYE_VERT;j++) editorload_objects[i][j].type=EDOT_NONE;
-
-        loadError="Found tags and/or attributes that are not recognized by the current version.";
-        el=level->FirstChildElement();
-
-
-        bool colorWarn = false;
-        while (el!=NULL)
-        {
-            string v=el->Value();
-            if (v=="ground")
-            {
-                if(!editor_LoadGround(el))
-                    return false;
-            }
-            else if (v=="objects")
-            {
-                if(!editor_LoadObjects(el))
-                    return false;
-            }
-            else if (v=="xye")
-            {
-                if(! editor_LoadXye(el))
-                {
-                    loadError="Invalid <xye> tag in the level file.";
-                    return false;
-                }
-            }
-            else if (v=="title")
-            {
-                const char* gt=el->GetText();
-                ltitle= ( (gt!=NULL) ? gt : "");
-            }
-            else if (v=="hint")
-            {
-                const char* gt=el->GetText();
-                lhint= ( (gt!=NULL) ? gt : "");
-            }
-            else if (v=="bye")
-            {
-                const char* gt=el->GetText();
-                lbye= ( (gt!=NULL) ? gt : "");
-            }
-            else if (v=="solution")
-            {
-                const char* gt=el->GetText();
-                lsolution= ( (gt!=NULL) ? gt : "");
-            }
-            else
-            {
-                cout << "Editor-incompatible <level> child: "<<v<<"\n";
-                if ( v!="palette" && v!="floor" && v!="default") {
-                    loadError="Found a tag <"+v+"> that is incompatible with the level editor.";
-                    return false;
-                } else {
-                    colorWarn = true;
-                }
-            }
-            el=el->NextSiblingElement();
-        }
-
-        if(editorload_xyex==-1)
-        {
-            cout << "Notice: Unable to find xye in the level file.\n";
-        }
-        cout << "File loaded successfully.\n";
-
-        for (i=0;i<XYE_HORZ;i++)for (j=0;j<XYE_VERT;j++)
-        {
-            editor::board->objects[i][XYE_VERT-j-1]=editorload_objects[i][j];
-        }
-        for (int i=0; i<5; i++)
-            for (int j=0; j<2; j++)
-                editor::board->portal_x[i][j] = editorload_portal_x[i][j],
-                editor::board->portal_y[i][j] = XYE_VERT-editorload_portal_y[i][j]-1;
-
-        editor::board->xye_x = editorload_xyex;
-        editor::board->xye_y = XYE_VERT-editorload_xyey-1;
-        editor::board->hint = lhint;
-        editor::board->title = ltitle;
-        editor::board->description = ldescription;
-        editor::board->author = lauthor;
-        editor::board->bye = lbye;
-        editor::board->solution = lsolution;
         if (colorWarn) {
             loadError = "Color information is not supported by this version of the editor. Colors were reset to default values. ";
         } else {
             loadError = "";
         }
+        
+        editorboard::LoadLevelNumber(editor::board, 0);
 
 
         return true;

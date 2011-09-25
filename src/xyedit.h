@@ -140,6 +140,8 @@ class editor
      
      static void onClearConfirmation(bool yes);
      static void onClearClick(const buttondata* data);
+     static void onPreviousLevelClick(const buttondata* data);
+     static void onNextLevelClick(const buttondata* data);
      
      static void saveAs(bool okclicked, const string text, inputDialogData * dat);
 
@@ -356,7 +358,8 @@ class editorboard: public control
     static void SetCopySolution(const char* sol);
     static void LoadCopy(editorboard* ed);
     
-    
+    static int  CountLevels();
+    static int  CurrentLevelNumber();
     static void SaveAtLevelNumber(editorboard* ed, int num);
     static void LoadLevelNumber(editorboard* ed, int num);
 
