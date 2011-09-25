@@ -15,6 +15,8 @@ string editor::loadError;
 int getElementPosition_lastx = 400;
 int getElementPosition_lasty = 400;
 
+vector< pair<int,int> > errorPositions;
+
 bool getElementPosition(TiXmlElement *el, int &x , int &y, bool allowSamePos=false)
 {
     x=400;
@@ -39,8 +41,9 @@ bool getElementPosition(TiXmlElement *el, int &x , int &y, bool allowSamePos=fal
     }
     if((!allowSamePos) && (editorload_objects[x][y].type!=EDOT_NONE) )
     {
-        /*cout<<"Unable to load two objects in same position: "<<x<<","<<y<<" , tag: <"<<el->Value()<<">\n";
-        return false;*/
+        errorPositions.push_back( make_pair(x,y) );
+        cout<<"Unable to load two objects in same position: "<<x<<","<<y<<" , tag: <"<<el->Value()<<">\n";
+        //return false;
     }
     return true;
 }
@@ -64,10 +67,29 @@ bool editor_LoadWall(TiXmlElement* el)
     el->QueryIntAttribute("round7",&test); round=round || test;
     el->QueryIntAttribute("round9",&test); round=round || test;
 
-    boardelement &o=editorload_objects[x][y];
-    o.type=EDOT_WALL;
-    o.variation = t;
-    o.round = round;
+    int x2 = 400;
+    int y2 = 400;
+    el->QueryIntAttribute("x2", &x2);
+    el->QueryIntAttribute("y2", &y2);
+    if (x2 == 400) {
+        x2 = x;
+    }
+    if (y2 == 400) {
+        y2 = y;
+    }
+    for (int i=x; i<=x2; i++) {
+        for (int j=y; j<=y2; j++) {
+            boardelement &o=editorload_objects[i][j];
+            if ( (o.type != EDOT_NONE) && (o.type != EDOT_WALL) ) {
+                o.type = EDOT_ERROR;
+            } else {
+                o.type = EDOT_WALL;
+            }
+            o.variation = t;
+            o.round = round;
+
+        }
+    }
     return true;
 }
 
@@ -105,10 +127,11 @@ int getElementDirection(TiXmlElement* el)
     }
     string v=ptr;
 
-
-    if(v=="U") return EDITORDIRECTION_UP;
-    else if(v=="R") return EDITORDIRECTION_RIGHT;
-    else if(v=="L") return EDITORDIRECTION_LEFT;
+    if (v.size() >= 1) {
+        if(v[0]=='U') return EDITORDIRECTION_UP;
+        else if(v[0]=='R') return EDITORDIRECTION_RIGHT;
+        else if(v[0]=='L') return EDITORDIRECTION_LEFT;
+    }
  return EDITORDIRECTION_DOWN;
 }
 
@@ -759,6 +782,7 @@ bool editor::load()
         int n=0;
         level=pack->FirstChildElement("level");
         bool colorWarn = false;
+        bool errorsWarn = false;
         while(level!=NULL)
         {
             int i,j;
@@ -839,10 +863,20 @@ bool editor::load()
             {
                 editor::board->objects[i][XYE_VERT-j-1]=editorload_objects[i][j];
             }
-            for (int i=0; i<5; i++)
-                for (int j=0; j<2; j++)
+            for (int i=0; i<5; i++) {
+                for (int j=0; j<2; j++) {
                     editor::board->portal_x[i][j] = editorload_portal_x[i][j],
                     editor::board->portal_y[i][j] = XYE_VERT-editorload_portal_y[i][j]-1;
+                }
+            }
+            if (errorPositions.size() != 0) {
+                errorsWarn = true;
+                for (int i=0; i<errorPositions.size(); i++) {
+                    pair<int,int> p = errorPositions[i];
+                    editor::board->objects[p.first][XYE_VERT-p.second-1].type = EDOT_ERROR;
+                }
+                errorPositions.resize(0);
+            }
     
             editor::board->xye_x = editorload_xyex;
             editor::board->xye_y = XYE_VERT-editorload_xyey-1;
@@ -865,11 +899,12 @@ bool editor::load()
             return false;
         }
         cout<<n<<" levels found.\n";
-
+        loadError = "";
         if (colorWarn) {
-            loadError = "Color information is not supported by this version of the editor. Colors were reset to default values. ";
-        } else {
-            loadError = "";
+            loadError += "Color information is not supported by this version of the editor. Colors were reset to default values. ";
+        }
+        if (errorsWarn )  {
+            loadError += "There were issues when loading some of the objects, possibly related to features that the editor does not yet support. ";
         }
         
         editorboard::LoadLevelNumber(editor::board, 0);
