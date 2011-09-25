@@ -165,6 +165,7 @@ void editor::beginSetText(const buttondata* data)
 
 }
 
+
 string stripDotXyeExtension(const string s)
 {
     int l=s.length();
@@ -172,6 +173,32 @@ string stripDotXyeExtension(const string s)
     return s;
 
 }
+
+
+void editor::continueAppendFile(bool okclicked, const string text, inputDialogData * dat)
+{
+    if (!okclicked) {
+        return;
+    }
+    SavedFile = false;
+    string tname=stripDotXyeExtension(text);
+    string tfilename=myLevelsPath+tname;
+    std::ifstream file;
+    file.open(tfilename.c_str(), std::ios::in );
+    if(! file.is_open()) {
+        dialogs::makeMessageDialog(editorwindow, string("File ")+tfilename+string(" does not exist. Cannot append."), "Ok" , onDialogClickDoNothing);
+    } else {
+        file.close();
+        appendLevels(tfilename);
+    }
+    
+}
+
+void editor::beginAppendFile(const buttondata* data)
+{
+    dialogs::makeTextInputDialog(editorwindow,"This advanced option will (try to) append the contents of a level file at the end of the level you are currently editing. Type the file name.", "filename.xye", 1, "Ok", "Cancel", continueAppendFile,NULL);
+}
+
 
 void editor::onClearConfirmation(bool yes)
 {
@@ -422,22 +449,37 @@ void editor::ResumeSection(window* wind)
     bx+=bw+1;
     
     
-    bw=button::recommendedWidth("Clear");
+    bw=button::recommendedWidth("c");
     tmbut= new button(bx,0,bw,button::Size);
-    tmbut->text="Clear";
+    tmbut->text="c";
+    tmbut->toolTipControl = btt;
+    tmbut->toolTip = "Clear";
     tmbut->onClick = onClearClick;
     tmbut->depth=20;
     editorwindow->addControl(tmbut);
     bx+=bw+1;
 
-    bw=button::recommendedWidth("Text...");
+    bw=button::recommendedWidth("a");
     tmbut= new button(bx,0,bw,button::Size);
-    tmbut->text="Text...";
+    tmbut->text="a";
+    tmbut->toolTipControl = btt;
+    tmbut->toolTip = "Edit text...";
     tmbut->onClick = beginSetText;
     tmbut->depth=20;
     editorwindow->addControl(tmbut);
     bx+=bw+1;
 
+    bw=button::recommendedWidth("*");
+    tmbut= new button(bx,0,bw,button::Size);
+    tmbut->text="*";
+    tmbut->toolTipControl = btt;
+    tmbut->toolTip = "Append levels from file... (advanced)";
+    tmbut->onClick = beginAppendFile;
+    tmbut->depth=20;
+    editorwindow->addControl(tmbut);
+    bx+=bw+1;
+    
+    
     bw=button::recommendedWidth("Save");
     tmbut= new button(bx,0,bw,button::Size);
     tmbut->text="Save";
@@ -1458,11 +1500,15 @@ void editorboard::SaveAtLevelNumber(editorboard* ed, int num)
     }
     levelList[num].assign(ed);
 }
-void editorboard::ResetLevels()
+void editorboard::ResetLevels(bool empty)
 {
     levelList.resize(0);
-    levelList.resize(1);
-    currentLevel = 0;
+    if (empty) {
+        currentLevel = -1;
+    } else {
+        levelList.resize(1);
+        currentLevel = 0;
+    }
 }
 
 
