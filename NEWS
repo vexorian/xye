@@ -1,3 +1,14 @@
+Version 0.11.0
+==============
+- A new, detailed game skin.
+- Also a Kye Jr. appearance skin.
+- The editor now supports level files with multiple levels.
+- The editor can also import the levels from multiple level files.
+- It is now easier to change object rotation in the editor.
+- Minor bug fixes.
+- New level: Take them out.
+
+
 Version 0.10.0
 ==============
 - Whenever you leave a level file, the positions of all objects and the UNDO history
