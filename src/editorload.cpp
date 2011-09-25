@@ -923,6 +923,7 @@ bool editor::load()
         }
         cout << "File loaded successfully.\n";
         editorboard::LoadLevelNumber(editor::board, 0);
+        updateCountRelated();
 
 
         return true;

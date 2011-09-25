@@ -144,8 +144,13 @@ class editor
      static void onClearClick(const buttondata* data);
      static void onPreviousLevelClick(const buttondata* data);
      static void onNextLevelClick(const buttondata* data);
+     static void onInsertLevelClick(const buttondata* data);
+     static void onEraseLevelClick(const buttondata* data);
+     static void onEraseLevelConfirmation(bool yes);
      
      static void saveAs(bool okclicked, const string text, inputDialogData * dat);
+     
+     static void updateCountRelated();
 
  public:
 
@@ -365,6 +370,8 @@ class editorboard: public control
     static void SaveAtLevelNumber(editorboard* ed, int num);
     static void ResetLevels();
     static void LoadLevelNumber(editorboard* ed, int num);
+    static void DeleteLevel(editorboard * ed);
+    static void CreateLevel(editorboard * ed);
 
 
 
