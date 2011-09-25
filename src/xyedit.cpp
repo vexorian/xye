@@ -1275,7 +1275,8 @@ void makewall(boardelement &o)
     o.round=false;
 }
 
-editorboard editorboard::copy(0,0);
+vector<editorboard> editorboard::levelList(1);
+int                 editorboard::currentLevel;
 
 void editorboard::assign(editorboard* other)
 {
@@ -1300,17 +1301,38 @@ void editorboard::assign(editorboard* other)
 
 }
 
+void editorboard::SaveAtLevelNumber(editorboard* ed, int num)
+{
+    if( num >= levelList.size() ) {
+        levelList.resize(num+1);
+    }
+    levelList[num].assign(ed);
+}
+void editorboard::LoadLevelNumber(editorboard* ed, int num)
+{
+    if( num >= levelList.size() ) {
+        if ( levelList.size() == 0 ) {
+            num = 0;
+            levelList.resize(1);
+        } else {
+            num = levelList.size() - 1;
+        }
+    } else {
+        ed->assign(&levelList[num] );
+    }
+}
+
 void editorboard::SaveCopy(editorboard* ed)
 {
-    copy.assign(ed);
+    levelList[currentLevel].assign(ed);
 }
 void editorboard::SetCopySolution(const char* sol)
 {
-    copy.solution=sol;
+    levelList[currentLevel].solution=sol;
 }
 void editorboard::LoadCopy(editorboard* ed)
 {
-    ed->assign(&copy);
+    ed->assign(&levelList[currentLevel]);
 }
 
 void editorboard::makeDefaultLevel()
@@ -1368,9 +1390,14 @@ editorboard::editorboard(int sx, int sy)
     clicked=mouse=false;
 
     makeDefaultLevel();
-
-
 }
+
+
+editorboard::editorboard()
+{
+    editorboard(0,0);
+}
+
 void editorboard::onMouseMove(int px,int py)
 {
     if(clicked)

@@ -312,7 +312,8 @@ class editorboard: public control
     void enforceUniquePortals(int x, int y, int variation, editorcolor color);
 
     void assign(editorboard* other);
-    static editorboard copy;
+    static vector<editorboard> levelList;
+    static int                 currentLevel;
     bool findWall(int x, int y, int variation);
     bool wallContainsRoundCorners(int x, int y);
  public:
@@ -327,6 +328,7 @@ class editorboard: public control
     int portal_y[5][2];
     
     
+    
       
     string title;
     string description;
@@ -337,6 +339,7 @@ class editorboard: public control
 
 
     editorboard(int sx, int sy);
+    editorboard();
 
     void draw(SDL_Surface* target);
     void loop() {}
@@ -352,6 +355,10 @@ class editorboard: public control
     static void SaveCopy(editorboard* ed);
     static void SetCopySolution(const char* sol);
     static void LoadCopy(editorboard* ed);
+    
+    
+    static void SaveAtLevelNumber(editorboard* ed, int num);
+    static void LoadLevelNumber(editorboard* ed, int num);
 
 
 
