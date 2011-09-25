@@ -90,6 +90,7 @@ TiXmlElement* skinele;
 
 string LevelFile;
 char* Texture;
+string WindowIcon;
 char* LuminosityTexture;
 char* Font;
 char* FontBold;
@@ -117,6 +118,7 @@ std::map< std::pair<string,int> , string > MemSavedGame;
 struct parsedSkinFile
 {
     string sprites;
+    string windowicon;
     string lum;
     string font;
     string boldFont;
@@ -432,6 +434,17 @@ string parseSkinFile(const char*filename, parsedSkinFile & ps)
     } else {
         return "No sprites file specified in skin XML.";
     }
+    if (tm=ele->Attribute("icon")) {
+        ps.windowicon = fixpath(string("res/")+string(tm),true);
+        if  ( ! DoesFileExist(ps.windowicon) ) {
+            cout<< "Missing window icon file: "+ps.windowicon<<endl;
+            ps.windowicon = "";
+        }
+    } else {
+        cout<< "WRN: No window icon file specified in skin XML."<<endl;
+        ps.windowicon = "";
+    }
+
     if (tm=ele->Attribute("luminosity")) {
         ps.lum = fixpath(string("res/")+string(tm),true);
         if  ( ! DoesFileExist(ps.lum) ) {
@@ -783,6 +796,13 @@ const char* GetSpriteFile()
     ! bini? Error("Attempt to call unitialized options"):0;
     return (Texture);
 }
+
+const string GetWindowIconFile()
+{
+    ! bini? Error("Attempt to call unitialized options"):0;
+    return (WindowIcon);
+}
+
 
 const char* GetLuminositySpriteFile()
 {
@@ -1225,6 +1245,9 @@ void LoadSkinFile(const char* file) {
     if(tms=="") {
         currentSkinFile = file;
         LoadColors(ps);
+        
+        WindowIcon = ps.windowicon;
+        
         Texture = new char[ps.sprites.length()+1];
         strcpy(Texture, ps.sprites.c_str());
         if(ps.lum == "") {

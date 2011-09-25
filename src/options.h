@@ -33,6 +33,7 @@ namespace options {
     
     const char* GetSpriteFile();
     const char* GetLuminositySpriteFile();
+    const string GetWindowIconFile();
     
     int GetFontSize();
     int GetFontBoldSize();
