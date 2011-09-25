@@ -79,6 +79,8 @@ enum editorobjecttype
     
     EDOT_COLORFACTORY,
     EDOT_DANGERFACTORY,
+    
+    EDOT_ERROR,
 
     EDOT_NONE
 };

@@ -2335,6 +2335,16 @@ void drawFirePad( SDL_Surface * target, int x, int y)
     Drawer D(editor::sprites,2*sz,5*sz,sz,sz);
     D.Draw(target,x,y);
 }
+void drawError( SDL_Surface * target, int x, int y)
+{
+    Uint32          col;
+    if (editor::tic4%2==0) { 
+        col =SDL_MapRGB(target->format,255,0,0);
+    } else {
+        col =SDL_MapRGB(target->format,255,255,255);
+    }
+    SDL_FillRect(target, x,y, sz,sz, col );
+}
 
 void drawFood( SDL_Surface * target, int x, int y)
 {
@@ -2559,6 +2569,7 @@ void drawObjectBySpecs( SDL_Surface * target, int x, int y, editorobjecttype ot,
         case EDOT_BOT: drawBot(target,x,y); break;
         case EDOT_FOOD: drawFood(target,x,y); break;
         case EDOT_FIREPAD: drawFirePad(target,x,y); break;
+        case EDOT_ERROR: drawError(target,x,y); break;
 
 
 
