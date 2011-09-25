@@ -208,7 +208,12 @@ void editor::continueAppendFile(bool okclicked, const string text, inputDialogDa
         dialogs::makeMessageDialog(editorwindow, string("File ")+tfilename+string(" does not exist. Cannot append."), "Ok" , onDialogClickDoNothing);
     } else {
         file.close();
-        appendLevels(tfilename);
+        if (! appendLevels(tfilename)) {
+            dialogs::makeMessageDialog(editorwindow, editor::loadError+" Had to halt append operation.","Ok",onDialogClickDoNothing);
+        } else if ( editor::loadError != "") {
+            dialogs::makeMessageDialog(editorwindow, editor::loadError,"Ok",onDialogClickDoNothing);
+        }
+
     }
     
 }
@@ -496,6 +501,7 @@ void editor::ResumeSection(window* wind)
     editorwindow->addControl(tmbut);
     bx+=bw+1;
 
+    bx+=sz/2;
     bw=button::recommendedWidth("*");
     tmbut= new button(bx,0,bw,button::Size);
     tmbut->text="*";
@@ -506,6 +512,7 @@ void editor::ResumeSection(window* wind)
     editorwindow->addControl(tmbut);
     bx+=bw+1;
     
+    bx+=sz/2;
     
     bw=button::recommendedWidth("Save");
     tmbut= new button(bx,0,bw,button::Size);
