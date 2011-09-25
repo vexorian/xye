@@ -369,7 +369,7 @@ void editor::ResumeSectionAndQuit(window* wind)
 
 void editor::ResumeSection(window* wind)
 {
-
+    Sint16 sz32 = (game::GRIDSIZE*3)/2;
 
     tic4=0;
 
@@ -416,30 +416,37 @@ void editor::ResumeSection(window* wind)
     btt->maxx = Width;
     btt->miny = 0;
     btt->maxy = GRIDSIZE*2;
-    
-    bw=button::recommendedWidth("Test");
+
+    //******* Browse
+    bw=sz32;
     tmbut= new button(bx,0,bw,button::Size);
-    tmbut->text="Test";
+    tmbut->Icon(5,15);
+    tmbut->toolTipControl = btt;
+    tmbut->toolTip = "[backspace] Return to level browser.";
+    tmbut->onClick = editor::onBrowseClick;
+    tmbut->depth=20;
+    savebutton=tmbut;
+    editorwindow->addControl(tmbut);
+    bx+=bw+1;
+
+    
+    //**** Test button
+    bw=sz32;
+    tmbut= new button(bx,0,bw,button::Size);
+    tmbut->Icon(7,3);
+    tmbut->toolTipControl = btt;
+    tmbut->toolTip = "[Enter] Test level.";
     tmbut->onClick = editor::test;
     tmbut->depth=20;
     editorwindow->addControl(tmbut);
     bx+=bw+1;
 
 
-    //*** Solution button:
-    bw=(GRIDSIZE*3)/2;
-    tmbut  = new button(bx,0, bw, button::Size);
-    tmbut->Icon(8,4);
-    //bt->text = cap;
-    tmbut->depth=20;
-    tmbut->onClick = editor::playSolution;
-    editorwindow->addControl(tmbut);
-    solutionbutton=tmbut;
-    bx+=bw+1;
-
-    bw=button::recommendedWidth("<");
+    // Previous
+    bw=sz32;
     tmbut= new button(bx,0,bw,button::Size);
-    tmbut->text="<";
+    tmbut->Icon(4,18);
+
     tmbut->onClick = onPreviousLevelClick;
     tmbut->toolTipControl = btt;
     tmbut->toolTip = "Edit previous level.";
@@ -448,9 +455,10 @@ void editor::ResumeSection(window* wind)
     editorwindow->addControl(tmbut);
     bx+=bw+1;
 
-    bw=button::recommendedWidth(">");
+    // Next
+    bw=sz32;
     tmbut= new button(bx,0,bw,button::Size);
-    tmbut->text=">";
+    tmbut->Icon(5,18);
     tmbut->toolTipControl = btt;
     tmbut->toolTip = "Edit next level";
     tmbut->onClick = onNextLevelClick;
@@ -459,6 +467,8 @@ void editor::ResumeSection(window* wind)
     editorwindow->addControl(tmbut);
     bx+=bw+1;
 
+    
+    //*** insert button    
     bw=button::recommendedWidth("+");
     tmbut= new button(bx,0,bw,button::Size);
     tmbut->text="+";
@@ -500,6 +510,19 @@ void editor::ResumeSection(window* wind)
     tmbut->depth=20;
     editorwindow->addControl(tmbut);
     bx+=bw+1;
+    
+    //*** Solution button:
+    bw=sz32;
+    tmbut  = new button(bx,0, bw, button::Size);
+    tmbut->Icon(8,4);
+    tmbut->toolTipControl = btt;
+    tmbut->toolTip = "[S] Play solution";
+    tmbut->depth=20;
+    tmbut->onClick = editor::playSolution;
+    editorwindow->addControl(tmbut);
+    solutionbutton=tmbut;
+    bx+=bw+1;
+
 
     bx+=sz/2;
     bw=button::recommendedWidth("*");
@@ -531,16 +554,6 @@ void editor::ResumeSection(window* wind)
     savebutton=tmbut;
     editorwindow->addControl(tmbut);
     bx+=bw+1;
-
-    bw=button::recommendedWidth("Browse");
-    tmbut= new button(bx,0,bw,button::Size);
-    tmbut->text="Browse";
-    tmbut->onClick = editor::onBrowseClick;
-    tmbut->depth=20;
-    savebutton=tmbut;
-    editorwindow->addControl(tmbut);
-    bx+=bw+1;
-
 
 
     bw=button::recommendedWidth("Quit");
