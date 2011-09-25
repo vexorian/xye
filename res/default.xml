@@ -7,6 +7,7 @@
 <xyeskin
 sprites="xye.png"
 luminosity="xye_luminosity.png"
+icon='default_icon.png'
 size='20'
 fontfile="DejaVuSans.ttf"
 boldfontfile="DejaVuSans-Bold.ttf"
@@ -14,6 +15,9 @@ boldfontfile="DejaVuSans-Bold.ttf"
 xyedirections ='no'
 truetypesize='12'
 >
+<author>Vexorian &amp; Mc</author>
+<title>Simple Xye (default skin)</title>
+<description>The default skin, very abstract. Very abstract, simple graphics.</description>
 
 <!-- The select level menu colors, you may try making it combine with your system if you want -->
 <levelmenu>

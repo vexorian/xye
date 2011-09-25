@@ -4,6 +4,7 @@
 <xyeskin
 sprites="kye32.png"
 luminosity="kye32_luminosity.png"
+icon='kye_icon.png'
 size='32'
 fontfile="DejaVuSans.ttf"
 boldfontfile="DejaVuSans-Bold.ttf"
@@ -12,6 +13,9 @@ xyedirections ='no'
 truetypesize='22'
 
 >
+<title>Classic Kye (32x32)</title>
+<description>The classic Kye skin, scaled up for larger screen resolutions.</description>
+
 <levelmenu>
     <info     red='192' green='192' blue='192' />
     <selected      red='0' green='0' blue='128' />
