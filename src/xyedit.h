@@ -139,6 +139,9 @@ class editor
      static void continueSetText(bool okclicked, const string text, inputDialogData * dat);
      static void beginSetText(const buttondata* data);
      
+     static void continueAppendFile(bool okclicked, const string text, inputDialogData * dat);
+     static void beginAppendFile(const buttondata* data);
+     
      
      static void onClearConfirmation(bool yes);
      static void onClearClick(const buttondata* data);
@@ -151,6 +154,8 @@ class editor
      static void saveAs(bool okclicked, const string text, inputDialogData * dat);
      
      static void updateCountRelated();
+     
+     static bool appendLevels(const string filename); //implemented in editorload.cpp
 
  public:
 
@@ -368,7 +373,7 @@ class editorboard: public control
     static int  CountLevels();
     static int  CurrentLevelNumber();
     static void SaveAtLevelNumber(editorboard* ed, int num);
-    static void ResetLevels();
+    static void ResetLevels(bool empty = false);
     static void LoadLevelNumber(editorboard* ed, int num);
     static void DeleteLevel(editorboard * ed);
     static void CreateLevel(editorboard * ed);
