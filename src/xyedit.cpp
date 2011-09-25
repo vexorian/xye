@@ -255,6 +255,8 @@ void editor::onEraseLevelClick(const buttondata* data)
 dialogs::makeYesNoDialog(editorwindow,"Are you sure you want to erase this level?","Yes","No",editor::onEraseLevelConfirmation);    
 }
 
+
+
 void editor::updateCountRelated()
 {
     int t = editorboard::CountLevels();
@@ -273,7 +275,13 @@ void editor::updateCountRelated()
     char y[30];
     sprintf(x,"%d", editorboard::CurrentLevelNumber()+1 );
     sprintf(y,"%d", t );
-    string title = "Xye - Editor. Level "+string(x)+"/"+string(y);
+    
+    int i=0;
+    while ( i < filename.length() && i < myLevelsPath.length() && (filename[i]==myLevelsPath[i]) ) {
+        i++;
+    }
+    
+    string title = "Xye - Editor: "+filename.substr(i)+" : "+string(x)+"/"+string(y);
     SDL_WM_SetCaption(title.c_str(),0);
     
     
