@@ -763,6 +763,7 @@ bool editor::appendLevels(const string file)
     
     int x = editorboard::CurrentLevelNumber();
     int n = editorboard::CountLevels();
+    int oldn = n;
     if (fil.LoadFile())
     {
         TiXmlElement* pack, *el, *level;
@@ -906,7 +907,7 @@ bool editor::appendLevels(const string file)
             loadError += "There were issues when loading some of the objects, possibly related to features that the editor does not yet support. ";
         }
         cout << "File loaded successfully.\n";
-        editorboard::LoadLevelNumber(editor::board, x+1);
+        editorboard::LoadLevelNumber(editor::board, oldn);
         updateCountRelated();
     } else {
         loadError = "Not a valid XML file.";
