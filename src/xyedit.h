@@ -159,7 +159,7 @@ class editor
     static bool SavedFile;
     static void SetFile(const string &path, const string &file);
     static bool save(); //implemented in editorsave.cpp
-    static bool save(const string &target);
+    static bool save(const string &target, bool onlyOneLevel = false);
     static void buttonSave(const buttondata* data) { save(); }
     static void onSaveAsClick(const buttondata* data);
     static void onBrowseClick(const buttondata* data);
@@ -363,6 +363,7 @@ class editorboard: public control
     static int  CountLevels();
     static int  CurrentLevelNumber();
     static void SaveAtLevelNumber(editorboard* ed, int num);
+    static void ResetLevels();
     static void LoadLevelNumber(editorboard* ed, int num);
 
 
