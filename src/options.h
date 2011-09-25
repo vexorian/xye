@@ -54,6 +54,7 @@ namespace options {
     unsigned char Blue();
     
     bool UndoEnabled();
+    bool HasConsciouslyChosenTheme();
 
     extern bool  xyeDirectionSprites;
     extern string Dir;
