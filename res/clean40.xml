@@ -7,6 +7,7 @@
 <xyeskin
 sprites="clean40.png"
 luminosity="clean40_luminosity.png"
+icon='default_icon.png'
 size='40'
 fontfile="DejaVuSans.ttf"
 boldfontfile="DejaVuSans-Bold.ttf"
@@ -14,6 +15,9 @@ boldfontfile="DejaVuSans-Bold.ttf"
 xyedirections ='no'
 truetypesize='24'
 >
+<author>Vexorian &amp; Mc</author>
+<title>Simple Xye (40 x 40)</title>
+<description>A much larger version of the default skin, so that it is more suitable for large screens. Very abstract, simple graphics.</description>
 
 <!-- The select level menu colors, you may try making it combine with your system if you want -->
 <levelmenu>
