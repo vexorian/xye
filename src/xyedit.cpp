@@ -710,6 +710,7 @@ editorbuttons::editorbuttons(int sx, int sy, int sw, int sh)
             o.flash=false;
             o.color=EDCO_YELLOW;
             o.variation=0;
+            o.direction = 0;
             o.round=false;
         }
 
@@ -718,7 +719,7 @@ editorbuttons::editorbuttons(int sx, int sy, int sw, int sh)
     clickedobject=NULL;
     selection=NULL;
 
-    direction=0;
+
     if(SavedSolution)
     {
         SavedSolution = false;
@@ -893,8 +894,10 @@ void editorbuttons::onMouseMove(int px,int py)
     {
         //Drag and drop, handle rotation...
         int rot=detectRotation(mousex,mousey,px,py);
-        direction+=rot+4;
-        direction%=4;
+        if (selection != NULL) {
+            selection->direction+=rot+4;
+            selection->direction%=4;
+        }
     }
     mousex=px;
     mousey=py;
@@ -954,7 +957,7 @@ void editorbuttons::onMouseUp(int px,int py)
                 ifnotnulldeselect(selection);
 
 
-                switchToObject(target->type,target->color,target->round,target->variation);
+                switchToObject(target->type,target->color,target->round,target->variation, target->direction);
                 target->selected=true;
                 selection=clickedobject=target;
                 break;
@@ -962,18 +965,27 @@ void editorbuttons::onMouseUp(int px,int py)
             case CONTENT_RECOLOR:
                 ifnotnulldeselect(clickedempty); clickedempty=NULL;
                 ifnotnulldeselect(selection);
-                switchToObject(SelectedObjectType,target->color, SelectedRound, SelectedVariation);
+                switchToObject(SelectedObjectType,target->color, SelectedRound, SelectedVariation, SelectedDirection);
                 target->selected=true;
 
                 clickedobject->color=target->color;
                 selection=target;
                 break;
 
+            case CONTENT_DIRECTION:
+                ifnotnulldeselect(clickedempty); clickedempty=NULL;
+                ifnotnulldeselect(selection);
+                switchToObject(SelectedObjectType,SelectedColor, SelectedRound, SelectedVariation, target->direction);
+                target->selected=true;
+
+                clickedobject->direction=target->direction;
+                selection=target;
+                break;
 
             case CONTENT_VARIATION:
                 ifnotnulldeselect(clickedempty); clickedempty=NULL;
                 ifnotnulldeselect(selection);
-                switchToObject(SelectedObjectType,SelectedColor, SelectedRound, target->variation);
+                switchToObject(SelectedObjectType,SelectedColor, SelectedRound, target->variation, SelectedDirection);
                 target->selected=true;
 
                 clickedobject->variation=target->variation;
@@ -983,7 +995,7 @@ void editorbuttons::onMouseUp(int px,int py)
             case CONTENT_MAKEROUND:
                 ifnotnulldeselect(clickedempty); clickedempty=NULL;
                 ifnotnulldeselect(selection);
-                switchToObject(SelectedObjectType,SelectedColor, target->round, SelectedVariation);
+                switchToObject(SelectedObjectType,SelectedColor, target->round, SelectedVariation, SelectedDirection);
                 target->selected=true;
 
                 clickedobject->round=target->round;
@@ -1014,17 +1026,20 @@ void editorbuttons::drawbutton(SDL_Surface* target,singleobject &o, int x, int y
             //SDL_FillRect(target,x,y,editor::GRIDSIZE,editor::GRIDSIZE,SDL_MapRGB(target->format,0,0,120));
             break;
         case CONTENT_CHANGEOBJECT:
-            drawObjectBySpecs( target,x,y,o.type,o.color, o.round, o.variation, direction);
+            drawObjectBySpecs( target,x,y,o.type,o.color, o.round, o.variation, o.direction);
             break;
 
         case CONTENT_RECOLOR:
-            drawObjectBySpecs( target,x,y, SelectedObjectType, o.color, SelectedRound, SelectedVariation, direction);
+            drawObjectBySpecs( target,x,y, SelectedObjectType, o.color, SelectedRound, SelectedVariation, SelectedDirection);
             break;
         case CONTENT_VARIATION:
-            drawObjectBySpecs( target,x,y, SelectedObjectType, SelectedColor, SelectedRound, o.variation, direction);
+            drawObjectBySpecs( target,x,y, SelectedObjectType, SelectedColor, SelectedRound, o.variation, SelectedDirection);
             break;
         case CONTENT_MAKEROUND:
-            drawObjectBySpecs( target,x,y, SelectedObjectType, SelectedColor, o.round, SelectedVariation, direction);
+            drawObjectBySpecs( target,x,y, SelectedObjectType, SelectedColor, o.round, SelectedVariation, SelectedDirection);
+            break;
+        case CONTENT_DIRECTION:
+            drawObjectBySpecs( target,x,y, SelectedObjectType, SelectedColor, SelectedRound, SelectedVariation, o.direction);
             break;
 
 
@@ -1040,14 +1055,6 @@ void editorbuttons::draw(SDL_Surface* target)
     for (i=0;i<EDITORBUTTONS_COUNTX;i++) for (j=0;j<EDITORBUTTONS_COUNTY;j++)
     {
         singleobject &o=buttons[i][j];
-
-/*
-        if ((clickedobject==&o) && (! o.selected) && (clickedempty==NULL) ) continue;
-
-        if ((o.content==CONTENT_VARIATION) && (o.variation==SelectedVariation) && (! o.selected)) continue;
-        if ((o.content==CONTENT_RECOLOR) && (o.color==SelectedColor) && (! o.selected)) continue;
-        if ((o.content==CONTENT_MAKEROUND) && (SelectedRound==o.round) && (! o.selected)) continue;
-*/
         drawbutton(target, o,2+x+i*(editor::GRIDSIZE+2),2+y+j*(editor::GRIDSIZE+2));
 
     }
@@ -1104,7 +1111,7 @@ const char* GetMonsterName(int variation)
             }
     return "?";
 }
-void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool round, int variation)
+void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool round, int variation, int direction)
 {
     switch(ot)
     {
@@ -1327,13 +1334,14 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
     bool roundchoice=false;
     int maxvariations=0;
     int colorchoice = 0;
+    bool dirchoice = false;
 
     switch(ot)
     {
         case EDOT_GEM: colorchoice=2; break;
 
         case EDOT_COLORSYSTEM: colorchoice=1; maxvariations=8; break;
-        case EDOT_RATTLERHEAD: maxvariations=10; break;
+        case EDOT_RATTLERHEAD: maxvariations=10;  dirchoice = true; break;
 
         case EDOT_NUMBER: colorchoice=1; roundchoice=1; maxvariations=10; break;
 
@@ -1343,30 +1351,30 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
 
         case EDOT_XYE: maxvariations=4; break;
         case EDOT_WALL: maxvariations=6; roundchoice=true; break;
-        case EDOT_MAGNET: maxvariations=3; break;
+        case EDOT_MAGNET: maxvariations=3;  dirchoice = true; break;
 
         case EDOT_EARTH: roundchoice=true; break;
 
         case EDOT_KEYSYSTEM: colorchoice=1; maxvariations=2; break;
-        case EDOT_SPECIALBLOCKS: roundchoice=true; colorchoice=1; maxvariations=6; break;
+        case EDOT_SPECIALBLOCKS: roundchoice=true; colorchoice=1; maxvariations=6; dirchoice = true; break;
         case EDOT_GEMBLOCK: colorchoice=1; break;
 
 
 
 
-        case EDOT_ARROWMAKER: colorchoice=1; roundchoice=true; maxvariations=3; break;
+        case EDOT_ARROWMAKER: colorchoice=1; roundchoice=true; maxvariations=3;  dirchoice = true; break;
 
 
-        case EDOT_PUSHER: colorchoice=1; break;
+        case EDOT_PUSHER: colorchoice=1;  dirchoice = true; break;
 
         case EDOT_HAZARD: maxvariations=3; break;
-        case EDOT_ONEDIRECTION: maxvariations=2; break;
-        case EDOT_BEAST: maxvariations=14; break;
+        case EDOT_ONEDIRECTION: maxvariations=2;  dirchoice = true; break;
+        case EDOT_BEAST: maxvariations=14; dirchoice = true; break;
 
-        case EDOT_LARGEBLOCK: maxvariations=5; colorchoice=2;  break;
+        case EDOT_LARGEBLOCK: maxvariations=5; colorchoice=2;  dirchoice = true; break;
         case EDOT_PORTAL: maxvariations=3; colorchoice=2;  break;
-        case EDOT_COLORFACTORY: maxvariations=5; colorchoice=1; roundchoice=1;  break;
-        case EDOT_DANGERFACTORY: maxvariations=17;  break;
+        case EDOT_COLORFACTORY: maxvariations=5; colorchoice=1; roundchoice=1; dirchoice=true; break;
+        case EDOT_DANGERFACTORY: maxvariations=17; dirchoice=true;  break;
 
         //default : //EDOT_TELEPORT,EDOT_BOT,EDOT_FIREPAD, EDOT_FOOD
     }
@@ -1375,45 +1383,37 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
     int colorstart=3;
     int variationstart=0;
     int colorcount=0;
+    int dirstart=0;
     if(colorchoice == 4) colorcount=7;
     else if(colorchoice == 3) colorcount=6;
     else if (colorchoice == 2) colorcount=5;
     else if (colorchoice == 1) colorcount=4;
 
-    if( roundchoice && colorchoice )
-    {
-        roundstart=lastclickedx - 2;
-        if(roundstart<0) roundstart=0;
-        colorstart=roundstart + 3;
-
-        if (colorstart+colorcount>=EDITORBUTTONS_COUNTX)
-        {
-            colorstart=EDITORBUTTONS_COUNTX-colorcount-1;
-            roundstart=colorstart-3;
+    int upperlength = 0;
+    int upperstart = 0;
+    
+    if (roundchoice) {
+        upperlength = 2;
+    }
+    if (colorchoice) {
+        upperlength =  upperlength + colorcount + ( upperlength? 1 : 0);
+    }
+    if (dirchoice) {
+        upperlength =  upperlength + 4 + ( upperlength? 1 : 0);
+    }
+    
+    if (upperlength > 0) {
+        upperstart = lastclickedx - upperlength/2;
+        if (upperstart < 0) {
+            upperstart = 0;
         }
+        upperstart = min<int>(upperstart, EDITORBUTTONS_COUNTX - upperlength);
     }
-    else if (roundchoice)
-    {
-        roundstart=lastclickedx;
-        if (roundstart+1>=EDITORBUTTONS_COUNTX) roundstart=EDITORBUTTONS_COUNTX-2;
-    }
-    else if (colorchoice)
-    {
-        colorstart=lastclickedx;
-        if (colorstart+colorcount>=EDITORBUTTONS_COUNTX)
-            colorstart=EDITORBUTTONS_COUNTX-colorcount-1;
-    }
-
-    if(maxvariations)
-    {
-        variationstart=lastclickedx;
-        if (variationstart+maxvariations-1>=EDITORBUTTONS_COUNTX)
-            variationstart=EDITORBUTTONS_COUNTX-maxvariations;
-    }
-
+    
     if(roundchoice)
     {
-
+        roundstart = upperstart;
+        upperstart += 3;
         for (int i=0;i<2;i++)
         {
             singleobject &o=buttons[roundstart+i][0];
@@ -1426,34 +1426,58 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
             }*/
         }
     }
-
-    for (int i=0;i<colorcount;i++)
-    {
-        singleobject &o=buttons[i+colorstart][0];
-        o.content= CONTENT_RECOLOR;
-        o.color=(editorcolor)(i);
+    
+    if ( colorchoice ) {
+        colorstart = upperstart;
+        upperstart += 1 + colorcount;
+        for (int i=0;i<colorcount;i++)
+        {
+            singleobject &o=buttons[i+colorstart][0];
+            o.content= CONTENT_RECOLOR;
+            o.color=(editorcolor)(i);
+        }
     }
+
+    
+    if (dirchoice) {
+        dirstart = upperstart;
+        upperstart += 5;
+        for (int i=0; i<4; i++)
+        {
+            singleobject &o=buttons[dirstart+i][0];
+            o.content= CONTENT_DIRECTION;
+            o.direction=i;
+        }
+        
+    }
+    
+
 
     if(maxvariations>0)
     {
+        variationstart = lastclickedx - maxvariations/2;
+        if (variationstart < 0) {
+            variationstart = 0;
+        }
+        
+        // { variationstart + maxvariations-1 < EDITORBUTTONS_COUNTX }
+        // { variationstart < EDITORBUTTONS_COUNTX - maxvariations + 1 }
+        
+        variationstart = min<int>(variationstart, EDITORBUTTONS_COUNTX - maxvariations);
+ 
         for (int i=0;i<maxvariations;i++)
         {
             singleobject &o=buttons[variationstart+i][2];
             o.content=CONTENT_VARIATION;
             o.variation=i;
-            /*if (i==variation)
-            {
-                o.selected=true;
-                clickedvariation=&o;
-            }*/
         }
     }
 
 }
 
-void editorbuttons::switchToObject( editorobjecttype ot, editorcolor color, bool round, int variation)
+void editorbuttons::switchToObject( editorobjecttype ot, editorcolor color, bool round, int variation, int direction)
 {
-    updateText(ot,color,round,variation);
+    updateText(ot,color,round,variation, direction);
 
     if(SelectedObjectType!=ot)
     {
@@ -1476,6 +1500,7 @@ void editorbuttons::switchToObject( editorobjecttype ot, editorcolor color, bool
     SelectedObjectType=ot;
     SelectedRound=round;
     SelectedVariation=variation;
+    SelectedDirection = direction;
 }
 
 /*** editorboard control **/
@@ -1937,7 +1962,7 @@ void editorboard::applyFromButtons(int x, int y)
     o.color=editor::buttons->SelectedColor;
     o.variation=editor::buttons->SelectedVariation;
     o.round=editor::buttons->SelectedRound;
-    o.direction=editor::buttons->direction;
+    o.direction=editor::buttons->SelectedDirection;
     o.parentx = o.parenty = -1;
 }
 
