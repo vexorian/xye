@@ -1357,7 +1357,7 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
 
         case EDOT_KEYSYSTEM: colorchoice=1; maxvariations=2; break;
         case EDOT_SPECIALBLOCKS: roundchoice=true; colorchoice=1; maxvariations=6; dirchoice = 4; break;
-        case EDOT_GEMBLOCK: colorchoice=4; break;
+        case EDOT_GEMBLOCK: colorchoice=1; break;
 
 
 
@@ -1561,7 +1561,11 @@ void editorboard::DeleteLevel(editorboard* ed)
             levelList[i] = levelList[i+1];
         }
         levelList.resize(x-1);
-        LoadCopy(ed);
+        if (currentLevel >= levelList.size() ) {
+             LoadLevelNumber(ed, levelList.size()-1);
+        } else {
+             LoadLevelNumber(ed, currentLevel);
+        }
         
     }
 }
@@ -1611,14 +1615,17 @@ void editorboard::LoadLevelNumber(editorboard* ed, int num)
 
 void editorboard::SaveCopy(editorboard* ed)
 {
+    assert(currentLevel < levelList.size());
     levelList[currentLevel].assign(ed);
 }
 void editorboard::SetCopySolution(const char* sol)
 {
+    assert(currentLevel < levelList.size());
     levelList[currentLevel].solution=sol;
 }
 void editorboard::LoadCopy(editorboard* ed)
 {
+    assert(currentLevel < levelList.size());
     ed->assign(&levelList[currentLevel]);
 }
 
