@@ -166,9 +166,9 @@ void dialogs::makeButtonDialog(window* target, string prompt, string yescaption,
     
     
     Sint16 pw = target->Width/2;
-    Sint16 ph = target->Height/3;
+    Sint16 ph = max(target->Height/3, min<int>(target->Height, FontResource->WrappedTextHeight(prompt, pw-2*button::Size) + button::Size*4) );
     Sint16 px = target->Width/4;
-    Sint16 py = target->Height/3;
+    Sint16 py = (target->Height - ph)/2;
     
     
     
@@ -295,9 +295,9 @@ void dialogs::makeTextInputDialog(window* target,  string prompt, string default
     
     SDL_EnableUNICODE(1);
     Sint16 pw = target->Width/2;
-    Sint16 ph = target->Height/3;
+    Sint16 ph = max(target->Height/3, min<int>(target->Height, FontResource->WrappedTextHeight(prompt, pw-2*button::Size) + button::Size*5) );
     Sint16 px = target->Width/4;
-    Sint16 py = target->Height/3;
+    Sint16 py = (target->Height - ph)/2;
     
     Sint16 ith = lines*FontResource->Height(); 
     Sint16 textblockheight=ph - 4*button::Size - 2 - ith;
