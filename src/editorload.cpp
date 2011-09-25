@@ -974,7 +974,12 @@ bool editor::load()
 
         if (fil.ErrorId()==2)
         {
-            if(filename_name=="editortest.xye") return true;
+            if(filename_name=="editortest.xye") {
+                editorboard::ResetLevels();
+                board->makeDefaultLevel();
+                updateCountRelated();
+                return true;
+            }
             loadError="Xyedit was unable to open the level file.";
 
         }
