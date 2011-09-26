@@ -1298,10 +1298,16 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
                 case EDITORDIRECTION_RIGHT : text="One-way door (left->right)"; break;
             }
             else text="Force arrow";
-
             break;
 
-        case EDOT_TELEPORT: text="Teleport"; break;
+        case EDOT_TELEPORT:
+            switch(direction) {
+                case EDITORDIRECTION_DOWN : text="Teleport (down->up)"; break;
+                case EDITORDIRECTION_UP : text="Teleport (up->down)"; break;
+                case EDITORDIRECTION_LEFT : text="Teleport (left->right)"; break;
+                case EDITORDIRECTION_RIGHT : text="Teleport (right->left)"; break;
+            }
+            break;
 
         case EDOT_TURNER:
             if(variation) text=gettextRC("turning block (anticlock-wise)",color ,round);
@@ -1375,8 +1381,10 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
         case EDOT_PORTAL: maxvariations=3; colorchoice=2;  break;
         case EDOT_COLORFACTORY: maxvariations=5; colorchoice=1; roundchoice=1; dirchoice=4; break;
         case EDOT_DANGERFACTORY: maxvariations=17; dirchoice=4;  break;
+            
+        case EDOT_TELEPORT: dirchoice=4; break;
 
-        //default : //EDOT_TELEPORT,EDOT_BOT,EDOT_FIREPAD, EDOT_FOOD
+        //default : //EDOT_BOT,EDOT_FIREPAD, EDOT_FOOD
     }
 
     int roundstart=0;
