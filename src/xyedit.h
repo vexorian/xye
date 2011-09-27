@@ -158,6 +158,7 @@ class editor
      static void updateCountRelated();
      
      static bool appendLevels(const string filename); //implemented in editorload.cpp
+     static bool load_kye(); //implemented in editorload.cpp
 
  public:
 
@@ -234,7 +235,7 @@ struct boardobject
 #define EDITORDIRECTION_RIGHT 0
 #define EDITORDIRECTION_UP    1
 #define EDITORDIRECTION_LEFT  2
-#define EDITORDIRECTION_DOWN 3
+#define EDITORDIRECTION_DOWN  3
 
 
 void drawObjectBySpecs( SDL_Surface * target, int x, int y, editorobjecttype ot, editorcolor color, bool round, int variation, int direction);

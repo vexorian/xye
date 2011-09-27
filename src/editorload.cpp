@@ -1,5 +1,7 @@
 #include "xyedit.h"
+#include "xye.h"
 #include "tinyxml/xye_tinyxml.h"
+#include "kye_script.h"
 #include<iostream>
 #include<algorithm>
 using std::cout;
@@ -913,8 +915,305 @@ bool editor::appendLevels(const string file)
  return true;
 }
 
+
+void loadKyeChar( char ch, boardelement & o , int x)
+{
+    o.type = EDOT_NONE;
+    o.variation = 0;
+    o.color = EDCO_YELLOW;
+    o.direction = 0;
+    o.round = false;
+    
+    int timer = -1;
+    
+    switch(ch) {
+    case 'K':
+        o.type = EDOT_XYE;
+        o.variation = 3;
+        break;
+    case 'e':
+        o.type = EDOT_EARTH;
+        break;
+    case '5':
+        o.type = EDOT_WALL;
+        break;
+    case('1'): case('2'): case('3'): case('4'):
+    case('6'): case('7'): case('8'): case('9'):
+        o.type = EDOT_WALL;
+        o.round = true;
+        break;
+    case 'b':
+        o.type = EDOT_BLOCK;
+        o.color = EDCO_YELLOW;
+        break;
+    case 'B':
+        o.type = EDOT_BLOCK;
+        o.color = EDCO_YELLOW;
+        o.round = true;
+        break;
+    case '*':
+        o.type = EDOT_GEM;
+        o.color = EDCO_BLUE;
+        break;
+    case 'E':
+        o.type = EDOT_BEAST;
+        o.variation = (int)BT_GNASHER;
+        break;
+    case 'C':
+        o.type = EDOT_BEAST;
+        o.variation = (int)BT_BLOB;
+        break;
+    case '~':
+        o.type = EDOT_BEAST;
+        o.variation = (int)BT_VIRUS;
+        break;
+    case '[':
+        o.type = EDOT_BEAST;
+        o.variation = (int)BT_SPIKE;
+        break;
+    case 'T':
+        o.type = EDOT_BEAST;
+        o.variation = (int)BT_TWISTER;
+        break;
+    case '/':
+        o.type = EDOT_BEAST;
+        o.variation = (int)BT_DARD;
+        break;
+    case 's':
+        o.type = EDOT_MAGNET;
+        o.direction = EDITORDIRECTION_UP;
+        break;
+    case 'S':
+        o.type = EDOT_MAGNET;
+        o.direction = EDITORDIRECTION_RIGHT;
+        break;
+        
+    case ('}'): timer = (3); break;
+    case ('|'): timer = (4); break;
+    case ('{'): timer = (5); break;
+    case ('z'): timer = (6); break;
+    case ('y'): timer = (7); break;
+    case ('x'): timer = (8); break;
+    case ('w'): timer = (9); break;
+        
+    case 'H':
+        o.type = EDOT_HAZARD;
+        break;
+        
+    case 'l': case'r': case'u': case'd':
+        o.type = EDOT_SPECIALBLOCKS;
+        o.variation = 0;
+        o.color = EDCO_YELLOW;
+        switch (ch) {
+            case 'r': o.direction=EDITORDIRECTION_RIGHT; break;
+            case 'l': o.direction=EDITORDIRECTION_LEFT; break;
+            case 'u': o.direction=EDITORDIRECTION_UP; break;
+            case 'd': o.direction=EDITORDIRECTION_DOWN; break;
+        }
+        break;
+    case '<': case'>': case'^': case'v':
+        o.type = EDOT_SPECIALBLOCKS;
+        o.variation = 0;
+        o.color = EDCO_YELLOW;
+        o.round = true;
+        switch (ch) {
+            case '<': o.direction=EDITORDIRECTION_RIGHT; break;
+            case '>': o.direction=EDITORDIRECTION_LEFT; break;
+            case '^': o.direction=EDITORDIRECTION_UP; break;
+            case 'v': o.direction=EDITORDIRECTION_DOWN; break;
+        }
+        break;
+    case 'L': case'R': case'U': case'D':
+        o.type = EDOT_PUSHER;
+        o.color = EDCO_YELLOW;
+        switch (ch) {
+            case 'R': o.direction=EDITORDIRECTION_RIGHT; break;
+            case 'L': o.direction=EDITORDIRECTION_LEFT; break;
+            case 'U': o.direction=EDITORDIRECTION_UP; break;
+            case 'D': o.direction=EDITORDIRECTION_DOWN; break;
+        }
+        break;
+    case 'A': case 'F':
+        o.round = ( ch == 'F' );
+        o.color = EDCO_YELLOW;
+        o.type = EDOT_ARROWMAKER;
+        switch (x%4)
+        {
+            case 0: o.direction = EDITORDIRECTION_RIGHT ; break;
+            case 1: o.direction = EDITORDIRECTION_UP ; break;
+            case 2: o.direction = EDITORDIRECTION_LEFT ; break;
+            case 3: o.direction = EDITORDIRECTION_DOWN ; break;
+        }
+        break;
+    case 'a': case 'c':
+        o.type = EDOT_TURNER;
+        o.color = EDCO_YELLOW;
+        o.variation = (ch == 'c');
+        break;
+    case 'f': case'g': case'h': case'i':
+        o.type = EDOT_ONEDIRECTION;
+        o.variation = 0;
+        switch (ch) {
+            case 'g': o.direction=EDITORDIRECTION_LEFT; break;
+            case 'f': o.direction=EDITORDIRECTION_RIGHT; break;
+            case 'h': o.direction=EDITORDIRECTION_DOWN; break;
+            case 'i': o.direction=EDITORDIRECTION_UP; break;
+        }
+        break;
+    case 'P': case 'p':    //Skye's sticky
+        o.type = EDOT_MAGNET;
+        o.variation = 1;
+        o.direction = ( (ch == 'P') ? EDITORDIRECTION_RIGHT : EDITORDIRECTION_UP );
+        break;
+        
+    case '!': //Skye's bomb
+        o.type = EDOT_SPECIALBLOCKS;
+        o.variation = 5;
+        o.color = EDCO_RED;
+        break;
+        
+    case 'O': //Skye's pit
+        o.type = EDOT_HAZARD;
+        o.variation = 2;
+        break;
+
+    case '(': case')': case'_': case'\'':  //Kye 3.0's teleport
+        o.type = EDOT_ONEDIRECTION;
+        o.variation = 0;
+        switch (ch) {
+            case ')': o.direction=EDITORDIRECTION_LEFT; break;
+            case '(': o.direction=EDITORDIRECTION_RIGHT; break;
+            case '\'': o.direction=EDITORDIRECTION_DOWN; break;
+            case '_': o.direction=EDITORDIRECTION_UP; break;
+        }
+        break;
+        
+    case 'o': //Xye mine
+        o.type = EDOT_HAZARD;
+        o.variation = 1;
+        break;
+        
+    case '$':  //Xye emerald
+        o.type = EDOT_GEM;
+        o.color = EDCO_GREEN;
+        break;
+    
+    case '@':  //Xye  green gem block
+        o.type = EDOT_GEMBLOCK;
+        o.color = EDCO_GREEN;
+        break;
+        
+    case '#': //Xye yellow marked area
+        o.type = EDOT_COLORSYSTEM;
+        o.color = EDCO_YELLOW;
+        o.variation = 4;
+        break;
+    case '%': //Xye yellow door
+        o.type = EDOT_COLORSYSTEM;
+        o.color = EDCO_YELLOW;
+        o.variation = 0;
+        break;
+    case '=': //Xye yellow door
+        o.type = EDOT_COLORSYSTEM;
+        o.color = EDCO_YELLOW;
+        o.variation = 1;
+        break;
+    case 'Q': case 'q':    //Xye's antimagnet
+        o.type = EDOT_MAGNET;
+        o.variation = 2;
+        o.direction = ( (ch == 'Q') ? EDITORDIRECTION_RIGHT : EDITORDIRECTION_UP );
+        break;
+    case '.': case ',':
+        o.type  = EDOT_SPECIALBLOCKS;
+        o.color = EDCO_YELLOW;
+        o.round = (ch == ',');
+        o.variation = 4;
+        break;
+    case ':': case ';':              //In hindsight, I am not really sure why I added 
+                                     // so many extensions to Kye's format
+        o.type  = EDOT_SPECIALBLOCKS;
+        o.variation = 5;
+        o.color = EDCO_BLUE;
+        o.round = (ch == ';');
+        break;
+        
+    case '-': case '+':
+        o.type  = EDOT_SPECIALBLOCKS;
+        o.variation = ((ch=='-')?2:3);
+        o.color = EDCO_YELLOW;
+        break;
+        
+    case '?':
+        o.type = EDOT_BOT;
+        break;
+        
+    case 'M':
+        o.type = EDOT_WALL;
+        o.variation = 4;
+        break;
+
+    }
+    
+    if (timer != -1) {
+        o.type = EDOT_NUMBER;
+        o.color = EDCO_YELLOW;
+        o.variation = timer;
+    }
+}
+
+bool editor::load_kye()
+{
+    vector<KyeLevel> levels;
+    string s = KyeLevelPack::LoadForEditor(filename.c_str(), levels);
+    if (s != "") {
+        loadError = s;
+        return false;
+    }
+    editorboard::ResetLevels(true);
+    editorboard::filetitle = filename;
+    editorboard::description = "";
+    editorboard::author = "";
+    for (int k=0; k<levels.size(); k++) {
+        editor::board->hint = levels[k].lhint;
+        editor::board->title = levels[k].name;
+        editor::board->bye = levels[k].bye;
+        editor::board->solution = "";
+        editor::board->xye_x = 0;
+        editor::board->xye_y = 0;
+        for (int i=0;i<XYE_HORZ;i++)for (int j=0;j<XYE_VERT;j++)
+        {
+            loadKyeChar( levels[k].data[i][j], editor::board->objects[i][XYE_VERT - j - 1], i );
+            if ( levels[k].data[i][j] == 'K' ) {
+                editor::board->xye_x = i;
+                editor::board->xye_y = XYE_VERT - j - 1;
+            }
+        }
+        for (int i=0; i<5; i++) {
+            for (int j=0; j<2; j++) {
+                editor::board->portal_x[i][j] = -1,
+                editor::board->portal_y[i][j] = -1;
+            }
+        }
+        editorboard::SaveAtLevelNumber(editor::board, k);
+    }
+    editorboard::LoadLevelNumber(editor::board, 0);
+    updateCountRelated();
+    
+    return true;
+}
+
 bool editor::load()
 {
+    {
+        int len = filename.length();
+        if (len >= 4) {
+            string ext = filename.substr(len-4);
+            if( (ext==".kye" || ext==".KYE") ) {
+                return editor::load_kye();
+            }
+        }
+    }
+    
     editorboard::ResetLevels(true);
     TiXmlDocument  fil(filename.c_str());
     if (fil.LoadFile())
