@@ -967,8 +967,8 @@ void loadKyeChar( char ch, boardelement & o , int x)
         o.color = EDCO_YELLOW;
         o.round = true;
         switch (ch) {
-            case '<': o.direction=EDITORDIRECTION_RIGHT; break;
-            case '>': o.direction=EDITORDIRECTION_LEFT; break;
+            case '<': o.direction=EDITORDIRECTION_LEFT; break;
+            case '>': o.direction=EDITORDIRECTION_RIGHT; break;
             case '^': o.direction=EDITORDIRECTION_UP; break;
             case 'v': o.direction=EDITORDIRECTION_DOWN; break;
         }
