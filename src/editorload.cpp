@@ -2,6 +2,7 @@
 #include "xye.h"
 #include "tinyxml/xye_tinyxml.h"
 #include "kye_script.h"
+#include "xye_script.h"
 #include<iostream>
 #include<algorithm>
 using std::cout;
@@ -414,6 +415,7 @@ bool editor_LoadPortal(TiXmlElement * el)
     if( (tx<0) || (tx>=XYE_HORZ) || (ty<0) || (ty>=XYE_VERT) )
     {
         tx=ty=0;
+        
         cout<< "Notice: A <portal> tag had strange target point data, ignored"<<endl;
     }
     if( (x<0) || (x>=XYE_HORZ) || (y<0) || (y>=XYE_VERT) )
@@ -700,26 +702,7 @@ bool editor_LoadObjects(TiXmlElement* el)
         else if (v=="portal")         { if (! editor_LoadPortal(ch)) return false; }
         else if (v=="factory")         { if (! editor_LoadFactory(ch)) return false; }
 
-        else
-        {
-            cout << "Editor-incompatible object: "<<v<<"\n";
-            if (! editor_LoadGen(ch, EDOT_ERROR) ) {
-                return false;
-            }
-        }
-
-        ch=ch->NextSiblingElement();
-    }
- return true;
-}
-bool editor_LoadGround(TiXmlElement* el)
-{
-    TiXmlElement * ch=el->FirstChildElement();
-
-    while(ch!=NULL)
-    {
-        string v=ch->Value();
-        if (v=="pit")     { if (! editor_LoadGen(ch,EDOT_HAZARD,2)) return false;}
+        else if (v=="pit")     { if (! editor_LoadGen(ch,EDOT_HAZARD,2)) return false;}
         else if (v=="firepad")     { if (! editor_LoadGen(ch,EDOT_FIREPAD,0)) return false;}
         else if (v=="force") { if (! editor_LoadGenD(ch,EDOT_ONEDIRECTION,1)) return false; }
         else if (v=="oneway") { if (! editor_LoadGenDOpposite(ch,EDOT_ONEDIRECTION,0)) return false; }
@@ -741,7 +724,6 @@ bool editor_LoadGround(TiXmlElement* el)
  return true;
 }
 
-
 bool editor_LoadXye(TiXmlElement* el)
 {
     int x,y; if (!getElementPosition(el,x,y)) return false;
@@ -758,162 +740,6 @@ bool editor_LoadXye(TiXmlElement* el)
  return true;
 }
 
-bool editor::appendLevels(const string file)
-{
-    cout<<"Attempt to append file: "<<file<<endl;
-    TiXmlDocument  fil(file.c_str());
-    
-    int x = editorboard::CurrentLevelNumber();
-    int n = editorboard::CountLevels();
-    int oldn = n;
-    if (fil.LoadFile())
-    {
-        TiXmlElement* pack, *el, *level;
-        pack=fil.FirstChildElement("pack");
-        if (pack==NULL)
-        {
-            cout<<"Not a valid .xye file (missing <pack>)\n";
-            loadError="The level file is invalid (missing <pack> tag)";
-            return false;
-        }
-
-        
-        level=pack->FirstChildElement("level");
-        bool colorWarn = false;
-        bool errorsWarn = false;
-        int tn = 0;
-        while(level!=NULL)
-        {
-            string ltitle=filename_name,lhint="",lbye="",lsolution="";
-
-            int i,j;
-            editorload_xyex=-1;
-    
-            for (int i=0; i<5; i++)
-                for (int j=0; j<2;j++)
-                    editorload_portal_x[i][j] = editorload_portal_y[i][j] = -1;
-    
-            for (i=0;i<XYE_HORZ;i++)for (j=0;j<XYE_VERT;j++) editorload_objects[i][j].type=EDOT_NONE;
-    
-            loadError="Found tags and/or attributes that are not recognized by the current version.";
-            el=level->FirstChildElement();
-    
-    
-            while (el!=NULL)
-            {
-                string v=el->Value();
-                if (v=="ground")
-                {
-                    if(!editor_LoadGround(el))
-                        return false;
-                }
-                else if (v=="objects" ||v=="ground" || v=="normal")
-                {
-                    if(!editor_LoadObjects(el))
-                        return false;
-                }
-                else if (v=="xye")
-                {
-                    if(! editor_LoadXye(el))
-                    {
-                        loadError="Invalid <xye> tag in the level file.";
-                        return false;
-                    }
-                }
-                else if (v=="title" || v=="name")
-                {
-                    const char* gt=el->GetText();
-                    ltitle= ( (gt!=NULL) ? gt : "");
-                }
-                else if (v=="hint")
-                {
-                    const char* gt=el->GetText();
-                    lhint= ( (gt!=NULL) ? gt : "");
-                }
-                else if (v=="bye")
-                {
-                    const char* gt=el->GetText();
-                    lbye= ( (gt!=NULL) ? gt : "");
-                }
-                else if (v=="solution")
-                {
-                    const char* gt=el->GetText();
-                    lsolution= ( (gt!=NULL) ? gt : "");
-                }
-                else
-                {
-                    cout << "Editor-incompatible <level> child: "<<v<<"\n";
-                    if ( v!="palette" && v!="floor" && v!="default") {
-                        loadError="Found a tag <"+v+"> that is incompatible with the level editor. Had to stop loading, sorry.";
-                        return false;
-                    } else {
-                        colorWarn = true;
-                    }
-                }
-                el=el->NextSiblingElement();
-            }
-    
-            if(editorload_xyex==-1)
-            {
-                cout << "Notice: Unable to find xye in the level file.\n";
-            }
-            cout << "Level loaded successfully.\n";
-    
-            for (i=0;i<XYE_HORZ;i++)for (j=0;j<XYE_VERT;j++)
-            {
-                editor::board->objects[i][XYE_VERT-j-1]=editorload_objects[i][j];
-            }
-            for (int i=0; i<5; i++) {
-                for (int j=0; j<2; j++) {
-                    editor::board->portal_x[i][j] = editorload_portal_x[i][j],
-                    editor::board->portal_y[i][j] = XYE_VERT-editorload_portal_y[i][j]-1;
-                }
-            }
-            if (errorPositions.size() != 0) {
-                errorsWarn = true;
-                for (int i=0; i<errorPositions.size(); i++) {
-                    pair<int,int> p = errorPositions[i];
-                    editor::board->objects[p.first][XYE_VERT-p.second-1].type = EDOT_ERROR;
-                }
-                errorPositions.resize(0);
-            }
-    
-            editor::board->xye_x = editorload_xyex;
-            editor::board->xye_y = XYE_VERT-editorload_xyey-1;
-            editor::board->hint = lhint;
-            editor::board->title = ltitle;
-            editor::board->bye = lbye;
-            editor::board->solution = lsolution;
-            
-            editorboard::SaveAtLevelNumber(editor::board, n);
-
-            n++;
-            tn++;
-            level=level->NextSiblingElement("level");
-        }
-        if(tn==0)
-        {
-            cout<<"Not a valid .xye file (missing <level>)\n";
-            loadError="The level file is invalid (missing <level> tag)";
-            return false;
-        }
-        cout<<tn<<" levels found.\n";
-        loadError = "";
-        if (colorWarn) {
-            loadError += "Color information is not supported by this version of the editor. Colors were reset to default values. ";
-        }
-        if (errorsWarn )  {
-            loadError += "There were issues when loading some of the objects, possibly related to features that the editor does not yet support. ";
-        }
-        cout << "File loaded successfully.\n";
-        editorboard::LoadLevelNumber(editor::board, oldn);
-        updateCountRelated();
-    } else {
-        loadError = "Not a valid XML file.";
-        return false;
-    }
- return true;
-}
 
 
 void loadKyeChar( char ch, boardelement & o , int x)
@@ -1151,6 +977,9 @@ void loadKyeChar( char ch, boardelement & o , int x)
         o.type = EDOT_WALL;
         o.variation = 4;
         break;
+        
+    case '"': //do nothing
+        break;
 
     }
     
@@ -1160,6 +989,31 @@ void loadKyeChar( char ch, boardelement & o , int x)
         o.variation = timer;
     }
 }
+
+void editorload_loadKyeLevel(const KyeLevel& klv)
+{
+    editor::board->hint = klv.lhint;
+    editor::board->title = klv.name;
+    editor::board->bye = klv.bye;
+    editor::board->solution = "";
+    editor::board->xye_x = 0;
+    editor::board->xye_y = 0;
+    for (int i=0;i<XYE_HORZ;i++)for (int j=0;j<XYE_VERT;j++)
+    {
+        loadKyeChar( klv.data[i][j], editor::board->objects[i][XYE_VERT - j - 1], i );
+        if ( klv.data[i][j] == 'K' ) {
+            editor::board->xye_x = i;
+            editor::board->xye_y = XYE_VERT - j - 1;
+        }
+    }
+    for (int i=0; i<5; i++) {
+        for (int j=0; j<2; j++) {
+            editor::board->portal_x[i][j] = -1,
+            editor::board->portal_y[i][j] = -1;
+        }
+    }
+}
+
 
 bool editor::load_kye()
 {
@@ -1174,26 +1028,7 @@ bool editor::load_kye()
     editorboard::description = "";
     editorboard::author = "";
     for (int k=0; k<levels.size(); k++) {
-        editor::board->hint = levels[k].lhint;
-        editor::board->title = levels[k].name;
-        editor::board->bye = levels[k].bye;
-        editor::board->solution = "";
-        editor::board->xye_x = 0;
-        editor::board->xye_y = 0;
-        for (int i=0;i<XYE_HORZ;i++)for (int j=0;j<XYE_VERT;j++)
-        {
-            loadKyeChar( levels[k].data[i][j], editor::board->objects[i][XYE_VERT - j - 1], i );
-            if ( levels[k].data[i][j] == 'K' ) {
-                editor::board->xye_x = i;
-                editor::board->xye_y = XYE_VERT - j - 1;
-            }
-        }
-        for (int i=0; i<5; i++) {
-            for (int j=0; j<2; j++) {
-                editor::board->portal_x[i][j] = -1,
-                editor::board->portal_y[i][j] = -1;
-            }
-        }
+        editorload_loadKyeLevel(levels[k]);
         editorboard::SaveAtLevelNumber(editor::board, k);
     }
     editorboard::LoadLevelNumber(editor::board, 0);
@@ -1201,6 +1036,187 @@ bool editor::load_kye()
     
     return true;
 }
+
+//-------------
+bool editor::load_KyeFormat(TiXmlElement* el)
+{
+    KyeLevel ky;
+    if ( ! LoadKyeFormatTag(el, &ky) ) {
+        return false;
+    }
+    editorload_loadKyeLevel(ky);
+    for (int i=0;i<XYE_HORZ;i++) for (int j=0;j<XYE_VERT;j++)
+    {
+        editorload_objects[i][j] = editor::board->objects[i][XYE_VERT-j-1];
+    }
+    for (int i=0; i<5; i++) {
+        for (int j=0; j<2; j++) {
+            editorload_portal_x[i][j] = editor::board->portal_x[i][j],
+            editorload_portal_y[i][j] = XYE_VERT-editor::board->portal_y[i][j]-1;
+        }
+    }
+    editorload_xyex = editor::board->xye_x;
+    editorload_xyey = editor::board->xye_y;
+
+    return true;
+}
+
+bool editor::appendLevels(const string file)
+{
+    cout<<"Attempt to append file: "<<file<<endl;
+    TiXmlDocument  fil(file.c_str());
+    
+    int x = editorboard::CurrentLevelNumber();
+    int n = editorboard::CountLevels();
+    int oldn = n;
+    if (fil.LoadFile())
+    {
+        TiXmlElement* pack, *el, *level;
+        pack=fil.FirstChildElement("pack");
+        if (pack==NULL)
+        {
+            cout<<"Not a valid .xye file (missing <pack>)\n";
+            loadError="The level file is invalid (missing <pack> tag)";
+            return false;
+        }
+
+        
+        level=pack->FirstChildElement("level");
+        bool colorWarn = false;
+        bool errorsWarn = false;
+        int tn = 0;
+        while(level!=NULL)
+        {
+            string ltitle=filename_name,lhint="",lbye="",lsolution="";
+
+            int i,j;
+            editorload_xyex=-1;
+    
+            for (int i=0; i<5; i++)
+                for (int j=0; j<2;j++)
+                    editorload_portal_x[i][j] = editorload_portal_y[i][j] = -1;
+    
+            for (i=0;i<XYE_HORZ;i++)for (j=0;j<XYE_VERT;j++) editorload_objects[i][j].type=EDOT_NONE;
+    
+            loadError="Found tags and/or attributes that are not recognized by the current version.";
+            el=level->FirstChildElement();
+    
+    
+            while (el!=NULL)
+            {
+                string v=el->Value();
+                if (v=="objects" ||v=="ground" || v=="normal")
+                {
+                    if(!editor_LoadObjects(el))
+                        return false;
+                }
+                else if (v=="xye")
+                {
+                    if(! editor_LoadXye(el))
+                    {
+                        loadError="Invalid <xye> tag in the level file.";
+                        return false;
+                    }
+                }
+                else if (v=="title" || v=="name")
+                {
+                    const char* gt=el->GetText();
+                    ltitle= ( (gt!=NULL) ? gt : "");
+                }
+                else if (v=="hint")
+                {
+                    const char* gt=el->GetText();
+                    lhint= ( (gt!=NULL) ? gt : "");
+                }
+                else if (v=="bye")
+                {
+                    const char* gt=el->GetText();
+                    lbye= ( (gt!=NULL) ? gt : "");
+                }
+                else if (v=="solution")
+                {
+                    const char* gt=el->GetText();
+                    lsolution= ( (gt!=NULL) ? gt : "");
+                }
+                else if (v=="kyeformat") {
+                    if ( ! load_KyeFormat(el) ) {
+                        loadError = "There were issues while loading a <kyeformat> tag.";
+                        return false;
+                    }
+                } else {
+                    cout << "Editor-incompatible <level> child: "<<v<<"\n";
+                    if ( v!="palette" && v!="floor" && v!="default") {
+                        loadError="Found a tag <"+v+"> that is incompatible with the level editor. Had to stop loading, sorry.";
+                        return false;
+                    } else {
+                        colorWarn = true;
+                    }
+                }
+                el=el->NextSiblingElement();
+            }
+    
+            if(editorload_xyex==-1)
+            {
+                cout << "Notice: Unable to find xye in the level file.\n";
+            }
+            cout << "Level loaded successfully.\n";
+    
+            for (i=0;i<XYE_HORZ;i++)for (j=0;j<XYE_VERT;j++)
+            {
+                editor::board->objects[i][XYE_VERT-j-1]=editorload_objects[i][j];
+            }
+            for (int i=0; i<5; i++) {
+                for (int j=0; j<2; j++) {
+                    editor::board->portal_x[i][j] = editorload_portal_x[i][j],
+                    editor::board->portal_y[i][j] = XYE_VERT-editorload_portal_y[i][j]-1;
+                }
+            }
+            if (errorPositions.size() != 0) {
+                errorsWarn = true;
+                for (int i=0; i<errorPositions.size(); i++) {
+                    pair<int,int> p = errorPositions[i];
+                    editor::board->objects[p.first][XYE_VERT-p.second-1].type = EDOT_ERROR;
+                }
+                errorPositions.resize(0);
+            }
+    
+            editor::board->xye_x = editorload_xyex;
+            editor::board->xye_y = XYE_VERT-editorload_xyey-1;
+            editor::board->hint = lhint;
+            editor::board->title = ltitle;
+            editor::board->bye = lbye;
+            editor::board->solution = lsolution;
+            
+            editorboard::SaveAtLevelNumber(editor::board, n);
+
+            n++;
+            tn++;
+            level=level->NextSiblingElement("level");
+        }
+        if(tn==0)
+        {
+            cout<<"Not a valid .xye file (missing <level>)\n";
+            loadError="The level file is invalid (missing <level> tag)";
+            return false;
+        }
+        cout<<tn<<" levels found.\n";
+        loadError = "";
+        if (colorWarn) {
+            loadError += "Color information is not supported by this version of the editor. Colors were reset to default values. ";
+        }
+        if (errorsWarn )  {
+            loadError += "There were issues when loading some of the objects, possibly related to features that the editor does not yet support. ";
+        }
+        cout << "File loaded successfully.\n";
+        editorboard::LoadLevelNumber(editor::board, oldn);
+        updateCountRelated();
+    } else {
+        loadError = "Not a valid XML file.";
+        return false;
+    }
+ return true;
+}
+
 
 bool editor::load()
 {
@@ -1259,7 +1275,9 @@ bool editor::load()
         editorboard::author = lauthor;
         editorboard::filetitle = lname;
         
-        appendLevels(filename);
+        if ( ! appendLevels(filename) ) {
+            return false;
+        }
 
 
         return true;

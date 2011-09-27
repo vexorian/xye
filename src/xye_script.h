@@ -6,7 +6,6 @@ There is a terrible bug when compiling tinyxml with STL support in combination o
 #endif
 */
 
-
 #ifndef PALETTE_BASE_SIZE
     #define PALETTE_BASE_SIZE 20
 #endif
@@ -73,6 +72,8 @@ class LevelPack
 };
 
 void LoadLevel(TiXmlElement* level);
+struct KyeLevel;
+bool LoadKyeFormatTag(TiXmlElement* kft, KyeLevel* out);
 bool LoadKyeFormat(TiXmlElement* kf);
 
 
