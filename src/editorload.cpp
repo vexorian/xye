@@ -21,7 +21,29 @@ int getElementPosition_lasty = 400;
 
 vector< pair<int,int> > errorPositions;
 
-bool getElementPosition(TiXmlElement *el, int &x , int &y, bool allowSamePos=false)
+bool isObjectTypeGround(editorobjecttype ed)
+{
+    if  (ed==EDOT_NONE || ed==EDOT_ERROR ) {
+        return false;
+    }
+    switch(ed) {
+    case EDOT_ONEDIRECTION:
+    case EDOT_PORTAL:
+    case EDOT_COLORSYSTEM:
+    case EDOT_FIREPAD:
+        return true;    
+        
+    }
+    
+    return false;
+}
+bool isObjectTypeTop(editorobjecttype ed)
+{
+    return  (ed!=EDOT_NONE && ed!=EDOT_ERROR && !isObjectTypeGround(ed) );
+}
+
+
+bool getTopElementPosition(TiXmlElement *el, int &x , int &y, bool allowSamePos=false)
 {
     x=400;
     y=400;
@@ -43,7 +65,37 @@ bool getElementPosition(TiXmlElement *el, int &x , int &y, bool allowSamePos=fal
         cout<<"Wrong coordinates "<<x<<","<<y<<" found in a tag: <"<<el->Value()<<">\n";
         return false;
     }
-    if((!allowSamePos) && (editorload_objects[x][y].type!=EDOT_NONE) )
+    if( (!allowSamePos) && isObjectTypeGround(editorload_objects[x][y].type) )
+    {
+        errorPositions.push_back( make_pair(x,y) );
+        cout<<"Unable to load two objects in same position: "<<x<<","<<y<<" , tag: <"<<el->Value()<<">\n";
+        //return false;
+    }
+    return true;
+}
+bool getGroundElementPosition(TiXmlElement *el, int &x , int &y, bool allowSamePos=false)
+{
+    x=400;
+    y=400;
+    el->QueryIntAttribute("x",&x);
+    if(x==400) {
+        x = getElementPosition_lastx;
+    } else {
+        getElementPosition_lastx = x;
+    }
+    el->QueryIntAttribute("y",&y);
+    if(y==400) {
+        y = getElementPosition_lasty;
+    } else {
+        getElementPosition_lasty = y;
+    }
+
+    if((x<0) || (x>=XYE_HORZ) || (y<0) || (y>=XYE_VERT) )
+    {
+        cout<<"Wrong coordinates "<<x<<","<<y<<" found in a tag: <"<<el->Value()<<">\n";
+        return false;
+    }
+    if( (!allowSamePos) && isObjectTypeTop(editorload_objects[x][y].type) )
     {
         errorPositions.push_back( make_pair(x,y) );
         cout<<"Unable to load two objects in same position: "<<x<<","<<y<<" , tag: <"<<el->Value()<<">\n";
@@ -55,7 +107,7 @@ bool getElementPosition(TiXmlElement *el, int &x , int &y, bool allowSamePos=fal
 
 bool editor_LoadWall(TiXmlElement* el)
 {
-    int x,y; if(!getElementPosition(el,x,y)) return false;
+    int x,y; if(!getTopElementPosition(el,x,y)) return false;
     int t=0;
     el->QueryIntAttribute("type",&t);
     if( t<0 || t>5 ) {
@@ -142,7 +194,7 @@ int getElementDirection(TiXmlElement* el)
 
 bool editor_LoadGem(TiXmlElement* el)
 {
-    int x,y; if(!getElementPosition(el,x,y)) return false;
+    int x,y; if(!getTopElementPosition(el,x,y)) return false;
     editorcolor col=getElementColor(el);
 
     boardelement &o=editorload_objects[x][y];
@@ -153,7 +205,7 @@ bool editor_LoadGem(TiXmlElement* el)
 
 bool editor_LoadStar(TiXmlElement* el)
 {
-    int x,y; if(!getElementPosition(el,x,y)) return false;
+    int x,y; if(!getTopElementPosition(el,x,y)) return false;
 
     boardelement &o=editorload_objects[x][y];
     o.type=EDOT_GEM;
@@ -163,7 +215,13 @@ bool editor_LoadStar(TiXmlElement* el)
 
 bool editor_LoadGenRC(TiXmlElement* el,editorobjecttype type, int variation=0)
 {
-    int x,y; if(!getElementPosition(el,x,y)) return false;
+    int x,y; 
+    
+    if (isObjectTypeTop(type)) {
+        if(!getTopElementPosition(el,x,y)) return false;
+    } else{
+        if(!getGroundElementPosition(el,x,y)) return false;
+    }
     int round=false; el->QueryIntAttribute("round",&round);
     editorcolor col=getElementColor(el);
 
@@ -177,7 +235,13 @@ bool editor_LoadGenRC(TiXmlElement* el,editorobjecttype type, int variation=0)
 
 bool editor_LoadGen(TiXmlElement * el, editorobjecttype type, int variation=0)
 {
-    int x,y; if(!getElementPosition(el,x,y)) return false;
+    int x,y;
+    if (isObjectTypeTop(type)) {
+        if(!getTopElementPosition(el,x,y)) return false;
+    } else{
+        if(!getGroundElementPosition(el,x,y)) return false;
+    }
+
     boardelement &o=editorload_objects[x][y];
     o.type=type;
     o.variation=variation;
@@ -188,7 +252,13 @@ bool editor_LoadGen(TiXmlElement * el, editorobjecttype type, int variation=0)
 
 bool editor_LoadGenR(TiXmlElement * el, editorobjecttype type, int variation=0, editorcolor color = EDCO_YELLOW)
 {
-    int x,y; if(!getElementPosition(el,x,y)) return false;
+    int x,y;
+    if (isObjectTypeTop(type)) {
+        if(!getTopElementPosition(el,x,y)) return false;
+    } else{
+        if(!getGroundElementPosition(el,x,y)) return false;
+    }
+
     int round=false; el->QueryIntAttribute("round",&round);
     boardelement &o=editorload_objects[x][y];
     o.type=type;
@@ -200,7 +270,13 @@ bool editor_LoadGenR(TiXmlElement * el, editorobjecttype type, int variation=0, 
 
 bool editor_LoadGenD(TiXmlElement * el, editorobjecttype type, int variation=0)
 {
-    int x,y; if(!getElementPosition(el,x,y)) return false;
+    int x,y;
+    if (isObjectTypeTop(type)) {
+        if(!getTopElementPosition(el,x,y)) return false;
+    } else{
+        if(!getGroundElementPosition(el,x,y)) return false;
+    }
+
     int direction = getElementDirection(el);
     boardelement &o=editorload_objects[x][y];
     o.type=type;
@@ -212,7 +288,13 @@ bool editor_LoadGenD(TiXmlElement * el, editorobjecttype type, int variation=0)
 
 bool editor_LoadGenDOpposite(TiXmlElement * el, editorobjecttype type, int variation=0)
 {
-    int x,y; if(!getElementPosition(el,x,y)) return false;
+    int x,y;
+    if (isObjectTypeTop(type)) {
+        if(!getTopElementPosition(el,x,y)) return false;
+    } else{
+        if(!getGroundElementPosition(el,x,y)) return false;
+    }
+
     int direction = getElementDirection(el);
     boardelement &o=editorload_objects[x][y];
     o.type=type;
@@ -231,7 +313,13 @@ bool editor_LoadGenDOpposite(TiXmlElement * el, editorobjecttype type, int varia
 
 bool editor_LoadGenCDR(TiXmlElement * el, editorobjecttype type, int variation=0)
 {
-    int x,y; if(!getElementPosition(el,x,y)) return false;
+    int x,y;
+    if (isObjectTypeTop(type)) {
+        if(!getTopElementPosition(el,x,y)) return false;
+    } else{
+        if(!getGroundElementPosition(el,x,y)) return false;
+    }
+
     int round=false; el->QueryIntAttribute("round",&round);
     int direction = getElementDirection(el);
     editorcolor col=getElementColor(el);
@@ -247,7 +335,13 @@ bool editor_LoadGenCDR(TiXmlElement * el, editorobjecttype type, int variation=0
 
 bool editor_LoadGenCD(TiXmlElement * el, editorobjecttype type)
 {
-    int x,y; if(!getElementPosition(el,x,y)) return false;
+    int x,y;
+    if (isObjectTypeTop(type)) {
+        if(!getTopElementPosition(el,x,y)) return false;
+    } else{
+        if(!getGroundElementPosition(el,x,y)) return false;
+    }
+
 
     int direction = getElementDirection(el);
     editorcolor col=getElementColor(el);
@@ -263,7 +357,7 @@ bool editor_LoadGenCD(TiXmlElement * el, editorobjecttype type)
 
 bool editor_LoadTimer(TiXmlElement * el)
 {
-    int x,y; if(!getElementPosition(el,x,y)) return false;
+    int x,y; if(!getTopElementPosition(el,x,y)) return false;
 
     editorcolor col=getElementColor(el);
     int val=0; el->QueryIntAttribute("val",&val);
@@ -281,7 +375,7 @@ bool editor_LoadTimer(TiXmlElement * el)
 
 bool editor_LoadToggle(TiXmlElement * el)
 {
-    int x,y; if(!getElementPosition(el,x,y)) return false;
+    int x,y; if(!getTopElementPosition(el,x,y)) return false;
 
     editorcolor col=getElementColor(el);
     int off=0; el->QueryIntAttribute("off",&off);
@@ -375,7 +469,7 @@ void AssignLargeBLockVarDirFromFlags( Uint8 flags , int &variation, int &directi
 
 bool editor_LoadLargeBlock(TiXmlElement * el)
 {
-    int x,y; if(!getElementPosition(el,x,y)) return false;
+    int x,y; if(!getTopElementPosition(el,x,y)) return false;
 
     editorcolor col=getElementColor(el);
 
@@ -472,7 +566,7 @@ bool editor_LoadPortal(TiXmlElement * el)
 
 bool editor_LoadBeast(TiXmlElement * el)
 {
-    int x,y; if(!getElementPosition(el,x,y)) return false;
+    int x,y; if(!getTopElementPosition(el,x,y)) return false;
 
     int direction = getElementDirection(el);
     int kind=0; el->QueryIntAttribute("kind",&kind);
@@ -489,7 +583,7 @@ bool editor_LoadBeast(TiXmlElement * el)
 
 bool editor_LoadMagnet(TiXmlElement * el)
 {
-    int x,y; if(!getElementPosition(el,x,y)) return false;
+    int x,y; if(!getTopElementPosition(el,x,y)) return false;
 
     int variation=0; el->QueryIntAttribute("kind",&variation);
     int direction;
@@ -508,7 +602,13 @@ bool editor_LoadMagnet(TiXmlElement * el)
 
 bool editor_LoadGenC(TiXmlElement * el, editorobjecttype type, int variation=0)
 {
-    int x,y; if(!getElementPosition(el,x,y)) return false;
+    int x,y;
+    if (isObjectTypeTop(type)) {
+        if(!getTopElementPosition(el,x,y)) return false;
+    } else{
+        if(!getGroundElementPosition(el,x,y)) return false;
+    }
+
     editorcolor col=getElementColor(el);
 
     boardelement &o=editorload_objects[x][y];
@@ -526,7 +626,7 @@ bool editor_LoadRattler(TiXmlElement* el)
         cout << "Editor is unable to edit this file, found <rattler> with body elements.\n";
         return false;
     }
-    int x,y; if(!getElementPosition(el,x,y)) return false;
+    int x,y; if(!getTopElementPosition(el,x,y)) return false;
     int grow=0; el->QueryIntAttribute("grow",&grow);
 
     boardelement &o=editorload_objects[x][y];
@@ -541,7 +641,7 @@ bool editor_LoadRattler(TiXmlElement* el)
 
 bool editor_LoadEarth(TiXmlElement* el)
 {
-    int x,y; if(!getElementPosition(el,x,y)) return false;
+    int x,y; if(!getTopElementPosition(el,x,y)) return false;
     int round=false; el->QueryIntAttribute("round",&round);
 
     boardelement &o=editorload_objects[x][y];
@@ -552,7 +652,7 @@ bool editor_LoadEarth(TiXmlElement* el)
 
 bool editor_LoadColorDoor(TiXmlElement* el, int closedvariation)
 {
-    int x,y; if(!getElementPosition(el,x,y)) return false;
+    int x,y; if(!getGroundElementPosition(el,x,y)) return false;
     int open=0; el->QueryIntAttribute("open",&open);
 
     boardelement &o=editorload_objects[x][y];
@@ -564,7 +664,7 @@ bool editor_LoadColorDoor(TiXmlElement* el, int closedvariation)
 
 bool editor_LoadFactory(TiXmlElement* el)
 {
-    int x,y,kind=0; if(!getElementPosition(el,x,y)) return false;
+    int x,y,kind=0; if(!getTopElementPosition(el,x,y)) return false;
     el->QueryIntAttribute("kind",&kind);
     int round=false; el->QueryIntAttribute("round",&round);
     boardelement &o=editorload_objects[x][y];
@@ -615,7 +715,7 @@ bool editor_LoadBlock(TiXmlElement* el)
         errorPositions.resize( std::max<int>(0, (int)errorPositions.size()-1) );
         //handle special block above marked aread case.
         int x, y;
-        if(! getElementPosition(el, x , y, true) ) return false;
+        if(! getTopElementPosition(el, x , y, true) ) return false;
         boardelement &o1=editorload_objects[x][y];
         /*if((o1.type != EDOT_COLORSYSTEM) || (o1.variation!=4)) {
             cout<<"DASH "<<o1.variation<<endl;
@@ -638,7 +738,7 @@ bool editor_LoadWildCardBlock(TiXmlElement* el)
         errorPositions.resize( std::max<int>(0, (int)errorPositions.size()-1) );
         //handle special block above marked aread case.
         int x, y;
-        if(! getElementPosition(el, x , y, true) ) return false;
+        if(! getTopElementPosition(el, x , y, true) ) return false;
         boardelement &o1=editorload_objects[x][y];
         /*if((o1.type != EDOT_COLORSYSTEM) || (o1.variation!=4))
             return false;*/
@@ -735,8 +835,8 @@ bool editor_LoadXye(TiXmlElement* el)
     el->QueryIntAttribute("lives",&lives);
     el->QueryIntAttribute("x",&editorload_xyex);
     el->QueryIntAttribute("y",&editorload_xyey);
-    x = max(0, min(XYE_HORZ-1, editorload_xyex) );
-    x = max(0, min(XYE_VERT-1, editorload_xyey) );
+    x = editorload_xyex = max(0, min(XYE_HORZ-1, editorload_xyex) );
+    y = editorload_xyey = max(0, min(XYE_VERT-1, editorload_xyey) );
 
 
     boardelement &o=editorload_objects[x][y];
