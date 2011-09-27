@@ -2092,7 +2092,7 @@ void drawPortal( SDL_Surface * target, int x, int y, editorcolor color, int vari
     Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
 
     Uint8 alpha = 255;
-    if(variation>0) alpha = 127;
+    if(variation>0) alpha = 200;
     if(color!=EDCO_WHITE)
     {
         D.SetColors(&options::BKColor[color],alpha);
@@ -2101,8 +2101,9 @@ void drawPortal( SDL_Surface * target, int x, int y, editorcolor color, int vari
     D.Draw(target,x,y);
     if(variation==2)
     {
-        tx=4, ty=8;
+        tx=4, ty=10;
         D.ChangeRect(tx*sz,ty*sz,sz,sz);
+        alpha = 62;
         D.SetColors(0,0,0,alpha);
         D.Draw(target,x,y);
     }
