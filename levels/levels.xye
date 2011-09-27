@@ -6965,6 +6965,375 @@
 </level>
 
 <level>
+<title>Forces we are not supposed to control</title>
+<hint>Use all your ammo.</hint>
+<bye>Great!</bye>
+<palette>
+    <color id='1' red='150' green='150' blue='150' />
+</palette>
+<default>
+    <wall color='1' />
+</default>
+	<ground>
+		<force dir='U' x='12' y='13' />
+	</ground>
+	<objects>
+		<wall x='0' y='0' round1='1' round7='1' round3='1' round9='1' />
+		<wall x='1' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall x='2' y='19' />
+		<blacky y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' type='3' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='0' round1='1' round7='1' round3='1' round9='1' />
+		<wall x='3' y='19' />
+		<wall y='11' />
+		<wall y='10' type='1' />
+		<wall y='9' />
+		<wall y='8' />
+		<aclocker y='7' bc='B' />
+		<wall y='6' />
+		<wall y='5' round3='1' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall x='4' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' round1='1' />
+		<wall y='11' round9='1' />
+		<wall y='10' />
+		<wall y='9' />
+		<aclocker y='3' bc='B' />
+		<wall y='2' />
+		<wall y='0' round1='1' round7='1' round3='1' round9='1' type='3' />
+		<wall x='5' y='19' />
+		<earth y='18' />
+		<arrow dir='D' y='17' bc='B' round='1' />
+		<wall y='16' round9='1' />
+		<wall y='15' round1='1' />
+		<wall y='9' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall x='6' y='19' />
+		<gem y='18' bc='B' />
+		<arrow dir='D' y='17' bc='B' round='1' />
+		<arrow dir='D' y='16' bc='B' round='1' />
+		<wall y='15' round9='1' />
+		<wall y='14' />
+		<arrow dir='D' y='13' bc='Y' round='1' />
+		<earth y='12' />
+		<wall y='9' />
+		<wall y='8' />
+		<auto y='7' dir='R' bc='R' round='1' />
+		<wall y='6' round1='1' round7='1' />
+		<wall y='3' />
+		<wall y='2' type='1' />
+		<wall y='0' round1='1' round7='1' round3='1' round9='1' />
+		<wall x='7' y='19' />
+		<gem y='18' bc='R' />
+		<arrow dir='D' y='17' bc='B' round='1' />
+		<arrow dir='D' y='16' bc='Y' round='1' />
+		<arrow dir='D' y='15' bc='B' round='1' />
+		<arrow dir='D' y='14' bc='Y' round='1' />
+		<arrow dir='D' y='13' bc='R' round='1' />
+		<wall y='12' round1='1' round7='1' />
+		<wall y='9' />
+		<wall y='7' />
+		<wall y='6' round3='1' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall x='8' y='19' />
+		<gem y='18' bc='Y' />
+		<arrow dir='D' y='17' bc='Y' round='1' />
+		<arrow dir='D' y='16' bc='B' round='1' />
+		<arrow dir='D' y='15' bc='G' round='1' />
+		<arrow dir='D' y='14' bc='B' round='1' />
+		<wall y='13' round7='1' />
+		<wall y='12' />
+		<wall y='9' />
+		<wall y='3' />
+		<wall y='2' type='1' />
+		<wall y='0' round1='1' round7='1' round3='1' round9='1' />
+		<wall x='9' y='19' />
+		<gem y='18' bc='B' />
+		<arrow dir='D' y='17' bc='B' round='1' />
+		<arrow dir='D' y='16' bc='B' round='1' />
+		<arrow dir='D' y='15' bc='B' round='1' />
+		<wall y='14' round7='1' />
+		<wall y='13' />
+		<blacky y='12' />
+		<wall y='9' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall x='10' y='19' />
+		<gem y='18' bc='Y' />
+		<arrow dir='D' y='17' bc='G' round='1' />
+		<arrow dir='D' y='16' bc='B' round='1' />
+		<wall y='15' round7='1' />
+		<wall y='14' />
+		<wall y='13' round3='1' />
+		<wall y='9' />
+		<wall y='3' />
+		<wall y='2' type='1' />
+		<wall y='0' round1='1' round7='1' round3='1' round9='1' type='3' />
+		<wall x='11' y='19' />
+		<gem y='18' bc='R' />
+		<arrow dir='D' y='17' bc='B' round='1' />
+		<wall y='16' round7='1' />
+		<wall y='15' />
+		<blacky y='14' />
+		<star y='13' />
+		<wall y='9' />
+		<blacky y='8' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall x='12' y='19' />
+		<earth y='18' />
+		<wall y='17' round7='1' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='11' />
+		<blacky y='10' />
+		<wall y='9' />
+		<aclocker y='4' bc='B' />
+		<wall y='3' />
+		<wall y='2' type='1' />
+		<wall y='0' round1='1' round7='1' round3='1' round9='1' />
+		<wall x='13' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' type='1' />
+		<wall y='14' />
+		<wall y='11' />
+		<gem y='9' bc='B' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall x='14' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='11' />
+		<wall y='9' />
+		<metalblock y='7' />
+		<pusher y='5' dir='L' bc='Y' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' type='1' />
+		<wall y='0' round1='1' round7='1' round3='1' round9='1' type='3' />
+		<wall x='15' y='19' />
+		<arrow dir='R' y='18' bc='R' round='1' />
+		<arrow dir='R' y='17' bc='Y' round='1' />
+		<arrow dir='R' y='16' bc='R' round='1' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='11' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall x='16' y='19' />
+		<arrow dir='R' y='18' bc='R' round='1' />
+		<arrow dir='R' y='17' bc='R' round='1' />
+		<arrow dir='R' y='16' bc='R' round='1' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='11' />
+		<wall y='2' />
+		<wall y='0' round1='1' round7='1' round3='1' round9='1' />
+		<wall x='17' y='19' />
+		<wall y='18' round1='1' round3='1' />
+		<gem y='17' bc='B' />
+		<wall y='16' round7='1' round9='1' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='11' />
+		<largeblockpart y='4' bc='R' sharededges = 'R' />
+		<wall y='2' />
+		<wall x='18' y='19' />
+		<wall y='14' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<largeblockpart y='4' bc='R' sharededges = 'RL' />
+		<wall y='2' />
+		<wall y='0' round1='1' round7='1' round3='1' round9='1' />
+		<wall x='19' y='19' />
+		<wall y='16' />
+		<wall y='14' />
+		<largeblockpart y='4' bc='R' sharededges = 'L' />
+		<wall y='2' />
+		<wall x='20' y='19' />
+		<wall y='18' />
+		<wall y='16' />
+		<wall y='14' />
+		<wall y='2' />
+		<wall y='0' round1='1' round7='1' round3='1' round9='1' type='3' />
+		<wall x='21' y='19' />
+		<wall y='16' />
+		<wall y='14' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='2' />
+		<wall x='22' y='19' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='2' />
+		<wall y='0' round1='1' round7='1' round3='1' round9='1' />
+		<wall x='23' y='19' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<largeblockpart y='8' bc='B' sharededges = 'URDL' />
+		<largeblockpart y='7' bc='B' sharededges = 'URDL' />
+		<largeblockpart y='6' bc='Y' sharededges = 'URDL' />
+		<largeblockpart y='5' bc='Y' sharededges = 'URDL' />
+		<largeblockpart y='4' bc='Y' sharededges = 'URDL' />
+		<largeblockpart y='3' bc='Y' sharededges = 'URDL' />
+		<wall y='2' />
+		<wall x='24' y='19' />
+		<arrow dir='R' y='18' bc='Y' />
+		<earth y='17' />
+		<block y='16' bc='G' />
+		<blacky y='15' />
+		<gem y='11' bc='Y' />
+		<earth y='10' />
+		<wall y='9' />
+		<largeblockpart y='8' bc='B' sharededges = 'URDL' />
+		<blacky y='5' />
+		<wall y='2' />
+		<wall y='0' round1='1' round7='1' round3='1' round9='1' type='3' />
+		<wall x='25' y='19' />
+		<pusher y='18' dir='D' bc='Y' />
+		<earth y='17' />
+		<largeblockpart y='16' bc='Y' sharededges = 'URDL' />
+		<blacky y='15' />
+		<wall y='12' />
+		<earth y='11' />
+		<gem y='10' bc='G' />
+		<wall y='9' />
+		<largeblockpart y='8' bc='B' sharededges = 'URDL' />
+		<blacky y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall x='26' y='19' />
+		<pusher y='18' dir='D' bc='Y' />
+		<earth y='17' />
+		<block y='16' bc='Y' />
+		<blacky y='15' />
+		<wall y='12' />
+		<earth y='11' />
+		<gem y='10' bc='B' />
+		<wall y='9' />
+		<largeblockpart y='8' bc='B' sharededges = 'URDL' />
+		<largeblockpart y='7' bc='B' sharededges = 'URDL' />
+		<gem y='6' bc='R' />
+		<wall y='5' />
+		<wall y='0' round1='1' round7='1' round3='1' round9='1' />
+		<wall x='27' y='19' />
+		<pusher y='18' dir='D' bc='Y' />
+		<earth y='17' />
+		<block y='16' bc='R' />
+		<blacky y='15' />
+		<wall y='12' />
+		<gem y='11' bc='G' />
+		<earth y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='3' round1='1' round7='1' round3='1' round9='1' />
+		<wall y='1' round1='1' round7='1' round3='1' round9='1' type='3' />
+		<wall x='28' y='19' />
+		<pusher y='18' dir='D' bc='Y' />
+		<earth y='17' />
+		<block y='16' bc='B' />
+		<blacky y='15' />
+		<gem y='11' bc='B' />
+		<earth y='10' />
+		<wall y='9' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='0' round1='1' round7='1' round3='1' round9='1' />
+		<wall x='29' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+	</objects>
+	<xye x='21' y='12' lives='1' />
+</level>
+
+
+
+
+
+
+
+
+
+
+
+<level>
 <title>Citamotua II</title>
 <hint>Does this remind you of anything?</hint>
 <bye>Well done!</bye>
