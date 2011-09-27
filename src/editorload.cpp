@@ -403,6 +403,7 @@ bool editor_LoadLargeBlock(TiXmlElement * el)
     return true;
 }
 
+bool loadPortalIssue = false;
 bool editor_LoadPortal(TiXmlElement * el)
 {
     int &x = getElementPosition_lastx;
@@ -415,7 +416,7 @@ bool editor_LoadPortal(TiXmlElement * el)
     if( (tx<0) || (tx>=XYE_HORZ) || (ty<0) || (ty>=XYE_VERT) )
     {
         tx=ty=0;
-        
+        loadPortalIssue = true;
         cout<< "Notice: A <portal> tag had strange target point data, ignored"<<endl;
     }
     if( (x<0) || (x>=XYE_HORZ) || (y<0) || (y>=XYE_VERT) )
@@ -430,6 +431,7 @@ bool editor_LoadPortal(TiXmlElement * el)
     if ( (defcolor<0) || (defcolor>=5) )
     {
         defcolor  = 0;
+        loadPortalIssue = true;
         cout<< "Notice: A <portal> tag had a strange/missing defcolor value. This could indicate that the level was not made by this version of the editor."<<endl;
     }
     if( editorload_portal_x[defcolor][0] == -1)
@@ -726,17 +728,21 @@ bool editor_LoadObjects(TiXmlElement* el)
 
 bool editor_LoadXye(TiXmlElement* el)
 {
-    int x,y; if (!getElementPosition(el,x,y)) return false;
+    int x,y;
+    
+    
     int lives=1;
     el->QueryIntAttribute("lives",&lives);
+    el->QueryIntAttribute("x",&editorload_xyex);
+    el->QueryIntAttribute("y",&editorload_xyey);
+    x = max(0, min(XYE_HORZ-1, editorload_xyex) );
+    x = max(0, min(XYE_VERT-1, editorload_xyey) );
 
 
     boardelement &o=editorload_objects[x][y];
     o.type=EDOT_XYE;
     o.variation= lives-1;
 
-    editorload_xyex=x;
-    editorload_xyey=y;
  return true;
 }
 
@@ -1063,6 +1069,8 @@ bool editor::load_KyeFormat(TiXmlElement* el)
 
 bool editor::appendLevels(const string file)
 {
+    loadPortalIssue = false;
+    loadError = "";
     cout<<"Attempt to append file: "<<file<<endl;
     TiXmlDocument  fil(file.c_str());
     
@@ -1207,6 +1215,10 @@ bool editor::appendLevels(const string file)
         if (errorsWarn )  {
             loadError += "There were issues when loading some of the objects, possibly related to features that the editor does not yet support. ";
         }
+        if (loadPortalIssue) {
+            loadError += "Some portal objects used features that are not compatible with the editor. ";
+            
+        }
         cout << "File loaded successfully.\n";
         editorboard::LoadLevelNumber(editor::board, oldn);
         updateCountRelated();
@@ -1220,6 +1232,8 @@ bool editor::appendLevels(const string file)
 
 bool editor::load()
 {
+    loadPortalIssue = false;
+    loadError = "";
     {
         int len = filename.length();
         if (len >= 4) {
