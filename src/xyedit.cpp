@@ -2589,6 +2589,13 @@ void drawBot( SDL_Surface * target, int x, int y)
     D.Draw(target,x,y);
 }
 
+void drawHint( SDL_Surface * target, int x, int y)
+{
+    Drawer D(editor::sprites,6*sz,3*sz,sz,sz);
+    D.Draw(target,x,y);
+}
+
+
 void drawFirePad( SDL_Surface * target, int x, int y)
 {
     Drawer D(editor::sprites,2*sz,5*sz,sz,sz);
@@ -2806,6 +2813,7 @@ void drawObjectBySpecs( SDL_Surface * target, int x, int y, editorobjecttype ot,
         case EDOT_GEM: drawGem(target,x,y,color); break;
         case EDOT_WALL: drawWall(target,x,y,round,variation); break;
         case EDOT_BLOCK: drawBlock(target,x,y,round,color); break;
+        case EDOT_HINT: drawHint(target,x,y); break;
         case EDOT_LARGEBLOCK: drawLargeBlock(target,x,y,color,variation, direction); break;
         case EDOT_PORTAL: drawPortal(target,x,y,color,variation); break;
         case EDOT_COLORFACTORY: drawColorFactory(target,x,y,round, color,variation, direction); break;

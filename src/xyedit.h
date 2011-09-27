@@ -81,6 +81,8 @@ enum editorobjecttype
     EDOT_COLORFACTORY,
     EDOT_DANGERFACTORY,
     
+    EDOT_HINT,
+    
     EDOT_ERROR,
 
     EDOT_NONE
@@ -233,6 +235,7 @@ struct boardobject
     int              variation;
     editorobjecttype type;
     editorcolor color;
+    string hint;
 };
 #define EDITORDIRECTION_RIGHT 0
 #define EDITORDIRECTION_UP    1
@@ -309,6 +312,7 @@ struct boardelement
     Uint8 r1mem,r3mem,r7mem,r9mem;
     int              parentx;
     int              parenty;
+    string           hint;
     
     boardelement() { parentx=parenty = -1; type=EDOT_NONE; };
 
