@@ -404,8 +404,9 @@ int game::Init(const char* levelfile)
         SDL_Surface*  ic =IMG_Load(s.c_str());
         Drawer D(ic, 0,0,32,32);
         D.SetColors(PlayerColor,255);
+        Uint32          gray=SDL_MapRGB(icon->format,255,255,255);
         Uint32          colorkey=SDL_MapRGB(icon->format,255,0,255);
-        SDL_FillRect(icon, 0, colorkey );
+        SDL_FillRect(icon, 0, gray );
         SDL_SetColorKey(icon, SDL_SRCCOLORKEY, colorkey);
         D.Draw(icon, 0,0);
         SDL_FreeSurface(ic);
@@ -415,8 +416,9 @@ int game::Init(const char* levelfile)
     } else {
         Drawer D(sprites,0,0,sz,sz);
         D.SetColors(PlayerColor,255);
+        Uint32          gray=SDL_MapRGB(icon->format,255,255,255);
         Uint32          colorkey=SDL_MapRGB(icon->format,255,0,255);
-        SDL_FillRect(icon, 0, colorkey );
+        SDL_FillRect(icon, 0, gray );
         SDL_SetColorKey(icon, SDL_SRCCOLORKEY, colorkey);
 
         D.Draw(icon,(unsigned int)((32-sz)/2),(unsigned int)((32-sz)/2));
