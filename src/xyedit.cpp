@@ -574,6 +574,7 @@ void editor::ResumeSection(window* wind)
 
     board   = new editorboard(3,by+3+sz);
     editorboard::LoadCopy(board);
+    updateCountRelated();
 
     buttons = new editorbuttons(5, XYE_VERT*sz + by+8+sz , Width-10, 2+(sz+2)*4 );
 
