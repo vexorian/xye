@@ -1945,10 +1945,9 @@ int NextLine(const char* c, int i)
 }
 
 
-bool LoadKyeFormat(TiXmlElement* kf)
+bool LoadKyeFormatTag(TiXmlElement* kf, KyeLevel* out)
 {
 
-    KyeLevel K(true);
     const char* tx=kf->GetText();
     if(tx==NULL) tx="";
     
@@ -1970,13 +1969,13 @@ bool LoadKyeFormat(TiXmlElement* kf)
         for (m=0;m<offset;m++) k++;
         while ((i<30) && (tx[k]!=13))
         {
-            K.data[i][j]=tx[k];
+            out->data[i][j]=tx[k];
             i++;
             k++;
         }
         while (i<30)
         {
-            K.data[i][j]=' ';
+            out->data[i][j]=' ';
             i++;
         }
         j--;i=0;
@@ -1991,17 +1990,22 @@ bool LoadKyeFormat(TiXmlElement* kf)
         i=0;
         while (i<30)
         {
-            K.data[i][j]=' ';
+            out->data[i][j]=' ';
             i++;
         }
         j--;
     }
+    return true;
+}
+
+bool LoadKyeFormat(TiXmlElement* kf)
+{
+    KyeLevel K(true);
+    if (! LoadKyeFormatTag(kf, &K) ) {
+        return false;
+    }
     K.Load();
     return (K.FoundKye);
-
-
-
-
 }
 
 

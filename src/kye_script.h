@@ -1,4 +1,6 @@
 #include <string>
+#ifndef KYE_SCRIPT
+#define KYE_SCRIPT
 
 class KyeLevel
 {
@@ -51,3 +53,4 @@ class KyeLevelPack
 };
 
 
+#endif
