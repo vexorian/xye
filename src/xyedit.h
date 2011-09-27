@@ -328,6 +328,7 @@ class editorboard: public control
 {
  private:
     void applyFromButtons(int x, int y);
+    
     void drawWallInBoard(SDL_Surface*target,int ox,int oy, int x,int y, int variation, bool round);
     void drawLargeBlockInBoard(SDL_Surface * target, int ox,int oy, int x, int y, editorcolor color, int variation, int direction);
     void enforceUniquePortals(int x, int y, int variation, editorcolor color);
@@ -364,6 +365,8 @@ class editorboard: public control
     editorboard(int sx, int sy);
     editorboard();
 
+    void updateWallMem(int ox, int oy);
+    
     void draw(SDL_Surface* target);
     void loop() {}
     void onMouseMove(int px,int py);

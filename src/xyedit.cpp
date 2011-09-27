@@ -1759,10 +1759,11 @@ bool editorboard::findWall(int x, int y, int variation)
     return (( objects[x][y].type == EDOT_WALL) && (objects[x][y].variation == variation));
 }
 
-void editorboard::drawWallInBoard(SDL_Surface*target,int ox,int oy, int x, int y, int variation, bool round)
+void editorboard::updateWallMem(int ox, int oy)
 {
+    boardelement &o=objects[ox][oy];
     bool r7,r9,r1,r3;
-    r7=r9=r1=r3=round;
+    r7=r9=r1=r3=o.round;
 
     if( (ox>0) && (objects[ox-1][oy].type==EDOT_WALL) ) r7=r1=false;
     if( (ox<XYE_HORZ-1) && (objects[ox+1][oy].type==EDOT_WALL) ) r9=r3=false;
@@ -1770,11 +1771,23 @@ void editorboard::drawWallInBoard(SDL_Surface*target,int ox,int oy, int x, int y
     if( (oy>0) && (objects[ox][oy-1].type==EDOT_WALL) ) r9=r7=false;
     if( (oy<XYE_VERT-1) && (objects[ox][oy+1].type==EDOT_WALL) ) r1=r3=false;
 
-    boardelement &o=objects[ox][oy];
+    
     o.r1mem=(Uint8)(r1);
     o.r7mem=(Uint8)(r7);
     o.r9mem=(Uint8)(r9);
     o.r3mem=(Uint8)(r3);
+
+}
+
+void editorboard::drawWallInBoard(SDL_Surface*target,int ox,int oy, int x, int y, int variation, bool round)
+{
+    updateWallMem(ox,oy);
+    bool r7,r9,r1,r3;
+    boardelement &o=objects[ox][oy];
+    r1 = o.r1mem;
+    r7 = o.r7mem;
+    r9 = o.r9mem;
+    r3 = o.r3mem;
 
     Drawer D(editor::sprites,0,0,0,0);
     D.SetColors( &options::WallColor[variation], 255);
