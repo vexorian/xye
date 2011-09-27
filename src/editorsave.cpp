@@ -189,6 +189,8 @@ void saveNormalObject(std::ofstream &file, boardelement &o, int x, int y)
             savePosition(file,x,y);
             if(o.round)
             {
+                //update memory in case the board wasn't drawn (which may happen when there are multiple levels)
+                editor::board->updateWallMem(x,XYE_VERT-y-1);
                 if(o.r1mem) file << "round1='1' ";
                 if(o.r7mem) file << "round7='1' ";
                 if(o.r3mem) file << "round3='1' ";
