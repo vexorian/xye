@@ -894,12 +894,12 @@ void editorbuttons::onMouseMove(int px,int py)
 
     if(clicked)
     {
-        /*//Drag and drop, handle rotation...
+        //Drag and drop, handle rotation...
         int rot=detectRotation(mousex,mousey,px,py);
         if (clickedobject != NULL) {
             clickedobject->direction+=rot+4;
             clickedobject->direction%=4;
-        }*/
+        }
     }
     mousex=px;
     mousey=py;
