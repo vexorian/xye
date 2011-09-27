@@ -31,6 +31,7 @@ bool isObjectTypeGround(editorobjecttype ed)
     case EDOT_PORTAL:
     case EDOT_COLORSYSTEM:
     case EDOT_FIREPAD:
+    case EDOT_HINT:
         return true;    
         
     }
@@ -104,8 +105,7 @@ bool getGroundElementPosition(TiXmlElement *el, int &x , int &y, bool allowSameP
     return true;
 }
 
-
-bool editor_LoadWall(TiXmlElement* el)
+bool editor_LoadWall(TiXmlElement* el, bool round = false)
 {
     int x,y; if(!getTopElementPosition(el,x,y)) return false;
     int t=0;
@@ -116,7 +116,6 @@ bool editor_LoadWall(TiXmlElement* el)
         t = 0;
     }
         
-    bool round=false;
     int test=0;
     el->QueryIntAttribute("round1",&test); round=round || test;
     el->QueryIntAttribute("round3",&test); round=round || test;
@@ -728,6 +727,23 @@ bool editor_LoadBlock(TiXmlElement* el)
     return true;
 }
 
+bool editor_LoadHint(TiXmlElement* el)
+{
+    int x,y;
+    if(!getGroundElementPosition(el,x,y)) return false;
+
+    boardelement &o=editorload_objects[x][y];
+    o.type = EDOT_HINT;
+    const char * ch = el->GetText();
+    if (ch != NULL) {
+        o.hint = ch;
+    } else {
+        o.hint = "";
+    }
+    return true;
+}
+
+
 bool editor_LoadWildCardBlock(TiXmlElement* el)
 {
     int x = errorPositions.size();
@@ -759,6 +775,7 @@ bool editor_LoadObjects(TiXmlElement* el)
         
         string v=ch->Value();
         if (v=="wall")     { if (! editor_LoadWall(ch)) return false;}
+        else if (v=="roundwall")     { if (! editor_LoadWall(ch,true)) return false;}
         else if (v=="gem")    { if (! editor_LoadGem(ch)) return false;}
         else if (v=="block") { if (! editor_LoadBlock(ch) ) return false;}
 
@@ -812,6 +829,7 @@ bool editor_LoadObjects(TiXmlElement* el)
         else if (v=="blockdoor") { if (! editor_LoadColorDoor(ch, 0)) return false; }
         else if (v=="blocktrap") { if (! editor_LoadColorDoor(ch, 2)) return false; }
         else if (v=="marked") { if (! editor_LoadGenC(ch,EDOT_COLORSYSTEM,4)) return false; }
+        else if (v=="hint") { if (! editor_LoadHint(ch)) return false; }
 
         else
         {
