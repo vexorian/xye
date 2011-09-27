@@ -477,6 +477,12 @@ void saveGroundObject(std::ofstream &file,boardelement &o, int x, int y)
             saveColor(file,o);
             file<<"/>\n";
             break;
+            
+        case EDOT_HINT:
+            file << "\t\t<hint ";
+            savePosition(file,x,y);
+            file<<">"<<stripXML(o.hint)<<"</hint>";
+            break;
 
     }
 }
