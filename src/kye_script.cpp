@@ -57,14 +57,24 @@ void KyeLevelPack::Clean()
 
 void KyeLevelPack::Load(const char* filename, unsigned int ln)
 {
+    string s = LoadService(filename,ln); 
+    if (s!="") {
+        LevelPack::Error(s.c_str());
+    }
+    //It should now be *easy* to load a Kye level
+    LoadNthLevel(ln);
+}
+
+string KyeLevelPack::LoadService(const char* filename, unsigned int ln)
+{
     std::string line;
 
     std::ifstream fl ;
 
     Clean();
     fl.open(filename,std::ios::in);
-    if (! fl.is_open()) {LevelPack::Error("Unable to load level file (.kye) (stream error)"); return; }
-    if (fl.eof()) {LevelPack::Error("Level File is empty"); return; }
+    if (! fl.is_open()) { return("Unable to load level file (.kye) (stream error)"); }
+    if (fl.eof()) { return("Level File is empty"); }
 
     //read stuff !
     getline_xplt (fl,line);
@@ -72,12 +82,12 @@ void KyeLevelPack::Load(const char* filename, unsigned int ln)
 
 
     if (! TryS2I(line,N))
-        {LevelPack::Error("Not a kye file, first line not a number!");return;}
+        {return("Not a kye file, first line not a number!");}
     LevelPack::n=N;
 
 
-    if (N<=0) {LevelPack::Error("Not really a kye file (Number of levels too low <=0)");return;}
-    if (fl.eof()) {LevelPack::Error("Unexpected end of file");return;}
+    if (N<=0) {return("Not really a kye file (Number of levels too low <=0)");}
+    if (fl.eof()) {return("Unexpected end of file");}
 
     //now we know the file is *supposed* to have N files;
 
@@ -90,11 +100,11 @@ void KyeLevelPack::Load(const char* filename, unsigned int ln)
         //Try to read N levels.
 
         getline_xplt (fl,current->name);
-        if (fl.eof()) {LevelPack::Error("Unexpected end of file");return;}
+        if (fl.eof()) {return("Unexpected end of file");}
         getline_xplt (fl,current->lhint);
-        if (fl.eof()) {LevelPack::Error("Unexpected end of file");return;}
+        if (fl.eof()) {return("Unexpected end of file");}
         getline_xplt (fl,current->bye);
-        if (fl.eof()) {LevelPack::Error("Unexpected end of file");return;}
+        if (fl.eof()) {return("Unexpected end of file");}
 
         //Now it should get interesting, we will read 20 lines that form the level
         //and parse them into the 2d array.
@@ -102,7 +112,7 @@ void KyeLevelPack::Load(const char* filename, unsigned int ln)
         for (j=19;j>=0;j--)
         {
             getline_xplt (fl,line);
-            if ((j>0) && fl.eof()) {LevelPack::Error("Unexpected end of file");return;}
+            if ((j>0) && fl.eof()) {return("Unexpected end of file");}
             k=line.length();
             k= (k>30)?30:k;
             for (i=0;i<k;i++)
@@ -116,7 +126,7 @@ void KyeLevelPack::Load(const char* filename, unsigned int ln)
         N--;
         if (N>0)
         {
-            if (fl.eof()) {LevelPack::Error("Invalid Kye file (missing level?)");return;}
+            if (fl.eof()) {return("Invalid Kye file (missing level?)");}
             ql=new KyeLevel();
             ql->Prev=current;
             current->Next=ql;
@@ -133,10 +143,34 @@ void KyeLevelPack::Load(const char* filename, unsigned int ln)
     //The result is supposed to be a double linked list with all the levels in sequence or a fiasco.
     //There is always a chance a normal text document could be loaded.
 
-    //It should now be *easy* to load a Kye level
-    LoadNthLevel(ln);
+    return "";
 
 
+}
+
+string KyeLevelPack::LoadForEditor(const char* filename, vector<KyeLevel> & out)
+{
+    string s = LoadService(filename,1); 
+    if (s != "") {
+        return s;
+    }
+    out.resize(tn);
+    KyeLevel* x = First;
+    for (int i=0; i<tn; i++) {
+        KyeLevel & o = out[i];
+        o.name = x->name;
+        o.lhint = x->lhint;
+        o.bye = x->bye;
+        for (int a=0; a<XYE_HORZ; a++) {
+            for (int b=0; b<XYE_VERT; b++) {
+                o.data[a][b] = x->data[a][b];
+            }
+        }
+        
+        x = x->Next;
+    }
+    return "";
+    
 }
 
 const char* KyeLevelPack::ReadData(const char* path,unsigned int &n )

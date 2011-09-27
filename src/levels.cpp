@@ -512,7 +512,9 @@ void LoadActiveFileInfo()
     
     
     ActiveIsEditable= ActiveIsValid && (fl.substr(0,editor::myLevelsPath.size()) == editor::myLevelsPath);
-    ActiveIsEditable= ActiveIsEditable && (fl.substr(fl.length()-4)==".xye");
+    string flext = "";
+    flext = fl.substr(fl.length()-4);
+    ActiveIsEditable= ActiveIsEditable && (flext==".xye" ||flext==".kye" ||flext==".KYE");
     
     
     PlayButton->Visible = ActiveIsValid;

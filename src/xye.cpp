@@ -5082,7 +5082,6 @@ edir autoarrow::GetDefaultEdirByColumn(unsigned int cx)
         case(0): return (D_RIGHT); break;
         case(1): return (D_UP); break;
         case(2): return (D_LEFT);
-
     }
  //default:
  return (D_DOWN);
