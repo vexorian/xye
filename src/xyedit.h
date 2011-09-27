@@ -98,6 +98,7 @@ enum editorcolor
     
 };
 
+struct TiXmlElement;
 
 class editor
 {
@@ -159,6 +160,7 @@ class editor
      
      static bool appendLevels(const string filename); //implemented in editorload.cpp
      static bool load_kye(); //implemented in editorload.cpp
+     static bool load_KyeFormat(TiXmlElement * el); //implemented in editorload.cpp
 
  public:
 

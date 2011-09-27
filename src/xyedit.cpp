@@ -588,12 +588,14 @@ void editor::ResumeSection(window* wind)
 void editor::StartSection(window* wind)
 {
     ResumeSection(wind);
+    bool trytest = true;
     if (!load())
     {
         editorboard::ResetLevels();
         editorboard::LoadCopy(board);
-        
+        updateCountRelated();
         dialogs::makeMessageDialog(editorwindow, editor::loadError,"Ok",onDialogClickDoNothing);
+        
     } else if ( editor::loadError != "") {
         dialogs::makeMessageDialog(editorwindow, editor::loadError,"Ok",onDialogClickDoNothing);
     }
