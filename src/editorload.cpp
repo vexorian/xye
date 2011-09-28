@@ -212,8 +212,9 @@ bool editor_LoadStar(TiXmlElement* el)
     return true;
 }
 
-bool editor_LoadGenRC(TiXmlElement* el,editorobjecttype type, int variation=0)
+bool editor_LoadGenRC(TiXmlElement* el,editorobjecttype type, int variation=0, editorcolor* oldcolor=NULL)
 {
+    int t= errorPositions.size();
     int x,y; 
     
     if (isObjectTypeTop(type)) {
@@ -221,14 +222,18 @@ bool editor_LoadGenRC(TiXmlElement* el,editorobjecttype type, int variation=0)
     } else{
         if(!getGroundElementPosition(el,x,y)) return false;
     }
+    
     int round=false; el->QueryIntAttribute("round",&round);
     editorcolor col=getElementColor(el);
-
     boardelement &o=editorload_objects[x][y];
+    if (oldcolor != NULL) {
+        *oldcolor = o.color;
+    }
     o.type=type;
     o.color = col;
     o.variation=variation;
     o.round=round;
+
     return true;
 }
 
@@ -750,20 +755,22 @@ bool editor_LoadFactory(TiXmlElement* el)
 bool editor_LoadBlock(TiXmlElement* el)
 {
     int x = errorPositions.size();
-    if( ! editor_LoadGenRC(el,EDOT_BLOCK)) {
+    editorcolor col;
+    if( ! editor_LoadGenRC(el,EDOT_BLOCK, 0, &col)) {
         return false;
     }
     if (x != errorPositions.size() ){
         errorPositions.resize( std::max<int>(0, (int)errorPositions.size()-1) );
-        //handle special block above marked aread case.
+        //handle special block above marked area case.
         int x, y;
         if(! getTopElementPosition(el, x , y, true) ) return false;
         boardelement &o1=editorload_objects[x][y];
-        /*if((o1.type != EDOT_COLORSYSTEM) || (o1.variation!=4)) {
-            cout<<"DASH "<<o1.variation<<endl;
-            return false;
-        }*/
         o1.type = EDOT_COLORSYSTEM;
+        if (o1.color != col ) {
+            cout<<"The editor cannot yet load a block on top of a marked area of a different color."; 
+            errorPositions.push_back( make_pair(x,y) );
+            //return false;
+        }
         o1.variation = 6;
         
     }
