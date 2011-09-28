@@ -2803,6 +2803,7 @@ void drawOneDir( SDL_Surface * target, int x, int y, int direction, int variatio
         Sint16 k = sz/8;
         Uint32 black = SDL_MapRGB(target->format, 0,0,0 );
         Uint32 white = SDL_MapRGB(target->format, 255,255,255 );
+
         if (!up) {
             SDL_FillRect(target, x+k-1,y+k-1,sz-2*k+2,k+2, white );
             SDL_FillRect(target, x+k,y+k,sz-2*k,k, black );
