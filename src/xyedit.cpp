@@ -966,6 +966,15 @@ void editorbuttons::onMouseMove(int px,int py)
         if (clickedobject != NULL) {
             clickedobject->direction+=rot+4;
             clickedobject->direction%=4;
+            SelectedDirection = clickedobject->direction; 
+            for (int i=0;i<EDITORBUTTONS_COUNTX;i++) {
+                for (int j=0;j<EDITORBUTTONS_COUNTY;j++){
+                    singleobject &o=buttons[i][j];
+                    if (o.content != CONTENT_DIRECTION && o.type == clickedobject->type) {
+                        o.direction = clickedobject-> direction;
+                    }
+                }
+            }
         }
     }
     mousex=px;
