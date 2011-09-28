@@ -263,9 +263,10 @@ class editorbuttons: public control
     void extendButtons(editorobjecttype ot, editorcolor color, bool round, int variation);
     void switchToObject( editorobjecttype ot, editorcolor color, bool round, int variation, int direction);
     void updateText( editorobjecttype ot, editorcolor color, bool round, int variation, int direction);
-
+    void handleClick(singleobject* target);
 
     string text;
+    bool saved;
 
  public:
 
@@ -303,6 +304,9 @@ class editorbuttons: public control
 
     void setInfo(const string& msg);
 
+    static editorbuttons copy;
+    void SaveCopy();
+    void LoadCopy();
 };
 
 struct boardelement
