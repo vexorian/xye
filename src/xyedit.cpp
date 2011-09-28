@@ -54,6 +54,7 @@ button * editor::solutionbutton;
 button * nextbutton;
 button * previousbutton;
 button * erasebutton;
+button * changelevelnumberbutton;
 LuminositySprites editor::sprites;
 Font* editor::FontRes;
 bool SavedSolution = false;
@@ -222,7 +223,42 @@ void editor::beginAppendFile(const buttondata* data)
 {
     dialogs::makeTextInputDialog(editorwindow,"This advanced option will (try to) append the contents of a level file at the end of the level you are currently editing. Type the file name.", "filename.xye", 1, "Ok", "Cancel", continueAppendFile,NULL);
 }
+void editor::continueChangeLevelNumber(bool okclicked, const string text, inputDialogData * dat)
+{
+    if (!okclicked) {
+        return;
+    }
+    SavedFile = false;
+    int x;
+    string s = "";
+    
+    if ( TryS2I(text, x) ) {
+        int n = board->CountLevels();
+        if ( (x >= 1) && (x <= n ) ) {
+            editorboard::MoveToLevelNumber(board, x-1);
+            editor::updateCountRelated();
+        } else {
+            char buf[30];
+            sprintf(buf, "%d", n); 
+            s = string("\n\nPlease type a level number between 1 and ")+string(buf)+string("."); 
+        }
+    } else {
+        s = "\n\nThe requested input must be a number.";
+    }
+    if (s != "") {
+        char buf[30];
+        sprintf(buf, "%d",board->CurrentLevelNumber()+1); 
+        dialogs::makeTextInputDialog(editorwindow,"This advanced option will move the current level to a different position in the file. The other levels will be slided accordingly. Type the new level number. "+s, string(buf), 1, "Ok", "Cancel", continueChangeLevelNumber,NULL);
 
+    }
+
+}
+void editor::beginChangeLevelNumber(const buttondata*data)
+{
+    char buf[30];
+    sprintf(buf, "%d",board->CurrentLevelNumber()+1); 
+    dialogs::makeTextInputDialog(editorwindow,"This advanced option will move the current level to a different position in the file. The other levels will be slided accordingly. Type the new level number.", string(buf), 1, "Ok", "Cancel", continueChangeLevelNumber,NULL);
+}
 
 void editor::onClearConfirmation(bool yes)
 {
@@ -289,10 +325,12 @@ void editor::updateCountRelated()
         previousbutton->Enabled = false;
         nextbutton->Enabled = false;
         erasebutton->Enabled = false;
+        changelevelnumberbutton->Enabled = false;
     } else {
         previousbutton->Enabled = true;
         nextbutton->Enabled = true;
         erasebutton->Enabled = true;
+        changelevelnumberbutton->Enabled = true;
     }
     
     char x[30];
@@ -532,6 +570,17 @@ void editor::ResumeSection(window* wind)
     tmbut->toolTip = "Append levels from file... (advanced)";
     tmbut->onClick = beginAppendFile;
     tmbut->depth=20;
+    editorwindow->addControl(tmbut);
+    bx+=bw+1;
+
+    bw=button::recommendedWidth("#");
+    tmbut= new button(bx,0,bw,button::Size);
+    tmbut->text="#";
+    tmbut->toolTipControl = btt;
+    tmbut->toolTip = "Change level number... (advanced)";
+    tmbut->onClick = beginChangeLevelNumber;
+    tmbut->depth=20;
+    changelevelnumberbutton = tmbut;
     editorwindow->addControl(tmbut);
     bx+=bw+1;
     
@@ -1300,7 +1349,25 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
                 case EDITORDIRECTION_LEFT : text="One-way door (right->left)"; break;
                 case EDITORDIRECTION_RIGHT : text="One-way door (left->right)"; break;
             }
-            else text="Force arrow";
+            else if (variation==1) {
+                text="Force arrow";
+            } else {
+                Uint32 flags = getHiddenWayFlagsByVariationAndDir(variation, direction);
+                text = "Hidden path ";
+                if ( flags & (1<<8) ) {
+                    text += "(up) ";
+                }
+                if ( flags & (1<<2) ) {
+                    text += "(down) ";
+                }
+                if ( flags & (1<<4) ) {
+                    text += "(left) ";
+                }
+                if ( flags & (1<<6) ) {
+                    text += "(right) ";
+                }
+                
+            }
             break;
 
         case EDOT_TELEPORT:
@@ -1377,7 +1444,7 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
         case EDOT_PUSHER: colorchoice=1;  dirchoice = 4; break;
 
         case EDOT_HAZARD: maxvariations=3; break;
-        case EDOT_ONEDIRECTION: maxvariations=2;  dirchoice = 4; break;
+        case EDOT_ONEDIRECTION: maxvariations=8;  dirchoice = 4; break;
         case EDOT_BEAST: maxvariations=14; dirchoice = 4; break;
 
         case EDOT_LARGEBLOCK: maxvariations=5; colorchoice=2;  dirchoice = 4; break;
@@ -1563,6 +1630,38 @@ void editorboard::CreateLevel(editorboard* ed)
     ed->makeDefaultLevel();
    
 }
+void editorboard::MoveToLevelNumber(editorboard* ed, int x)
+{
+    int old = CurrentLevelNumber();
+    if (old == x) {
+        //nothing
+    } else if (old > x) {
+        //x -> x+1
+        //x+1 -> x+2
+        // ...
+        // x+t -> old
+        for (int y=old; y>x; y--) {
+            levelList[y].assign(&levelList[y-1]);
+        }
+        levelList[x].assign(&levelList[old]);
+        currentLevel = x;
+        
+    } else if (old < x) {
+        // old -> x
+        // x -> x-1
+        // x-1 -> x-2
+        // ...
+        // x-t -> old
+        for (int y=old; y<x; y++) {
+            levelList[y].assign(&levelList[y+1]);
+        }
+        levelList[x].assign(&levelList[old]);
+        currentLevel = x;
+    }
+    
+    
+}
+
 
 void editorboard::DeleteLevel(editorboard* ed)
 {
@@ -2646,11 +2745,78 @@ void drawWildCard( SDL_Surface * target, int x, int y, bool round)
     D.Draw(target,x,y);
 }
 
+Uint32 getHiddenWayFlagsByVariationAndDir(int variation, int direction)
+{
+    Uint32 flags = 0;
+    variation -= 2;
+    if (variation == 0) {
+        flags = 15; // 1111       
+    } else if (variation == 1) {
+        flags = 14; // 0111 - 1011 - 1101 - 1110
+    } else if (variation == 2) {
+        flags = 12; // 0011 - 0110 - 1100 - 1001 
+    } else if (variation == 3) {
+        flags = 10; // 0101 - 1010
+    } else if (variation == 4) {
+        flags =  8; // 0001 - 0010 - 0100 - 1000
+    } else if (variation == 5) {
+        flags =  0; // 0000
+    }
+    switch(direction)
+    {
+        case EDITORDIRECTION_DOWN: //bit 0 to 2
+            flags = ( ((flags<<2)&/*0b1111*/15) | (flags>>2) );
+            break;
+        case EDITORDIRECTION_UP: //bit 0 to 0
+            break;
+        case EDITORDIRECTION_LEFT: //bit 0 to 3
+            flags = ( ((flags<<3)&/*0b1111*/15) | (flags>>1) );
+            break;
+        case EDITORDIRECTION_RIGHT: //bit 0 to 1
+            flags = ( ((flags<<1)&/*0b1111*/15) | (flags>>3) );
+            break;
+    }
+    Uint32 up = flags&1;
+    Uint32 right = (flags>>1)&1;
+    Uint32 down = (flags>>2)&1;
+    Uint32 left = (flags>>3)&1;
+    flags = (up<<8)|(right<<6)|(down<<2)|(left<<4);
+    return flags;
+
+}
+
 void drawOneDir( SDL_Surface * target, int x, int y, int direction, int variation)
 {
     Uint8 tx,ty;
-    if(variation) //ground arrow
-    {
+    if (variation >= 2) {
+        Uint32 flags = getHiddenWayFlagsByVariationAndDir( variation, direction );
+        Uint32 up = (flags>>8)&1;
+        Uint32 right = (flags>>6)&1;
+        Uint32 down = (flags>>2)&1;
+        Uint32 left = (flags>>4)&1;
+
+        tx = 6; ty = 10;
+        Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
+        D.SetColors( &options::OneWayDoorColor, 255);
+        D.Draw(target,x,y);
+        
+        Sint16 k = sz/8;
+        Uint32 black = SDL_MapRGB(target->format,0,0,0 );
+        if (!up) {
+            SDL_FillRect(target, x,y+1,sz,k, black );
+        }
+        if (!down) {
+            SDL_FillRect(target, x,y+sz-k-1,sz,k, black );
+        }
+        if (!left) {
+            SDL_FillRect(target, x+1,y,k,sz, black );
+        }
+        if (!right) {
+            SDL_FillRect(target, x+sz-k-1,y,k,sz, black );
+        }
+        
+    } else if(variation) { //ground arrow
+    
         switch(direction)
         {
             case EDITORDIRECTION_DOWN:  tx=9; ty=11; break;
@@ -2661,9 +2827,7 @@ void drawOneDir( SDL_Surface * target, int x, int y, int direction, int variatio
         Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
         D.SetColors( &options::ForceArrowColor, 255);
         D.Draw(target,x,y);
-    }
-    else //door
-    {
+    } else {
         ty=10;
         if( (direction==EDITORDIRECTION_DOWN) || (direction==EDITORDIRECTION_UP) ) tx=7;
         else tx=8;

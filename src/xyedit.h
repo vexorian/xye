@@ -146,6 +146,9 @@ class editor
      
      static void continueAppendFile(bool okclicked, const string text, inputDialogData * dat);
      static void beginAppendFile(const buttondata* data);
+
+     static void continueChangeLevelNumber(bool okclicked, const string text, inputDialogData * dat);
+     static void beginChangeLevelNumber(const buttondata*data);
      
      
      static void onClearConfirmation(bool yes);
@@ -389,9 +392,11 @@ class editorboard: public control
     static void LoadLevelNumber(editorboard* ed, int num);
     static void DeleteLevel(editorboard * ed);
     static void CreateLevel(editorboard * ed);
+    static void MoveToLevelNumber(editorboard* ed, int x);
 
 
 
 };
 
 Uint8 getLargeBlockFlagsByVarDir( int variation, int direction);
+Uint32 getHiddenWayFlagsByVariationAndDir(int variation, int direction);

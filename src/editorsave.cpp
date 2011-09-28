@@ -444,13 +444,20 @@ void saveGroundObject(std::ofstream &file,boardelement &o, int x, int y)
 
 
         case EDOT_ONEDIRECTION:
-            if(o.variation) //ground arrow
-            {
+            if (o.variation >= 2) {
+                file<<"\t\t<hiddenway ";
+                Uint32 flags = getHiddenWayFlagsByVariationAndDir(o.variation, o.direction);
+                string ent = "";
+                for (int i=2; i<=8; i+=2) {
+                    if ( flags&(1<<i) ) {
+                        ent += ('0'+(char)i);
+                    }
+                }
+                file<<"ent='"<<ent<<"' ";
+            } else if(o.variation) {//ground arrow
                 file<<"\t\t<force ";
                 saveDirection(file,o);
-            }
-            else
-            {
+            } else {
                 file<<"\t\t<oneway ";
                 saveOppositeDirection(file,o);
             }

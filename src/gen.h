@@ -29,7 +29,7 @@ unsigned int MixColors(unsigned int A, unsigned int B);
 struct SDL_Color;
 SDL_Color& MixColors(SDL_Color& A, SDL_Color& B);
 
-bool TryS2I(std::string &str, int& r);
+bool TryS2I(const std::string &str, int& r);
 
 std::string GetFileNameNoExtension( const char* filename );
 std::string StripPath(const string filename);

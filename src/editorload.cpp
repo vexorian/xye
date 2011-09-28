@@ -496,6 +496,49 @@ bool editor_LoadLargeBlock(TiXmlElement * el)
     return true;
 }
 
+void AssignHiddenWayVarDirFromFlags( Uint32 flags , int &variation, int &direction)
+{
+    for (variation = 2; variation <= 7; variation++) {
+        for (direction = 0; direction < 4; direction++) {
+            if (flags == getHiddenWayFlagsByVariationAndDir(variation, direction)) {
+                return ;
+            }
+        }
+    }
+}
+
+bool editor_LoadHiddenWay(TiXmlElement * el)
+{
+    int x,y; if(!getGroundElementPosition(el,x,y)) return false;
+
+
+    const char * ptr=el->Attribute("ent");
+    if(! ptr)
+    {
+        ptr="2468";
+        cout << "Notice: using default entrances for hiddenway element.\n";
+    }
+    string v=ptr;
+    Uint32 flags = 0;
+    
+    for (int i=0; i<v.size(); i++) {
+        char ch = v[i];
+        if ( (ch>='2') && (ch<='8') ) {
+            flags |= ( 1 << ( ch-'0') );
+        } else {
+            cout << "Invalid/cannot understand entry point attributes for a <hiddenway> tag.\n";
+            return false;
+        }
+    }
+
+    boardelement &o=editorload_objects[x][y];
+    o.type=EDOT_ONEDIRECTION;
+    AssignHiddenWayVarDirFromFlags( flags , o.variation, o.direction);
+
+    return true;
+}
+
+
 bool loadPortalIssue = false;
 bool editor_LoadPortal(TiXmlElement * el)
 {
@@ -825,6 +868,7 @@ bool editor_LoadObjects(TiXmlElement* el)
         else if (v=="firepad")     { if (! editor_LoadGen(ch,EDOT_FIREPAD,0)) return false;}
         else if (v=="force") { if (! editor_LoadGenD(ch,EDOT_ONEDIRECTION,1)) return false; }
         else if (v=="oneway") { if (! editor_LoadGenDOpposite(ch,EDOT_ONEDIRECTION,0)) return false; }
+        else if (v=="hiddenway") { if (! editor_LoadHiddenWay(ch)) return false; }
 
         else if (v=="blockdoor") { if (! editor_LoadColorDoor(ch, 0)) return false; }
         else if (v=="blocktrap") { if (! editor_LoadColorDoor(ch, 2)) return false; }
