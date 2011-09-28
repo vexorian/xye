@@ -460,7 +460,7 @@ void editor::ResumeSection(window* wind)
     tmbut= new button(bx,0,bw,button::Size);
     tmbut->Icon(5,15);
     tmbut->toolTipControl = btt;
-    tmbut->toolTip = "[backspace] Return to level browser.";
+    tmbut->toolTip = "[Backspace] Return to level browser.";
     tmbut->onClick = editor::onBrowseClick;
     tmbut->depth=20;
     savebutton=tmbut;
@@ -487,7 +487,7 @@ void editor::ResumeSection(window* wind)
 
     tmbut->onClick = onPreviousLevelClick;
     tmbut->toolTipControl = btt;
-    tmbut->toolTip = "Edit previous level.";
+    tmbut->toolTip = "[P] Edit previous level.";
     tmbut->depth=20;
     previousbutton = tmbut;
     editorwindow->addControl(tmbut);
@@ -498,7 +498,7 @@ void editor::ResumeSection(window* wind)
     tmbut= new button(bx,0,bw,button::Size);
     tmbut->Icon(5,18);
     tmbut->toolTipControl = btt;
-    tmbut->toolTip = "Edit next level";
+    tmbut->toolTip = "[N] Edit next level";
     tmbut->onClick = onNextLevelClick;
     tmbut->depth=20;
     nextbutton = tmbut;
@@ -705,6 +705,23 @@ void editor::onKeyUp(SDLKey keysim, Uint16 unicode)
                 test(false);
             }
             break;
+        case (SDLK_s):
+            if( solutionbutton->Enabled ) {
+                playSolution(NULL);
+            }
+            break;
+        case(SDLK_PLUS): case(SDLK_KP_PLUS): case(SDLK_n): //Plus - N
+            if (nextbutton->Enabled) {
+                onNextLevelClick(NULL);
+            }
+            break;
+
+        case(SDLK_MINUS): case(SDLK_KP_MINUS): case(SDLK_b): case(SDLK_p): //Minus - b - p
+            if (previousbutton->Enabled) {
+                onPreviousLevelClick(NULL);
+            }
+            break;
+
     };
 }
 void editor::test(bool solution)
