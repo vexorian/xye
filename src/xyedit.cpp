@@ -2801,18 +2801,23 @@ void drawOneDir( SDL_Surface * target, int x, int y, int direction, int variatio
         D.Draw(target,x,y);
         
         Sint16 k = sz/8;
-        Uint32 black = SDL_MapRGB(target->format,0,0,0 );
+        Uint32 black = SDL_MapRGB(target->format, 0,0,0 );
+        Uint32 white = SDL_MapRGB(target->format, 255,255,255 );
         if (!up) {
-            SDL_FillRect(target, x,y+1,sz,k, black );
+            SDL_FillRect(target, x+k-1,y+k-1,sz-2*k+2,k+2, white );
+            SDL_FillRect(target, x+k,y+k,sz-2*k,k, black );
         }
         if (!down) {
-            SDL_FillRect(target, x,y+sz-k-1,sz,k, black );
+            SDL_FillRect(target, x+k-1,y+sz-2*k-1,sz-2*k+2,k+2, white );
+            SDL_FillRect(target, x+k,y+sz-2*k,sz-2*k,k, black );
         }
         if (!left) {
-            SDL_FillRect(target, x+1,y,k,sz, black );
+            SDL_FillRect(target, x+k-1, y+k-1, k+2,sz-2*k+2, white );
+            SDL_FillRect(target, x+k,y+k,k,sz-2*k, black );
         }
         if (!right) {
-            SDL_FillRect(target, x+sz-k-1,y,k,sz, black );
+            SDL_FillRect(target, x+sz-2*k-1,y+k-1, k+2,sz-2*k+2, white );
+            SDL_FillRect(target, x+sz-2*k,y+k,k,sz-2*k, black );
         }
         
     } else if(variation) { //ground arrow
