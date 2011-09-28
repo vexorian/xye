@@ -109,7 +109,7 @@ SDL_Color& MixColors(SDL_Color& A, SDL_Color& B)
     return (*R);
 }
 
-bool TryS2I(std::string &str, int& r)
+bool TryS2I(const std::string &str, int& r)
 {
     return (sscanf(str.c_str(),"%d", &r)==1);
 }
