@@ -627,6 +627,7 @@ void editor::ResumeSection(window* wind)
 
     buttons = new editorbuttons(5, XYE_VERT*sz + by+8+sz , Width-10, 2+(sz+2)*4 );
 
+
     board->depth = 3;
     buttons->depth = 3;
 
@@ -733,6 +734,7 @@ void editor::test(bool solution)
         return;
     }
     editorboard::SaveCopy(editor::board);
+    buttons->SaveCopy();
     game::TestLevel(nfilename.c_str(), 1, solution);
 }
 
@@ -765,6 +767,7 @@ void editorbuttons::setInfo(const string & msg)
 
 editorbuttons::editorbuttons(int sx, int sy, int sw, int sh)
 {
+    saved = false;
     depth=0;
     x=sx;y=sy;w=sw;h=sh;
     mousex=mousey=0;
@@ -887,6 +890,9 @@ editorbuttons::editorbuttons(int sx, int sy, int sw, int sh)
     SelectedObjectType= EDOT_NONE;
     Eraser=true;
 
+    if (copy.saved) {
+        LoadCopy();
+    }
 }
 
 singleobject * editorbuttons::getbuttonbyxy(int x, int y)
@@ -1007,7 +1013,72 @@ void ifnotnullselect(singleobject*s)
     if(s!=NULL) s->selected=true;
 }
 
+void editorbuttons::handleClick(singleobject* target)
+{
+    switch(target->content)
+    {
+        case CONTENT_NOCONTENT:
+            if(clickedempty==target) break;
+            ifnotnulldeselect(clickedempty);
+            ifnotnulldeselect(selection);
+            target->selected=true;
+            clickedempty=target;
+            text="Eraser tool";
+            Eraser=true;
+            break;
 
+        case CONTENT_CHANGEOBJECT:
+
+            ifnotnulldeselect(clickedempty); clickedempty=NULL;
+            ifnotnulldeselect(clickedobject);
+            ifnotnulldeselect(selection);
+
+
+            switchToObject(target->type,target->color,target->round,target->variation, target->direction);
+            target->selected=true;
+            selection=clickedobject=target;
+            break;
+
+        case CONTENT_RECOLOR:
+            ifnotnulldeselect(clickedempty); clickedempty=NULL;
+            ifnotnulldeselect(selection);
+            switchToObject(SelectedObjectType,target->color, SelectedRound, SelectedVariation, SelectedDirection);
+            target->selected=true;
+
+            clickedobject->color=target->color;
+            selection=target;
+            break;
+
+        case CONTENT_DIRECTION:
+            ifnotnulldeselect(clickedempty); clickedempty=NULL;
+            ifnotnulldeselect(selection);
+            switchToObject(SelectedObjectType,SelectedColor, SelectedRound, SelectedVariation, target->direction);
+            target->selected=true;
+
+            clickedobject->direction=target->direction;
+            selection=target;
+            break;
+
+        case CONTENT_VARIATION:
+            ifnotnulldeselect(clickedempty); clickedempty=NULL;
+            ifnotnulldeselect(selection);
+            switchToObject(SelectedObjectType,SelectedColor, SelectedRound, target->variation, SelectedDirection);
+            target->selected=true;
+
+            clickedobject->variation=target->variation;
+            selection=target;
+            break;
+
+        case CONTENT_MAKEROUND:
+            ifnotnulldeselect(clickedempty); clickedempty=NULL;
+            ifnotnulldeselect(selection);
+            switchToObject(SelectedObjectType,SelectedColor, target->round, SelectedVariation, SelectedDirection);
+            target->selected=true;
+
+            clickedobject->round=target->round;
+            selection=target;
+    }
+}
 
 void editorbuttons::onMouseUp(int px,int py)
 {
@@ -1016,71 +1087,7 @@ void editorbuttons::onMouseUp(int px,int py)
     Eraser=false;
     if(target)
     {
-        switch(target->content)
-        {
-            case CONTENT_NOCONTENT:
-                if(clickedempty==target) break;
-                ifnotnulldeselect(clickedempty);
-                ifnotnulldeselect(selection);
-                target->selected=true;
-                clickedempty=target;
-                text="Eraser tool";
-                Eraser=true;
-                break;
-
-            case CONTENT_CHANGEOBJECT:
-
-                ifnotnulldeselect(clickedempty); clickedempty=NULL;
-                ifnotnulldeselect(clickedobject);
-                ifnotnulldeselect(selection);
-
-
-                switchToObject(target->type,target->color,target->round,target->variation, target->direction);
-                target->selected=true;
-                selection=clickedobject=target;
-                break;
-
-            case CONTENT_RECOLOR:
-                ifnotnulldeselect(clickedempty); clickedempty=NULL;
-                ifnotnulldeselect(selection);
-                switchToObject(SelectedObjectType,target->color, SelectedRound, SelectedVariation, SelectedDirection);
-                target->selected=true;
-
-                clickedobject->color=target->color;
-                selection=target;
-                break;
-
-            case CONTENT_DIRECTION:
-                ifnotnulldeselect(clickedempty); clickedempty=NULL;
-                ifnotnulldeselect(selection);
-                switchToObject(SelectedObjectType,SelectedColor, SelectedRound, SelectedVariation, target->direction);
-                target->selected=true;
-
-                clickedobject->direction=target->direction;
-                selection=target;
-                break;
-
-            case CONTENT_VARIATION:
-                ifnotnulldeselect(clickedempty); clickedempty=NULL;
-                ifnotnulldeselect(selection);
-                switchToObject(SelectedObjectType,SelectedColor, SelectedRound, target->variation, SelectedDirection);
-                target->selected=true;
-
-                clickedobject->variation=target->variation;
-                selection=target;
-                break;
-
-            case CONTENT_MAKEROUND:
-                ifnotnulldeselect(clickedempty); clickedempty=NULL;
-                ifnotnulldeselect(selection);
-                switchToObject(SelectedObjectType,SelectedColor, target->round, SelectedVariation, SelectedDirection);
-                target->selected=true;
-
-                clickedobject->round=target->round;
-                selection=target;
-
-
-        }
+        handleClick( target );
     }
 }
 
@@ -1143,6 +1150,26 @@ void editorbuttons::draw(SDL_Surface* target)
     int tx=(w-tw)/2;
 
     editor::FontRes->Write(target,x+tx,ty,c);
+
+}
+
+editorbuttons editorbuttons::copy(0,0,0,0);
+void editorbuttons::SaveCopy() {
+    copy.saved = true;
+    for (int i=0;i<EDITORBUTTONS_COUNTX;i++) {
+        for (int j=0;j<EDITORBUTTONS_COUNTY;j++) {
+            copy.buttons[i][j] = buttons[i][j]; 
+        }
+    }
+
+}
+void editorbuttons::LoadCopy() {
+    for (int i=0;i<EDITORBUTTONS_COUNTX;i++) {
+        for (int j=0;j<EDITORBUTTONS_COUNTY;j++) {
+            buttons[i][j] = copy.buttons[i][j]; 
+            buttons[i][j].selected = false;
+        }
+    }
 
 }
 
