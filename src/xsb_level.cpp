@@ -258,6 +258,28 @@ const char* XsbLevelPack::ReadData(const char* path,unsigned int &n, string&auth
     {
         return ReadDataSLC(path, n, author, description, title);
     }
+    {
+        //Hardcode the description for microban.
+        string spath = path;
+        int len = spath.size();
+        if ( len >= 19 && spath.substr(len-19)=="levels/microban.xsb" ) {
+            n = 155;
+            author ="David W Skinner";
+            description =
+            "Microban (155 puzzles, revised April, 2000) This is a good set for"
+            " beginners and children. Most of the puzzles are small and illustrate a"
+            " particular concept. More experienced players should also find them"
+            " interesting, since they are as different from each other as I could"
+            " make them given their size. Sokoholics could perhaps time themselves"
+            " on completing the whole set. This set also contains puzzles which I"
+            " thought were interesting but too easy to include in my regular sets.\n\n"
+            "http://users.bentonrea.com/~sasquatch/sokoban/";
+
+            title = "Microban";
+            return NULL;
+            
+        }
+    }
     
     n=0;
     std::ifstream fl ;
@@ -685,7 +707,8 @@ bool EnsurePath(unsigned char x,unsigned char y,int*mem,bool nowall,blockcolor b
     }
     else if (wallcheck)
         mem[y*XYE_HORZ+x]=memv+1;
-    //else
+
+    //else
     //    printf("??");
 
     /*if  (EnsurePath(tx4,ty4,mem,false,bc)) return (mem[y*XYE_HORZ+x]=1);*/
