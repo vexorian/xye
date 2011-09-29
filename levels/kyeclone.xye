@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <pack>
 <name>Attack of the clone</name><author>vexorian</author>
-<description>Some simple levels. All the levels but the last one use only objects from classic Kye as this level is meant to be an introduction to its concepts.</description>
+<description>Some very simple levels. All of these levels but the last one use only objects from classic Kye as this level is meant to be an introduction to its concepts.</description>
 
 <level>
 <title>Welcome!</title>
-<hint>An evil clone has used a time machine to take you to the past. Your fate is now to solve the riddles from another time! Get the diamond.</hint>
+<hint>An evil clone has used a time machine to take you to the past. Your fate is now to solve the riddles from another time! First something easy, get the diamond.</hint>
 <bye>That was easy... ... perhaps, too easy?</bye>
 	<ground>
 	</ground>
