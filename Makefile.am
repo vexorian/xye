@@ -12,7 +12,7 @@ doce_DATA = README GAMEINTRO.txt xye.svg NEWS COPYING AUTHORS INSTALL
 
 levelsdir= $(datadir)/@PACKAGE@/levels
 levels_DATA = levels/5levels.xye \
-levels/kye.xye \
+levels/kyeclone.xye \
 levels/levels.xye \
 levels/logo.xye \
 levels/Mic4.xye \
