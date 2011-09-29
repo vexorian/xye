@@ -279,7 +279,7 @@ bool IsNormalChar(const char &a)
 
 void Font::WriteWrap(SDL_Surface* Surface, int x, int y, int w, int h,const char* text) const
 {
-    char word[21];
+    char word[25];
     int wi,autoprint;
     const char* c;
     int charoffset;
@@ -456,7 +456,7 @@ void Font::WriteWrap(SDL_Surface* Surface, int x, int y, int w, int h,const char
 std::vector<std::string> Font::splitByLines(const char* text, int w) const
 {
     std::vector<std::string> r;
-    char word[21];
+    char word[25];
     int wi,autoprint;
     int charoffset;
 
