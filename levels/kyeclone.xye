@@ -3174,7 +3174,9 @@
 <level>
 <title>All your powers combined.</title>
 <hint>Make sure to do it in the correct order.</hint>
-<bye>Good job! . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ... Wait... Who&apos;sthat? Watch out!</bye>
+<bye>Good job! . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . ... Wait... Who&apos;s that? Watch out!</bye>
 	<ground>
 	</ground>
 	<objects>
