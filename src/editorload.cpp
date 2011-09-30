@@ -1079,7 +1079,7 @@ void loadKyeChar( char ch, boardelement & o , int x)
         break;
 
     case '(': case')': case'_': case'\'':  //Kye 3.0's teleport
-        o.type = EDOT_ONEDIRECTION;
+        o.type = EDOT_TELEPORT;
         o.variation = 0;
         switch (ch) {
             case ')': o.direction=EDITORDIRECTION_LEFT; break;
