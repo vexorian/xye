@@ -70,9 +70,6 @@ void loadFileToLines(std::ifstream & fl)
     bool ignoren = false;
     while (! fl.eof() ) {
         fl.read(&ch,1);
-        if(ch == '\n' || ch=='\r') {
-            cout<<" NOBINARY ........"<<endl;
-        }
         if (ch == '\n' && ignoren) {
             ignoren = false;
             continue;
@@ -335,15 +332,11 @@ const char* XsbLevelPack::ReadData(const char* path,unsigned int &n, string&auth
         return ("The file is empty");
     }
     loadFileToLines(fl);
-    for (int i=0; i<fileLineN; i++) {
-        cout<<"{"<<fileLine[i]<<"}"<<endl;
-    }
     
     std::string line;
     unsigned int L;
 
     unsigned char cw,ch,aux;
-    cout<<"!!!!!!!!!!!!!! {"<<endl;
     int lpos = 0;
     while (lpos < fileLineN) {
         do {
@@ -371,10 +364,8 @@ const char* XsbLevelPack::ReadData(const char* path,unsigned int &n, string&auth
             ch=cw;
             cw=ch;
         }
-        cout<<"LEVEL "<<(int)cw<<" ; "<<(int)ch<<endl;
         if ((cw<=XYE_HORZ) && (cw>=1) && (ch>=1) && (ch<=XYE_VERT)) {
             n++;
-            cout<<"NEW "<<n<<endl;
         }
     }
     fl.close();
