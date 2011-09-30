@@ -24,6 +24,9 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include "xye_script.h"
 #include "xsb_level.h"
 
+
+
+
 /** Class XsbLevelPack start **/
 class XsbLevel
 {
@@ -46,20 +49,60 @@ public:
 };
 
 
+vector<string> fileLine;
+int            fileLineN = 0;
+
+void addLine(const string s)
+{
+    if(fileLineN == fileLine.size()) {
+        fileLine.push_back(s);
+        fileLineN++;
+    } else {
+        fileLine[fileLineN++] = s;
+    }
+}
+
+void loadFileToLines(std::ifstream & fl)
+{
+    fileLineN = 0;
+    string line;
+    char ch;
+    bool ignoren = false;
+    while (! fl.eof() ) {
+        fl.read(&ch,1);
+        if(ch == '\n' || ch=='\r') {
+            cout<<" NOBINARY ........"<<endl;
+        }
+        if (ch == '\n' && ignoren) {
+            ignoren = false;
+            continue;
+        }
+        bool br = false;
+        if (ch == '\r') {
+            ignoren = true;
+            br = true;
+        } else if (ch == '\n') {
+            br = true;
+        } else {
+            line += ch;
+        }
+        if (br) {
+            addLine(line);
+            line = "";
+        }
+    }
+    if (line !="") {
+        addLine(line);
+    }
+}
+
+
+
 XsbLevel* XsbLevelPack::First=NULL;
 XsbLevel* XsbLevelPack::Final=NULL;
 XsbLevel* XsbLevelPack::CurrentLevel;
 unsigned int XsbLevelPack::tn;
 
-void getline_xplt2(std::ifstream &a, std::string &l)
-{
-    getline(a,l);
-    int L=l.length();
-    if ((L>1) && (l[L-1]=='\r'))
-    {
-        l = l.substr(0,L-1);
-    }
-}
 
 
 
@@ -80,10 +123,9 @@ bool IsValidXsbLine(std::string &s)
     for (i=0;i<L;i++)
     {
         c=s[i];
-
-
-        if ((c!='@') && (c!='+') && (c!='#') && (c!='$') && (c!='.') && (c!=' ') && (c!='*'))
-          return false;
+        if ((c!='@') && (c!='+') && (c!='#') && (c!='$') && (c!='.') && (c!=' ') && (c!='*')) {
+            return false;
+        }
     }
     return true;
 }
@@ -283,33 +325,45 @@ const char* XsbLevelPack::ReadData(const char* path,unsigned int &n, string&auth
     
     n=0;
     std::ifstream fl ;
-    fl.open(path,std::ios::in);
-    if (! fl.is_open()) return ("Unable to open file");
+    fl.open(path,std::ios::in | std::ios::binary);
+    if (! fl.is_open()) {
+        return ("Unable to open file");
+    }
     if (fl.eof())
     {
         fl.close();
         return ("The file is empty");
     }
+    loadFileToLines(fl);
+    for (int i=0; i<fileLineN; i++) {
+        cout<<"{"<<fileLine[i]<<"}"<<endl;
+    }
+    
     std::string line;
     unsigned int L;
 
     unsigned char cw,ch,aux;
-    while (! fl.eof())
-    {
-        do
-        {
-            getline_xplt2 (fl,line);
-        }
-        while (! IsValidXsbLine(line)  && ! fl.eof());
-        if (fl.eof()) break;
+    cout<<"!!!!!!!!!!!!!! {"<<endl;
+    int lpos = 0;
+    while (lpos < fileLineN) {
+        do {
+            line = fileLine[lpos++];
+        } while (! IsValidXsbLine(line)  && (lpos < fileLineN) );
+        
+        if (lpos >= fileLineN) break;
+
         cw=0;
         ch=0;
-        while (IsValidXsbLine(line) && ! fl.eof())
+        while (IsValidXsbLine(line))
         {
             L=RealSokoLineLength(line);
             ch++;
             cw=(L>cw)?L:cw;
-            getline_xplt2 (fl,line);
+            if (lpos < fileLineN) {
+                line =  fileLine[lpos++];
+            } else {
+                break;
+            }
         }
         if (cw<ch)
         {
@@ -317,12 +371,17 @@ const char* XsbLevelPack::ReadData(const char* path,unsigned int &n, string&auth
             ch=cw;
             cw=ch;
         }
-        if ((cw<=XYE_HORZ) && (cw>=1) && (ch>=1) && (ch<=XYE_VERT))
+        cout<<"LEVEL "<<(int)cw<<" ; "<<(int)ch<<endl;
+        if ((cw<=XYE_HORZ) && (cw>=1) && (ch>=1) && (ch<=XYE_VERT)) {
             n++;
+            cout<<"NEW "<<n<<endl;
+        }
     }
     fl.close();
-    if (!n)
-        return "Could not find compatible xsb levels";
+    
+    if (n==0) {
+        return "Could not find compatible xsb levels.";
+    }
 
     author = "";
     description = "This file contains Sokoban levels in standard (text) format.";
@@ -358,9 +417,13 @@ void XsbLevelPack::Load(const char* filename, unsigned int ln)
     
     std::string line;
     std::ifstream fl ;
-    fl.open(filename,std::ios::in);
+    fl.open(filename,std::ios::in | std::ios::binary);
     if (! fl.is_open()) return LevelPack::Error("Unable to load level file (.Xsb) (stream error)");
     if (fl.eof()) return LevelPack::Error("Level File is empty");
+    
+    loadFileToLines(fl);
+    
+    
     std::string buf;
     unsigned char ch,cw,i,j;
     unsigned int k,L;
@@ -368,14 +431,16 @@ void XsbLevelPack::Load(const char* filename, unsigned int ln)
     char c;
     tn=0;
     XsbLevel* current;
-    while (!fl.eof())
-    {
+    
+    int lpos = 0;
+    while (lpos < fileLineN) {
         //Non-necessary things:
         do
         {
-            getline_xplt2 (fl,line);
-        } while ( (! IsValidXsbLine(line)) &&(! fl.eof())   );
-        if (fl.eof()) break;
+            line = fileLine[lpos++];
+
+        } while ( (! IsValidXsbLine(line)) && (lpos < fileLineN)   );
+        if (lpos >= fileLineN) break;
         buf="";
         ch=0;
         cw=0;
@@ -387,12 +452,13 @@ void XsbLevelPack::Load(const char* filename, unsigned int ln)
             line.erase(L);
             buf+=line;
             buf+=';'; //separator
-            if (fl.eof())
+            if (lpos >= fileLineN)
             {
                 line="";
                 break;
+            } else {
+                line = fileLine[lpos++];
             }
-            getline_xplt2 (fl,line);
 
         }
         if (((cw>XYE_HORZ) && (ch>cw)) || ((ch>XYE_VERT) && (cw>ch)) || (ch>XYE_HORZ) || (cw>XYE_VERT) || (ch==0) || (cw==0))
