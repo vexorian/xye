@@ -750,6 +750,34 @@ void editor::playSolution(const buttondata*data)
     test(true);
 }
 
+class passHintObject: public inputDialogData
+{
+public:
+    boardelement* o;
+};
+
+void editor::continueAskHint(bool okclicked, const string text, inputDialogData * dat)
+{
+    if (!okclicked) {
+        return;
+    }
+    passHintObject * dt = static_cast<passHintObject*>(dat);
+    boardelement*o = dt->o;
+    o->hint = text;
+}
+
+void editor::askHint(boardelement* o) {
+    string oldhint = "";
+    if (o->type == EDOT_HINT) {
+        oldhint = o->hint;
+    } else {
+        return ;
+    }
+    passHintObject * dat = new passHintObject();
+    dat->o = o;
+    dialogs::makeTextInputDialog(editorwindow,"Type the hint", oldhint, 1, "Ok", "Cancel", continueAskHint, dat);
+}
+
 /*********** Plenty of object handling ***/
 
 
@@ -887,6 +915,10 @@ editorbuttons::editorbuttons(int sx, int sy, int sw, int sh)
     buttons[++bp][1].content=CONTENT_CHANGEOBJECT;
     buttons[bp][1].type=EDOT_DANGERFACTORY;
 
+    buttons[0][2].content=CONTENT_CHANGEOBJECT;
+    buttons[0][2].type=EDOT_HINT;
+    
+    
     SelectedObjectType= EDOT_NONE;
     Eraser=true;
 
@@ -1453,6 +1485,13 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
             text = GetMonsterName(variation);
 
             break;
+        case EDOT_HINT:
+            if(variation) {
+                text = "Set hint text.";
+            } else {
+                text = "Place hint.";
+            }
+            break;
         default:
             text = "unknown";
     }
@@ -1497,6 +1536,7 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
         case EDOT_PUSHER: colorchoice=1;  dirchoice = 4; break;
 
         case EDOT_HAZARD: maxvariations=3; break;
+            case EDOT_HINT: maxvariations=2; break;
         case EDOT_ONEDIRECTION: maxvariations=8;  dirchoice = 4; break;
         case EDOT_BEAST: maxvariations=14; dirchoice = 4; break;
 
@@ -1512,7 +1552,7 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
 
     int roundstart=0;
     int colorstart=3;
-    int variationstart=0;
+    int variationstart=2;
     int colorcount=0;
     int dirstart=0;
     if(colorchoice == 4) colorcount=7;
@@ -1588,8 +1628,8 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
     if(maxvariations>0)
     {
         variationstart = lastclickedx - maxvariations/2;
-        if (variationstart < 0) {
-            variationstart = 0;
+        if (variationstart < 2) {
+            variationstart = 2;
         }
         
         // { variationstart + maxvariations-1 < EDITORBUTTONS_COUNTX }
@@ -1618,10 +1658,12 @@ void editorbuttons::switchToObject( editorobjecttype ot, editorcolor color, bool
             singleobject &o=buttons[i][0];
             o.content=CONTENT_NOCONTENT;
             o.selected=false;
-
-            singleobject &p=buttons[i][2];
-            p.content=CONTENT_NOCONTENT;
-            p.selected=false;
+            
+            if (i>=2) {
+                singleobject &p=buttons[i][2];
+                p.content=CONTENT_NOCONTENT;
+                p.selected=false;
+            }
         }
 
         extendButtons(ot,color,round,variation);
@@ -2141,7 +2183,13 @@ void editorboard::applyFromButtons(int x, int y)
             break;
     }
 
-
+    if (editor::buttons->SelectedObjectType == EDOT_HINT) {
+        if (editor::buttons->SelectedVariation == 1) {
+            editor::askHint(&o);
+            return;
+        }
+        
+    }
     o.type=editor::buttons->SelectedObjectType;
     o.color=editor::buttons->SelectedColor;
     o.variation=editor::buttons->SelectedVariation;
@@ -2756,9 +2804,12 @@ void drawBot( SDL_Surface * target, int x, int y)
     D.Draw(target,x,y);
 }
 
-void drawHint( SDL_Surface * target, int x, int y)
+void drawHint( SDL_Surface * target, int x, int y, bool trans)
 {
     Drawer D(editor::sprites,6*sz,3*sz,sz,sz);
+    if (trans) {
+        D.SetColors(255,255,255, 128);
+    }
     D.Draw(target,x,y);
 }
 
@@ -3051,7 +3102,7 @@ void drawObjectBySpecs( SDL_Surface * target, int x, int y, editorobjecttype ot,
         case EDOT_GEM: drawGem(target,x,y,color); break;
         case EDOT_WALL: drawWall(target,x,y,round,variation); break;
         case EDOT_BLOCK: drawBlock(target,x,y,round,color); break;
-        case EDOT_HINT: drawHint(target,x,y); break;
+        case EDOT_HINT: drawHint(target,x,y, variation==1); break;
         case EDOT_LARGEBLOCK: drawLargeBlock(target,x,y,color,variation, direction); break;
         case EDOT_PORTAL: drawPortal(target,x,y,color,variation); break;
         case EDOT_COLORFACTORY: drawColorFactory(target,x,y,round, color,variation, direction); break;
