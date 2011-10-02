@@ -101,6 +101,7 @@ enum editorcolor
 };
 
 struct TiXmlElement;
+struct boardelement;
 
 class editor
 {
@@ -167,6 +168,7 @@ class editor
      static bool load_kye(); //implemented in editorload.cpp
      static bool load_KyeFormat(TiXmlElement * el); //implemented in editorload.cpp
 
+     static void continueAskHint(bool okclicked, const string text, inputDialogData * dat);
  public:
 
      static string filename;
@@ -215,6 +217,7 @@ class editor
     static void ResumeSection(window* wind)  ;
     static void ResumeSectionAndQuit(window* wind)  ;
     
+    static void askHint(boardelement* o);
     
     
 };
