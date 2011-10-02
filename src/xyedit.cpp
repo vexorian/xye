@@ -767,12 +767,7 @@ void editor::continueAskHint(bool okclicked, const string text, inputDialogData 
 }
 
 void editor::askHint(boardelement* o) {
-    string oldhint = "";
-    if (o->type == EDOT_HINT) {
-        oldhint = o->hint;
-    } else {
-        return ;
-    }
+    string oldhint = o->hint;
     passHintObject * dat = new passHintObject();
     dat->o = o;
     dialogs::makeTextInputDialog(editorwindow,"Type the hint", oldhint, 1, "Ok", "Cancel", continueAskHint, dat);
@@ -1486,11 +1481,7 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
 
             break;
         case EDOT_HINT:
-            if(variation) {
-                text = "Set hint text.";
-            } else {
-                text = "Place hint.";
-            }
+            text = "Place / Edit hint.";
             break;
         default:
             text = "unknown";
@@ -1536,7 +1527,6 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
         case EDOT_PUSHER: colorchoice=1;  dirchoice = 4; break;
 
         case EDOT_HAZARD: maxvariations=3; break;
-            case EDOT_HINT: maxvariations=2; break;
         case EDOT_ONEDIRECTION: maxvariations=8;  dirchoice = 4; break;
         case EDOT_BEAST: maxvariations=14; dirchoice = 4; break;
 
@@ -1928,6 +1918,23 @@ void editorboard::onMouseDown(int px,int py)
 void editorboard::onMouseUp(int px,int py)
 {
     clicked=false;
+    if ( editor::buttons->SelectedObjectType == EDOT_HINT ) {
+        int x = px/sz, y = py/sz; 
+        if ( (x<0) || (y<0) || (x>=XYE_HORZ) || (y>=XYE_VERT) ) {
+            return ;
+        }
+    
+    
+        editor::SavedFile=false;
+        boardelement &o=objects[x][y];
+        o.type = EDOT_HINT;
+        
+        if (editor::buttons->SelectedObjectType == EDOT_HINT) {
+            editor::askHint(&o);
+        }
+
+    }
+
 }
 
 
@@ -2182,13 +2189,9 @@ void editorboard::applyFromButtons(int x, int y)
             enforceUniquePortals(x,y, editor::buttons->SelectedVariation, editor::buttons->SelectedColor);
             break;
     }
-
+    //Hints are a special case, because we only want the input dialog to appear once.
     if (editor::buttons->SelectedObjectType == EDOT_HINT) {
-        if (editor::buttons->SelectedVariation == 1) {
-            editor::askHint(&o);
-            return;
-        }
-        
+        return;
     }
     o.type=editor::buttons->SelectedObjectType;
     o.color=editor::buttons->SelectedColor;
@@ -3102,7 +3105,7 @@ void drawObjectBySpecs( SDL_Surface * target, int x, int y, editorobjecttype ot,
         case EDOT_GEM: drawGem(target,x,y,color); break;
         case EDOT_WALL: drawWall(target,x,y,round,variation); break;
         case EDOT_BLOCK: drawBlock(target,x,y,round,color); break;
-        case EDOT_HINT: drawHint(target,x,y, variation==1); break;
+        case EDOT_HINT: drawHint(target,x,y, false); break;
         case EDOT_LARGEBLOCK: drawLargeBlock(target,x,y,color,variation, direction); break;
         case EDOT_PORTAL: drawPortal(target,x,y,color,variation); break;
         case EDOT_COLORFACTORY: drawColorFactory(target,x,y,round, color,variation, direction); break;
