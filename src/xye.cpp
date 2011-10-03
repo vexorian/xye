@@ -2205,7 +2205,7 @@ bool game::Moved(edir d)
 
 bool game::IsUndoAllowed()
 {
-    return ( ((options::UndoEnabled() || xye_fromeditortest) && ! xye_recordingsolution) || LevelPack::AllowUndo() );
+    return ( ((options::UndoEnabled() || xye_fromeditortest) /*&& ! xye_recordingsolution*/) || LevelPack::AllowUndo() );
 }
 
 void game::Undo()
