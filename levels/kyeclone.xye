@@ -3357,6 +3357,383 @@
 </level>
 
 <level>
+<title>Appeal to obscurity</title>
+<hint>Observe how pushers and black holes behave together.</hint>
+	<ground>
+		<hint x='5' y='7' >The star challenge is optional - You can finish the level by  getting the gems and ignoring the star. But if you wish to have an extra challenge, try getting the star AND the gems. The star challenge is usually much harder than just getting the gems.</hint>	</ground>
+	<objects>
+		<wall x='0' y='8' />
+		<star y='7' />
+		<wall y='6' />
+		<wall x='1' y='8' round3='1' round9='1' />
+		<wall y='6' round3='1' round9='1' />
+		<wall x='2' y='9' round1='1' round7='1' round3='1' round9='1' />
+		<wall y='5' round1='1' round7='1' round3='1' round9='1' />
+		<wall x='3' y='10' round1='1' round7='1' round3='1' round9='1' />
+		<wall y='7' round1='1' round7='1' round3='1' round9='1' />
+		<wall y='4' round1='1' round7='1' round3='1' round9='1' />
+		<wall x='4' y='11' round1='1' round7='1' round3='1' round9='1' />
+		<wall y='3' round1='1' round7='1' round3='1' round9='1' />
+		<wall x='5' y='12' round1='1' round7='1' round3='1' round9='1' />
+		<wall y='2' round1='1' round7='1' round3='1' round9='1' />
+		<block x='6' y='10' bc='Y' />
+		<magnet y='9' kind='0' />
+		<magnet y='5' kind='0' />
+		<block y='4' bc='Y' />
+		<arrow dir='L' x='7' y='10' bc='Y' round='1' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='6' />
+		<wall y='5' />
+		<arrow dir='L' y='4' bc='Y' round='1' />
+		<block x='8' y='10' bc='Y' />
+		<magnet y='9' kind='0' />
+		<magnet y='5' kind='0' />
+		<block y='4' bc='Y' />
+		<wall x='9' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<arrow dir='L' y='10' bc='Y' round='1' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='6' />
+		<wall y='5' />
+		<arrow dir='L' y='4' bc='Y' round='1' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='10' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='11' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<arrow dir='D' y='16' bc='Y' />
+		<pusher y='15' dir='D' bc='Y' />
+		<earth y='14' />
+		<earth y='13' />
+		<blacky y='12' />
+		<blacky y='11' />
+		<blacky y='10' />
+		<wall y='9' />
+		<block y='8' bc='Y' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='12' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='13' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='10' />
+		<wall y='9' />
+		<block y='8' bc='Y' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='14' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='15' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<arrow dir='D' y='16' bc='Y' />
+		<pusher y='15' dir='D' bc='Y' />
+		<block y='14' bc='Y' />
+		<earth y='13' />
+		<blacky y='12' />
+		<blacky y='11' />
+		<blacky y='10' />
+		<wall y='9' />
+		<block y='8' bc='Y' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='16' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='17' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='10' />
+		<wall y='9' />
+		<block y='8' bc='Y' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='18' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='19' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<magnet y='12' kind='0' />
+		<pusher y='11' dir='R' bc='Y' />
+		<block y='9' bc='Y' />
+		<block y='7' bc='Y' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='20' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='6' />
+		<earth y='5' />
+		<gem y='4' bc='B' />
+		<wall y='3' round9='1' />
+		<wall y='2' round3='1' />
+		<earth y='1' />
+		<wall y='0' />
+		<wall x='21' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='6' />
+		<earth y='4' />
+		<earth y='3' />
+		<gem y='2' bc='B' />
+		<earth y='1' />
+		<wall y='0' />
+		<wall x='22' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<blacky y='11' />
+		<wall y='9' />
+		<beast y='8' dir='R' kind='3' />
+		<magnet y='7' kind='0' />
+		<wall y='6' />
+		<earth y='5' />
+		<wall y='4' />
+		<earth y='3' />
+		<earth y='2' />
+		<gem y='1' bc='B' />
+		<wall y='0' />
+		<wall x='23' y='19' />
+		<gem y='18' bc='B' />
+		<earth y='17' />
+		<arrow dir='D' y='16' bc='Y' />
+		<arrow dir='D' y='15' bc='Y' />
+		<arrow dir='D' y='14' bc='Y' />
+		<arrow dir='D' y='13' bc='Y' />
+		<earth y='12' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='24' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='9' />
+		<beast y='8' dir='R' kind='3' />
+		<magnet y='7' kind='0' />
+		<wall y='6' />
+		<earth y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' round3='1' />
+		<arrow dir='U' y='1' bc='Y' round='1' />
+		<wall y='0' />
+		<wall x='25' y='19' />
+		<gem y='18' bc='B' />
+		<earth y='17' />
+		<arrow dir='D' y='16' bc='Y' />
+		<arrow dir='D' y='15' bc='Y' />
+		<arrow dir='D' y='14' bc='Y' />
+		<arrow dir='D' y='13' bc='Y' />
+		<earth y='12' />
+		<wall y='4' />
+		<wall y='3' round3='1' />
+		<arrow dir='U' y='2' bc='Y' round='1' />
+		<arrow dir='U' y='1' bc='Y' round='1' />
+		<wall y='0' />
+		<wall x='26' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='10' round7='1' round9='1' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<earth y='5' />
+		<wall y='4' round3='1' round9='1' />
+		<arrow dir='U' y='3' bc='Y' round='1' />
+		<arrow dir='U' y='2' bc='Y' round='1' />
+		<arrow dir='U' y='1' bc='Y' round='1' />
+		<wall y='0' />
+		<wall x='27' y='19' />
+		<gem y='18' bc='B' />
+		<earth y='17' />
+		<arrow dir='D' y='16' bc='Y' />
+		<arrow dir='D' y='15' bc='Y' />
+		<arrow dir='D' y='14' bc='Y' />
+		<arrow dir='D' y='13' bc='Y' />
+		<earth y='12' />
+		<earth y='5' />
+		<arrow dir='U' y='4' bc='Y' round='1' />
+		<arrow dir='U' y='3' bc='Y' round='1' />
+		<arrow dir='U' y='2' bc='Y' round='1' />
+		<arrow dir='U' y='1' bc='Y' round='1' />
+		<wall y='0' />
+		<wall x='28' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='10' round7='1' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' round1='1' />
+		<arrow dir='U' y='3' bc='Y' round='1' />
+		<arrow dir='U' y='2' bc='Y' round='1' />
+		<arrow dir='U' y='1' bc='Y' round='1' />
+		<wall y='0' />
+		<wall x='29' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+	</objects>
+	<xye x='13' y='13' lives='1' />
+</level>
+
+<level>
 <title>All your powers combined.</title>
 <hint>Make sure to do it in the correct order.</hint>
 <bye>Good job! . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . ... Wait... Who&apos;s that? Watch out!</bye>
