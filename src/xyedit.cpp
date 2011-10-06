@@ -801,6 +801,7 @@ editorbuttons::editorbuttons(int sx, int sy, int sw, int sh)
         {
             singleobject &o=buttons[i][j];
             o.content=CONTENT_NOCONTENT;
+            o.type = EDOT_GEM;
             o.selected=false;
             o.flash=false;
             o.color=EDCO_YELLOW;
@@ -1003,8 +1004,10 @@ void editorbuttons::onMouseMove(int px,int py)
             for (int i=0;i<EDITORBUTTONS_COUNTX;i++) {
                 for (int j=0;j<EDITORBUTTONS_COUNTY;j++){
                     singleobject &o=buttons[i][j];
-                    if (o.content != CONTENT_DIRECTION && o.type == clickedobject->type) {
-                        o.direction = clickedobject-> direction;
+                    if (o.content != CONTENT_DIRECTION && o.content != CONTENT_NOCONTENT ) {
+                        if (o.type == clickedobject->type) {
+                            o.direction = clickedobject-> direction;
+                        }
                     }
                 }
             }
@@ -1077,6 +1080,7 @@ void editorbuttons::handleClick(singleobject* target)
             break;
 
         case CONTENT_DIRECTION:
+            
             ifnotnulldeselect(clickedempty); clickedempty=NULL;
             ifnotnulldeselect(selection);
             switchToObject(SelectedObjectType,SelectedColor, SelectedRound, SelectedVariation, target->direction);
@@ -1087,6 +1091,7 @@ void editorbuttons::handleClick(singleobject* target)
             break;
 
         case CONTENT_VARIATION:
+            
             ifnotnulldeselect(clickedempty); clickedempty=NULL;
             ifnotnulldeselect(selection);
             switchToObject(SelectedObjectType,SelectedColor, SelectedRound, target->variation, SelectedDirection);
@@ -1097,6 +1102,8 @@ void editorbuttons::handleClick(singleobject* target)
             break;
 
         case CONTENT_MAKEROUND:
+
+            
             ifnotnulldeselect(clickedempty); clickedempty=NULL;
             ifnotnulldeselect(selection);
             switchToObject(SelectedObjectType,SelectedColor, target->round, SelectedVariation, SelectedDirection);
@@ -1192,10 +1199,11 @@ void editorbuttons::SaveCopy() {
 }
 void editorbuttons::LoadCopy() {
     for (int i=0;i<EDITORBUTTONS_COUNTX;i++) {
-        for (int j=0;j<EDITORBUTTONS_COUNTY;j++) {
-            buttons[i][j] = copy.buttons[i][j]; 
-            buttons[i][j].selected = false;
-        }
+        //for (int j=0;j<EDITORBUTTONS_COUNTY;j++) {
+            //only load the objects from the middle line.
+            buttons[i][1] = copy.buttons[i][1]; 
+            buttons[i][1].selected = false;
+        //}
     }
 
 }
