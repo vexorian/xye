@@ -26,7 +26,7 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include "dialogs.h"
 #include "xyedit.h"
 #include "skins.h"
-
+#include <iostream>
 
 #define sz game::GRIDSIZE //typing game::GRIDSIZE is an annoyance
 
@@ -1240,8 +1240,9 @@ void game::loop_Sub(char i, char j)
     gobj* gobject;
     if (gobject=sq->gobject) gobject->Loop();
 
-    if ((object!=NULL) && (object->tic!=counter) && (object->Loop(&died)) && (! died))
+    if ((object!=NULL) && (object->tic!=counter) && (object->Loop(&died)) && (! died)) {
          object->tic=counter;
+    }
 
 }
 
@@ -1255,9 +1256,11 @@ void game::loop_gameplay()
 
     MoveXye();
 
-    for (j=XYE_VERT-1;j>=0;j--) for (i=0;i<XYE_HORZ;i++)
-        loop_Sub(i,j);
-
+    for (j=XYE_VERT-1;j>=0;j--) {
+        for (i=0;i<XYE_HORZ;i++) {
+            loop_Sub(i,j);
+        }
+    }
 
 
     deathqueue::KillNow();
@@ -1279,8 +1282,8 @@ void game::loop()
             loop_gameplay();
             i++;
         }
-        while (undo || (FastForward&&(i<XYE_FASTFORWARD_SPEED)));
-            
+        while ( (undo && ! GameOver) || (FastForward&&(i<XYE_FASTFORWARD_SPEED)) );
+
     }
 
 }
@@ -1844,37 +1847,45 @@ bool game::TryMoveXye(edir dir)
 
 void game::MoveXye()
 {
-    if (GameOver) return;
+    if (GameOver) {
+        return;
+    }
     
     if ( (LastXyeMove+1) < counter)
     {
-        if (playingrec)
-        {
+        if (playingrec) {
             bool nm;
 
-            if (! recording::get(DK_DIR,nm))
+            if (! recording::get(DK_DIR,nm)) {
                 game::TerminateGame(false);
-
-            if ((!nm) && TryMoveXye(DK_DIR) )
-                LastXyeMove=counter;
+                playingrec = false;
+            }
+            
+            if (!nm) {
+                if (TryMoveXye(DK_DIR)) {
+                    LastXyeMove = counter;
+                }
+            }
             return;
 
         }
-        if (undo)
-        {
+        if (undo) {
             bool nm;
-            if (! recording::get_undo(DK_DIR,nm))
-            {
+            
+            if (! recording::get_undo(DK_DIR,nm)) {
+                
                 cameraon=true;
                 undo=false;
                 UpdateAll=true;
                 game::XYE->alpha=200;
-            }
-            else
-            {
-                if ( (!nm) && TryMoveXye(DK_DIR) )
-                      LastXyeMove=counter;
+            } else {
+                if (!nm) {
+                    if (TryMoveXye(DK_DIR)) {
+                        LastXyeMove = counter;
+                    }
+                }
                 return;
+
             }
         }
 
@@ -2268,6 +2279,7 @@ void game::TerminateGame(bool good)
         } else {
             SDL_WM_SetCaption("Xye - Game over!",0);
         }
+   } else {
    }
    if (good) {
        FinishedLevel = true;
@@ -2282,6 +2294,8 @@ void game::TerminateGame(bool good)
    }
     //counter=counter2=counter3=counter4=counter5=counter7=counter8=counter9=1;
     GameOver=true;
+    
+
 }
 
 /**end fake class game**/
@@ -3036,8 +3050,9 @@ inline unsigned char xye::GetLives() { return(lives); }
 
 void xye::SetLives(unsigned char nlives)
 {
-    if (nlives==0)
+    if (nlives==0) {
         game::TerminateGame();
+    }
     lives=nlives;
 }
 
@@ -3068,9 +3083,7 @@ void xye::Kill()
             else game::Error(  "Level is full!");
             game::FlashXyePosition();
 
-        }
-        else
-        {
+        } else  {
             game::deathsq1=game::Square(x,y);
             lives=0;
             game::TerminateGame();

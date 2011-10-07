@@ -114,7 +114,7 @@ void recording::clean()
 
 bool recording::get_undo(edir &r, bool& nomove)
 {
-    if (! undos) return false;
+    if (undos == NULL) return false;
     recentry* tm=undos;
     nomove=false;
     switch (tm->val)
@@ -125,24 +125,22 @@ bool recording::get_undo(edir &r, bool& nomove)
         case(2): r=D_DOWN; break;
         default: nomove=true;
     }
-    if (undos->count -1 == undos_r)
-    {
+    if (undos->count -1 <= undos_r) {
         undos_r=0;;
         undos=undos->next;
-    }
-    else
+    } else {
         undos_r++;
+    }
 
  return true;
 }
 
 bool recording::get(edir &r, bool& nomove)
 {
-    if (! first) return false;
+    if (first == NULL) return false;
     recentry* tm=first;
     nomove=false;
-    switch (tm->val)
-    {
+    switch (tm->val) {
         case(4): r=D_LEFT; break;
         case(6): r=D_RIGHT; break;
         case(8): r=D_UP; break;
@@ -150,8 +148,7 @@ bool recording::get(edir &r, bool& nomove)
         default: nomove=true;
     }
     first->count--;
-    if (! first->count)
-    {
+    if ( first->count <= 0) {
         first=first->next;
         delete tm;
     }
