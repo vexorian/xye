@@ -1,3 +1,19 @@
+<<<<<<< .mine
+Version 0.11.1
+==============
+- Fixed a bug that caused the editor to sometimes save wrong round wall data when saving files with multiple levels.
+- The editor is once again able to rotate teleport objects.
+- Fixed a bug that made the editor replace description and author of a level file when adding/removing levels from it.
+- Fixed a crash when typing large words in input boxes.
+- The editor can now load kye level files.
+- The editor can now place hidden path squares.
+- The editor can load and save ground hints  from level files. Although there is no interface in place to create or edit them.
+- The editor can now change the level number of a level in a level file.
+- We decided to stop including kye.xye with the game's package. As those levels are from shareware Kye and it is probably best not to redistribute them. Instead, a new level file called kyeclone.xye is available, with 14 simple levels that try to explain some of the basic concepts from the original Kye.
+- New official level: Forces that we are not supposed to control.
+- In total, this version brings 15 new levels.
+- Improved the way the game creates its window icon.
+
 Version 0.11.0
 ==============
 - A new, detailed game skin.
@@ -9,6 +25,8 @@ Version 0.11.0
 - New level: Take them out.
 
 
+=======
+>>>>>>> .r250
 Version 0.10.0
 ==============
 - Whenever you leave a level file, the positions of all objects and the UNDO history
