@@ -2,20 +2,8 @@
 
 # Process this file with autoconf to produce a configure script.
 PROJ_NAME=xye
-<<<<<<< .mine
 PROJ_VERSION=0.11.1
-=======
-PROJ_VERSION=0.10.0
->>>>>>> .r250
-
-
-
-
-<<<<<<< .mine
-AC_INIT(xye,0.11.1,vexorian@gmail.com)
-=======
-AC_INIT(xye,0.10.0,vexorian@gmail.com)
->>>>>>> .r250
+AC_INIT($PROJ_NAME, $PROJ_VERSION,vexorian@gmail.com)
 
 # Setup for automake
 AM_INIT_AUTOMAKE
