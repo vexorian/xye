@@ -4891,6 +4891,199 @@
 
 
 <level>
+<title>4</title>
+<hint>Think things through.</hint>
+<!--
+<solution>00000000020002000000000000020000004000080000600020220006020040080888008088800000000000000000000008000000008000020222222220000002000400000008088860888880000004000680002020020008008060004080000000202222222602000204000000000004040006008088808860000008000000202222222222224060664080888888888888000040484000000000000080000600000000000060040000400000046066602004044202222260222222040444444400606666666666666660000000000000000000404444000000000000000000800000000000000000000000000000000020000020000000004048044444444000000400000000800606206666666666600006006000600600000000000000000000000800400024044444444444444408000000000800000000000000000020006002000606666666666666600000000000000002000008088000000000000000000000000020000004002404444444444444442000000000000000000006080060666666666666660000080040000002002000084044444444444440200000040200806080666666666666666202</solution>
+-->
+<bye>Like defusing a bomb!</bye>
+	<ground>
+		<oneway dir='L' x='7' y='15' />
+		<oneway dir='L' y='14' />
+		<oneway dir='L' y='13' />
+		<oneway dir='L' y='5' />
+		<oneway dir='L' y='4' />
+		<oneway dir='L' y='3' />
+		<oneway dir='L' y='2' />
+		<oneway dir='U' x='8' y='16' />
+		<oneway dir='D' y='1' />
+		<oneway dir='U' x='9' y='16' />
+		<oneway dir='D' y='1' />
+		<oneway dir='U' x='10' y='16' />
+		<oneway dir='D' y='1' />
+		<oneway dir='D' x='11' y='1' />
+		<oneway dir='D' x='12' y='1' />
+		<oneway dir='D' x='18' y='1' />
+		<oneway dir='D' x='19' y='1' />
+		<oneway dir='U' x='20' y='16' />
+		<oneway dir='D' y='1' />
+		<oneway dir='U' x='21' y='16' />
+		<oneway dir='D' y='1' />
+		<oneway dir='U' x='22' y='16' />
+		<oneway dir='D' y='1' />
+		<oneway dir='R' x='23' y='15' />
+		<oneway dir='R' y='14' />
+		<oneway dir='R' y='13' />
+		<oneway dir='R' y='5' />
+		<oneway dir='R' y='4' />
+		<oneway dir='R' y='3' />
+		<oneway dir='R' y='2' />
+	</ground>
+	<objects>
+		<wall x='5' y='11' round7='1' round9='1' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' round1='1' round3='1' />
+		<wall x='6' y='12' round1='1' round7='1' />
+		<arrow dir='R' y='11' bc='Y' round='1' />
+		<arrow dir='R' y='10' bc='Y' round='1' />
+		<arrow dir='R' y='9' bc='Y' round='1' />
+		<arrow dir='R' y='8' bc='Y' round='1' />
+		<arrow dir='R' y='7' bc='Y' round='1' />
+		<wall y='6' round1='1' round7='1' />
+		<wall x='7' y='16' round1='1' round7='1' round3='1' round9='1' />
+		<wall y='12' />
+		<gem y='11' bc='B' />
+		<earth y='10' />
+		<gem y='9' bc='B' />
+		<earth y='8' />
+		<gem y='7' bc='B' />
+		<wall y='6' />
+		<wall y='1' round1='1' round7='1' round3='1' round9='1' />
+		<wall x='8' y='12' round9='1' />
+		<wall y='11' round1='1' />
+		<gem y='10' bc='B' />
+		<earth y='9' />
+		<gem y='8' bc='B' />
+		<wall y='7' round7='1' />
+		<wall y='6' round3='1' />
+		<wall x='9' y='11' round9='1' />
+		<wall y='10' round1='1' />
+		<gem y='9' bc='B' />
+		<wall y='8' round7='1' />
+		<wall y='7' round3='1' />
+		<wall x='10' y='10' />
+		<gem y='9' bc='B' />
+		<wall y='8' />
+		<wall x='11' y='17' round7='1' />
+		<wall y='16' />
+		<wall y='15' round1='1' />
+		<wall y='10' />
+		<wall y='8' />
+		<wall x='12' y='19' />
+		<wall y='18' />
+		<wall y='17' round3='1' />
+		<arrow dir='R' y='16' bc='Y' round='1' />
+		<wall y='15' round9='1' />
+		<wall y='14' round1='1' />
+		<wall x='13' y='19' />
+		<wall y='18' />
+		<arrow dir='D' y='17' bc='Y' round='1' />
+		<gem y='16' bc='B' />
+		<arrow dir='R' y='15' bc='Y' round='1' />
+		<wall y='14' />
+		<wall y='2' round7='1' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='14' y='18' />
+		<arrow dir='D' y='17' bc='Y' round='1' />
+		<gem y='16' bc='B' />
+		<gem y='15' bc='B' />
+		<wall y='14' round9='1' />
+		<wall y='13' />
+		<arrow dir='R' y='9' bc='Y' round='1' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' round3='1' />
+		<gem y='1' bc='B' />
+		<wall y='0' />
+		<wall x='15' y='18' />
+		<arrow dir='D' y='17' bc='Y' round='1' />
+		<gem y='16' bc='B' />
+		<gem y='15' bc='B' />
+		<gem y='14' bc='B' />
+		<arrow dir='D' y='10' bc='R' round='1' />
+		<arrow dir='U' y='8' bc='Y' round='1' />
+		<gem y='3' bc='B' />
+		<earth y='2' />
+		<earth y='1' />
+		<wall y='0' />
+		<wall x='16' y='18' />
+		<arrow dir='D' y='17' bc='Y' round='1' />
+		<gem y='16' bc='B' />
+		<gem y='15' bc='B' />
+		<wall y='14' round7='1' />
+		<wall y='13' />
+		<arrow dir='L' y='9' bc='Y' round='1' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' round1='1' />
+		<gem y='1' bc='B' />
+		<wall y='0' />
+		<wall x='17' y='19' />
+		<wall y='18' />
+		<arrow dir='D' y='17' bc='Y' round='1' />
+		<gem y='16' bc='B' />
+		<arrow dir='L' y='15' bc='Y' round='1' />
+		<wall y='14' />
+		<wall y='2' round9='1' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='18' y='19' />
+		<wall y='18' />
+		<wall y='17' round1='1' />
+		<arrow dir='L' y='16' bc='Y' round='1' />
+		<wall y='15' round7='1' />
+		<wall y='14' round3='1' />
+		<wall x='19' y='17' round9='1' />
+		<wall y='16' />
+		<wall y='15' round3='1' />
+		<wall y='10' />
+		<wall y='8' />
+		<wall x='20' y='10' />
+		<gem y='9' bc='B' />
+		<wall y='8' />
+		<wall x='21' y='11' round7='1' />
+		<wall y='10' round3='1' />
+		<gem y='9' bc='B' />
+		<wall y='8' round9='1' />
+		<wall y='7' round1='1' />
+		<wall x='22' y='12' round7='1' />
+		<wall y='11' round3='1' />
+		<gem y='10' bc='B' />
+		<earth y='9' />
+		<gem y='8' bc='B' />
+		<wall y='7' round9='1' />
+		<wall y='6' />
+		<wall x='23' y='16' round1='1' round7='1' round3='1' round9='1' />
+		<wall y='12' />
+		<gem y='11' bc='B' />
+		<earth y='10' />
+		<gem y='9' bc='B' />
+		<earth y='8' />
+		<gem y='7' bc='B' />
+		<wall y='6' />
+		<wall y='1' round1='1' round7='1' round3='1' round9='1' />
+		<wall x='24' y='12' round3='1' round9='1' />
+		<arrow dir='L' y='11' bc='Y' round='1' />
+		<arrow dir='L' y='10' bc='Y' round='1' />
+		<arrow dir='L' y='9' bc='Y' round='1' />
+		<arrow dir='L' y='8' bc='Y' round='1' />
+		<arrow dir='L' y='7' bc='Y' round='1' />
+		<wall y='6' round3='1' round9='1' />
+		<wall x='25' y='11' round7='1' round9='1' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' round1='1' round3='1' />
+	</objects>
+	<xye x='15' y='9' lives='1' />
+</level>
+
+<level>
 <title>Catch</title>
 <hint>You&apos;ll need a shield to block those arrows. Get at least two keys to win.</hint>
 <solution>
@@ -7827,7 +8020,7 @@
 </level>
 
 <level>
-<title>Forces we are not supposed to control</title>
+<title>Forces we are not supposed to play with</title>
 <hint>Use all your ammo.</hint>
 <bye>Great!</bye>
 <palette>
