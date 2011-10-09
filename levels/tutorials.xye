@@ -11180,8 +11180,470 @@
     </objects>
     <xye x='14' y='9' lives='1' />
 </level>
+
 <level>
-<title>T22: Mines and pits</title>
+<title>T22: Linked blocks</title>
+<hint>They need to be adjacent to a block of the same color.</hint>
+	<ground>
+		<marked x='8' y='16' bc='R' />
+		<marked x='9' y='16' bc='R' />
+		<marked x='10' y='16' bc='R' />
+		<blockdoor y='7' bc='R' />
+		<marked x='11' y='16' bc='R' />
+	</ground>
+	<objects>
+		<wall x='0' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='1' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='2' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='3' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<window y='5' bc='Y' />
+		<window y='2' bc='Y' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='4' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<block y='3' bc='Y' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='5' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<block y='3' bc='Y' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='6' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<block y='3' bc='Y' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='7' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<window y='2' bc='Y' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='8' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='9' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<window y='12' bc='R' />
+		<block y='10' bc='R' />
+		<block y='9' bc='R' />
+		<window y='8' bc='R' />
+		<wall y='7' />
+		<wall y='6' />
+		<largeblockpart y='5' bc='B' sharededges = 'URDL' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='10' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<largeblockpart y='5' bc='B' sharededges = 'URDL' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='11' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<window y='12' bc='R' />
+		<block y='9' bc='R' />
+		<wall y='7' />
+		<window y='6' bc='B' />
+		<largeblockpart y='5' bc='B' sharededges = 'URDL' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='12' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<window y='9' bc='R' />
+		<wall y='7' />
+		<aclocker y='5' bc='B' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='13' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<blacky y='14' />
+		<block y='13' bc='R' />
+		<window y='12' bc='R' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<blacky y='1' />
+		<wall y='0' />
+		<wall x='14' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<largeblockpart y='11' bc='R' sharededges = 'URDL' />
+		<wall y='10' />
+		<wall y='9' type='1' />
+		<blacky y='8' />
+		<wall y='7' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='15' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<block y='15' bc='R' />
+		<largeblockpart y='11' bc='R' sharededges = 'URDL' />
+		<wall y='10' />
+		<blacky y='9' />
+		<wall y='8' type='1' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='2' />
+		<clocker y='1' bc='B' />
+		<wall y='0' />
+		<wall x='16' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<largeblockpart y='11' bc='R' sharededges = 'URDL' />
+		<wall y='10' />
+		<wall y='9' type='1' />
+		<blacky y='8' />
+		<wall y='7' />
+		<aclocker y='6' bc='B' />
+		<wall y='0' />
+		<wall x='17' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='11' />
+		<wall y='10' />
+		<blacky y='9' />
+		<wall y='8' type='1' />
+		<wall y='7' />
+		<wall y='6' />
+		<block y='4' bc='Y' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='0' />
+		<wall x='18' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<window y='5' bc='Y' />
+		<block y='4' bc='Y' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='0' />
+		<wall x='19' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<largeblockpart y='10' bc='B' sharededges = 'URDL' />
+		<largeblockpart y='9' bc='B' sharededges = 'URDL' />
+		<largeblockpart y='8' bc='B' sharededges = 'URDL' />
+		<wall y='7' />
+		<block y='6' bc='Y' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='0' />
+		<wall x='20' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<block y='15' bc='R' />
+		<window y='10' bc='B' />
+		<wall y='6' />
+		<earth y='4' />
+		<earth y='3' />
+		<wall y='2' />
+		<wall y='0' />
+		<wall x='21' y='19' />
+		<wall y='18' />
+		<block y='17' bc='R' />
+		<block y='16' bc='R' />
+		<block y='15' bc='R' />
+		<wall y='10' />
+		<wall y='6' />
+		<earth y='5' />
+		<star y='4' />
+		<earth y='3' />
+		<wall y='2' />
+		<wall y='0' />
+		<wall x='22' y='19' />
+		<wall y='18' />
+		<window y='15' bc='R' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='6' />
+		<earth y='5' />
+		<earth y='4' />
+		<earth y='3' />
+		<wall y='2' />
+		<wall y='0' />
+		<wall x='23' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<earth y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='0' />
+		<wall x='24' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<gem y='15' bc='B' />
+		<gem y='14' bc='Y' />
+		<earth y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='0' />
+		<wall x='25' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<earth y='15' />
+		<gem y='14' bc='B' />
+		<earth y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='0' />
+		<wall x='26' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<block y='9' bc='R' />
+		<block y='8' bc='B' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='0' />
+		<wall x='27' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='0' />
+		<wall x='28' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<auto y='1' dir='R' bc='B' />
+		<wall y='0' />
+		<wall x='29' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+	</objects>
+	<xye x='5' y='2' lives='1' />
+</level>
+
+<level>
+<title>T23: Mines and pits</title>
 <hint>They are slightly different.</hint>
 <solution>
 000000000000000000000000000000000000000040000000000008080040200206202224
@@ -11727,7 +12189,7 @@
     <xye x='15' y='7' lives='1' />
 </level>
 <level>
-<title>T23: Green timers</title>
+<title>T24: Green timers</title>
 <hint>Do not get the blue gems too soon.</hint>
 <solution>
 000000000080000060666600000000000000000000000000000000000080888888884044
@@ -12304,7 +12766,7 @@
     <xye x='14' y='5' lives='1' />
 </level>
 <level>
-<title>T24: The fugitive</title>
+<title>T25: The fugitive</title>
 <hint>Those guys are tough! You will have to outsmart  them.</hint>
 <bye>Just one level left!</bye>
 <solution>
@@ -12753,7 +13215,7 @@
 </level>
 
 <level>
-<title>T25: Stronger</title>
+<title>T26: Stronger</title>
 <solution>
 000000000000000000000000000404000200204004004006006000600606006006006000
 004004000020000020000200020000000000020006000060000000000000600000000000
