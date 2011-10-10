@@ -11301,8 +11301,8 @@
 		<wall y='8' />
 		<wall y='7' />
 		<wall y='6' />
-		<block y='3' bc='Y' />
-		<wall y='1' />
+		<block x='7' y='3' bc='Y' />
+		<wall x='6' y='1' />
 		<wall y='0' />
 		<wall x='7' y='19' />
 		<wall y='18' />
