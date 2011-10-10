@@ -624,8 +624,9 @@ void game::AfterLevelLoad()
     // load game?
     loadGame();
 
-    if(!xye_fromeditortest)
+    if(!xye_fromeditortest) {
         options::SaveLevelFile( LevelPack::OpenFile, LevelPack::OpenFileLn);
+    }
     Button_Solution->Enabled = ( (LevelPack::HasSolution()) && !playingrec);
     Button_Hint->Enabled= (hint::GlobalHintExists());
     Button_Hint->resetToggle();

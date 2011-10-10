@@ -335,7 +335,10 @@ void editor::updateCountRelated()
     
     char x[30];
     char y[30];
-    sprintf(x,"%d", editorboard::CurrentLevelNumber()+1 );
+    int ln = editorboard::CurrentLevelNumber()+1;
+    options::SaveLevelFile( filename , ln);
+
+    sprintf(x,"%d", ln );
     sprintf(y,"%d", t );
     
     int i=0;
@@ -345,7 +348,7 @@ void editor::updateCountRelated()
     
     string title = "Xye - Editor: "+filename.substr(i)+" : "+string(x)+"/"+string(y);
     SDL_WM_SetCaption(title.c_str(),0);
-    
+
     
 }
 
