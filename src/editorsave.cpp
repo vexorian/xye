@@ -536,6 +536,45 @@ string  stripXML(const string s)
     return r;
 }
 
+void saveDefault( std::ofstream & file, string tag, editorboard*board, int i)
+{
+     DefaultColorData &cd = board->colors[i];
+     if (! cd.useDefault) {
+         file<<"        <"<<tag<<" ";
+         file<<" color='"<<(i+1)<<"' />" <<endl;
+     }
+
+}
+
+void saveColorStuff( std::ofstream & file, editorboard*board)
+{
+    bool doit = false;
+    for (int i=0; i<TOTAL_EDITOR_COLOR_OPTIONS; i++) {
+        doit |= (! board->colors[i].useDefault );
+    }
+    if (doit) {
+        //first save the palette.
+        file<<"    <palette>"<<endl;
+        for (int i=0; i<TOTAL_EDITOR_COLOR_OPTIONS; i++) {
+            DefaultColorData &cd = board->colors[i];
+            if ( ! cd.useDefault ) {
+                file << "        <color id='"<<(i+1)<<"'";
+                file << " red='"<<(int)cd.color.r<<"'";
+                file << " green='"<<(int)cd.color.g<<"'";
+                file << " blue='"<<(int)cd.color.b<<"'";
+            }
+            file << " />"<<endl;
+        }
+        file<<"    </palette>"<<endl;
+        
+        //now save the defaults...
+        file<<"    <default>"<<endl;
+
+        saveDefault(file, "wall", board, EDITOR_COLOR_WALLS);
+        file<<"    </default>"<<endl;
+
+    }
+}
 bool editor::save(const string &target, bool onlyOneLevel)
 {
     std::ofstream file;
@@ -571,6 +610,7 @@ bool editor::save(const string &target, bool onlyOneLevel)
         {
             file << "<bye>"<< stripXML(board->bye) <<"</bye>\n";
         }
+        saveColorStuff(file, board);
     
         int i,j;
         file << "\t<ground>\n";
