@@ -1665,6 +1665,8 @@ void LoadDefaults(TiXmlElement* def)
         strcpy(TempCharA,pEChild->Value());
         if (strcmp(TempCharA,"wall")==0) LoadDefaults_Wall(pEChild);
         else if (strcmp(TempCharA,"trick")==0) LoadDefaults_Tdoor(pEChild);
+        else if (strcmp(TempCharA,"oneway")==0) LoadDefaults_Tdoor(pEChild);
+        else if (strcmp(TempCharA,"hiddenway")==0) LoadDefaults_Tdoor(pEChild);
         else if (strcmp(TempCharA,"force")==0) LoadDefaults_ForceArrow(pEChild);
         else if (strcmp(TempCharA,"earth")==0) LoadDefaults_Earth(pEChild);
 
