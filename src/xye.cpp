@@ -3079,9 +3079,23 @@ void xye::Kill()
             game::deathsq1=game::Square(x,y);
             char cx,cy,nx,ny;
             GetCheckPoint(cx,cy);
-            if (game::GetRevivePoint(cx,cy,nx,ny))
+            if (game::GetRevivePoint(cx,cy,nx,ny)) {
                 move(nx,ny);
-            else game::Error(  "Level is full!");
+            } else {
+                game::deathsq1=game::Square(x,y);
+                lives=0;
+                game::TerminateGame();
+    
+                square* sq=game::Square(x,y);
+                gobj *gobject = sq->gobject;
+                if (gobject!=NULL) gobject->OnLeave(this);
+                sq->object=NULL;
+    
+                recycle::add(this);
+
+                dialogs::makeMessageDialog(gamewindow, "No space left to spawn Xye.", "Ok" , onDialogClickDoNothing);
+                return;
+            }
             game::FlashXyePosition();
 
         } else  {
@@ -3089,7 +3103,7 @@ void xye::Kill()
             lives=0;
             game::TerminateGame();
 
-               square* sq=game::Square(x,y);
+            square* sq=game::Square(x,y);
             gobj *gobject = sq->gobject;
             if (gobject!=NULL) gobject->OnLeave(this);
             sq->object=NULL;
