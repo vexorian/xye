@@ -1,9 +1,7 @@
 # $Id$
 
 # Process this file with autoconf to produce a configure script.
-PROJ_NAME=xye
-PROJ_VERSION=0.11.1
-AC_INIT($PROJ_NAME, $PROJ_VERSION,vexorian@gmail.com)
+AC_INIT(xye,0.11.2,vexorian@gmail.com)
 
 # Setup for automake
 AM_INIT_AUTOMAKE
