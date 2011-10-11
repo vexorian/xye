@@ -5,6 +5,8 @@
 #include "xye_script.h"
 #include<iostream>
 #include<algorithm>
+#include<map>
+using std::map;
 using std::cout;
 
 boardelement editorload_objects[XYE_HORZ][XYE_VERT];
@@ -1164,6 +1166,71 @@ void loadKyeChar( char ch, boardelement & o , int x)
         o.variation = timer;
     }
 }
+map<string, SDL_Color> editorload_palette;
+bool editor_LoadPalette(TiXmlElement* el)
+{
+    editorload_palette.clear();
+    TiXmlElement * ch=el->FirstChildElement();
+
+    while(ch!=NULL) {
+        
+        string v=ch->Value();
+        if (v=="color") {
+            int r,g,b;
+            ch->QueryIntAttribute("red", &r);
+            ch->QueryIntAttribute("green", &g);
+            ch->QueryIntAttribute("blue", &b);
+            SDL_Color c;
+            c.r = r;
+            c.b = b;
+            c.g = g;
+            const char* nam = ch->Attribute("id");
+            if (nam == NULL) {
+                return false;
+            }
+            editorload_palette[nam] = c;
+        }
+        ch=ch->NextSiblingElement();
+    }
+    
+    return true;
+}
+
+bool editor_LoadDefault(TiXmlElement* el, DefaultColorData& cd)
+{
+    const char* id = el->Attribute("color");
+    if (id == NULL) {
+        return true;
+    }
+    string key = id;
+    if (editorload_palette.find(key) == editorload_palette.end() ) {
+        return true;
+    }
+    SDL_Color c = editorload_palette[key];
+    cd.useDefault =false;
+    cd.color =c;
+    return true;    
+}
+
+bool editor_LoadDefaults(TiXmlElement* el)
+{
+    TiXmlElement * ch=el->FirstChildElement();
+
+    while(ch!=NULL) {
+        
+        string v=ch->Value();
+        if (v=="wall") {
+            if (! editor_LoadDefault(ch, editor::board->colors[EDITOR_COLOR_WALLS]) ) {
+                return false;
+            }
+        }
+        ch=ch->NextSiblingElement();
+    }
+    
+    return true;
+}
+
+
 
 void editorload_loadKyeLevel(const KyeLevel& klv)
 {
@@ -1326,6 +1393,16 @@ bool editor::appendLevels(const string file)
                         loadError="Found a tag <"+v+"> that is incompatible with the level editor. Had to stop loading, sorry.";
                         return false;
                     } else {
+                        if (v=="palette") {
+                            if ( ! editor_LoadPalette(el) ) {
+                                return "There were issues while loading a <palette> tag";
+                            }
+                        }
+                        if (v=="default") {
+                            if ( ! editor_LoadDefaults(el) ) {
+                                return "There were issues while loading a <default> tag";
+                            }
+                        }
                         colorWarn = true;
                     }
                 }
