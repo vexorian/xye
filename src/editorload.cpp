@@ -9,6 +9,7 @@
 using std::map;
 using std::cout;
 
+DefaultColorData editorload_colors[TOTAL_EDITOR_COLOR_OPTIONS];
 boardelement editorload_objects[XYE_HORZ][XYE_VERT];
 int editorload_xyex;
 int editorload_xyey;
@@ -1220,7 +1221,7 @@ bool editor_LoadDefaults(TiXmlElement* el)
         
         string v=ch->Value();
         if (v=="wall") {
-            if (! editor_LoadDefault(ch, editor::board->colors[EDITOR_COLOR_WALLS]) ) {
+            if (! editor_LoadDefault(ch, editorload_colors[EDITOR_COLOR_WALLS]) ) {
                 return false;
             }
         }
@@ -1335,10 +1336,16 @@ bool editor::appendLevels(const string file)
 
             int i,j;
             editorload_xyex=-1;
-    
-            for (int i=0; i<5; i++)
-                for (int j=0; j<2;j++)
+
+            for (int i=0; i<TOTAL_EDITOR_COLOR_OPTIONS; i++) {
+                editorload_colors[i].useDefault = true;
+            }
+
+            for (int i=0; i<5; i++) {
+                for (int j=0; j<2;j++) {
                     editorload_portal_x[i][j] = editorload_portal_y[i][j] = -1;
+                }
+            }
     
             for (i=0;i<XYE_HORZ;i++)for (j=0;j<XYE_VERT;j++) editorload_objects[i][j].type=EDOT_NONE;
     
@@ -1414,7 +1421,11 @@ bool editor::appendLevels(const string file)
                 cout << "Notice: Unable to find xye in the level file.\n";
             }
             cout << "Level loaded successfully.\n";
-    
+
+            for (int i=0; i<TOTAL_EDITOR_COLOR_OPTIONS; i++) {
+                editor::board->colors[i] = editorload_colors[i];
+            }
+            
             for (i=0;i<XYE_HORZ;i++)for (j=0;j<XYE_VERT;j++)
             {
                 editor::board->objects[i][XYE_VERT-j-1]=editorload_objects[i][j];
