@@ -476,7 +476,7 @@ void KyeLevel::Load()
 
     //We have a complete 2D array full with characters, let's convert it to a level.
 
-    unsigned char kx,ky,i,j;
+    unsigned char kx = 30,ky = 30,i,j;
     for (j=0;j<20;j++) for (i=0;i<30;i++) switch(data[i][j])
     {
         case('1'): case('2'):case('3'):case('4'):case('5'):case('6'):case('7'):case('8'):case('9'):
@@ -581,11 +581,14 @@ void KyeLevel::Load()
 
     char rx,ry;
 
-    if (FoundKye || ! FromXyeLevel)
+    if (FoundKye || ! FromXyeLevel) {
+        if (kx == 30) {
+            kx = ky = 0;
+        }
         game::XYE= new xye(game::Square(kx,ky));
+    }
 
-    if ((! FromXyeLevel) && (lhint!=""))
-    {
+    if ((! FromXyeLevel) && (lhint!="")) {
         hint::SetGlobalHint(lhint);
     }
 
