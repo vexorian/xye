@@ -1694,9 +1694,15 @@ int                 editorboard::currentLevel;
 
 void editorboard::assign(editorboard* other)
 {
-    for (int i=0; i<XYE_HORZ; i++)
-        for (int j=0; j<XYE_VERT; j++)
+    for (int i=0; i<XYE_HORZ; i++) {
+        for (int j=0; j<XYE_VERT; j++) {
             objects[i][j] = other->objects[i][j];
+        }
+    }
+        
+    for (int i=0; i<TOTAL_EDITOR_COLOR_OPTIONS; i++) {
+        colors[i] = other->colors[i];
+    }
 
     xye_x = other->xye_x;
     xye_y = other->xye_y;
@@ -1994,6 +2000,17 @@ void editorboard::updateWallMem(int ox, int oy)
 
 }
 
+void editorWallColors(Drawer &D, int variation)
+{
+    DefaultColorData & cd = editor::board->colors[EDITOR_COLOR_WALLS];
+    if (! cd.useDefault ) {
+        D.SetColors( &cd.color, 255);
+    } else {
+        D.SetColors( &options::WallColor[variation], 255);
+    }
+    
+}
+
 void editorboard::drawWallInBoard(SDL_Surface*target,int ox,int oy, int x, int y, int variation, bool round)
 {
     updateWallMem(ox,oy);
@@ -2005,7 +2022,7 @@ void editorboard::drawWallInBoard(SDL_Surface*target,int ox,int oy, int x, int y
     r3 = o.r3mem;
 
     Drawer D(editor::sprites,0,0,0,0);
-    D.SetColors( &options::WallColor[variation], 255);
+    editorWallColors(D, variation);
     Sint16 sz2=sz/2;
     Sint16 ty;
     ty=sz*(variation);
@@ -2281,7 +2298,6 @@ void drawGem( SDL_Surface * target, int x, int y, editorcolor color)
 
     D.Draw(target,x,y);
 }
-
 void drawWall( SDL_Surface * target, int x, int y, bool round, int variation)
 {
     Uint8 tx,ty;
@@ -2289,7 +2305,7 @@ void drawWall( SDL_Surface * target, int x, int y, bool round, int variation)
     if(round) tx=10;
     else tx=9;
     Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
-    D.SetColors( &options::WallColor[variation], 255);
+    editorWallColors(D, variation);
     D.Draw(target,x,y);
 }
 

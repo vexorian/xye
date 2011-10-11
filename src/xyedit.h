@@ -333,6 +333,12 @@ struct boardelement
     #define XYE_VERT 20
 #endif
 
+struct DefaultColorData {
+    bool useDefault;
+    SDL_Color color;
+};
+const int TOTAL_EDITOR_COLOR_OPTIONS = 1;
+const int EDITOR_COLOR_WALLS = 0;
 
 class editorboard: public control
 {
@@ -349,6 +355,7 @@ class editorboard: public control
     bool findWall(int x, int y, int variation);
     bool wallContainsRoundCorners(int x, int y);
  public:
+    DefaultColorData colors[TOTAL_EDITOR_COLOR_OPTIONS];
     bool clicked;
     bool mouse;
     int mousex,mousey;
