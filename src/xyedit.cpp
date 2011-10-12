@@ -223,6 +223,7 @@ void editor::beginAppendFile(const buttondata* data)
 {
     dialogs::makeTextInputDialog(editorwindow,"This advanced option will (try to) append the contents of a level file at the end of the level you are currently editing. Type the file name.", "filename.xye", 1, "Ok", "Cancel", continueAppendFile,NULL);
 }
+
 void editor::continueChangeLevelNumber(bool okclicked, const string text, inputDialogData * dat)
 {
     if (!okclicked) {
@@ -258,6 +259,100 @@ void editor::beginChangeLevelNumber(const buttondata*data)
     char buf[30];
     sprintf(buf, "%d",board->CurrentLevelNumber()+1); 
     dialogs::makeTextInputDialog(editorwindow,"This advanced option will move the current level to a different position in the file. The other levels will be slided accordingly. Type the new level number.", string(buf), 1, "Ok", "Cancel", continueChangeLevelNumber,NULL);
+}
+
+bool parseColorString(string x, DefaultColorData& cd)
+{
+    if (x=="") {
+        cd.useDefault = true;
+        return true;
+    }
+    if (x.length() != 6) {
+        return false;
+    }
+    string rs = x.substr(0,2);
+    string gs = x.substr(2,2);
+    string bs = x.substr(4,2);
+    int r,g,b;
+    if (sscanf(rs.c_str(), "%x", &r) != 1) {
+        return false;
+    }
+    if (sscanf(gs.c_str(), "%x", &g) != 1) {
+        return false;
+    }
+    if (sscanf(bs.c_str(), "%x", &b) != 1) {
+        return false;
+    }
+    cd.useDefault = false;
+    cd.color.r = r;
+    cd.color.g = g;
+    cd.color.b = b;
+    return true;
+}
+string makeColorString(DefaultColorData&cd)
+{
+    if (cd.useDefault) {
+        return "";
+    }
+    string r = "";
+    char buf[3];
+    sprintf(buf,"%02X", cd.color.r );
+    r += buf;
+    sprintf(buf,"%02X", cd.color.g );
+    r += buf;
+    sprintf(buf,"%02X", cd.color.b );
+    r += buf;
+    return r;
+}
+int ChangeLevelColor_stage;
+
+void editor::continueChangeLevelColor(bool okclicked, const string text, inputDialogData * dat)
+{
+    if (!okclicked) {
+        return;
+    }
+    string wallq = "This advanced option will allow you to change the level colors. Type the wall color you want to use in RRGGBB format. (For example, FFFFFF is white, 00FF00 is green). Leave empty to use the skin's default color.";
+    string floorq = "This advanced option will allow you to change the level colors. Type the floor (background) color you want to use in RRGGBB format. (For example, FFFFFF is white, 00FF00 is green). Leave empty to use the skin's default color.";
+    string earthq = "This advanced option will allow you to change the level colors. Type the earth (soft-block) color you want to use in RRGGBB format. (For example, FFFFFF is white, 00FF00 is green). Leave empty to use the skin's default color.";
+
+    string error = "";
+    int & stage =ChangeLevelColor_stage;
+
+    bool good = true;
+    if (stage == 0) {
+        good = parseColorString(text, board->colors[EDITOR_COLOR_WALLS]);
+    } else if (stage == 1) {
+        good = parseColorString(text, board->colors[EDITOR_COLOR_EARTH]);
+    } else if (stage == 2) {
+        good = parseColorString(text, board->colors[EDITOR_COLOR_FLOOR]);
+    }
+    string ntext = text;
+    if (! good) {
+        error = "\n\nPlease enter a string in the requested format.";
+    } else {
+        stage++;
+        if (stage == 1) {
+            ntext = makeColorString( board->colors[EDITOR_COLOR_EARTH] );
+        } else if (stage == 2) {
+            ntext = makeColorString( board->colors[EDITOR_COLOR_FLOOR] );
+        }
+    }
+    if (stage < 3) {
+        if (stage==1) {
+            dialogs::makeTextInputDialog(editorwindow,earthq+error, ntext, 1, "Ok", "Cancel", continueChangeLevelColor,NULL);
+        } else if (stage==2) {
+            dialogs::makeTextInputDialog(editorwindow,floorq+error, ntext, 1, "Ok", "Cancel", continueChangeLevelColor,NULL);
+        } else {
+            dialogs::makeTextInputDialog(editorwindow,wallq+error, ntext, 1, "Ok", "Cancel", continueChangeLevelColor,NULL);
+        }
+    }
+    SavedFile = false;
+}
+void editor::beginChangeLevelColor(const buttondata*data)
+{
+    ChangeLevelColor_stage = 0;
+    string x = makeColorString( board->colors[EDITOR_COLOR_WALLS] );
+    dialogs::makeTextInputDialog(editorwindow,"This advanced option will allow you to change the level colors. Type the wall color you want to use in RRGGBB format. (For example, FFFFFF is white, 00FF00 is green). Leave empty to use the skin's default color.", x, 1, "Ok", "Cancel", continueChangeLevelColor,NULL);
 }
 
 void editor::onClearConfirmation(bool yes)
@@ -566,6 +661,8 @@ void editor::ResumeSection(window* wind)
     solutionbutton=tmbut;
     bx+=bw+1;
 
+    
+    //********
 
     bx+=sz/2;
     bw=button::recommendedWidth("*");
@@ -586,6 +683,18 @@ void editor::ResumeSection(window* wind)
     tmbut->onClick = beginChangeLevelNumber;
     tmbut->depth=20;
     changelevelnumberbutton = tmbut;
+    editorwindow->addControl(tmbut);
+    bx+=bw+1;
+
+    //*** Colors:
+    bw=sz32;
+    bw=button::recommendedWidth("$");
+    tmbut= new button(bx,0,bw,button::Size);
+    tmbut->text="$";
+    tmbut->toolTipControl = btt;
+    tmbut->toolTip = "Edit level colors... (advanced)";
+    tmbut->depth=20;
+    tmbut->onClick = beginChangeLevelColor;
     editorwindow->addControl(tmbut);
     bx+=bw+1;
     
@@ -2939,7 +3048,12 @@ void drawOneDir( SDL_Surface * target, int x, int y, int direction, int variatio
 
         tx = 6; ty = 10;
         Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
-        D.SetColors( &options::OneWayDoorColor, 255);
+        DefaultColorData & cd = editor::board->colors[EDITOR_COLOR_DOORS];
+        if (! cd.useDefault ) {
+            D.SetColors( &cd.color, 255);
+        } else {
+            D.SetColors( &options::OneWayDoorColor, 255);
+        }
         D.Draw(target,x,y);
         
         Sint16 k = sz/8;
@@ -2973,7 +3087,12 @@ void drawOneDir( SDL_Surface * target, int x, int y, int direction, int variatio
             default:  tx=10; ty=10; break;
         }
         Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
-        D.SetColors( &options::ForceArrowColor, 255);
+        DefaultColorData & cd = editor::board->colors[EDITOR_COLOR_FORCE];
+        if (! cd.useDefault ) {
+            D.SetColors( &cd.color, 255);
+        } else {
+            D.SetColors( &options::ForceArrowColor, 255);
+        }
         D.Draw(target,x,y);
     } else {
         ty=10;
@@ -2981,7 +3100,13 @@ void drawOneDir( SDL_Surface * target, int x, int y, int direction, int variatio
         else tx=8;
 
         Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
-        D.SetColors( &options::OneWayDoorColor, 255);
+        DefaultColorData & cd = editor::board->colors[EDITOR_COLOR_DOORS];
+        if (! cd.useDefault ) {
+            D.SetColors( &cd.color, 255);
+        } else {
+            D.SetColors( &options::OneWayDoorColor, 255);
+        }
+        
         D.Draw(target,x,y);
 
         switch(direction)
