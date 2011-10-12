@@ -1,4 +1,28 @@
-<<<<<<< .mine
+Version 0.11.2
+==============
+Updates to the official levels:
+- Firestrikers: It is no longer impossible to get the gems after the star.
+- Added new levels, for example: "Turn around", "Savage stuff", "So typical",  "4x4-4" and more.
+- Added a new tutorial.
+- In total we now have 26 tutorials and 60 official levels.
+- Removed kyeclone.xye. Instead Phipps.xye was added, which includes 44 many great Kye levels.
+
+New editor features:
+- Can place ground hints.
+- Undo button is no longer disabled when recording a solution.
+- It is now possible to change wall, earth and floor colors in a level. 
+
+Bug fixes:
+- Fix compatibility with OS/X line breaks in xsb level files.
+- Fix the bug that made the editor load teleporters as doors in .kye files.
+- Fixed a bug that was causing random editor crashes.
+- Fixed a bug that could make the game hang if a level was modified and saved data was incompatible.
+- Fixed a crash that could happen when trying to respawn Xye in a full level. If that situation happens, you will lose the game, however.
+- 
+
+There were tweaks and fixes to the skins. A 30x30 of the clean skin was also added.
+
+
 Version 0.11.1
 ==============
 - Fixed a bug that caused the editor to sometimes save wrong round wall data when saving files with multiple levels.
@@ -25,8 +49,6 @@ Version 0.11.0
 - New level: Take them out.
 
 
-=======
->>>>>>> .r250
 Version 0.10.0
 ==============
 - Whenever you leave a level file, the positions of all objects and the UNDO history
