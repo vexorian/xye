@@ -1,12 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <!-- License:
 Colin Phipps has released these levels in his site (http://games.moria.org.uk/kye/mylevels)
 Unders this license:
 
 All of my levels here are copyright 2004 by myself, Colin Phipps. You may do whatever you want with them as long as I get a credit as the original author.
 -->
-
-
-<?xml version="1.0" encoding="ISO-8859-1"?>
 <pack>
 <name>Quests, Jungle, Problem and Mystical</name><author>Colin Phipps</author>
 <description>This is a collection of Kye levels by Colin Phipps. The file contains levels from quests.kye, jungle.kye, problem.kye and mystical.kye. Intermediate to hard difficulty. The last four levels are for experts only. Find more at http://games.moria.org.uk/kye/mylevels .</description>
@@ -6521,21 +6519,22 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 	<xye x='19' y='10' lives='4' />
 </level>
 
+<!-- problem -->
 <level>
 <title>DISPOSAL</title>
 <hint>Try an oscillating magnet</hint>
 <bye>So you got out of that one, eh!</bye>
 <palette>
-    <color id='1' red="189" green="173" blue="142" mode="RECOLOR" />
-    <color id='2' red="217" green="206" blue="184" mode="RECOLOR" />
-    <color id='3' red="255" green="242" blue="217" mode="RECOLOR" />
+    <color id='1' red="150" green="150" blue="150" />
+    <color id='2' red="102" green="153" blue="255"/>
+    
 </palette>
 <default>
-    <wall color='1' />
+    <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    <area color='3' x1='0' x2='29' y1='0' y2='19' />
+    
 </floor>
 	<ground>
 		<oneway dir='D' x='1' y='5' />
@@ -6569,10 +6568,10 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='18' />
 		<wall y='17' />
 		<wall y='15' />
-		<gem y='14' bc='B' />
+		<gem y='14' bc='R' />
 		<beast y='13' dir='R' kind='4' />
 		<wall y='10' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='2' y='19' />
 		<wall y='18' />
@@ -6589,26 +6588,26 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='18' />
 		<wall y='17' />
 		<wall y='15' round3='1' round9='1' />
-		<block y='14' bc='Y' />
-		<block y='13' bc='Y' />
-		<block y='12' bc='Y' />
-		<block y='11' bc='Y' />
+		<block y='14' bc='B' />
+		<block y='13' bc='B' />
+		<block y='12' bc='B' />
+		<block y='11' bc='B' />
 		<wall y='10' />
 		<wall y='5' />
 		<wall y='0' />
 		<wall x='4' y='19' />
 		<wall y='18' />
-		<clocker y='17' bc='Y' />
+		<clocker y='17' bc='B' />
 		<earth y='15' />
 		<arrow dir='U' y='14' bc='Y' />
 		<arrow dir='U' y='13' bc='Y' />
 		<arrow dir='U' y='12' bc='Y' />
 		<arrow dir='U' y='11' bc='Y' />
 		<wall y='10' />
-		<block y='9' bc='Y' round='1' />
-		<block y='8' bc='Y' round='1' />
-		<block y='7' bc='Y' round='1' />
-		<block y='6' bc='Y' round='1' />
+		<block y='9' bc='B' round='1' />
+		<block y='8' bc='B' round='1' />
+		<block y='7' bc='B' round='1' />
+		<block y='6' bc='B' round='1' />
 		<wall y='5' />
 		<beast y='1' dir='R' kind='4' />
 		<wall y='0' />
@@ -6616,10 +6615,10 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='18' />
 		<wall y='17' />
 		<wall y='15' round1='1' round7='1' />
-		<block y='14' bc='Y' />
-		<block y='13' bc='Y' />
-		<block y='12' bc='Y' />
-		<block y='11' bc='Y' />
+		<block y='14' bc='B' />
+		<block y='13' bc='B' />
+		<block y='12' bc='B' />
+		<block y='11' bc='B' />
 		<wall y='10' />
 		<wall y='5' />
 		<wall y='0' />
@@ -6635,7 +6634,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='18' />
 		<wall y='17' />
 		<wall y='15' />
-		<gem y='14' bc='B' />
+		<gem y='14' bc='R' />
 		<beast y='12' dir='R' kind='4' />
 		<wall y='10' />
 		<wall y='5' />
@@ -6652,35 +6651,35 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='10' />
 		<beast y='7' dir='R' kind='1' />
 		<wall y='5' />
-		<block y='4' bc='Y' />
+		<block y='4' bc='B' />
 		<wall y='0' />
 		<wall x='9' y='19' />
 		<wall y='18' />
 		<wall y='17' />
 		<wall y='15' />
-		<gem y='14' bc='B' />
-		<gem y='13' bc='B' />
+		<gem y='14' bc='R' />
+		<gem y='13' bc='R' />
 		<wall y='10' />
 		<earth y='9' />
 		<wall y='8' round7='1' round9='1' />
 		<wall y='7' />
 		<wall y='6' />
 		<wall y='5' />
-		<block y='3' bc='Y' />
+		<block y='3' bc='B' />
 		<wall y='0' />
 		<wall x='10' y='19' />
 		<wall y='18' />
 		<wall y='17' />
 		<wall y='15' />
 		<magnet y='14' kind='0' />
-		<gem y='13' bc='B' />
+		<gem y='13' bc='R' />
 		<beast y='12' dir='R' kind='4' />
 		<wall y='10' />
 		<arrow dir='L' y='9' bc='Y' round='1' />
-		<block y='8' bc='Y' round='1' />
+		<block y='8' bc='B' round='1' />
 		<beast y='6' dir='R' kind='4' />
 		<wall y='5' />
-		<block y='4' bc='Y' />
+		<block y='4' bc='B' />
 		<wall y='0' />
 		<wall x='11' y='19' />
 		<wall y='18' />
@@ -6688,10 +6687,10 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='15' />
 		<wall y='10' />
 		<arrow dir='L' y='9' bc='Y' round='1' />
-		<block y='8' bc='Y' round='1' />
+		<block y='8' bc='B' round='1' />
 		<wall y='5' />
 		<beast y='2' dir='R' kind='1' />
-		<block y='1' bc='Y' />
+		<block y='1' bc='B' />
 		<wall y='0' />
 		<wall x='12' y='19' />
 		<wall y='18' />
@@ -6700,24 +6699,24 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='10' />
 		<arrow dir='L' y='9' bc='Y' round='1' />
 		<arrow dir='L' y='8' bc='Y' round='1' />
-		<block y='7' bc='Y' round='1' />
-		<gem y='6' bc='B' />
+		<block y='7' bc='B' round='1' />
+		<gem y='6' bc='R' />
 		<wall y='5' />
-		<block y='2' bc='Y' />
+		<block y='2' bc='B' />
 		<wall y='0' />
 		<wall x='13' y='19' />
 		<magnet y='18' horz='1' kind='0' />
 		<wall y='15' round3='1' round9='1' />
-		<block y='14' bc='Y' round='1' />
-		<block y='13' bc='Y' round='1' />
-		<block y='12' bc='Y' round='1' />
-		<block y='11' bc='Y' round='1' />
+		<block y='14' bc='B' round='1' />
+		<block y='13' bc='B' round='1' />
+		<block y='12' bc='B' round='1' />
+		<block y='11' bc='B' round='1' />
 		<wall y='10' />
 		<arrow dir='L' y='9' bc='Y' round='1' />
 		<arrow dir='L' y='8' bc='Y' round='1' />
-		<block y='7' bc='Y' round='1' />
+		<block y='7' bc='B' round='1' />
 		<wall y='5' />
-		<block y='1' bc='Y' />
+		<block y='1' bc='B' />
 		<wall y='0' />
 		<wall x='14' y='19' />
 		<wall y='10' />
@@ -6736,10 +6735,10 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<magnet y='18' horz='1' kind='0' />
 		<wall y='15' />
 		<wall y='10' />
-		<block y='9' bc='Y' round='1' />
-		<block y='8' bc='Y' round='1' />
-		<block y='7' bc='Y' round='1' />
-		<block y='6' bc='Y' round='1' />
+		<block y='9' bc='B' round='1' />
+		<block y='8' bc='B' round='1' />
+		<block y='7' bc='B' round='1' />
+		<block y='6' bc='B' round='1' />
 		<wall y='5' />
 		<wall y='0' />
 		<wall x='17' y='19' />
@@ -6752,16 +6751,16 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='11' />
 		<wall y='10' />
 		<wall y='5' />
-		<block y='4' bc='Y' />
-		<block y='3' bc='Y' />
-		<block y='2' bc='Y' />
-		<block y='1' bc='Y' />
+		<block y='4' bc='B' />
+		<block y='3' bc='B' />
+		<block y='2' bc='B' />
+		<block y='1' bc='B' />
 		<wall y='0' />
 		<wall x='18' y='19' />
 		<wall y='18' />
 		<wall y='17' />
 		<wall y='15' />
-		<gem y='14' bc='B' />
+		<gem y='14' bc='R' />
 		<wall y='10' />
 		<beast y='8' dir='R' kind='4' />
 		<wall y='5' />
@@ -6786,35 +6785,35 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='18' />
 		<wall y='17' />
 		<wall y='15' round3='1' round9='1' />
-		<block y='14' bc='Y' />
-		<block y='13' bc='Y' />
-		<block y='12' bc='Y' />
-		<block y='11' bc='Y' />
+		<block y='14' bc='B' />
+		<block y='13' bc='B' />
+		<block y='12' bc='B' />
+		<block y='11' bc='B' />
 		<wall y='10' />
 		<wall y='5' />
 		<wall y='0' />
 		<wall x='21' y='19' />
 		<wall y='18' />
-		<aclocker y='17' bc='Y' />
+		<aclocker y='17' bc='B' />
 		<earth y='15' />
 		<arrow dir='U' y='14' bc='Y' />
 		<arrow dir='U' y='13' bc='Y' />
 		<arrow dir='U' y='12' bc='Y' />
 		<arrow dir='U' y='11' bc='Y' />
 		<wall y='10' />
-		<block y='9' bc='Y' />
-		<block y='8' bc='Y' />
-		<block y='7' bc='Y' />
-		<block y='6' bc='Y' />
+		<block y='9' bc='B' />
+		<block y='8' bc='B' />
+		<block y='7' bc='B' />
+		<block y='6' bc='B' />
 		<wall y='5' />
 		<beast y='3' dir='R' kind='4' />
 		<wall y='0' />
 		<wall x='22' y='19' />
 		<wall y='15' round1='1' round7='1' />
-		<block y='14' bc='Y' />
-		<block y='13' bc='Y' />
-		<block y='12' bc='Y' />
-		<block y='11' bc='Y' />
+		<block y='14' bc='B' />
+		<block y='13' bc='B' />
+		<block y='12' bc='B' />
+		<block y='11' bc='B' />
 		<wall y='10' />
 		<wall y='5' />
 		<wall y='0' />
@@ -6824,24 +6823,24 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<beast y='13' dir='R' kind='4' />
 		<wall y='10' />
 		<beast y='9' dir='R' kind='4' />
-		<gem y='7' bc='B' />
+		<gem y='7' bc='R' />
 		<wall y='5' />
-		<block y='4' bc='Y' />
-		<block y='3' bc='Y' />
-		<block y='2' bc='Y' />
-		<block y='1' bc='Y' />
+		<block y='4' bc='B' />
+		<block y='3' bc='B' />
+		<block y='2' bc='B' />
+		<block y='1' bc='B' />
 		<wall y='0' />
 		<wall x='24' y='19' />
 		<wall y='17' />
 		<wall y='16' />
 		<wall y='15' />
-		<gem y='14' bc='B' />
+		<gem y='14' bc='R' />
 		<wall y='10' />
 		<wall y='5' />
 		<wall y='0' />
 		<wall x='25' y='19' />
 		<wall y='17' />
-		<gem y='16' bc='B' />
+		<gem y='16' bc='R' />
 		<wall y='15' />
 		<wall y='14' />
 		<wall y='13' />
@@ -6894,17 +6893,18 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 <hint>Dispose in turn</hint>
 <bye>Come on, it wasn&apos;t that hard!</bye>
 <palette>
-    <color id='1' red="189" green="173" blue="142" mode="RECOLOR" />
-    <color id='2' red="217" green="206" blue="184" mode="RECOLOR" />
-    <color id='3' red="255" green="242" blue="217" mode="RECOLOR" />
+    <color id='1' red="150" green="150" blue="150" />
+    <color id='2' red="102" green="153" blue="255"/>
+    
 </palette>
 <default>
-    <wall color='1' />
+    <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    <area color='3' x1='0' x2='29' y1='0' y2='19' />
+    
 </floor>
+
 	<ground>
 		<oneway dir='U' x='3' y='14' />
 	</ground>
@@ -6931,15 +6931,15 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='0' />
 		<wall x='1' y='19' />
 		<wall y='18' />
-		<aclocker y='17' bc='Y' />
+		<aclocker y='17' bc='B' />
 		<wall y='16' />
 		<wall y='15' />
 		<wall y='14' />
 		<wall y='13' />
-		<block y='11' bc='Y' />
+		<block y='11' bc='B' />
 		<beast y='9' dir='R' kind='1' />
 		<wall y='8' />
-		<clocker y='7' bc='Y' />
+		<clocker y='7' bc='B' />
 		<arrow dir='U' y='6' bc='Y' round='1' />
 		<arrow dir='U' y='5' bc='Y' round='1' />
 		<arrow dir='U' y='4' bc='Y' round='1' />
@@ -6951,37 +6951,37 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='18' />
 		<arrow dir='D' y='16' bc='Y' />
 		<beast y='15' dir='R' kind='1' />
-		<aclocker y='14' bc='Y' />
+		<aclocker y='14' bc='B' />
 		<wall y='13' round3='1' round9='1' />
-		<aclocker y='11' bc='Y' />
+		<aclocker y='11' bc='B' />
 		<wall y='8' />
-		<clocker y='7' bc='Y' />
+		<clocker y='7' bc='B' />
 		<arrow dir='U' y='6' bc='Y' round='1' />
 		<arrow dir='U' y='5' bc='Y' round='1' />
 		<arrow dir='U' y='4' bc='Y' round='1' />
 		<arrow dir='U' y='3' bc='Y' round='1' />
-		<aclocker y='2' bc='Y' />
-		<gem y='1' bc='B' />
+		<aclocker y='2' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='3' y='19' />
 		<wall y='18' />
 		<wall y='16' />
-		<block y='11' bc='Y' />
+		<block y='11' bc='B' />
 		<wall y='8' />
-		<clocker y='7' bc='Y' />
+		<clocker y='7' bc='B' />
 		<arrow dir='U' y='6' bc='Y' round='1' />
 		<arrow dir='U' y='5' bc='Y' round='1' />
 		<arrow dir='U' y='4' bc='Y' round='1' />
 		<arrow dir='U' y='3' bc='Y' round='1' />
-		<block y='2' bc='Y' round='1' />
-		<gem y='1' bc='B' />
+		<block y='2' bc='B' round='1' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='4' y='19' />
-		<aclocker y='18' bc='Y' />
+		<aclocker y='18' bc='B' />
 		<wall y='14' round1='1' round7='1' />
-		<block y='11' bc='Y' />
+		<block y='11' bc='B' />
 		<wall y='8' />
-		<clocker y='7' bc='Y' />
+		<clocker y='7' bc='B' />
 		<arrow dir='U' y='6' bc='Y' round='1' />
 		<arrow dir='U' y='5' bc='Y' round='1' />
 		<wall y='4' round1='1' round7='1' />
@@ -6993,7 +6993,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='18' />
 		<wall y='17' />
 		<wall y='16' />
-		<aclocker y='15' bc='Y' />
+		<aclocker y='15' bc='B' />
 		<wall y='14' />
 		<wall y='13' />
 		<wall y='12' />
@@ -7017,10 +7017,10 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='4' />
 		<arrow dir='R' y='3' bc='Y' round='1' />
 		<arrow dir='R' y='2' bc='Y' round='1' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='7' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
@@ -7094,7 +7094,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='R' y='1' bc='Y' round='1' />
 		<wall y='0' />
 		<wall x='12' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
@@ -7107,7 +7107,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='R' y='1' bc='Y' round='1' />
 		<wall y='0' />
 		<wall x='13' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
@@ -7116,14 +7116,14 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='11' />
 		<wall y='10' />
 		<wall y='9' />
-		<aclocker y='8' bc='Y' />
+		<aclocker y='8' bc='B' />
 		<wall y='4' round1='1' round7='1' />
-		<aclocker y='3' bc='Y' />
-		<aclocker y='2' bc='Y' />
-		<aclocker y='1' bc='Y' />
+		<aclocker y='3' bc='B' />
+		<aclocker y='2' bc='B' />
+		<aclocker y='1' bc='B' />
 		<wall y='0' />
 		<wall x='14' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<wall y='15' round7='1' />
@@ -7228,9 +7228,9 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<earth y='11' />
 		<wall y='10' />
 		<wall y='8' />
-		<gem y='7' bc='B' />
+		<gem y='7' bc='R' />
 		<beast y='5' dir='R' kind='1' />
-		<block y='4' bc='Y' round='1' />
+		<block y='4' bc='B' round='1' />
 		<arrow dir='L' y='3' bc='Y' round='1' />
 		<arrow dir='L' y='2' bc='Y' round='1' />
 		<arrow dir='L' y='1' bc='Y' round='1' />
@@ -7239,13 +7239,13 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='L' y='18' bc='Y' round='1' />
 		<arrow dir='L' y='17' bc='Y' round='1' />
 		<arrow dir='L' y='16' bc='Y' round='1' />
-		<gem y='15' bc='B' />
+		<gem y='15' bc='R' />
 		<wall y='14' />
 		<arrow dir='L' y='12' bc='Y' round='1' />
 		<earth y='11' />
 		<arrow dir='L' y='10' bc='Y' round='1' />
 		<wall y='8' />
-		<block y='5' bc='Y' round='1' />
+		<block y='5' bc='B' round='1' />
 		<arrow dir='L' y='4' bc='Y' round='1' />
 		<arrow dir='L' y='3' bc='Y' round='1' />
 		<arrow dir='L' y='2' bc='Y' round='1' />
@@ -7256,14 +7256,14 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='16' />
 		<wall y='15' />
 		<wall y='14' />
-		<gem y='13' bc='B' />
+		<gem y='13' bc='R' />
 		<arrow dir='L' y='12' bc='Y' round='1' />
 		<earth y='11' />
 		<arrow dir='L' y='10' bc='Y' round='1' />
-		<gem y='9' bc='B' />
+		<gem y='9' bc='R' />
 		<wall y='8' />
-		<block y='6' bc='Y' round='1' />
-		<block y='5' bc='Y' round='1' />
+		<block y='6' bc='B' round='1' />
+		<block y='5' bc='B' round='1' />
 		<arrow dir='L' y='4' bc='Y' round='1' />
 		<arrow dir='L' y='3' bc='Y' round='1' />
 		<arrow dir='L' y='2' bc='Y' round='1' />
@@ -7271,59 +7271,59 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='0' />
 		<wall x='25' y='19' />
 		<wall y='14' />
-		<gem y='13' bc='B' />
+		<gem y='13' bc='R' />
 		<arrow dir='L' y='12' bc='Y' round='1' />
 		<arrow dir='L' y='11' bc='Y' round='1' />
 		<arrow dir='L' y='10' bc='Y' round='1' />
-		<gem y='9' bc='B' />
+		<gem y='9' bc='R' />
 		<wall y='8' />
-		<block y='7' bc='Y' round='1' />
-		<gem y='6' bc='B' />
-		<gem y='5' bc='B' />
-		<gem y='4' bc='B' />
-		<gem y='3' bc='B' />
-		<gem y='1' bc='B' />
+		<block y='7' bc='B' round='1' />
+		<gem y='6' bc='R' />
+		<gem y='5' bc='R' />
+		<gem y='4' bc='R' />
+		<gem y='3' bc='R' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='26' y='19' />
-		<block y='18' bc='Y' />
-		<block y='17' bc='Y' />
-		<block y='16' bc='Y' />
-		<block y='15' bc='Y' />
+		<block y='18' bc='B' />
+		<block y='17' bc='B' />
+		<block y='16' bc='B' />
+		<block y='15' bc='B' />
 		<wall y='14' />
-		<gem y='13' bc='B' />
+		<gem y='13' bc='R' />
 		<arrow dir='L' y='12' bc='Y' round='1' />
 		<arrow dir='L' y='11' bc='Y' round='1' />
 		<arrow dir='L' y='10' bc='Y' round='1' />
-		<gem y='9' bc='B' />
+		<gem y='9' bc='R' />
 		<wall y='8' />
-		<block y='7' bc='Y' round='1' />
-		<block y='6' bc='Y' round='1' />
-		<block y='5' bc='Y' round='1' />
-		<gem y='4' bc='B' />
-		<gem y='3' bc='B' />
-		<gem y='1' bc='B' />
+		<block y='7' bc='B' round='1' />
+		<block y='6' bc='B' round='1' />
+		<block y='5' bc='B' round='1' />
+		<gem y='4' bc='R' />
+		<gem y='3' bc='R' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='27' y='19' />
 		<beast y='16' dir='R' kind='3' />
 		<wall y='14' />
-		<gem y='13' bc='B' />
-		<clocker y='12' bc='Y' />
+		<gem y='13' bc='R' />
+		<clocker y='12' bc='B' />
 		<arrow dir='L' y='11' bc='Y' round='1' />
 		<earth y='10' />
-		<gem y='9' bc='B' />
+		<gem y='9' bc='R' />
 		<wall y='8' />
-		<block y='4' bc='Y' round='1' />
-		<gem y='3' bc='B' />
-		<gem y='1' bc='B' />
+		<block y='4' bc='B' round='1' />
+		<gem y='3' bc='R' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='28' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<wall y='14' />
-		<gem y='13' bc='B' />
-		<gem y='12' bc='B' />
-		<gem y='11' bc='B' />
-		<gem y='10' bc='B' />
-		<gem y='9' bc='B' />
+		<gem y='13' bc='R' />
+		<gem y='12' bc='R' />
+		<gem y='11' bc='R' />
+		<gem y='10' bc='R' />
+		<gem y='9' bc='R' />
 		<wall y='8' />
 		<beast y='7' dir='R' kind='3' />
 		<wall y='3' round1='1' round7='1' />
@@ -7359,17 +7359,18 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 <hint>Use sentries to retrap...</hint>
 <bye>Bet you had trouble with that!</bye>
 <palette>
-    <color id='1' red="189" green="173" blue="142" mode="RECOLOR" />
-    <color id='2' red="217" green="206" blue="184" mode="RECOLOR" />
-    <color id='3' red="255" green="242" blue="217" mode="RECOLOR" />
+    <color id='1' red="150" green="150" blue="150" />
+    <color id='2' red="102" green="153" blue="255"/>
+    
 </palette>
 <default>
-    <wall color='1' />
+    <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    <area color='3' x1='0' x2='29' y1='0' y2='19' />
+    
 </floor>
+
 	<ground>
 		<oneway dir='L' x='7' y='18' />
 		<oneway dir='R' x='16' y='7' />
@@ -7396,28 +7397,28 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' round1='1' />
 		<wall x='1' y='19' />
-		<block y='15' bc='Y' />
+		<block y='15' bc='B' />
 		<wall y='8' />
 		<arrow dir='D' y='7' bc='Y' round='1' />
 		<arrow dir='D' y='6' bc='Y' round='1' />
 		<wall y='5' round3='1' round9='1' />
 		<wall y='3' round3='1' round9='1' />
-		<clocker y='2' bc='Y' />
+		<clocker y='2' bc='B' />
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='2' y='19' />
 		<pusher y='16' dir='U' bc='Y' />
-		<block y='15' bc='Y' />
+		<block y='15' bc='B' />
 		<timer y='14' bc='Y' val='9' />
 		<beast y='12' dir='R' kind='2' />
 		<wall y='8' />
-		<gem y='7' bc='B' />
+		<gem y='7' bc='R' />
 		<arrow dir='D' y='6' bc='Y' round='1' />
 		<earth y='5' />
-		<aclocker y='1' bc='Y' />
+		<aclocker y='1' bc='B' />
 		<wall y='0' />
 		<wall x='3' y='19' />
-		<block y='15' bc='Y' />
+		<block y='15' bc='B' />
 		<wall y='8' />
 		<arrow dir='D' y='7' bc='Y' round='1' />
 		<arrow dir='D' y='6' bc='Y' round='1' />
@@ -7426,8 +7427,8 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='4' y='19' />
-		<block y='15' bc='Y' />
-		<gem y='9' bc='B' />
+		<block y='15' bc='B' />
+		<gem y='9' bc='R' />
 		<wall y='8' />
 		<wall y='7' />
 		<wall y='6' />
@@ -7436,18 +7437,18 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='5' y='19' />
-		<block y='15' bc='Y' />
+		<block y='15' bc='B' />
 		<beast y='13' dir='R' kind='2' />
-		<gem y='9' bc='B' />
+		<gem y='9' bc='R' />
 		<wall y='8' />
-		<gem y='7' bc='B' />
-		<gem y='6' bc='B' />
+		<gem y='7' bc='R' />
+		<gem y='6' bc='R' />
 		<wall y='5' />
 		<wall y='3' />
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='6' y='19' />
-		<block y='15' bc='Y' />
+		<block y='15' bc='B' />
 		<wall y='8' />
 		<arrow dir='R' y='7' bc='Y' round='1' />
 		<arrow dir='R' y='6' bc='Y' round='1' />
@@ -7459,7 +7460,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='17' round1='1' round7='1' round3='1' round9='1' />
 		<earth y='16' />
 		<wall y='15' round1='1' round7='1' />
-		<block y='13' bc='Y' />
+		<block y='13' bc='B' />
 		<wall y='8' />
 		<arrow dir='R' y='7' bc='Y' round='1' />
 		<arrow dir='R' y='6' bc='Y' round='1' />
@@ -7469,7 +7470,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='0' />
 		<wall x='8' y='19' />
 		<wall y='15' />
-		<block y='13' bc='Y' />
+		<block y='13' bc='B' />
 		<wall y='8' />
 		<arrow dir='R' y='7' bc='Y' round='1' />
 		<arrow dir='R' y='6' bc='Y' round='1' />
@@ -7496,17 +7497,17 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='0' />
 		<wall x='10' y='19' />
 		<wall y='15' round3='1' round9='1' />
-		<block y='11' bc='Y' round='1' />
+		<block y='11' bc='B' round='1' />
 		<wall y='5' />
 		<wall y='3' />
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='11' y='19' />
-		<block y='18' bc='Y' round='1' />
-		<block y='17' bc='Y' round='1' />
-		<block y='16' bc='Y' round='1' />
+		<block y='18' bc='B' round='1' />
+		<block y='17' bc='B' round='1' />
+		<block y='16' bc='B' round='1' />
 		<earth y='15' />
-		<block y='11' bc='Y' round='1' />
+		<block y='11' bc='B' round='1' />
 		<beast y='9' dir='R' kind='2' />
 		<wall y='5' />
 		<wall y='3' />
@@ -7514,7 +7515,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='0' />
 		<wall x='12' y='19' />
 		<wall y='15' round1='1' round7='1' />
-		<block y='11' bc='Y' round='1' />
+		<block y='11' bc='B' round='1' />
 		<beast y='10' dir='R' kind='2' />
 		<wall y='5' />
 		<wall y='3' />
@@ -7522,7 +7523,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='0' />
 		<wall x='13' y='19' />
 		<wall y='15' />
-		<block y='11' bc='Y' round='1' />
+		<block y='11' bc='B' round='1' />
 		<wall y='5' />
 		<wall y='3' />
 		<magnet y='1' horz='1' kind='0' />
@@ -7546,7 +7547,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<beast y='1' dir='R' kind='0' />
 		<wall y='0' />
 		<wall x='15' y='19' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='16' y='19' />
 		<wall y='18' />
@@ -7569,7 +7570,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<blacky y='18' />
 		<pusher y='13' dir='R' bc='Y' />
 		<wall y='12' round3='1' round9='1' />
-		<clocker y='11' bc='Y' />
+		<clocker y='11' bc='B' />
 		<wall y='10' />
 		<wall y='8' />
 		<wall y='6' />
@@ -7592,7 +7593,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' round7='1' />
 		<wall y='0' />
 		<wall x='19' y='19' />
-		<clocker y='18' bc='Y' />
+		<clocker y='18' bc='B' />
 		<wall y='12' round1='1' round7='1' />
 		<arrow dir='L' y='11' bc='Y' />
 		<wall y='10' />
@@ -7623,7 +7624,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='D' y='15' bc='Y' round='1' />
 		<arrow dir='D' y='14' bc='Y' round='1' />
 		<arrow dir='D' y='13' bc='Y' round='1' />
-		<gem y='12' bc='B' />
+		<gem y='12' bc='R' />
 		<arrow dir='L' y='11' bc='Y' />
 		<wall y='10' round3='1' round9='1' />
 		<wall y='6' />
@@ -7636,9 +7637,9 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='D' y='14' bc='Y' round='1' />
 		<wall y='13' round1='1' round7='1' />
 		<arrow dir='L' y='11' bc='Y' />
-		<block y='9' bc='Y' round='1' />
-		<block y='8' bc='Y' round='1' />
-		<block y='7' bc='Y' round='1' />
+		<block y='9' bc='B' round='1' />
+		<block y='8' bc='B' round='1' />
+		<block y='7' bc='B' round='1' />
 		<wall y='6' />
 		<wall y='3' round1='1' round7='1' />
 		<wall y='1' />
@@ -7659,14 +7660,14 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall x='24' y='19' />
 		<wall y='18' />
 		<wall y='16' />
-		<gem y='15' bc='B' />
+		<gem y='15' bc='R' />
 		<arrow dir='D' y='14' bc='Y' round='1' />
 		<arrow dir='D' y='13' bc='Y' round='1' />
 		<wall y='12' round3='1' round9='1' />
 		<arrow dir='L' y='11' bc='Y' />
 		<wall y='10' />
 		<beast y='9' dir='R' kind='2' />
-		<gem y='7' bc='B' />
+		<gem y='7' bc='R' />
 		<wall y='6' />
 		<wall y='3' />
 		<wall y='1' />
@@ -7679,7 +7680,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='D' y='13' bc='Y' round='1' />
 		<earth y='12' />
 		<arrow dir='L' y='11' bc='Y' />
-		<aclocker y='10' bc='Y' />
+		<aclocker y='10' bc='B' />
 		<wall y='9' />
 		<wall y='8' />
 		<wall y='7' />
@@ -7704,31 +7705,31 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='27' y='19' />
-		<aclocker y='18' bc='Y' />
-		<clocker y='10' bc='Y' />
+		<aclocker y='18' bc='B' />
+		<clocker y='10' bc='B' />
 		<wall y='9' />
-		<gem y='8' bc='B' />
+		<gem y='8' bc='R' />
 		<arrow dir='D' y='7' bc='Y' round='1' />
 		<arrow dir='D' y='6' bc='Y' round='1' />
-		<block y='5' bc='Y' round='1' />
-		<clocker y='1' bc='Y' />
+		<block y='5' bc='B' round='1' />
+		<clocker y='1' bc='B' />
 		<wall y='0' />
 		<wall x='28' y='19' />
 		<wall y='18' />
-		<clocker y='17' bc='Y' />
+		<clocker y='17' bc='B' />
 		<wall y='16' />
 		<wall y='15' />
-		<aclocker y='14' bc='Y' />
+		<aclocker y='14' bc='B' />
 		<wall y='13' />
 		<wall y='12' />
-		<aclocker y='11' bc='Y' />
+		<aclocker y='11' bc='B' />
 		<wall y='10' />
 		<wall y='9' />
 		<auto y='8' dir='R' bc='Y' round='1' />
 		<arrow dir='D' y='7' bc='Y' round='1' />
 		<wall y='6' round1='1' round7='1' />
 		<wall y='3' round1='1' round7='1' />
-		<aclocker y='2' bc='Y' />
+		<aclocker y='2' bc='B' />
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='29' y='19' round9='1' />
@@ -7760,17 +7761,18 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 <hint>11 days to Christmas</hint>
 <bye>On your marks...Get set...</bye>
 <palette>
-    <color id='1' red="189" green="173" blue="142" mode="RECOLOR" />
-    <color id='2' red="217" green="206" blue="184" mode="RECOLOR" />
-    <color id='3' red="255" green="242" blue="217" mode="RECOLOR" />
+    <color id='1' red="150" green="150" blue="150" />
+    <color id='2' red="102" green="153" blue="255"/>
+    
 </palette>
 <default>
-    <wall color='1' />
+    <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    <area color='3' x1='0' x2='29' y1='0' y2='19' />
+    
 </floor>
+
 	<ground>
 		<oneway dir='D' x='23' y='10' />
 		<oneway dir='D' x='24' y='7' />
@@ -7805,16 +7807,16 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='11' round9='1' />
 		<wall y='10' />
 		<wall y='9' />
-		<clocker y='8' bc='Y' />
+		<clocker y='8' bc='B' />
 		<wall y='7' />
 		<pusher y='6' dir='R' bc='Y' />
-		<gem y='5' bc='B' />
-		<gem y='4' bc='B' />
-		<clocker y='3' bc='Y' />
+		<gem y='5' bc='R' />
+		<gem y='4' bc='R' />
+		<clocker y='3' bc='B' />
 		<wall y='2' />
 		<wall y='0' />
 		<wall x='2' y='19' />
-		<clocker y='18' bc='Y' />
+		<clocker y='18' bc='B' />
 		<wall y='7' />
 		<wall y='2' />
 		<wall y='0' />
@@ -7829,8 +7831,8 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='10' />
 		<wall y='9' round1='1' />
 		<wall y='7' />
-		<gem y='5' bc='B' />
-		<gem y='4' bc='B' />
+		<gem y='5' bc='R' />
+		<gem y='4' bc='R' />
 		<wall y='2' />
 		<wall y='0' />
 		<wall x='4' y='19' />
@@ -7849,21 +7851,21 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall x='5' y='19' />
 		<wall y='18' />
 		<wall y='16' />
-		<gem y='15' bc='B' />
+		<gem y='15' bc='R' />
 		<wall y='14' />
 		<pusher y='11' dir='D' bc='Y' />
 		<pusher y='10' dir='R' bc='Y' />
 		<wall y='9' />
 		<earth y='7' />
-		<block y='6' bc='Y' />
-		<gem y='5' bc='B' />
-		<gem y='4' bc='B' />
+		<block y='6' bc='B' />
+		<gem y='5' bc='R' />
+		<gem y='4' bc='R' />
 		<wall y='2' />
 		<wall y='0' />
 		<wall x='6' y='19' />
 		<wall y='18' />
 		<wall y='16' />
-		<gem y='15' bc='B' />
+		<gem y='15' bc='R' />
 		<wall y='14' />
 		<wall y='12' round7='1' />
 		<wall y='11' round1='1' />
@@ -7874,21 +7876,21 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall x='7' y='19' />
 		<wall y='18' />
 		<wall y='16' />
-		<gem y='15' bc='B' />
+		<gem y='15' bc='R' />
 		<wall y='14' />
 		<pusher y='13' dir='R' bc='Y' />
 		<wall y='12' />
 		<wall y='11' />
 		<blacky y='9' />
 		<wall y='7' />
-		<gem y='5' bc='B' />
-		<gem y='4' bc='B' />
+		<gem y='5' bc='R' />
+		<gem y='4' bc='R' />
 		<wall y='2' />
 		<wall y='0' />
 		<wall x='8' y='19' />
 		<wall y='18' />
 		<wall y='16' />
-		<gem y='15' bc='B' />
+		<gem y='15' bc='R' />
 		<wall y='14' />
 		<wall y='12' />
 		<wall y='11' />
@@ -7900,7 +7902,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall x='9' y='19' />
 		<wall y='18' />
 		<wall y='16' />
-		<gem y='15' bc='B' />
+		<gem y='15' bc='R' />
 		<wall y='14' />
 		<arrow dir='D' y='13' bc='Y' round='1' />
 		<wall y='12' />
@@ -7908,8 +7910,8 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<blacky y='9' />
 		<wall y='7' />
 		<pusher y='6' dir='R' bc='Y' />
-		<gem y='5' bc='B' />
-		<gem y='4' bc='B' />
+		<gem y='5' bc='R' />
+		<gem y='4' bc='R' />
 		<wall y='2' round3='1' round9='1' />
 		<wall y='0' />
 		<wall x='10' y='19' />
@@ -7929,7 +7931,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='16' />
 		<wall y='14' />
 		<pusher y='13' dir='L' bc='Y' />
-		<aclocker y='11' bc='Y' />
+		<aclocker y='11' bc='B' />
 		<pusher y='10' dir='L' bc='Y' />
 		<wall y='9' round3='1' round9='1' />
 		<wall y='7' round3='1' round9='1' />
@@ -7944,14 +7946,14 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='14' round3='1' round9='1' />
 		<earth y='10' />
 		<earth y='9' />
-		<clocker y='1' bc='Y' />
+		<clocker y='1' bc='B' />
 		<wall y='0' />
 		<wall x='13' y='19' />
 		<wall y='18' />
 		<earth y='16' />
 		<earth y='15' />
 		<pusher y='12' dir='U' bc='Y' />
-		<gem y='11' bc='B' />
+		<gem y='11' bc='R' />
 		<wall y='10' round7='1' />
 		<wall y='9' round1='1' round3='1' />
 		<wall y='7' round1='1' round7='1' />
@@ -7971,17 +7973,17 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<timer y='12' bc='Y' val='3' />
 		<blacky y='11' />
 		<wall y='10' />
-		<clocker y='9' bc='Y' />
+		<clocker y='9' bc='B' />
 		<wall y='7' />
 		<wall y='6' />
 		<wall y='5' />
 		<wall y='4' />
 		<pusher y='3' dir='R' bc='Y' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='15' y='19' />
 		<wall y='18' />
-		<clocker y='16' bc='Y' />
+		<clocker y='16' bc='B' />
 		<arrow dir='R' y='15' bc='Y' round='1' />
 		<arrow dir='U' y='14' bc='Y' round='1' />
 		<arrow dir='U' y='13' bc='Y' round='1' />
@@ -8032,9 +8034,9 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall x='19' y='19' />
 		<blacky y='18' />
 		<wall y='16' />
-		<clocker y='15' bc='Y' />
+		<clocker y='15' bc='B' />
 		<wall y='14' round1='1' round7='1' />
-		<clocker y='7' bc='Y' />
+		<clocker y='7' bc='B' />
 		<blacky y='6' />
 		<wall y='5' />
 		<wall y='4' />
@@ -8053,41 +8055,41 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<blacky y='10' />
 		<blacky y='7' />
 		<wall y='6' round1='1' round7='1' round3='1' round9='1' />
-		<gem y='5' bc='B' />
-		<gem y='4' bc='B' />
-		<gem y='3' bc='B' />
-		<gem y='1' bc='B' />
+		<gem y='5' bc='R' />
+		<gem y='4' bc='R' />
+		<gem y='3' bc='R' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='21' y='19' />
 		<wall y='18' />
 		<wall y='16' />
-		<gem y='15' bc='B' />
-		<block y='12' bc='Y' />
+		<gem y='15' bc='R' />
+		<block y='12' bc='B' />
 		<wall y='10' />
 		<wall y='7' />
-		<gem y='6' bc='B' />
-		<gem y='5' bc='B' />
-		<gem y='4' bc='B' />
-		<gem y='3' bc='B' />
-		<gem y='1' bc='B' />
+		<gem y='6' bc='R' />
+		<gem y='5' bc='R' />
+		<gem y='4' bc='R' />
+		<gem y='3' bc='R' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='22' y='19' />
 		<wall y='18' />
 		<wall y='16' />
-		<block y='12' bc='Y' />
+		<block y='12' bc='B' />
 		<wall y='10' round3='1' round9='1' />
 		<wall y='7' />
-		<gem y='6' bc='B' />
-		<gem y='5' bc='B' />
-		<gem y='4' bc='B' />
-		<gem y='3' bc='B' />
-		<gem y='1' bc='B' />
+		<gem y='6' bc='R' />
+		<gem y='5' bc='R' />
+		<gem y='4' bc='R' />
+		<gem y='3' bc='R' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='23' y='19' />
 		<wall y='18' />
 		<wall y='16' />
 		<beast y='14' dir='R' kind='0' />
-		<block y='12' bc='Y' />
+		<block y='12' bc='B' />
 		<wall y='7' round9='1' />
 		<wall y='6' />
 		<wall y='5' />
@@ -8099,22 +8101,22 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall x='24' y='19' />
 		<wall y='18' />
 		<wall y='16' />
-		<block y='12' bc='Y' />
+		<block y='12' bc='B' />
 		<wall y='10' round1='1' round7='1' />
 		<wall y='0' />
 		<wall x='25' y='19' />
 		<wall y='18' />
 		<wall y='16' />
-		<gem y='15' bc='B' />
-		<block y='12' bc='Y' />
+		<gem y='15' bc='R' />
+		<block y='12' bc='B' />
 		<wall y='10' />
 		<wall y='7' round1='1' round7='1' />
-		<block y='6' bc='Y' round='1' />
-		<block y='5' bc='Y' round='1' />
-		<block y='4' bc='Y' round='1' />
-		<block y='3' bc='Y' round='1' />
-		<block y='2' bc='Y' round='1' />
-		<block y='1' bc='Y' round='1' />
+		<block y='6' bc='B' round='1' />
+		<block y='5' bc='B' round='1' />
+		<block y='4' bc='B' round='1' />
+		<block y='3' bc='B' round='1' />
+		<block y='2' bc='B' round='1' />
+		<block y='1' bc='B' round='1' />
 		<wall y='0' />
 		<wall x='26' y='19' />
 		<wall y='18' />
@@ -8130,13 +8132,13 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='0' />
 		<wall x='27' y='19' />
 		<wall y='18' />
-		<clocker y='8' bc='Y' />
+		<clocker y='8' bc='B' />
 		<wall y='7' />
 		<beast y='4' dir='R' kind='4' />
 		<wall y='0' />
 		<wall x='28' y='19' />
 		<wall y='18' />
-		<clocker y='17' bc='Y' />
+		<clocker y='17' bc='B' />
 		<wall y='16' />
 		<wall y='15' />
 		<wall y='14' round1='1' />
@@ -8145,8 +8147,8 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='9' />
 		<wall y='8' />
 		<wall y='7' />
-		<gem y='6' bc='B' />
-		<gem y='1' bc='B' />
+		<gem y='6' bc='R' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='29' y='19' />
 		<wall y='18' />
@@ -8177,17 +8179,18 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 <hint>Run first, solve later</hint>
 <bye>Now for a treat!</bye>
 <palette>
-    <color id='1' red="189" green="173" blue="142" mode="RECOLOR" />
-    <color id='2' red="217" green="206" blue="184" mode="RECOLOR" />
-    <color id='3' red="255" green="242" blue="217" mode="RECOLOR" />
+    <color id='1' red="150" green="150" blue="150" />
+    <color id='2' red="102" green="153" blue="255"/>
+    
 </palette>
 <default>
-    <wall color='1' />
+    <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    <area color='3' x1='0' x2='29' y1='0' y2='19' />
+    
 </floor>
+
 	<ground>
 		<oneway dir='U' x='1' y='17' />
 		<oneway dir='U' x='5' y='16' />
@@ -8237,12 +8240,12 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='17' round1='1' round7='1' />
 		<timer y='8' bc='Y' val='3' />
 		<timer y='7' bc='Y' val='3' />
-		<gem y='6' bc='B' />
-		<gem y='5' bc='B' />
-		<gem y='4' bc='B' />
-		<gem y='3' bc='B' />
-		<gem y='2' bc='B' />
-		<gem y='1' bc='B' />
+		<gem y='6' bc='R' />
+		<gem y='5' bc='R' />
+		<gem y='4' bc='R' />
+		<gem y='3' bc='R' />
+		<gem y='2' bc='R' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='3' y='19' />
 		<arrow dir='L' y='18' bc='Y' />
@@ -8262,11 +8265,11 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='16' round1='1' round3='1' />
 		<wall y='8' />
 		<wall y='2' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='5' y='19' />
-		<gem y='18' bc='B' />
-		<gem y='17' bc='B' />
+		<gem y='18' bc='R' />
+		<gem y='17' bc='R' />
 		<wall y='14' round7='1' />
 		<wall y='13' />
 		<wall y='12' />
@@ -8311,14 +8314,14 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='U' y='12' bc='Y' round='1' />
 		<arrow dir='R' y='11' bc='Y' round='1' />
 		<arrow dir='R' y='10' bc='Y' round='1' />
-		<gem y='9' bc='B' />
+		<gem y='9' bc='R' />
 		<wall y='8' />
 		<wall y='6' />
 		<wall y='4' />
 		<wall y='2' />
 		<wall y='0' />
 		<wall x='9' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<earth y='17' />
 		<earth y='16' />
 		<earth y='14' />
@@ -8333,7 +8336,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='2' round3='1' round9='1' />
 		<wall y='0' />
 		<wall x='10' y='19' />
-		<gem y='17' bc='B' />
+		<gem y='17' bc='R' />
 		<wall y='16' round1='1' round7='1' />
 		<wall y='14' round1='1' round7='1' round3='1' round9='1' />
 		<blacky y='13' />
@@ -8349,7 +8352,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='L' y='17' bc='Y' />
 		<wall y='16' />
 		<wall y='6' />
-		<gem y='5' bc='B' />
+		<gem y='5' bc='R' />
 		<wall y='4' />
 		<arrow dir='L' y='2' bc='Y' />
 		<wall y='0' />
@@ -8371,8 +8374,8 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='2' round1='1' round3='1' />
 		<wall y='0' />
 		<wall x='13' y='19' />
-		<gem y='18' bc='B' />
-		<gem y='17' bc='B' />
+		<gem y='18' bc='R' />
+		<gem y='17' bc='R' />
 		<wall y='16' />
 		<wall y='14' />
 		<beast y='13' dir='R' kind='0' />
@@ -8381,7 +8384,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<beast y='10' dir='R' kind='0' />
 		<timer y='9' bc='Y' val='4' />
 		<wall y='5' />
-		<gem y='4' bc='B' />
+		<gem y='4' bc='R' />
 		<wall y='3' />
 		<wall y='0' />
 		<wall x='14' y='19' />
@@ -8396,7 +8399,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<timer y='9' bc='Y' val='4' />
 		<wall y='7' round1='1' round7='1' />
 		<wall y='5' />
-		<gem y='4' bc='B' />
+		<gem y='4' bc='R' />
 		<wall y='3' />
 		<wall y='0' />
 		<wall x='15' y='19' />
@@ -8411,7 +8414,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<timer y='9' bc='Y' val='4' />
 		<wall y='7' />
 		<wall y='5' />
-		<gem y='4' bc='B' />
+		<gem y='4' bc='R' />
 		<wall y='3' />
 		<wall y='0' />
 		<wall x='16' y='19' />
@@ -8419,10 +8422,10 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='R' y='17' bc='Y' round='1' />
 		<wall y='16' />
 		<wall y='14' />
-		<gem y='13' bc='B' />
+		<gem y='13' bc='R' />
 		<wall y='7' />
 		<wall y='5' />
-		<gem y='4' bc='B' />
+		<gem y='4' bc='R' />
 		<wall y='3' />
 		<wall y='2' round1='1' round3='1' />
 		<wall y='0' />
@@ -8475,7 +8478,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='2' round1='1' round3='1' />
 		<wall y='0' />
 		<wall x='21' y='19' />
-		<gem y='17' bc='B' />
+		<gem y='17' bc='R' />
 		<wall y='16' round3='1' round9='1' />
 		<beast y='15' dir='R' kind='4' />
 		<wall y='14' />
@@ -8604,17 +8607,18 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 <hint>Need ammo to align the hole</hint>
 <bye>Watch out!</bye>
 <palette>
-    <color id='1' red="189" green="173" blue="142" mode="RECOLOR" />
-    <color id='2' red="217" green="206" blue="184" mode="RECOLOR" />
-    <color id='3' red="255" green="242" blue="217" mode="RECOLOR" />
+    <color id='1' red="150" green="150" blue="150" />
+    <color id='2' red="102" green="153" blue="255"/>
+    
 </palette>
 <default>
-    <wall color='1' />
+    <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    <area color='3' x1='0' x2='29' y1='0' y2='19' />
+    
 </floor>
+
 	<ground>
 	</ground>
 	<objects>
@@ -8642,9 +8646,9 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='18' />
 		<wall y='17' />
 		<wall y='16' />
-		<gem y='15' bc='B' />
-		<gem y='14' bc='B' />
-		<gem y='13' bc='B' />
+		<gem y='15' bc='R' />
+		<gem y='14' bc='R' />
+		<gem y='13' bc='R' />
 		<arrow dir='D' y='12' bc='Y' round='1' />
 		<arrow dir='D' y='11' bc='Y' round='1' />
 		<arrow dir='D' y='10' bc='Y' round='1' />
@@ -8653,12 +8657,12 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='7' round3='1' round9='1' />
 		<wall y='0' />
 		<wall x='2' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<wall y='16' round9='1' />
 		<wall y='15' round1='1' />
-		<gem y='14' bc='B' />
-		<clocker y='13' bc='Y' />
+		<gem y='14' bc='R' />
+		<clocker y='13' bc='B' />
 		<arrow dir='D' y='12' bc='Y' round='1' />
 		<arrow dir='D' y='11' bc='Y' round='1' />
 		<arrow dir='D' y='10' bc='Y' round='1' />
@@ -8667,13 +8671,13 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<earth y='7' />
 		<wall y='0' />
 		<wall x='3' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<wall y='15' round9='1' />
 		<wall y='14' round1='1' />
-		<gem y='13' bc='B' />
-		<gem y='12' bc='B' />
+		<gem y='13' bc='R' />
+		<gem y='12' bc='R' />
 		<arrow dir='D' y='11' bc='Y' round='1' />
 		<arrow dir='D' y='10' bc='Y' round='1' />
 		<arrow dir='D' y='9' bc='Y' round='1' />
@@ -8681,13 +8685,13 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='7' round1='1' round7='1' />
 		<wall y='0' />
 		<wall x='4' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
 		<wall y='14' round9='1' />
 		<wall y='13' round1='1' />
-		<gem y='12' bc='B' />
+		<gem y='12' bc='R' />
 		<arrow dir='D' y='11' bc='Y' round='1' />
 		<arrow dir='D' y='10' bc='Y' round='1' />
 		<arrow dir='D' y='9' bc='Y' round='1' />
@@ -8695,7 +8699,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='7' />
 		<wall y='0' />
 		<wall x='5' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
@@ -8709,7 +8713,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='7' />
 		<wall y='0' />
 		<wall x='6' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
@@ -8721,10 +8725,10 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='D' y='9' bc='Y' round='1' />
 		<arrow dir='D' y='8' bc='Y' round='1' />
 		<wall y='7' />
-		<block y='6' bc='Y' round='1' />
+		<block y='6' bc='B' round='1' />
 		<wall y='0' />
 		<wall x='7' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
@@ -8737,12 +8741,12 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='8' />
 		<wall y='7' round3='1' />
 		<beast y='4' dir='R' kind='1' />
-		<block y='3' bc='Y' round='1' />
-		<block y='2' bc='Y' round='1' />
-		<block y='1' bc='Y' round='1' />
+		<block y='3' bc='B' round='1' />
+		<block y='2' bc='B' round='1' />
+		<block y='1' bc='B' round='1' />
 		<wall y='0' />
 		<wall x='8' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
@@ -8752,13 +8756,13 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='D' y='11' bc='Y' round='1' />
 		<wall y='10' round9='1' />
 		<wall y='9' />
-		<block y='6' bc='Y' round='1' />
-		<block y='5' bc='Y' round='1' />
-		<block y='4' bc='Y' round='1' />
+		<block y='6' bc='B' round='1' />
+		<block y='5' bc='B' round='1' />
+		<block y='4' bc='B' round='1' />
 		<beast y='1' dir='R' kind='2' />
 		<wall y='0' />
 		<wall x='9' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
@@ -8770,13 +8774,13 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='9' round9='1' />
 		<wall y='8' round1='1' />
 		<beast y='7' dir='R' kind='1' />
-		<block y='6' bc='Y' round='1' />
+		<block y='6' bc='B' round='1' />
 		<wall y='3' round7='1' round9='1' />
 		<wall y='2' />
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='10' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
@@ -8792,7 +8796,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='11' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
@@ -8809,7 +8813,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='12' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
@@ -8827,7 +8831,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='13' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
@@ -8846,7 +8850,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='14' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
@@ -8864,7 +8868,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='15' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
@@ -8882,7 +8886,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='16' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
@@ -8899,7 +8903,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='17' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
@@ -8915,7 +8919,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='18' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
@@ -8931,7 +8935,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='19' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
@@ -8942,10 +8946,10 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='D' y='10' bc='Y' round='1' />
 		<wall y='9' round7='1' />
 		<wall y='8' round3='1' />
-		<block y='3' bc='Y' round='1' />
+		<block y='3' bc='B' round='1' />
 		<wall y='0' />
 		<wall x='20' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
@@ -8959,7 +8963,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='21' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
@@ -8973,7 +8977,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='22' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
@@ -8987,7 +8991,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='23' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
@@ -9003,7 +9007,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='24' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
@@ -9016,39 +9020,39 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='25' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<wall y='15' round7='1' />
 		<wall y='14' round3='1' />
 		<wall y='10' />
 		<wall y='9' round3='1' />
-		<block y='7' bc='Y' round='1' />
-		<block y='5' bc='Y' round='1' />
+		<block y='7' bc='B' round='1' />
+		<block y='5' bc='B' round='1' />
 		<wall y='4' round1='1' round7='1' />
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='26' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<wall y='16' round7='1' />
 		<wall y='15' round3='1' />
 		<wall y='12' round1='1' round7='1' />
 		<wall y='10' />
-		<block y='7' bc='Y' round='1' />
-		<block y='6' bc='Y' round='1' />
+		<block y='7' bc='B' round='1' />
+		<block y='6' bc='B' round='1' />
 		<wall y='4' />
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='27' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<wall y='17' round7='1' />
 		<wall y='16' />
 		<wall y='13' round7='1' />
 		<wall y='12' />
 		<wall y='10' />
 		<beast y='8' dir='R' kind='2' />
-		<block y='7' bc='Y' round='1' />
+		<block y='7' bc='B' round='1' />
 		<wall y='4' />
 		<wall y='1' />
 		<wall y='0' />
@@ -9061,9 +9065,9 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='12' />
 		<pusher y='11' dir='L' bc='Y' />
 		<wall y='10' />
-		<gem y='9' bc='B' />
+		<gem y='9' bc='R' />
 		<beast y='8' dir='R' kind='1' />
-		<block y='7' bc='Y' round='1' />
+		<block y='7' bc='B' round='1' />
 		<beast y='6' dir='R' kind='1' />
 		<wall y='4' />
 		<wall y='1' />
@@ -9097,17 +9101,18 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 <hint>Avoid the wandering blob.</hint>
 <bye>What a sneak!</bye>
 <palette>
-    <color id='1' red="189" green="173" blue="142" mode="RECOLOR" />
-    <color id='2' red="217" green="206" blue="184" mode="RECOLOR" />
-    <color id='3' red="255" green="242" blue="217" mode="RECOLOR" />
+    <color id='1' red="150" green="150" blue="150" />
+    <color id='2' red="102" green="153" blue="255"/>
+    
 </palette>
 <default>
-    <wall color='1' />
+    <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    <area color='3' x1='0' x2='29' y1='0' y2='19' />
+    
 </floor>
+
 	<ground>
 	</ground>
 	<objects>
@@ -9136,11 +9141,11 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='R' y='17' bc='Y' round='1' />
 		<arrow dir='R' y='16' bc='Y' round='1' />
 		<arrow dir='R' y='15' bc='Y' round='1' />
-		<gem y='14' bc='B' />
+		<gem y='14' bc='R' />
 		<wall y='13' />
-		<gem y='12' bc='B' />
+		<gem y='12' bc='R' />
 		<beast y='9' dir='R' kind='2' />
-		<gem y='7' bc='B' />
+		<gem y='7' bc='R' />
 		<wall y='6' />
 		<arrow dir='R' y='4' bc='Y' />
 		<wall y='2' round9='1' />
@@ -9153,8 +9158,8 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='R' y='15' bc='Y' round='1' />
 		<earth y='14' />
 		<wall y='13' />
-		<block y='11' bc='Y' />
-		<block y='8' bc='Y' />
+		<block y='11' bc='B' />
+		<block y='8' bc='B' />
 		<wall y='6' />
 		<arrow dir='R' y='4' bc='Y' />
 		<pusher y='2' dir='L' bc='Y' />
@@ -9167,8 +9172,8 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='15' />
 		<wall y='14' />
 		<wall y='13' />
-		<block y='10' bc='Y' />
-		<block y='9' bc='Y' />
+		<block y='10' bc='B' />
+		<block y='9' bc='B' />
 		<wall y='6' />
 		<arrow dir='R' y='4' bc='Y' />
 		<wall y='1' round9='1' />
@@ -9176,8 +9181,8 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall x='4' y='19' />
 		<wall y='13' />
 		<beast y='12' dir='R' kind='2' />
-		<block y='10' bc='Y' />
-		<block y='8' bc='Y' />
+		<block y='10' bc='B' />
+		<block y='8' bc='B' />
 		<beast y='7' dir='R' kind='2' />
 		<wall y='6' />
 		<arrow dir='R' y='4' bc='Y' />
@@ -9185,14 +9190,14 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<beast y='1' dir='R' kind='3' />
 		<wall y='0' />
 		<wall x='5' y='19' />
-		<block y='18' bc='Y' round='1' />
-		<block y='17' bc='Y' round='1' />
-		<block y='16' bc='Y' round='1' />
+		<block y='18' bc='B' round='1' />
+		<block y='17' bc='B' round='1' />
+		<block y='16' bc='B' round='1' />
 		<wall y='13' />
-		<block y='10' bc='Y' />
-		<block y='8' bc='Y' />
+		<block y='10' bc='B' />
+		<block y='8' bc='B' />
 		<wall y='6' />
-		<block y='4' bc='Y' />
+		<block y='4' bc='B' />
 		<wall y='1' round7='1' />
 		<wall y='0' />
 		<wall x='6' y='19' />
@@ -9214,7 +9219,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<earth y='5' />
 		<earth y='4' />
 		<wall y='3' round1='1' round7='1' />
-		<gem y='2' bc='B' />
+		<gem y='2' bc='R' />
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='8' y='19' />
@@ -9300,7 +9305,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='18' />
 		<wall y='16' />
 		<earth y='15' />
-		<gem y='14' bc='B' />
+		<gem y='14' bc='R' />
 		<beast y='11' dir='R' kind='4' />
 		<arrow dir='U' y='8' bc='Y' />
 		<arrow dir='U' y='7' bc='Y' />
@@ -9367,7 +9372,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='10' />
 		<wall y='9' />
 		<wall y='8' round3='1' />
-		<aclocker y='1' bc='Y' />
+		<aclocker y='1' bc='B' />
 		<wall y='0' />
 		<wall x='22' y='19' />
 		<arrow dir='D' y='18' bc='Y' round='1' />
@@ -9408,17 +9413,17 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='U' y='9' bc='Y' round='1' />
 		<arrow dir='U' y='8' bc='Y' />
 		<wall y='6' />
-		<block y='5' bc='Y' round='1' />
-		<block y='4' bc='Y' round='1' />
-		<block y='2' bc='Y' round='1' />
-		<block y='1' bc='Y' round='1' />
+		<block y='5' bc='B' round='1' />
+		<block y='4' bc='B' round='1' />
+		<block y='2' bc='B' round='1' />
+		<block y='1' bc='B' round='1' />
 		<wall y='0' />
 		<wall x='25' y='19' />
 		<arrow dir='D' y='18' bc='Y' round='1' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<wall y='16' round7='1' />
 		<wall y='15' round3='1' />
-		<gem y='14' bc='B' />
+		<gem y='14' bc='R' />
 		<wall y='13' />
 		<earth y='12' />
 		<arrow dir='U' y='11' bc='Y' />
@@ -9444,7 +9449,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<beast y='2' dir='R' kind='0' />
 		<wall y='0' />
 		<wall x='27' y='19' />
-		<block y='17' bc='Y' />
+		<block y='17' bc='B' />
 		<beast y='14' dir='R' kind='2' />
 		<wall y='13' />
 		<earth y='12' />
@@ -9454,19 +9459,19 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='L' y='8' bc='Y' round='1' />
 		<arrow dir='L' y='7' bc='Y' round='1' />
 		<wall y='6' />
-		<block y='3' bc='Y' round='1' />
+		<block y='3' bc='B' round='1' />
 		<wall y='0' />
 		<wall x='28' y='19' />
-		<block y='17' bc='Y' />
+		<block y='17' bc='B' />
 		<wall y='13' />
 		<earth y='12' />
 		<arrow dir='U' y='11' bc='Y' />
-		<gem y='10' bc='B' />
+		<gem y='10' bc='R' />
 		<arrow dir='L' y='9' bc='Y' round='1' />
 		<arrow dir='L' y='8' bc='Y' round='1' />
 		<arrow dir='L' y='7' bc='Y' round='1' />
 		<wall y='6' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='29' y='19' />
 		<wall y='18' />
@@ -9497,17 +9502,18 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 <hint>Head off the rounder</hint>
 <bye>Watch out...</bye>
 <palette>
-    <color id='1' red="189" green="173" blue="142" mode="RECOLOR" />
-    <color id='2' red="217" green="206" blue="184" mode="RECOLOR" />
-    <color id='3' red="255" green="242" blue="217" mode="RECOLOR" />
+    <color id='1' red="150" green="150" blue="150" />
+    <color id='2' red="102" green="153" blue="255"/>
+    
 </palette>
 <default>
-    <wall color='1' />
+    <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    <area color='3' x1='0' x2='29' y1='0' y2='19' />
+    
 </floor>
+
 	<ground>
 		<oneway dir='U' x='9' y='14' />
 		<oneway dir='R' x='15' y='14' />
@@ -9537,8 +9543,8 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='1' y='19' />
-		<gem y='18' bc='B' />
-		<block y='12' bc='Y' />
+		<gem y='18' bc='R' />
+		<block y='12' bc='B' />
 		<wall y='10' round3='1' round9='1' />
 		<earth y='9' />
 		<earth y='8' />
@@ -9548,12 +9554,12 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='U' y='4' bc='Y' round='1' />
 		<arrow dir='U' y='3' bc='Y' round='1' />
 		<arrow dir='U' y='2' bc='Y' round='1' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='2' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<beast y='16' dir='R' kind='1' />
-		<block y='12' bc='Y' />
+		<block y='12' bc='B' />
 		<earth y='10' />
 		<earth y='9' />
 		<earth y='8' />
@@ -9563,11 +9569,11 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='U' y='4' bc='Y' round='1' />
 		<arrow dir='U' y='3' bc='Y' round='1' />
 		<arrow dir='U' y='2' bc='Y' round='1' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='3' y='19' />
-		<gem y='18' bc='B' />
-		<block y='12' bc='Y' />
+		<gem y='18' bc='R' />
+		<block y='12' bc='B' />
 		<wall y='10' round1='1' round7='1' />
 		<earth y='9' />
 		<earth y='8' />
@@ -9577,11 +9583,11 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='U' y='4' bc='Y' round='1' />
 		<arrow dir='U' y='3' bc='Y' round='1' />
 		<arrow dir='U' y='2' bc='Y' round='1' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='4' y='19' />
-		<gem y='18' bc='B' />
-		<block y='12' bc='Y' />
+		<gem y='18' bc='R' />
+		<block y='12' bc='B' />
 		<wall y='10' />
 		<earth y='9' />
 		<earth y='8' />
@@ -9591,7 +9597,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='U' y='4' bc='Y' round='1' />
 		<arrow dir='U' y='3' bc='Y' round='1' />
 		<arrow dir='U' y='2' bc='Y' round='1' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='5' y='19' />
 		<wall y='18' />
@@ -9643,8 +9649,8 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='R' y='15' bc='Y' />
 		<wall y='14' round9='1' />
 		<wall y='13' round3='1' />
-		<aclocker y='12' bc='Y' />
-		<gem y='5' bc='B' />
+		<aclocker y='12' bc='B' />
+		<gem y='5' bc='R' />
 		<beast y='1' dir='R' kind='1' />
 		<wall y='0' />
 		<wall x='9' y='19' />
@@ -9657,23 +9663,23 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='9' />
 		<wall y='8' />
 		<wall y='7' round1='1' />
-		<block y='6' bc='Y' round='1' />
-		<block y='5' bc='Y' round='1' />
-		<block y='4' bc='Y' round='1' />
-		<block y='3' bc='Y' round='1' />
-		<block y='2' bc='Y' round='1' />
-		<block y='1' bc='Y' round='1' />
+		<block y='6' bc='B' round='1' />
+		<block y='5' bc='B' round='1' />
+		<block y='4' bc='B' round='1' />
+		<block y='3' bc='B' round='1' />
+		<block y='2' bc='B' round='1' />
+		<block y='1' bc='B' round='1' />
 		<wall y='0' />
 		<wall x='10' y='19' />
 		<wall y='18' />
 		<wall y='16' />
 		<wall y='14' round1='1' round7='1' />
-		<aclocker y='13' bc='Y' />
+		<aclocker y='13' bc='B' />
 		<arrow dir='U' y='12' bc='Y' round='1' />
 		<arrow dir='U' y='11' bc='Y' round='1' />
 		<arrow dir='U' y='10' bc='Y' round='1' />
 		<arrow dir='U' y='9' bc='Y' round='1' />
-		<clocker y='8' bc='Y' />
+		<clocker y='8' bc='B' />
 		<wall y='7' />
 		<wall y='0' />
 		<wall x='11' y='19' />
@@ -9702,15 +9708,15 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='12' round9='1' />
 		<wall y='11' />
 		<wall y='10' round1='1' round3='1' />
-		<gem y='9' bc='B' />
-		<block y='6' bc='Y' round='1' />
+		<gem y='9' bc='R' />
+		<block y='6' bc='B' round='1' />
 		<wall y='0' />
 		<wall x='13' y='19' />
 		<wall y='18' />
 		<wall y='16' round9='1' />
 		<wall y='15' round1='1' />
 		<wall y='11' />
-		<block y='6' bc='Y' round='1' />
+		<block y='6' bc='B' round='1' />
 		<beast y='3' dir='R' kind='1' />
 		<wall y='0' />
 		<wall x='14' y='19' />
@@ -9723,32 +9729,32 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='9' round7='1' round9='1' />
 		<wall y='8' />
 		<wall y='7' round1='1' />
-		<block y='5' bc='Y' round='1' />
+		<block y='5' bc='B' round='1' />
 		<wall y='0' />
 		<wall x='15' y='19' />
 		<wall y='18' />
 		<wall y='17' round1='1' round3='1' />
 		<wall y='15' round3='1' round9='1' />
 		<wall y='13' />
-		<block y='9' bc='Y' round='1' />
+		<block y='9' bc='B' round='1' />
 		<beast y='8' dir='R' kind='3' />
 		<wall y='7' />
-		<block y='5' bc='Y' round='1' />
+		<block y='5' bc='B' round='1' />
 		<beast y='3' dir='R' kind='1' />
 		<wall y='0' />
 		<wall x='16' y='19' />
 		<magnet y='17' kind='0' />
 		<wall y='13' />
-		<block y='9' bc='Y' round='1' />
+		<block y='9' bc='B' round='1' />
 		<wall y='7' />
-		<block y='5' bc='Y' round='1' />
+		<block y='5' bc='B' round='1' />
 		<wall y='0' />
 		<wall x='17' y='19' />
 		<wall y='18' />
 		<wall y='17' round1='1' round3='1' />
 		<wall y='15' round1='1' round7='1' />
 		<wall y='13' round3='1' round9='1' />
-		<block y='9' bc='Y' round='1' />
+		<block y='9' bc='B' round='1' />
 		<beast y='8' dir='R' kind='1' />
 		<wall y='7' round9='1' />
 		<wall y='6' />
@@ -9762,8 +9768,8 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='18' />
 		<wall y='15' />
 		<earth y='13' />
-		<block y='9' bc='Y' round='1' />
-		<gem y='5' bc='B' />
+		<block y='9' bc='B' round='1' />
+		<gem y='5' bc='R' />
 		<arrow dir='L' y='4' bc='Y' round='1' />
 		<arrow dir='L' y='3' bc='Y' round='1' />
 		<arrow dir='L' y='2' bc='Y' round='1' />
@@ -9774,10 +9780,10 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='16' round7='1' />
 		<wall y='15' round3='1' />
 		<wall y='13' round1='1' round7='1' />
-		<block y='12' bc='Y' round='1' />
-		<block y='11' bc='Y' round='1' />
-		<block y='10' bc='Y' round='1' />
-		<block y='9' bc='Y' round='1' />
+		<block y='12' bc='B' round='1' />
+		<block y='11' bc='B' round='1' />
+		<block y='10' bc='B' round='1' />
+		<block y='9' bc='B' round='1' />
 		<wall y='6' round1='1' round7='1' />
 		<arrow dir='L' y='5' bc='Y' round='1' />
 		<arrow dir='L' y='4' bc='Y' round='1' />
@@ -9788,12 +9794,12 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall x='20' y='19' />
 		<beast y='18' dir='R' kind='0' />
 		<wall y='16' />
-		<gem y='15' bc='B' />
+		<gem y='15' bc='R' />
 		<earth y='14' />
 		<wall y='13' round9='1' />
 		<wall y='12' round1='1' />
 		<beast y='9' dir='R' kind='1' />
-		<gem y='8' bc='B' />
+		<gem y='8' bc='R' />
 		<wall y='6' />
 		<arrow dir='L' y='5' bc='Y' round='1' />
 		<arrow dir='L' y='4' bc='Y' round='1' />
@@ -9809,7 +9815,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='U' y='13' bc='Y' round='1' />
 		<wall y='12' round9='1' />
 		<wall y='11' round1='1' />
-		<gem y='8' bc='B' />
+		<gem y='8' bc='R' />
 		<wall y='6' />
 		<arrow dir='L' y='5' bc='Y' round='1' />
 		<arrow dir='L' y='4' bc='Y' round='1' />
@@ -9821,12 +9827,12 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='18' />
 		<wall y='16' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
-		<gem y='14' bc='B' />
+		<gem y='14' bc='R' />
 		<arrow dir='U' y='13' bc='Y' round='1' />
 		<arrow dir='L' y='12' bc='Y' round='1' />
 		<wall y='11' />
 		<wall y='10' round1='1' />
-		<gem y='7' bc='B' />
+		<gem y='7' bc='R' />
 		<wall y='6' />
 		<arrow dir='L' y='5' bc='Y' round='1' />
 		<arrow dir='L' y='4' bc='Y' round='1' />
@@ -9853,7 +9859,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='24' y='19' />
-		<aclocker y='18' bc='Y' />
+		<aclocker y='18' bc='B' />
 		<earth y='2' />
 		<arrow dir='U' y='1' bc='Y' round='1' />
 		<wall y='0' />
@@ -9883,30 +9889,30 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='0' />
 		<wall x='27' y='19' />
 		<wall y='18' />
-		<aclocker y='16' bc='Y' />
+		<aclocker y='16' bc='B' />
 		<wall y='15' />
-		<block y='13' bc='Y' />
-		<block y='12' bc='Y' />
-		<block y='11' bc='Y' />
-		<block y='9' bc='Y' />
-		<block y='8' bc='Y' />
-		<block y='7' bc='Y' />
-		<block y='5' bc='Y' />
-		<block y='4' bc='Y' />
-		<block y='3' bc='Y' />
+		<block y='13' bc='B' />
+		<block y='12' bc='B' />
+		<block y='11' bc='B' />
+		<block y='9' bc='B' />
+		<block y='8' bc='B' />
+		<block y='7' bc='B' />
+		<block y='5' bc='B' />
+		<block y='4' bc='B' />
+		<block y='3' bc='B' />
 		<wall y='0' />
 		<wall x='28' y='19' />
 		<wall y='18' />
-		<aclocker y='17' bc='Y' />
+		<aclocker y='17' bc='B' />
 		<wall y='16' />
 		<wall y='15' />
-		<gem y='14' bc='B' />
+		<gem y='14' bc='R' />
 		<beast y='12' dir='R' kind='1' />
-		<gem y='10' bc='B' />
+		<gem y='10' bc='R' />
 		<beast y='8' dir='R' kind='1' />
-		<gem y='6' bc='B' />
+		<gem y='6' bc='R' />
 		<beast y='4' dir='R' kind='1' />
-		<gem y='2' bc='B' />
+		<gem y='2' bc='R' />
 		<earth y='1' />
 		<wall y='0' />
 		<wall x='29' y='19' />
@@ -9938,17 +9944,18 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 <hint>Remove the sphinx!</hint>
 <bye>Get out of this one...</bye>
 <palette>
-    <color id='1' red="189" green="173" blue="142" mode="RECOLOR" />
-    <color id='2' red="217" green="206" blue="184" mode="RECOLOR" />
-    <color id='3' red="255" green="242" blue="217" mode="RECOLOR" />
+    <color id='1' red="150" green="150" blue="150" />
+    <color id='2' red="102" green="153" blue="255"/>
+    
 </palette>
 <default>
-    <wall color='1' />
+    <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    <area color='3' x1='0' x2='29' y1='0' y2='19' />
+    
 </floor>
+
 	<ground>
 		<oneway dir='U' x='1' y='12' />
 		<oneway dir='D' x='3' y='12' />
@@ -9980,27 +9987,27 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='1' y='19' />
-		<gem y='18' bc='B' />
-		<block y='16' bc='Y' round='1' />
+		<gem y='18' bc='R' />
+		<block y='16' bc='B' round='1' />
 		<wall y='14' round3='1' round9='1' />
-		<block y='9' bc='Y' />
+		<block y='9' bc='B' />
 		<wall y='7' round3='1' round9='1' />
 		<wall y='0' />
 		<wall x='2' y='19' />
 		<beast y='17' dir='R' kind='4' />
-		<block y='16' bc='Y' round='1' />
+		<block y='16' bc='B' round='1' />
 		<earth y='14' />
 		<wall y='12' />
 		<beast y='10' dir='R' kind='1' />
-		<block y='9' bc='Y' />
+		<block y='9' bc='B' />
 		<earth y='7' />
 		<magnet y='6' kind='0' />
 		<wall y='0' />
 		<wall x='3' y='19' />
-		<block y='16' bc='Y' round='1' />
+		<block y='16' bc='B' round='1' />
 		<wall y='14' round1='1' round7='1' />
 		<timer y='9' bc='Y' val='9' />
-		<gem y='8' bc='B' />
+		<gem y='8' bc='R' />
 		<wall y='7' round1='1' round7='1' />
 		<wall y='0' />
 		<wall x='4' y='19' />
@@ -10033,7 +10040,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='U' y='9' bc='Y' round='1' />
 		<arrow dir='U' y='8' bc='Y' round='1' />
 		<wall y='7' />
-		<gem y='3' bc='B' />
+		<gem y='3' bc='R' />
 		<wall y='2' />
 		<wall y='0' />
 		<wall x='6' y='19' />
@@ -10050,7 +10057,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='7' />
 		<arrow dir='D' y='5' bc='Y' />
 		<arrow dir='D' y='4' bc='Y' />
-		<gem y='3' bc='B' />
+		<gem y='3' bc='R' />
 		<wall y='2' />
 		<wall y='0' />
 		<wall x='7' y='19' />
@@ -10067,7 +10074,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='7' />
 		<arrow dir='D' y='5' bc='Y' />
 		<arrow dir='D' y='4' bc='Y' />
-		<gem y='3' bc='B' />
+		<gem y='3' bc='R' />
 		<wall y='2' />
 		<wall y='0' />
 		<wall x='8' y='19' />
@@ -10084,11 +10091,11 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='7' />
 		<arrow dir='D' y='5' bc='Y' />
 		<arrow dir='D' y='4' bc='Y' />
-		<gem y='3' bc='B' />
+		<gem y='3' bc='R' />
 		<wall y='2' />
 		<wall y='0' />
 		<wall x='9' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<wall y='17' round1='1' round7='1' />
 		<earth y='16' />
 		<wall y='15' round7='1' round9='1' />
@@ -10097,52 +10104,52 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='12' />
 		<wall y='11' />
 		<wall y='10' round1='1' />
-		<gem y='9' bc='B' />
-		<gem y='8' bc='B' />
+		<gem y='9' bc='R' />
+		<gem y='8' bc='R' />
 		<wall y='7' />
 		<arrow dir='D' y='5' bc='Y' />
 		<arrow dir='D' y='4' bc='Y' />
-		<gem y='3' bc='B' />
+		<gem y='3' bc='R' />
 		<wall y='2' />
 		<wall y='0' />
 		<wall x='10' y='19' />
 		<wall y='18' />
 		<wall y='17' round3='1' />
 		<wall y='14' />
-		<gem y='13' bc='B' />
+		<gem y='13' bc='R' />
 		<wall y='10' round9='1' />
 		<wall y='9' />
 		<wall y='8' />
 		<wall y='7' />
 		<arrow dir='D' y='5' bc='Y' />
 		<arrow dir='D' y='4' bc='Y' />
-		<gem y='3' bc='B' />
+		<gem y='3' bc='R' />
 		<wall y='2' />
 		<wall y='0' />
 		<wall x='11' y='19' />
-		<gem y='18' bc='B' />
-		<block y='16' bc='Y' round='1' />
+		<gem y='18' bc='R' />
+		<block y='16' bc='B' round='1' />
 		<wall y='14' />
-		<gem y='8' bc='B' />
+		<gem y='8' bc='R' />
 		<wall y='7' />
 		<arrow dir='D' y='5' bc='Y' />
 		<arrow dir='D' y='4' bc='Y' />
-		<gem y='3' bc='B' />
+		<gem y='3' bc='R' />
 		<wall y='2' />
 		<wall y='0' />
 		<wall x='12' y='19' />
-		<block y='16' bc='Y' round='1' />
+		<block y='16' bc='B' round='1' />
 		<wall y='14' />
 		<beast y='10' dir='R' kind='2' />
-		<gem y='8' bc='B' />
+		<gem y='8' bc='R' />
 		<wall y='7' />
 		<arrow dir='D' y='4' bc='Y' />
-		<gem y='3' bc='B' />
+		<gem y='3' bc='R' />
 		<wall y='2' />
 		<wall y='0' />
 		<wall x='13' y='19' />
 		<beast y='18' dir='R' kind='4' />
-		<block y='16' bc='Y' round='1' />
+		<block y='16' bc='B' round='1' />
 		<wall y='14' />
 		<wall y='8' round7='1' />
 		<wall y='7' />
@@ -10152,11 +10159,11 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='2' round3='1' round9='1' />
 		<wall y='0' />
 		<wall x='14' y='19' />
-		<block y='16' bc='Y' round='1' />
+		<block y='16' bc='B' round='1' />
 		<wall y='14' />
-		<block y='13' bc='Y' round='1' />
+		<block y='13' bc='B' round='1' />
 		<wall y='8' />
-		<block y='4' bc='Y' />
+		<block y='4' bc='B' />
 		<wall y='0' />
 		<wall x='15' y='19' />
 		<wall y='18' round1='1' round3='1' />
@@ -10164,30 +10171,30 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='16' round7='1' round9='1' />
 		<wall y='15' />
 		<wall y='14' round3='1' />
-		<block y='12' bc='Y' round='1' />
-		<block y='11' bc='Y' round='1' />
-		<block y='10' bc='Y' round='1' />
-		<block y='9' bc='Y' round='1' />
+		<block y='12' bc='B' round='1' />
+		<block y='11' bc='B' round='1' />
+		<block y='10' bc='B' round='1' />
+		<block y='9' bc='B' round='1' />
 		<wall y='8' />
-		<block y='4' bc='Y' />
+		<block y='4' bc='B' />
 		<wall y='2' />
 		<wall y='0' />
 		<wall x='16' y='19' />
 		<wall y='15' />
 		<beast y='14' dir='R' kind='4' />
-		<block y='12' bc='Y' round='1' />
+		<block y='12' bc='B' round='1' />
 		<wall y='8' />
 		<beast y='6' dir='R' kind='4' />
-		<block y='4' bc='Y' />
+		<block y='4' bc='B' />
 		<wall y='0' />
 		<wall x='17' y='19' />
-		<block y='18' bc='Y' />
-		<block y='17' bc='Y' />
-		<block y='16' bc='Y' />
+		<block y='18' bc='B' />
+		<block y='17' bc='B' />
+		<block y='16' bc='B' />
 		<wall y='15' />
-		<block y='12' bc='Y' round='1' />
+		<block y='12' bc='B' round='1' />
 		<wall y='8' />
-		<block y='4' bc='Y' />
+		<block y='4' bc='B' />
 		<wall y='2' round1='1' round7='1' />
 		<wall y='0' />
 		<wall x='18' y='19' />
@@ -10227,7 +10234,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='2' round1='1' round3='1' />
 		<wall y='0' />
 		<wall x='21' y='19' />
-		<gem y='15' bc='B' />
+		<gem y='15' bc='R' />
 		<magnet y='3' kind='0' />
 		<beast y='2' dir='R' kind='0' />
 		<wall y='0' />
@@ -10251,7 +10258,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='2' round1='1' round3='1' />
 		<wall y='0' />
 		<wall x='23' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<auto y='17' dir='D' bc='Y' round='1' />
 		<wall y='14' round9='1' />
 		<wall y='13' />
@@ -10266,44 +10273,44 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<timer y='4' bc='Y' val='7' />
 		<timer y='3' bc='Y' val='8' />
 		<timer y='2' bc='Y' val='9' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='24' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<auto y='17' dir='R' bc='Y' round='1' />
 		<wall y='13' round9='1' />
 		<wall y='12' />
-		<block y='10' bc='Y' round='1' />
+		<block y='10' bc='B' round='1' />
 		<timer y='7' bc='Y' val='3' />
 		<blacky y='1' />
 		<wall y='0' />
 		<wall x='25' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<auto y='17' dir='U' bc='Y' round='1' />
 		<wall y='12' round3='1' round9='1' />
-		<block y='11' bc='Y' round='1' />
+		<block y='11' bc='B' round='1' />
 		<timer y='7' bc='Y' val='3' />
 		<blacky y='1' />
 		<wall y='0' />
 		<wall x='26' y='19' />
-		<gem y='18' bc='B' />
-		<block y='17' bc='Y' />
+		<gem y='18' bc='R' />
+		<block y='17' bc='B' />
 		<timer y='7' bc='Y' val='3' />
 		<magnet y='5' kind='0' />
 		<blacky y='1' />
 		<wall y='0' />
 		<wall x='27' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<auto y='17' dir='D' bc='Y' round='1' />
 		<wall y='13' round7='1' />
 		<wall y='12' round1='1' />
-		<block y='11' bc='Y' round='1' />
-		<block y='10' bc='Y' round='1' />
+		<block y='11' bc='B' round='1' />
+		<block y='10' bc='B' round='1' />
 		<timer y='7' bc='Y' val='3' />
 		<blacky y='1' />
 		<wall y='0' />
 		<wall x='28' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<auto y='17' dir='R' bc='Y' round='1' />
 		<wall y='14' round7='1' />
 		<wall y='13' />
@@ -10340,17 +10347,18 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 <hint>Hint? Ask a policeman!</hint>
 <bye>Bring your passport next time.</bye>
 <palette>
-    <color id='1' red="189" green="173" blue="142" mode="RECOLOR" />
-    <color id='2' red="217" green="206" blue="184" mode="RECOLOR" />
-    <color id='3' red="255" green="242" blue="217" mode="RECOLOR" />
+    <color id='1' red="150" green="150" blue="150" />
+    <color id='2' red="102" green="153" blue="255"/>
+    
 </palette>
 <default>
-    <wall color='1' />
+    <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    <area color='3' x1='0' x2='29' y1='0' y2='19' />
+    
 </floor>
+
 	<ground>
 		<oneway dir='U' x='16' y='10' />
 		<oneway dir='R' x='19' y='5' />
@@ -10412,7 +10420,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='5' />
 		<arrow dir='D' y='4' bc='Y' />
 		<arrow dir='D' y='3' bc='Y' />
-		<block y='2' bc='Y' />
+		<block y='2' bc='B' />
 		<wall y='0' />
 		<wall x='3' y='19' />
 		<arrow dir='L' y='18' bc='Y' />
@@ -10472,23 +10480,23 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='16' />
 		<wall y='15' />
 		<wall y='14' round3='1' />
-		<gem y='13' bc='B' />
-		<gem y='11' bc='B' />
-		<gem y='8' bc='B' />
-		<block y='6' bc='Y' />
+		<gem y='13' bc='R' />
+		<gem y='11' bc='R' />
+		<gem y='8' bc='R' />
+		<block y='6' bc='B' />
 		<wall y='3' round3='1' round9='1' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='9' y='19' />
 		<arrow dir='L' y='18' bc='Y' />
 		<wall y='17' />
 		<wall y='16' />
 		<wall y='15' />
-		<gem y='14' bc='B' />
+		<gem y='14' bc='R' />
 		<beast y='8' dir='R' kind='1' />
-		<block y='6' bc='Y' />
+		<block y='6' bc='B' />
 		<earth y='3' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='10' y='19' />
 		<arrow dir='L' y='18' bc='Y' />
@@ -10496,12 +10504,12 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='16' />
 		<wall y='15' />
 		<wall y='14' round1='1' />
-		<gem y='13' bc='B' />
-		<gem y='11' bc='B' />
+		<gem y='13' bc='R' />
+		<gem y='11' bc='R' />
 		<wall y='10' round1='1' round7='1' />
-		<block y='6' bc='Y' />
+		<block y='6' bc='B' />
 		<wall y='3' round1='1' round7='1' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='11' y='19' />
 		<arrow dir='L' y='18' bc='Y' />
@@ -10539,7 +10547,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='6' />
 		<wall y='5' />
 		<wall y='4' round1='1' />
-		<gem y='3' bc='B' />
+		<gem y='3' bc='R' />
 		<wall y='0' />
 		<wall x='14' y='19' />
 		<arrow dir='L' y='18' bc='Y' />
@@ -10563,7 +10571,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='4' />
 		<arrow dir='U' y='3' bc='Y' round='1' />
 		<arrow dir='U' y='2' bc='Y' round='1' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='16' y='19' />
 		<arrow dir='L' y='18' bc='Y' />
@@ -10576,7 +10584,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='4' round3='1' round9='1' />
 		<arrow dir='U' y='3' bc='Y' round='1' />
 		<arrow dir='U' y='2' bc='Y' round='1' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='17' y='19' />
 		<arrow dir='L' y='18' bc='Y' />
@@ -10591,7 +10599,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<earth y='4' />
 		<arrow dir='U' y='3' bc='Y' round='1' />
 		<arrow dir='U' y='2' bc='Y' round='1' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='18' y='19' />
 		<arrow dir='L' y='18' bc='Y' />
@@ -10601,14 +10609,14 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='4' round1='1' round7='1' />
 		<arrow dir='U' y='3' bc='Y' round='1' />
 		<arrow dir='U' y='2' bc='Y' round='1' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='19' y='19' />
 		<arrow dir='L' y='18' bc='Y' />
 		<arrow dir='U' y='17' bc='Y' />
 		<wall y='16' />
 		<wall y='15' round3='1' />
-		<block y='14' bc='Y' />
+		<block y='14' bc='B' />
 		<wall y='13' round7='1' round9='1' />
 		<wall y='12' />
 		<wall y='11' />
@@ -10628,13 +10636,13 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='U' y='15' bc='Y' round='1' />
 		<arrow dir='U' y='14' bc='Y' round='1' />
 		<auto y='12' dir='R' bc='Y' round='1' />
-		<aclocker y='2' bc='Y' />
+		<aclocker y='2' bc='B' />
 		<blacky y='1' />
 		<wall y='0' />
 		<wall x='21' y='19' />
 		<earth y='17' />
 		<pusher y='16' dir='D' bc='Y' />
-		<block y='15' bc='Y' round='1' />
+		<block y='15' bc='B' round='1' />
 		<arrow dir='U' y='14' bc='Y' round='1' />
 		<blacky y='13' />
 		<auto y='12' dir='U' bc='Y' round='1' />
@@ -10643,8 +10651,8 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='0' />
 		<wall x='22' y='19' />
 		<wall y='18' />
-		<aclocker y='17' bc='Y' />
-		<aclocker y='16' bc='Y' />
+		<aclocker y='17' bc='B' />
+		<aclocker y='16' bc='B' />
 		<wall y='15' />
 		<pusher y='14' dir='R' bc='Y' />
 		<wall y='13' />
@@ -10667,20 +10675,20 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<timer y='9' bc='Y' val='3' />
 		<timer y='8' bc='Y' val='6' />
 		<blacky y='3' />
-		<gem y='2' bc='B' />
+		<gem y='2' bc='R' />
 		<blacky y='1' />
 		<wall y='0' />
 		<wall x='25' y='19' />
 		<auto y='18' dir='U' bc='Y' round='1' />
-		<gem y='15' bc='B' />
+		<gem y='15' bc='R' />
 		<wall y='11' round1='1' round7='1' />
 		<timer y='8' bc='Y' val='7' />
-		<block y='2' bc='Y' round='1' />
+		<block y='2' bc='B' round='1' />
 		<blacky y='1' />
 		<wall y='0' />
 		<wall x='26' y='19' />
 		<auto y='18' dir='L' bc='Y' round='1' />
-		<gem y='15' bc='B' />
+		<gem y='15' bc='R' />
 		<wall y='12' round7='1' />
 		<wall y='11' round3='1' />
 		<timer y='8' bc='Y' val='8' />
@@ -10690,7 +10698,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<auto y='18' dir='D' bc='Y' round='1' />
 		<wall y='13' round7='1' />
 		<wall y='12' />
-		<gem y='11' bc='B' />
+		<gem y='11' bc='R' />
 		<timer y='8' bc='Y' val='9' />
 		<blacky y='1' />
 		<wall y='0' />
@@ -10701,7 +10709,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='14' round7='1' />
 		<wall y='13' />
 		<auto y='12' dir='R' bc='Y' round='1' />
-		<clocker y='2' bc='Y' />
+		<clocker y='2' bc='B' />
 		<blacky y='1' />
 		<wall y='0' />
 		<wall x='29' y='19' />
@@ -10733,17 +10741,18 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 <hint>Look out for the guard!</hint>
 <bye>Now you are past the guard...</bye>
 <palette>
-    <color id='1' red="189" green="173" blue="142" mode="RECOLOR" />
-    <color id='2' red="217" green="206" blue="184" mode="RECOLOR" />
-    <color id='3' red="255" green="242" blue="217" mode="RECOLOR" />
+    <color id='1' red="150" green="150" blue="150" />
+    <color id='2' red="102" green="153" blue="255"/>
+    
 </palette>
 <default>
-    <wall color='1' />
+    <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    <area color='3' x1='0' x2='29' y1='0' y2='19' />
+    
 </floor>
+
 	<ground>
 	</ground>
 	<objects>
@@ -10768,7 +10777,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='1' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<wall y='14' />
 		<wall y='12' />
 		<pusher y='11' dir='L' bc='Y' />
@@ -10776,7 +10785,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<pusher y='8' dir='L' bc='Y' />
 		<wall y='7' />
 		<wall y='5' />
-		<gem y='4' bc='B' />
+		<gem y='4' bc='R' />
 		<earth y='3' />
 		<wall y='0' />
 		<wall x='2' y='19' />
@@ -10792,14 +10801,14 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<pusher y='12' dir='D' bc='Y' />
 		<pusher y='11' dir='D' bc='Y' />
 		<pusher y='10' dir='D' bc='Y' />
-		<gem y='9' bc='B' />
+		<gem y='9' bc='R' />
 		<pusher y='8' dir='U' bc='Y' />
 		<pusher y='7' dir='U' bc='Y' />
 		<pusher y='6' dir='U' bc='Y' />
 		<wall y='5' />
-		<block y='4' bc='Y' round='1' />
+		<block y='4' bc='B' round='1' />
 		<beast y='3' dir='R' kind='4' />
-		<block y='1' bc='Y' round='1' />
+		<block y='1' bc='B' round='1' />
 		<wall y='0' />
 		<wall x='4' y='19' />
 		<beast y='17' dir='R' kind='0' />
@@ -10809,7 +10818,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='7' round1='1' round7='1' />
 		<beast y='6' dir='R' kind='1' />
 		<wall y='5' />
-		<block y='2' bc='Y' round='1' />
+		<block y='2' bc='B' round='1' />
 		<arrow dir='U' y='1' bc='Y' round='1' />
 		<wall y='0' />
 		<wall x='5' y='19' />
@@ -10823,7 +10832,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<pusher y='6' dir='L' bc='Y' />
 		<wall y='5' />
 		<wall y='4' round1='1' />
-		<block y='3' bc='Y' round='1' />
+		<block y='3' bc='B' round='1' />
 		<arrow dir='U' y='2' bc='Y' round='1' />
 		<arrow dir='U' y='1' bc='Y' round='1' />
 		<wall y='0' />
@@ -10833,7 +10842,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='13' />
 		<wall y='12' />
 		<earth y='11' />
-		<gem y='10' bc='B' />
+		<gem y='10' bc='R' />
 		<earth y='9' />
 		<wall y='8' round7='1' />
 		<wall y='7' />
@@ -10845,9 +10854,9 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='U' y='1' bc='Y' round='1' />
 		<wall y='0' />
 		<wall x='7' y='19' />
-		<block y='18' bc='Y' />
+		<block y='18' bc='B' />
 		<earth y='14' />
-		<gem y='13' bc='B' />
+		<gem y='13' bc='R' />
 		<wall y='12' />
 		<earth y='10' />
 		<wall y='8' round3='1' round9='1' />
@@ -10858,7 +10867,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='0' />
 		<wall x='8' y='19' />
 		<beast y='18' dir='R' kind='4' />
-		<block y='17' bc='Y' />
+		<block y='17' bc='B' />
 		<wall y='14' round7='1' />
 		<wall y='13' />
 		<wall y='12' />
@@ -10869,9 +10878,9 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='U' y='1' bc='Y' round='1' />
 		<wall y='0' />
 		<wall x='9' y='19' />
-		<block y='17' bc='Y' />
-		<block y='16' bc='Y' />
-		<block y='15' bc='Y' />
+		<block y='17' bc='B' />
+		<block y='16' bc='B' />
+		<block y='15' bc='B' />
 		<wall y='14' />
 		<wall y='13' />
 		<wall y='12' round3='1' />
@@ -10884,14 +10893,14 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='U' y='1' bc='Y' round='1' />
 		<wall y='0' />
 		<wall x='10' y='19' />
-		<aclocker y='17' bc='Y' />
+		<aclocker y='17' bc='B' />
 		<wall y='14' round3='1' round9='1' />
 		<wall y='10' round7='1' />
 		<wall y='9' />
 		<wall y='8' round3='1' />
 		<wall y='6' />
 		<wall y='4' />
-		<block y='3' bc='Y' round='1' />
+		<block y='3' bc='B' round='1' />
 		<arrow dir='U' y='2' bc='Y' round='1' />
 		<arrow dir='U' y='1' bc='Y' round='1' />
 		<wall y='0' />
@@ -10905,7 +10914,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<beast y='7' dir='R' kind='1' />
 		<wall y='6' />
 		<wall y='4' />
-		<block y='2' bc='Y' round='1' />
+		<block y='2' bc='B' round='1' />
 		<arrow dir='U' y='1' bc='Y' round='1' />
 		<wall y='0' />
 		<wall x='12' y='19' />
@@ -10913,19 +10922,19 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='14' round7='1' />
 		<wall y='13' />
 		<wall y='12' round3='1' />
-		<block y='10' bc='Y' />
-		<block y='8' bc='Y' />
-		<block y='7' bc='Y' />
+		<block y='10' bc='B' />
+		<block y='8' bc='B' />
+		<block y='7' bc='B' />
 		<wall y='6' />
 		<wall y='4' />
-		<block y='1' bc='Y' round='1' />
+		<block y='1' bc='B' round='1' />
 		<wall y='0' />
 		<wall x='13' y='19' />
 		<wall y='16' round7='1' />
 		<wall y='15' />
 		<wall y='14' round3='1' />
 		<beast y='11' dir='R' kind='3' />
-		<block y='9' bc='Y' />
+		<block y='9' bc='B' />
 		<arrow dir='D' y='7' bc='Y' round='1' />
 		<wall y='6' round3='1' round9='1' />
 		<wall y='4' />
@@ -10935,19 +10944,19 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<beast y='18' dir='R' kind='1' />
 		<wall y='17' round7='1' round9='1' />
 		<wall y='16' />
-		<gem y='15' bc='B' />
-		<block y='9' bc='Y' />
+		<gem y='15' bc='R' />
+		<block y='9' bc='B' />
 		<arrow dir='D' y='7' bc='Y' />
 		<earth y='6' />
 		<wall y='4' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='15' y='19' />
 		<wall y='16' round9='1' />
 		<wall y='15' />
 		<wall y='14' round1='1' />
 		<beast y='11' dir='R' kind='0' />
-		<block y='9' bc='Y' />
+		<block y='9' bc='B' />
 		<wall y='6' round1='1' round7='1' />
 		<wall y='4' />
 		<wall y='3' />
@@ -10959,9 +10968,9 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='14' round9='1' />
 		<wall y='13' />
 		<wall y='12' round1='1' />
-		<block y='10' bc='Y' />
-		<block y='8' bc='Y' />
-		<block y='7' bc='Y' />
+		<block y='10' bc='B' />
+		<block y='8' bc='B' />
+		<block y='7' bc='B' />
 		<wall y='6' />
 		<arrow dir='D' y='5' bc='Y' round='1' />
 		<arrow dir='R' y='4' bc='Y' />
@@ -10980,7 +10989,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<earth y='3' />
 		<wall y='0' />
 		<wall x='18' y='19' />
-		<block y='17' bc='Y' />
+		<block y='17' bc='B' />
 		<wall y='14' round1='1' round7='1' />
 		<wall y='10' round9='1' />
 		<wall y='9' />
@@ -10992,25 +11001,25 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='19' y='19' />
-		<block y='17' bc='Y' />
+		<block y='17' bc='B' />
 		<wall y='14' />
 		<wall y='13' />
 		<wall y='12' round1='1' />
 		<wall y='8' round9='1' />
 		<wall y='7' />
 		<wall y='6' round3='1' />
-		<block y='2' bc='Y' />
+		<block y='2' bc='B' />
 		<wall y='0' />
 		<wall x='20' y='19' />
 		<earth y='17' />
-		<block y='16' bc='Y' />
-		<block y='15' bc='Y' />
+		<block y='16' bc='B' />
+		<block y='15' bc='B' />
 		<wall y='14' />
-		<gem y='13' bc='B' />
+		<gem y='13' bc='R' />
 		<wall y='12' round9='1' />
 		<wall y='11' />
 		<wall y='10' round1='1' />
-		<block y='2' bc='Y' />
+		<block y='2' bc='B' />
 		<wall y='0' />
 		<wall x='21' y='19' />
 		<beast y='18' dir='R' kind='4' />
@@ -11025,7 +11034,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<earth y='2' />
 		<wall y='0' />
 		<wall x='22' y='19' />
-		<block y='15' bc='Y' />
+		<block y='15' bc='B' />
 		<wall y='14' />
 		<earth y='13' />
 		<magnet y='10' horz='1' kind='0' />
@@ -11053,7 +11062,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<earth y='10' />
 		<wall y='6' />
 		<wall y='2' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='25' y='19' />
 		<earth y='18' />
@@ -11079,7 +11088,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<pusher y='16' dir='D' bc='Y' />
 		<arrow dir='R' y='15' bc='Y' />
 		<pusher y='14' dir='D' bc='Y' />
-		<block y='13' bc='Y' />
+		<block y='13' bc='B' />
 		<arrow dir='R' y='12' bc='Y' />
 		<wall y='0' />
 		<wall x='27' y='19' />
@@ -11104,7 +11113,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='0' />
 		<wall x='28' y='19' />
 		<earth y='15' />
-		<gem y='12' bc='B' />
+		<gem y='12' bc='R' />
 		<wall y='0' />
 		<wall x='29' y='19' />
 		<wall y='18' />
@@ -11135,17 +11144,18 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 <hint>Empty those vaults!</hint>
 <bye>Complain to the bank manager.</bye>
 <palette>
-    <color id='1' red="189" green="173" blue="142" mode="RECOLOR" />
-    <color id='2' red="217" green="206" blue="184" mode="RECOLOR" />
-    <color id='3' red="255" green="242" blue="217" mode="RECOLOR" />
+    <color id='1' red="150" green="150" blue="150" />
+    <color id='2' red="102" green="153" blue="255"/>
+    
 </palette>
 <default>
-    <wall color='1' />
+    <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    <area color='3' x1='0' x2='29' y1='0' y2='19' />
+    
 </floor>
+
 	<ground>
 		<oneway dir='D' x='9' y='10' />
 		<oneway dir='L' x='10' y='18' />
@@ -11176,15 +11186,15 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='18' />
 		<wall y='17' />
 		<wall y='16' />
-		<gem y='15' bc='B' />
+		<gem y='15' bc='R' />
 		<wall y='14' />
 		<arrow dir='R' y='13' bc='Y' />
 		<wall y='12' />
-		<gem y='11' bc='B' />
+		<gem y='11' bc='R' />
 		<wall y='10' />
 		<arrow dir='D' y='9' bc='Y' round='1' />
-		<gem y='8' bc='B' />
-		<gem y='2' bc='B' />
+		<gem y='8' bc='R' />
+		<gem y='2' bc='R' />
 		<arrow dir='U' y='1' bc='Y' round='1' />
 		<wall y='0' />
 		<wall x='2' y='19' />
@@ -11192,7 +11202,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='17' />
 		<wall y='16' round3='1' />
 		<wall y='14' round3='1' round9='1' />
-		<gem y='13' bc='B' />
+		<gem y='13' bc='R' />
 		<wall y='12' />
 		<wall y='10' />
 		<wall y='9' />
@@ -11204,12 +11214,12 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='0' />
 		<wall x='3' y='19' />
 		<arrow dir='D' y='18' bc='Y' />
-		<gem y='17' bc='B' />
+		<gem y='17' bc='R' />
 		<wall y='12' round3='1' round9='1' />
 		<wall y='10' />
 		<arrow dir='D' y='9' bc='Y' round='1' />
-		<gem y='8' bc='B' />
-		<gem y='2' bc='B' />
+		<gem y='8' bc='R' />
+		<gem y='2' bc='R' />
 		<arrow dir='U' y='1' bc='Y' round='1' />
 		<wall y='0' />
 		<wall x='4' y='19' />
@@ -11224,19 +11234,19 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='5' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<wall y='12' round7='1' round9='1' />
 		<wall y='11' />
 		<wall y='10' />
 		<arrow dir='D' y='9' bc='Y' round='1' />
-		<gem y='8' bc='B' />
-		<gem y='2' bc='B' />
+		<gem y='8' bc='R' />
+		<gem y='2' bc='R' />
 		<arrow dir='U' y='1' bc='Y' round='1' />
 		<wall y='0' />
 		<wall x='6' y='19' />
 		<wall y='18' />
 		<wall y='17' round1='1' />
-		<gem y='12' bc='B' />
+		<gem y='12' bc='R' />
 		<arrow dir='U' y='11' bc='Y' />
 		<wall y='10' />
 		<wall y='9' />
@@ -11249,15 +11259,15 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall x='7' y='19' />
 		<wall y='18' />
 		<wall y='17' />
-		<gem y='16' bc='B' />
+		<gem y='16' bc='R' />
 		<wall y='15' round1='1' round7='1' />
 		<wall y='13' round7='1' round9='1' />
 		<wall y='12' />
 		<wall y='11' />
 		<wall y='10' />
 		<arrow dir='D' y='9' bc='Y' round='1' />
-		<gem y='8' bc='B' />
-		<gem y='2' bc='B' />
+		<gem y='8' bc='R' />
+		<gem y='2' bc='R' />
 		<arrow dir='U' y='1' bc='Y' round='1' />
 		<wall y='0' />
 		<wall x='8' y='19' />
@@ -11274,14 +11284,14 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='9' y='19' />
-		<gem y='14' bc='B' />
+		<gem y='14' bc='R' />
 		<arrow dir='D' y='9' bc='Y' round='1' />
-		<gem y='8' bc='B' />
-		<gem y='2' bc='B' />
+		<gem y='8' bc='R' />
+		<gem y='2' bc='R' />
 		<arrow dir='U' y='1' bc='Y' round='1' />
 		<wall y='0' />
 		<wall x='10' y='19' />
-		<aclocker y='17' bc='Y' />
+		<aclocker y='17' bc='B' />
 		<wall y='16' />
 		<wall y='15' />
 		<wall y='14' />
@@ -11300,46 +11310,46 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='11' y='19' />
-		<aclocker y='16' bc='Y' />
-		<clocker y='15' bc='Y' />
-		<clocker y='14' bc='Y' />
-		<clocker y='13' bc='Y' />
-		<clocker y='12' bc='Y' />
-		<clocker y='11' bc='Y' />
-		<aclocker y='10' bc='Y' />
-		<clocker y='9' bc='Y' />
-		<clocker y='8' bc='Y' />
-		<aclocker y='7' bc='Y' />
-		<clocker y='6' bc='Y' />
-		<clocker y='5' bc='Y' />
-		<clocker y='4' bc='Y' />
-		<clocker y='3' bc='Y' />
-		<clocker y='2' bc='Y' />
-		<clocker y='1' bc='Y' />
+		<aclocker y='16' bc='B' />
+		<clocker y='15' bc='B' />
+		<clocker y='14' bc='B' />
+		<clocker y='13' bc='B' />
+		<clocker y='12' bc='B' />
+		<clocker y='11' bc='B' />
+		<aclocker y='10' bc='B' />
+		<clocker y='9' bc='B' />
+		<clocker y='8' bc='B' />
+		<aclocker y='7' bc='B' />
+		<clocker y='6' bc='B' />
+		<clocker y='5' bc='B' />
+		<clocker y='4' bc='B' />
+		<clocker y='3' bc='B' />
+		<clocker y='2' bc='B' />
+		<clocker y='1' bc='B' />
 		<wall y='0' />
 		<wall x='12' y='19' />
-		<clocker y='18' bc='Y' />
-		<clocker y='1' bc='Y' />
+		<clocker y='18' bc='B' />
+		<clocker y='1' bc='B' />
 		<wall y='0' />
 		<wall x='13' y='19' />
-		<clocker y='18' bc='Y' />
-		<gem y='16' bc='B' />
-		<gem y='15' bc='B' />
-		<gem y='14' bc='B' />
-		<gem y='13' bc='B' />
-		<gem y='12' bc='B' />
-		<gem y='11' bc='B' />
-		<gem y='9' bc='B' />
-		<gem y='8' bc='B' />
-		<gem y='6' bc='B' />
-		<gem y='5' bc='B' />
+		<clocker y='18' bc='B' />
+		<gem y='16' bc='R' />
+		<gem y='15' bc='R' />
+		<gem y='14' bc='R' />
+		<gem y='13' bc='R' />
+		<gem y='12' bc='R' />
+		<gem y='11' bc='R' />
+		<gem y='9' bc='R' />
+		<gem y='8' bc='R' />
+		<gem y='6' bc='R' />
+		<gem y='5' bc='R' />
 		<arrow dir='D' y='4' bc='Y' round='1' />
-		<gem y='3' bc='B' />
-		<clocker y='1' bc='Y' />
+		<gem y='3' bc='R' />
+		<clocker y='1' bc='B' />
 		<wall y='0' />
 		<wall x='14' y='19' />
-		<clocker y='18' bc='Y' />
-		<gem y='16' bc='B' />
+		<clocker y='18' bc='B' />
+		<gem y='16' bc='R' />
 		<arrow dir='L' y='15' bc='Y' round='1' />
 		<arrow dir='L' y='14' bc='Y' round='1' />
 		<arrow dir='L' y='13' bc='Y' round='1' />
@@ -11350,103 +11360,103 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='L' y='6' bc='Y' round='1' />
 		<arrow dir='L' y='5' bc='Y' round='1' />
 		<arrow dir='D' y='4' bc='Y' round='1' />
-		<gem y='3' bc='B' />
-		<clocker y='1' bc='Y' />
+		<gem y='3' bc='R' />
+		<clocker y='1' bc='B' />
 		<wall y='0' />
 		<wall x='15' y='19' />
-		<aclocker y='18' bc='Y' />
-		<gem y='16' bc='B' />
+		<aclocker y='18' bc='B' />
+		<gem y='16' bc='R' />
 		<arrow dir='U' y='15' bc='Y' round='1' />
 		<arrow dir='D' y='4' bc='Y' round='1' />
-		<gem y='3' bc='B' />
-		<aclocker y='1' bc='Y' />
+		<gem y='3' bc='R' />
+		<aclocker y='1' bc='B' />
 		<wall y='0' />
 		<wall x='16' y='19' />
-		<clocker y='18' bc='Y' />
-		<gem y='16' bc='B' />
+		<clocker y='18' bc='B' />
+		<gem y='16' bc='R' />
 		<arrow dir='U' y='15' bc='Y' round='1' />
 		<arrow dir='U' y='14' bc='Y' round='1' />
 		<arrow dir='D' y='4' bc='Y' round='1' />
-		<gem y='3' bc='B' />
-		<clocker y='1' bc='Y' />
+		<gem y='3' bc='R' />
+		<clocker y='1' bc='B' />
 		<wall y='0' />
 		<wall x='17' y='19' />
-		<aclocker y='18' bc='Y' />
-		<gem y='16' bc='B' />
+		<aclocker y='18' bc='B' />
+		<gem y='16' bc='R' />
 		<arrow dir='U' y='15' bc='Y' round='1' />
 		<arrow dir='U' y='14' bc='Y' round='1' />
 		<arrow dir='D' y='4' bc='Y' round='1' />
-		<gem y='3' bc='B' />
-		<aclocker y='1' bc='Y' />
+		<gem y='3' bc='R' />
+		<aclocker y='1' bc='B' />
 		<wall y='0' />
 		<wall x='18' y='19' />
-		<clocker y='18' bc='Y' />
-		<gem y='16' bc='B' />
+		<clocker y='18' bc='B' />
+		<gem y='16' bc='R' />
 		<arrow dir='U' y='15' bc='Y' round='1' />
 		<arrow dir='U' y='14' bc='Y' round='1' />
-		<block y='12' bc='Y' />
+		<block y='12' bc='B' />
 		<blacky y='10' />
 		<arrow dir='D' y='4' bc='Y' round='1' />
-		<gem y='3' bc='B' />
-		<clocker y='1' bc='Y' />
+		<gem y='3' bc='R' />
+		<clocker y='1' bc='B' />
 		<wall y='0' />
 		<wall x='19' y='19' />
-		<aclocker y='18' bc='Y' />
-		<gem y='16' bc='B' />
+		<aclocker y='18' bc='B' />
+		<gem y='16' bc='R' />
 		<arrow dir='U' y='15' bc='Y' round='1' />
-		<block y='14' bc='Y' />
-		<block y='13' bc='Y' />
+		<block y='14' bc='B' />
+		<block y='13' bc='B' />
 		<pusher y='12' dir='U' bc='Y' />
-		<gem y='11' bc='B' />
+		<gem y='11' bc='R' />
 		<arrow dir='D' y='4' bc='Y' round='1' />
-		<gem y='3' bc='B' />
-		<aclocker y='1' bc='Y' />
+		<gem y='3' bc='R' />
+		<aclocker y='1' bc='B' />
 		<wall y='0' />
 		<wall x='20' y='19' />
-		<clocker y='18' bc='Y' />
-		<gem y='16' bc='B' />
+		<clocker y='18' bc='B' />
+		<gem y='16' bc='R' />
 		<arrow dir='U' y='15' bc='Y' round='1' />
 		<arrow dir='D' y='4' bc='Y' round='1' />
-		<gem y='3' bc='B' />
-		<clocker y='1' bc='Y' />
+		<gem y='3' bc='R' />
+		<clocker y='1' bc='B' />
 		<wall y='0' />
 		<wall x='21' y='19' />
-		<aclocker y='18' bc='Y' />
-		<gem y='16' bc='B' />
+		<aclocker y='18' bc='B' />
+		<gem y='16' bc='R' />
 		<arrow dir='U' y='15' bc='Y' round='1' />
-		<block y='11' bc='Y' round='1' />
-		<clocker y='9' bc='Y' />
+		<block y='11' bc='B' round='1' />
+		<clocker y='9' bc='B' />
 		<arrow dir='D' y='4' bc='Y' round='1' />
-		<gem y='3' bc='B' />
-		<clocker y='1' bc='Y' />
+		<gem y='3' bc='R' />
+		<clocker y='1' bc='B' />
 		<wall y='0' />
 		<wall x='22' y='19' />
 		<auto y='18' dir='L' bc='Y' round='1' />
-		<aclocker y='9' bc='Y' />
-		<aclocker y='8' bc='Y' />
+		<aclocker y='9' bc='B' />
+		<aclocker y='8' bc='B' />
 		<arrow dir='D' y='4' bc='Y' round='1' />
-		<gem y='3' bc='B' />
-		<clocker y='1' bc='Y' />
+		<gem y='3' bc='R' />
+		<clocker y='1' bc='B' />
 		<wall y='0' />
 		<wall x='23' y='19' />
-		<aclocker y='18' bc='Y' />
-		<aclocker y='9' bc='Y' />
-		<clocker y='8' bc='Y' />
+		<aclocker y='18' bc='B' />
+		<aclocker y='9' bc='B' />
+		<clocker y='8' bc='B' />
 		<arrow dir='D' y='4' bc='Y' round='1' />
-		<gem y='3' bc='B' />
+		<gem y='3' bc='R' />
 		<wall y='0' />
 		<wall x='24' y='19' />
 		<auto y='18' dir='R' bc='Y' round='1' />
-		<aclocker y='9' bc='Y' />
-		<clocker y='8' bc='Y' />
+		<aclocker y='9' bc='B' />
+		<clocker y='8' bc='B' />
 		<arrow dir='D' y='4' bc='Y' round='1' />
-		<gem y='3' bc='B' />
+		<gem y='3' bc='R' />
 		<wall y='0' />
 		<wall x='25' y='19' />
-		<clocker y='18' bc='Y' />
-		<clocker y='17' bc='Y' />
-		<clocker y='16' bc='Y' />
-		<clocker y='15' bc='Y' />
+		<clocker y='18' bc='B' />
+		<clocker y='17' bc='B' />
+		<clocker y='16' bc='B' />
+		<clocker y='15' bc='B' />
 		<wall y='14' />
 		<wall y='13' />
 		<wall y='12' />
@@ -11458,7 +11468,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='R' y='5' bc='Y' round='1' />
 		<arrow dir='R' y='4' bc='Y' round='1' />
 		<arrow dir='R' y='3' bc='Y' round='1' />
-		<aclocker y='1' bc='Y' />
+		<aclocker y='1' bc='B' />
 		<wall y='0' />
 		<wall x='26' y='19' />
 		<wall y='18' />
@@ -11468,39 +11478,39 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='14' />
 		<wall y='13' />
 		<wall y='12' round3='1' />
-		<gem y='11' bc='B' />
-		<gem y='9' bc='B' />
-		<gem y='8' bc='B' />
-		<gem y='7' bc='B' />
-		<gem y='6' bc='B' />
-		<gem y='5' bc='B' />
-		<gem y='4' bc='B' />
-		<gem y='3' bc='B' />
-		<clocker y='1' bc='Y' />
+		<gem y='11' bc='R' />
+		<gem y='9' bc='R' />
+		<gem y='8' bc='R' />
+		<gem y='7' bc='R' />
+		<gem y='6' bc='R' />
+		<gem y='5' bc='R' />
+		<gem y='4' bc='R' />
+		<gem y='3' bc='R' />
+		<clocker y='1' bc='B' />
 		<wall y='0' />
 		<wall x='27' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' />
 		<arrow dir='D' y='16' bc='Y' />
 		<arrow dir='D' y='15' bc='Y' />
-		<aclocker y='14' bc='Y' />
+		<aclocker y='14' bc='B' />
 		<wall y='13' round3='1' round9='1' />
-		<clocker y='1' bc='Y' />
+		<clocker y='1' bc='B' />
 		<wall y='0' />
 		<wall x='28' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='L' y='17' bc='Y' />
-		<gem y='15' bc='B' />
-		<aclocker y='11' bc='Y' />
-		<clocker y='10' bc='Y' />
-		<clocker y='9' bc='Y' />
-		<aclocker y='8' bc='Y' />
-		<aclocker y='7' bc='Y' />
-		<clocker y='6' bc='Y' />
-		<aclocker y='5' bc='Y' />
-		<aclocker y='4' bc='Y' />
-		<aclocker y='3' bc='Y' />
-		<aclocker y='2' bc='Y' />
+		<gem y='15' bc='R' />
+		<aclocker y='11' bc='B' />
+		<clocker y='10' bc='B' />
+		<clocker y='9' bc='B' />
+		<aclocker y='8' bc='B' />
+		<aclocker y='7' bc='B' />
+		<clocker y='6' bc='B' />
+		<aclocker y='5' bc='B' />
+		<aclocker y='4' bc='B' />
+		<aclocker y='3' bc='B' />
+		<aclocker y='2' bc='B' />
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='29' y='19' />
@@ -11532,16 +11542,16 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 <hint>Remember they&apos;re square</hint>
 <bye>Let&apos;s smooth those edges.</bye>
 <palette>
-    <color id='1' red="189" green="173" blue="142" mode="RECOLOR" />
-    <color id='2' red="217" green="206" blue="184" mode="RECOLOR" />
-    <color id='3' red="255" green="242" blue="217" mode="RECOLOR" />
+    <color id='1' red="150" green="150" blue="150" />
+    <color id='2' red="102" green="153" blue="255"/>
+    
 </palette>
 <default>
-    <wall color='1' />
+    <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    <area color='3' x1='0' x2='29' y1='0' y2='19' />
+    
 </floor>
 	<ground>
 		<oneway dir='D' x='1' y='10' />
@@ -11576,16 +11586,16 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='1' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<wall y='17' round9='1' />
 		<wall y='16' />
 		<wall y='15' />
-		<clocker y='14' bc='Y' />
+		<clocker y='14' bc='B' />
 		<wall y='13' />
 		<wall y='12' />
-		<gem y='9' bc='B' />
+		<gem y='9' bc='R' />
 		<arrow dir='D' y='8' bc='Y' />
-		<gem y='7' bc='B' />
+		<gem y='7' bc='R' />
 		<arrow dir='U' y='1' bc='Y' />
 		<wall y='0' />
 		<wall x='2' y='19' />
@@ -11594,7 +11604,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='D' y='16' bc='Y' />
 		<arrow dir='D' y='15' bc='Y' />
 		<arrow dir='R' y='14' bc='Y' />
-		<aclocker y='13' bc='Y' />
+		<aclocker y='13' bc='B' />
 		<wall y='12' />
 		<wall y='10' round7='1' />
 		<wall y='9' />
@@ -11616,8 +11626,8 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='10' round3='1' round9='1' />
 		<arrow dir='D' y='9' bc='Y' />
 		<arrow dir='D' y='8' bc='Y' />
-		<gem y='7' bc='B' />
-		<gem y='3' bc='B' />
+		<gem y='7' bc='R' />
+		<gem y='3' bc='R' />
 		<arrow dir='U' y='2' bc='Y' />
 		<arrow dir='U' y='1' bc='Y' />
 		<wall y='0' />
@@ -11630,8 +11640,8 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='13' round3='1' round9='1' />
 		<arrow dir='D' y='9' bc='Y' />
 		<arrow dir='D' y='8' bc='Y' />
-		<gem y='7' bc='B' />
-		<gem y='3' bc='B' />
+		<gem y='7' bc='R' />
+		<gem y='3' bc='R' />
 		<arrow dir='U' y='2' bc='Y' />
 		<arrow dir='U' y='1' bc='Y' />
 		<wall y='0' />
@@ -11666,7 +11676,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='R' y='6' bc='Y' />
 		<wall y='5' round3='1' round9='1' />
 		<wall y='2' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='7' y='19' />
 		<arrow dir='R' y='18' bc='Y' />
@@ -11675,7 +11685,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='15' round3='1' round9='1' />
 		<wall y='11' />
 		<magnet y='10' kind='0' />
-		<gem y='9' bc='B' />
+		<gem y='9' bc='R' />
 		<arrow dir='D' y='7' bc='Y' />
 		<earth y='6' />
 		<wall y='2' />
@@ -11685,7 +11695,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='D' y='18' bc='Y' />
 		<arrow dir='D' y='17' bc='Y' />
 		<arrow dir='D' y='16' bc='Y' />
-		<gem y='15' bc='B' />
+		<gem y='15' bc='R' />
 		<wall y='11' round9='1' />
 		<wall y='10' />
 		<wall y='9' round1='1' />
@@ -11697,9 +11707,9 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='R' y='1' bc='Y' />
 		<wall y='0' />
 		<wall x='9' y='19' />
-		<clocker y='18' bc='Y' />
-		<clocker y='17' bc='Y' />
-		<clocker y='16' bc='Y' />
+		<clocker y='18' bc='B' />
+		<clocker y='17' bc='B' />
+		<clocker y='16' bc='B' />
 		<wall y='15' round1='1' round7='1' />
 		<wall y='9' />
 		<earth y='8' />
@@ -11707,7 +11717,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<earth y='6' />
 		<wall y='5' />
 		<wall y='2' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='10' y='19' />
 		<wall y='18' />
@@ -11723,7 +11733,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='2' round3='1' round9='1' />
 		<wall y='0' />
 		<wall x='11' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='R' y='17' bc='Y' />
 		<wall y='16' />
 		<wall y='11' round3='1' round9='1' />
@@ -11765,21 +11775,21 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='D' y='15' bc='Y' />
 		<arrow dir='D' y='14' bc='Y' />
 		<arrow dir='L' y='13' bc='Y' />
-		<clocker y='12' bc='Y' />
+		<clocker y='12' bc='B' />
 		<wall y='11' />
 		<wall y='2' round1='1' round7='1' />
 		<wall y='0' />
 		<wall x='15' y='19' />
-		<clocker y='18' bc='Y' />
-		<clocker y='17' bc='Y' />
+		<clocker y='18' bc='B' />
+		<clocker y='17' bc='B' />
 		<wall y='16' />
 		<wall y='15' />
 		<wall y='14' />
-		<aclocker y='13' bc='Y' />
+		<aclocker y='13' bc='B' />
 		<wall y='12' />
 		<wall y='11' />
 		<wall y='2' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='16' y='19' />
 		<wall y='18' />
@@ -11811,14 +11821,14 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='9' round9='1' />
 		<wall y='8' round3='1' />
 		<wall y='6' round3='1' round9='1' />
-		<clocker y='5' bc='Y' />
+		<clocker y='5' bc='B' />
 		<wall y='4' />
 		<wall y='3' />
 		<wall y='2' />
 		<arrow dir='L' y='1' bc='Y' />
 		<wall y='0' />
 		<wall x='18' y='19' />
-		<clocker y='18' bc='Y' />
+		<clocker y='18' bc='B' />
 		<arrow dir='R' y='17' bc='Y' />
 		<arrow dir='U' y='16' bc='Y' />
 		<arrow dir='U' y='15' bc='Y' />
@@ -11829,7 +11839,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='U' y='10' bc='Y' />
 		<arrow dir='U' y='9' bc='Y' />
 		<wall y='2' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='19' y='19' />
 		<wall y='18' />
@@ -11856,25 +11866,25 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='15' />
 		<wall y='14' />
 		<wall y='13' />
-		<aclocker y='11' bc='Y' />
+		<aclocker y='11' bc='B' />
 		<wall y='9' />
 		<wall y='7' />
 		<wall y='6' />
 		<wall y='4' round3='1' round9='1' />
-		<clocker y='2' bc='Y' />
+		<clocker y='2' bc='B' />
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='21' y='19' />
 		<wall y='18' round3='1' />
 		<arrow dir='R' y='17' bc='Y' />
-		<gem y='16' bc='B' />
+		<gem y='16' bc='R' />
 		<wall y='15' />
 		<wall y='14' />
 		<wall y='13' />
-		<block y='10' bc='Y' />
+		<block y='10' bc='B' />
 		<wall y='9' />
 		<wall y='7' />
-		<aclocker y='6' bc='Y' />
+		<aclocker y='6' bc='B' />
 		<wall y='0' />
 		<wall x='22' y='19' />
 		<arrow dir='R' y='17' bc='Y' />
@@ -11921,7 +11931,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='0' />
 		<wall x='25' y='19' />
 		<wall y='17' />
-		<gem y='16' bc='B' />
+		<gem y='16' bc='R' />
 		<earth y='15' />
 		<earth y='14' />
 		<earth y='13' />
@@ -11930,7 +11940,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<earth y='7' />
 		<arrow dir='U' y='6' bc='Y' />
 		<arrow dir='L' y='5' bc='Y' />
-		<gem y='4' bc='B' />
+		<gem y='4' bc='R' />
 		<wall y='3' />
 		<wall y='0' />
 		<wall x='26' y='19' />
@@ -11952,10 +11962,10 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' round7='1' round9='1' />
 		<wall y='0' />
 		<wall x='27' y='19' />
-		<clocker y='1' bc='Y' />
+		<clocker y='1' bc='B' />
 		<wall y='0' />
 		<wall x='28' y='19' />
-		<clocker y='18' bc='Y' />
+		<clocker y='18' bc='B' />
 		<blacky y='17' />
 		<wall y='16' />
 		<wall y='15' />
@@ -12003,17 +12013,18 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 <hint>Remember they are round!</hint>
 <bye>Now, wait a minute...</bye>
 <palette>
-    <color id='1' red="189" green="173" blue="142" mode="RECOLOR" />
-    <color id='2' red="217" green="206" blue="184" mode="RECOLOR" />
-    <color id='3' red="255" green="242" blue="217" mode="RECOLOR" />
+    <color id='1' red="150" green="150" blue="150" />
+    <color id='2' red="102" green="153" blue="255"/>
+    
 </palette>
 <default>
-    <wall color='1' />
+    <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    <area color='3' x1='0' x2='29' y1='0' y2='19' />
+    
 </floor>
+
 	<ground>
 		<oneway dir='L' x='4' y='1' />
 		<oneway dir='D' x='27' y='8' />
@@ -12040,7 +12051,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='1' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='R' y='17' bc='Y' round='1' />
 		<arrow dir='R' y='16' bc='Y' round='1' />
 		<arrow dir='R' y='15' bc='Y' round='1' />
@@ -12051,7 +12062,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='R' y='10' bc='Y' round='1' />
 		<arrow dir='R' y='9' bc='Y' round='1' />
 		<wall y='8' />
-		<clocker y='7' bc='Y' />
+		<clocker y='7' bc='B' />
 		<arrow dir='U' y='6' bc='Y' round='1' />
 		<arrow dir='U' y='5' bc='Y' round='1' />
 		<arrow dir='U' y='4' bc='Y' round='1' />
@@ -12097,8 +12108,8 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='2' />
 		<wall y='0' />
 		<wall x='4' y='19' />
-		<gem y='18' bc='B' />
-		<gem y='17' bc='B' />
+		<gem y='18' bc='R' />
+		<gem y='17' bc='R' />
 		<wall y='16' />
 		<wall y='15' round1='1' />
 		<arrow dir='R' y='14' bc='Y' round='1' />
@@ -12125,10 +12136,10 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='10' round7='1' />
 		<wall y='9' />
 		<wall y='8' />
-		<clocker y='7' bc='Y' />
+		<clocker y='7' bc='B' />
 		<arrow dir='D' y='6' bc='Y' round='1' />
 		<arrow dir='D' y='5' bc='Y' round='1' />
-		<gem y='4' bc='B' />
+		<gem y='4' bc='R' />
 		<earth y='3' />
 		<wall y='0' />
 		<wall x='6' y='19' />
@@ -12156,7 +12167,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<earth y='15' />
-		<clocker y='2' bc='Y' />
+		<clocker y='2' bc='B' />
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='8' y='19' />
@@ -12166,7 +12177,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='15' round1='1' round7='1' />
 		<earth y='13' />
 		<earth y='11' />
-		<aclocker y='2' bc='Y' />
+		<aclocker y='2' bc='B' />
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='9' y='19' />
@@ -12196,7 +12207,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='14' round3='1' round9='1' />
 		<arrow dir='D' y='13' bc='Y' round='1' />
 		<arrow dir='L' y='12' bc='Y' round='1' />
-		<clocker y='11' bc='Y' />
+		<clocker y='11' bc='B' />
 		<wall y='10' />
 		<arrow dir='R' y='9' bc='Y' round='1' />
 		<wall y='8' />
@@ -12205,48 +12216,48 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='5' />
 		<wall y='0' />
 		<wall x='11' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
 		<arrow dir='D' y='14' bc='Y' round='1' />
 		<arrow dir='D' y='13' bc='Y' round='1' />
 		<arrow dir='L' y='12' bc='Y' round='1' />
-		<clocker y='11' bc='Y' />
+		<clocker y='11' bc='B' />
 		<wall y='10' />
-		<gem y='9' bc='B' />
+		<gem y='9' bc='R' />
 		<wall y='8' round3='1' round9='1' />
-		<gem y='7' bc='B' />
+		<gem y='7' bc='R' />
 		<wall y='6' />
 		<wall y='5' />
 		<wall y='4' round1='1' />
 		<wall y='0' />
 		<wall x='12' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
 		<arrow dir='D' y='14' bc='Y' round='1' />
 		<arrow dir='D' y='13' bc='Y' round='1' />
 		<arrow dir='L' y='12' bc='Y' round='1' />
-		<clocker y='11' bc='Y' />
+		<clocker y='11' bc='B' />
 		<wall y='10' />
 		<wall y='6' />
 		<arrow dir='R' y='5' bc='Y' round='1' />
 		<wall y='4' />
 		<wall y='0' />
 		<wall x='13' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
 		<arrow dir='D' y='15' bc='Y' round='1' />
 		<arrow dir='D' y='14' bc='Y' round='1' />
 		<arrow dir='D' y='13' bc='Y' round='1' />
 		<arrow dir='L' y='12' bc='Y' round='1' />
-		<clocker y='11' bc='Y' />
+		<clocker y='11' bc='B' />
 		<wall y='10' />
 		<wall y='6' round3='1' round9='1' />
-		<gem y='5' bc='B' />
+		<gem y='5' bc='R' />
 		<wall y='4' />
 		<wall y='0' />
 		<wall x='14' y='19' />
@@ -12256,13 +12267,13 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='D' y='15' bc='Y' round='1' />
 		<wall y='14' round7='1' round9='1' />
 		<wall y='13' />
-		<aclocker y='12' bc='Y' />
+		<aclocker y='12' bc='B' />
 		<wall y='11' />
 		<wall y='10' round3='1' />
 		<wall y='4' />
 		<wall y='0' />
 		<wall x='15' y='19' />
-		<block y='15' bc='Y' />
+		<block y='15' bc='B' />
 		<blacky y='12' />
 		<wall y='11' round3='1' round9='1' />
 		<wall y='4' round3='1' round9='1' />
@@ -12275,7 +12286,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<pusher y='14' dir='U' bc='Y' />
 		<wall y='13' round7='1' />
 		<wall y='12' round1='1' round3='1' />
-		<block y='10' bc='Y' round='1' />
+		<block y='10' bc='B' round='1' />
 		<wall y='8' round1='1' round7='1' />
 		<earth y='4' />
 		<wall y='0' />
@@ -12285,13 +12296,13 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='U' y='16' bc='Y' round='1' />
 		<wall y='15' />
 		<wall y='13' />
-		<gem y='12' bc='B' />
-		<block y='10' bc='Y' round='1' />
-		<gem y='9' bc='B' />
+		<gem y='12' bc='R' />
+		<block y='10' bc='B' round='1' />
+		<gem y='9' bc='R' />
 		<wall y='8' />
-		<gem y='7' bc='B' />
+		<gem y='7' bc='R' />
 		<wall y='6' round1='1' round7='1' />
-		<gem y='5' bc='B' />
+		<gem y='5' bc='R' />
 		<wall y='4' round1='1' round7='1' />
 		<wall y='0' />
 		<wall x='18' y='19' />
@@ -12300,7 +12311,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='U' y='16' bc='Y' round='1' />
 		<wall y='15' />
 		<wall y='13' />
-		<block y='10' bc='Y' round='1' />
+		<block y='10' bc='B' round='1' />
 		<arrow dir='L' y='9' bc='Y' round='1' />
 		<wall y='8' />
 		<arrow dir='L' y='7' bc='Y' round='1' />
@@ -12339,8 +12350,8 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='U' y='16' bc='Y' round='1' />
 		<wall y='15' />
 		<wall y='13' round1='1' round7='1' />
-		<gem y='8' bc='B' />
-		<gem y='7' bc='B' />
+		<gem y='8' bc='R' />
+		<gem y='7' bc='R' />
 		<arrow dir='U' y='6' bc='Y' round='1' />
 		<wall y='4' />
 		<wall y='2' round1='1' round7='1' />
@@ -12353,7 +12364,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='13' />
 		<blacky y='12' />
 		<wall y='11' round1='1' round7='1' />
-		<gem y='8' bc='B' />
+		<gem y='8' bc='R' />
 		<arrow dir='U' y='7' bc='Y' round='1' />
 		<arrow dir='U' y='6' bc='Y' round='1' />
 		<wall y='4' />
@@ -12369,7 +12380,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='11' />
 		<pusher y='10' dir='L' bc='Y' />
 		<pusher y='9' dir='L' bc='Y' />
-		<gem y='8' bc='B' />
+		<gem y='8' bc='R' />
 		<arrow dir='U' y='7' bc='Y' round='1' />
 		<arrow dir='U' y='6' bc='Y' round='1' />
 		<wall y='4' />
@@ -12382,7 +12393,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<earth y='15' />
 		<earth y='14' />
 		<earth y='13' />
-		<gem y='12' bc='B' />
+		<gem y='12' bc='R' />
 		<wall y='11' round9='1' />
 		<wall y='10' />
 		<wall y='9' />
@@ -12433,13 +12444,13 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='R' y='12' bc='Y' round='1' />
 		<arrow dir='D' y='11' bc='Y' round='1' />
 		<arrow dir='R' y='10' bc='Y' round='1' />
-		<gem y='9' bc='B' />
-		<gem y='7' bc='B' />
+		<gem y='9' bc='R' />
+		<gem y='7' bc='R' />
 		<wall y='4' />
 		<wall y='2' round1='1' round7='1' round3='1' round9='1' />
 		<wall y='0' />
 		<wall x='28' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<earth y='17' />
 		<earth y='16' />
 		<earth y='15' />
@@ -12483,17 +12494,18 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 <hint>Keep the waiting room clear.</hint>
 <bye>Now let&apos;s re-house you...</bye>
 <palette>
-    <color id='1' red="189" green="173" blue="142" mode="RECOLOR" />
-    <color id='2' red="217" green="206" blue="184" mode="RECOLOR" />
-    <color id='3' red="255" green="242" blue="217" mode="RECOLOR" />
+    <color id='1' red="150" green="150" blue="150" />
+    <color id='2' red="102" green="153" blue="255"/>
+    
 </palette>
 <default>
-    <wall color='1' />
+    <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    <area color='3' x1='0' x2='29' y1='0' y2='19' />
+    
 </floor>
+
 	<ground>
 		<oneway dir='R' x='2' y='1' />
 	</ground>
@@ -12534,7 +12546,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<auto y='4' dir='U' bc='Y' round='1' />
 		<auto y='3' dir='U' bc='Y' round='1' />
 		<auto y='2' dir='U' bc='Y' round='1' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='2' y='19' />
 		<wall y='17' />
@@ -12604,13 +12616,13 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall x='18' y='19' />
 		<wall y='17' />
 		<wall y='15' />
-		<block y='14' bc='Y' />
-		<block y='13' bc='Y' />
-		<block y='10' bc='Y' />
-		<aclocker y='8' bc='Y' />
-		<aclocker y='6' bc='Y' />
-		<block y='4' bc='Y' />
-		<block y='2' bc='Y' />
+		<block y='14' bc='B' />
+		<block y='13' bc='B' />
+		<block y='10' bc='B' />
+		<aclocker y='8' bc='B' />
+		<aclocker y='6' bc='B' />
+		<block y='4' bc='B' />
+		<block y='2' bc='B' />
 		<wall y='0' />
 		<wall x='19' y='19' />
 		<wall y='17' />
@@ -12633,7 +12645,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='0' />
 		<wall x='23' y='19' />
 		<wall y='17' />
-		<aclocker y='15' bc='Y' />
+		<aclocker y='15' bc='B' />
 		<wall y='14' />
 		<wall y='13' />
 		<wall y='0' />
@@ -12649,13 +12661,13 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='0' />
 		<wall x='26' y='19' />
 		<arrow dir='D' y='15' bc='Y' />
-		<block y='14' bc='Y' />
+		<block y='14' bc='B' />
 		<earth y='13' />
 		<wall y='0' />
 		<wall x='27' y='19' />
 		<timer y='18' bc='Y' val='9' />
-		<gem y='16' bc='B' />
-		<gem y='15' bc='B' />
+		<gem y='16' bc='R' />
+		<gem y='15' bc='R' />
 		<pusher y='14' dir='L' bc='Y' />
 		<wall y='13' round1='1' round7='1' />
 		<earth y='1' />
@@ -12663,8 +12675,8 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall x='28' y='19' />
 		<auto y='18' dir='R' bc='Y' round='1' />
 		<wall y='17' round1='1' round7='1' />
-		<gem y='16' bc='B' />
-		<gem y='15' bc='B' />
+		<gem y='16' bc='R' />
+		<gem y='15' bc='R' />
 		<wall y='13' />
 		<wall y='0' />
 		<wall x='29' y='19' />
@@ -12696,17 +12708,18 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 <hint>Like the accomodation?</hint>
 <bye>That was rather crowded!</bye>
 <palette>
-    <color id='1' red="189" green="173" blue="142" mode="RECOLOR" />
-    <color id='2' red="217" green="206" blue="184" mode="RECOLOR" />
-    <color id='3' red="255" green="242" blue="217" mode="RECOLOR" />
+    <color id='1' red="150" green="150" blue="150" />
+    <color id='2' red="102" green="153" blue="255"/>
+    
 </palette>
 <default>
-    <wall color='1' />
+    <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    <area color='3' x1='0' x2='29' y1='0' y2='19' />
+    
 </floor>
+
 	<ground>
 		<oneway dir='U' x='1' y='14' />
 	</ground>
@@ -12741,15 +12754,15 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='U' y='4' bc='Y' round='1' />
 		<arrow dir='U' y='3' bc='Y' round='1' />
 		<arrow dir='U' y='2' bc='Y' round='1' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='2' y='19' />
 		<timer y='18' bc='Y' val='3' />
 		<timer y='17' bc='Y' val='3' />
 		<timer y='16' bc='Y' val='3' />
 		<wall y='15' round1='1' round7='1' />
-		<clocker y='14' bc='Y' />
-		<block y='9' bc='Y' />
+		<clocker y='14' bc='B' />
+		<block y='9' bc='B' />
 		<wall y='7' round3='1' round9='1' />
 		<arrow dir='U' y='6' bc='Y' round='1' />
 		<arrow dir='U' y='5' bc='Y' round='1' />
@@ -12763,8 +12776,8 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='17' />
 		<wall y='16' />
 		<wall y='15' />
-		<clocker y='14' bc='Y' />
-		<block y='9' bc='Y' />
+		<clocker y='14' bc='B' />
+		<block y='9' bc='B' />
 		<earth y='7' />
 		<arrow dir='U' y='6' bc='Y' round='1' />
 		<arrow dir='U' y='5' bc='Y' round='1' />
@@ -12778,8 +12791,8 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='17' />
 		<wall y='16' />
 		<wall y='15' />
-		<clocker y='14' bc='Y' />
-		<block y='9' bc='Y' />
+		<clocker y='14' bc='B' />
+		<block y='9' bc='B' />
 		<wall y='7' round1='1' round7='1' />
 		<arrow dir='U' y='6' bc='Y' round='1' />
 		<arrow dir='U' y='5' bc='Y' round='1' />
@@ -12789,7 +12802,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='U' y='1' bc='Y' round='1' />
 		<wall y='0' />
 		<wall x='5' y='19' />
-		<block y='9' bc='Y' />
+		<block y='9' bc='B' />
 		<wall y='7' />
 		<wall y='6' round1='1' />
 		<arrow dir='U' y='5' bc='Y' round='1' />
@@ -12799,7 +12812,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='U' y='1' bc='Y' round='1' />
 		<wall y='0' />
 		<wall x='6' y='19' />
-		<block y='9' bc='Y' />
+		<block y='9' bc='B' />
 		<wall y='7' />
 		<wall y='6' />
 		<wall y='5' round1='1' />
@@ -12809,7 +12822,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='U' y='1' bc='Y' round='1' />
 		<wall y='0' />
 		<wall x='7' y='19' />
-		<block y='9' bc='Y' />
+		<block y='9' bc='B' />
 		<wall y='7' round9='1' />
 		<wall y='6' />
 		<wall y='5' />
@@ -12819,20 +12832,20 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='8' y='19' />
-		<block y='9' bc='Y' />
+		<block y='9' bc='B' />
 		<wall y='0' />
 		<wall x='9' y='19' />
 		<pusher y='13' dir='U' bc='Y' />
-		<block y='9' bc='Y' />
+		<block y='9' bc='B' />
 		<wall y='0' />
 		<wall x='10' y='19' />
-		<gem y='15' bc='B' />
-		<block y='14' bc='Y' />
-		<gem y='12' bc='B' />
-		<block y='11' bc='Y' />
-		<block y='9' bc='Y' />
-		<gem y='7' bc='B' />
-		<block y='6' bc='Y' />
+		<gem y='15' bc='R' />
+		<block y='14' bc='B' />
+		<gem y='12' bc='R' />
+		<block y='11' bc='B' />
+		<block y='9' bc='B' />
+		<gem y='7' bc='R' />
+		<block y='6' bc='B' />
 		<wall y='0' />
 		<wall x='11' y='19' />
 		<wall y='18' />
@@ -12912,43 +12925,43 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='20' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<beast y='17' dir='R' kind='0' />
-		<block y='15' bc='Y' round='1' />
+		<block y='15' bc='B' round='1' />
 		<arrow dir='L' y='14' bc='Y' round='1' />
 		<wall y='13' />
-		<gem y='12' bc='B' />
+		<gem y='12' bc='R' />
 		<beast y='11' dir='R' kind='0' />
-		<block y='9' bc='Y' round='1' />
+		<block y='9' bc='B' round='1' />
 		<arrow dir='L' y='8' bc='Y' round='1' />
 		<wall y='7' />
 		<arrow dir='L' y='6' bc='Y' round='1' />
 		<arrow dir='L' y='5' bc='Y' round='1' />
-		<block y='4' bc='Y' round='1' />
+		<block y='4' bc='B' round='1' />
 		<beast y='2' dir='R' kind='0' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='21' y='19' />
-		<block y='16' bc='Y' round='1' />
+		<block y='16' bc='B' round='1' />
 		<arrow dir='L' y='15' bc='Y' round='1' />
 		<arrow dir='L' y='14' bc='Y' round='1' />
 		<wall y='13' />
-		<block y='10' bc='Y' round='1' />
+		<block y='10' bc='B' round='1' />
 		<arrow dir='L' y='9' bc='Y' round='1' />
 		<arrow dir='L' y='8' bc='Y' round='1' />
 		<wall y='7' />
 		<arrow dir='L' y='6' bc='Y' round='1' />
 		<arrow dir='L' y='5' bc='Y' round='1' />
 		<arrow dir='L' y='4' bc='Y' round='1' />
-		<block y='3' bc='Y' round='1' />
+		<block y='3' bc='B' round='1' />
 		<wall y='0' />
 		<wall x='22' y='19' />
-		<block y='17' bc='Y' round='1' />
+		<block y='17' bc='B' round='1' />
 		<arrow dir='L' y='16' bc='Y' round='1' />
 		<arrow dir='L' y='15' bc='Y' round='1' />
 		<arrow dir='L' y='14' bc='Y' round='1' />
 		<wall y='13' />
-		<block y='11' bc='Y' round='1' />
+		<block y='11' bc='B' round='1' />
 		<arrow dir='L' y='10' bc='Y' round='1' />
 		<arrow dir='L' y='9' bc='Y' round='1' />
 		<arrow dir='L' y='8' bc='Y' round='1' />
@@ -12957,16 +12970,16 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='L' y='5' bc='Y' round='1' />
 		<arrow dir='L' y='4' bc='Y' round='1' />
 		<arrow dir='L' y='3' bc='Y' round='1' />
-		<block y='2' bc='Y' round='1' />
+		<block y='2' bc='B' round='1' />
 		<wall y='0' />
 		<wall x='23' y='19' />
-		<block y='18' bc='Y' round='1' />
+		<block y='18' bc='B' round='1' />
 		<arrow dir='L' y='17' bc='Y' round='1' />
 		<arrow dir='L' y='16' bc='Y' round='1' />
 		<arrow dir='L' y='15' bc='Y' round='1' />
 		<arrow dir='L' y='14' bc='Y' round='1' />
 		<wall y='13' />
-		<block y='12' bc='Y' round='1' />
+		<block y='12' bc='B' round='1' />
 		<arrow dir='L' y='11' bc='Y' round='1' />
 		<arrow dir='L' y='10' bc='Y' round='1' />
 		<arrow dir='L' y='9' bc='Y' round='1' />
@@ -12977,7 +12990,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='L' y='4' bc='Y' round='1' />
 		<arrow dir='L' y='3' bc='Y' round='1' />
 		<arrow dir='L' y='2' bc='Y' round='1' />
-		<block y='1' bc='Y' round='1' />
+		<block y='1' bc='B' round='1' />
 		<wall y='0' />
 		<wall x='24' y='19' />
 		<arrow dir='L' y='18' bc='Y' round='1' />
@@ -13060,13 +13073,13 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='L' y='1' bc='Y' round='1' />
 		<wall y='0' />
 		<wall x='28' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<arrow dir='L' y='17' bc='Y' round='1' />
 		<arrow dir='L' y='16' bc='Y' round='1' />
 		<arrow dir='L' y='15' bc='Y' round='1' />
 		<arrow dir='L' y='14' bc='Y' round='1' />
 		<wall y='13' />
-		<gem y='12' bc='B' />
+		<gem y='12' bc='R' />
 		<arrow dir='L' y='11' bc='Y' round='1' />
 		<arrow dir='L' y='10' bc='Y' round='1' />
 		<arrow dir='L' y='9' bc='Y' round='1' />
@@ -13077,7 +13090,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='L' y='4' bc='Y' round='1' />
 		<arrow dir='L' y='3' bc='Y' round='1' />
 		<arrow dir='L' y='2' bc='Y' round='1' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='29' y='19' />
 		<wall y='18' />
@@ -13108,17 +13121,18 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 <hint>Feed it fuel...</hint>
 <bye>Not very efficient.</bye>
 <palette>
-    <color id='1' red="189" green="173" blue="142" mode="RECOLOR" />
-    <color id='2' red="217" green="206" blue="184" mode="RECOLOR" />
-    <color id='3' red="255" green="242" blue="217" mode="RECOLOR" />
+    <color id='1' red="150" green="150" blue="150" />
+    <color id='2' red="102" green="153" blue="255"/>
+    
 </palette>
 <default>
-    <wall color='1' />
+    <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    <area color='3' x1='0' x2='29' y1='0' y2='19' />
+    
 </floor>
+
 	<ground>
 		<oneway dir='L' x='6' y='12' />
 		<oneway dir='U' x='7' y='14' />
@@ -13148,9 +13162,9 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='0' />
 		<wall x='1' y='19' />
 		<wall y='18' />
-		<aclocker y='17' bc='Y' />
+		<aclocker y='17' bc='B' />
 		<auto y='16' dir='U' bc='Y' round='1' />
-		<aclocker y='15' bc='Y' />
+		<aclocker y='15' bc='B' />
 		<wall y='14' />
 		<wall y='13' />
 		<beast y='12' dir='R' kind='0' />
@@ -13168,7 +13182,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='0' />
 		<wall x='2' y='19' />
 		<wall y='18' />
-		<aclocker y='1' bc='Y' />
+		<aclocker y='1' bc='B' />
 		<wall y='0' />
 		<wall x='3' y='19' />
 		<wall y='18' />
@@ -13187,23 +13201,23 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='4' y='19' />
-		<aclocker y='18' bc='Y' />
+		<aclocker y='18' bc='B' />
 		<pusher y='16' dir='U' bc='Y' />
-		<clocker y='14' bc='Y' />
+		<clocker y='14' bc='B' />
 		<wall y='13' round3='1' round9='1' />
 		<wall y='11' />
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='5' y='19' />
 		<wall y='18' />
-		<aclocker y='17' bc='Y' />
+		<aclocker y='17' bc='B' />
 		<blacky y='16' />
-		<clocker y='15' bc='Y' />
+		<clocker y='15' bc='B' />
 		<wall y='14' />
 		<arrow dir='D' y='13' bc='Y' />
 		<earth y='12' />
 		<wall y='11' />
-		<aclocker y='6' bc='Y' />
+		<aclocker y='6' bc='B' />
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='6' y='19' />
@@ -13225,7 +13239,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='0' />
 		<wall x='9' y='19' />
 		<wall y='14' round3='1' round9='1' />
-		<clocker y='8' bc='Y' />
+		<clocker y='8' bc='B' />
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='10' y='19' />
@@ -13254,8 +13268,8 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='L' y='16' bc='Y' round='1' />
 		<arrow dir='L' y='15' bc='Y' round='1' />
 		<wall y='14' />
-		<gem y='13' bc='B' />
-		<block y='12' bc='Y' />
+		<gem y='13' bc='R' />
+		<block y='12' bc='B' />
 		<wall y='9' />
 		<beast y='5' dir='R' kind='0' />
 		<wall y='4' />
@@ -13299,7 +13313,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='14' />
 		<wall y='13' round1='1' round3='1' />
 		<wall y='8' round1='1' round7='1' round3='1' round9='1' />
-		<aclocker y='7' bc='Y' />
+		<aclocker y='7' bc='B' />
 		<wall y='5' />
 		<wall y='4' />
 		<magnet y='3' horz='1' kind='0' />
@@ -13333,7 +13347,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='18' y='19' />
-		<block y='17' bc='Y' round='1' />
+		<block y='17' bc='B' round='1' />
 		<arrow dir='L' y='16' bc='Y' />
 		<wall y='14' />
 		<arrow dir='U' y='13' bc='Y' />
@@ -13348,39 +13362,39 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='0' />
 		<wall x='19' y='19' />
 		<beast y='18' dir='R' kind='1' />
-		<block y='17' bc='Y' round='1' />
+		<block y='17' bc='B' round='1' />
 		<arrow dir='L' y='16' bc='Y' />
 		<wall y='14' />
 		<pusher y='13' dir='L' bc='Y' />
 		<earth y='12' />
 		<wall y='10' round3='1' round9='1' />
-		<gem y='8' bc='B' />
-		<gem y='7' bc='B' />
-		<gem y='6' bc='B' />
+		<gem y='8' bc='R' />
+		<gem y='7' bc='R' />
+		<gem y='6' bc='R' />
 		<wall y='3' round1='1' round7='1' />
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='20' y='19' />
-		<block y='17' bc='Y' round='1' />
+		<block y='17' bc='B' round='1' />
 		<arrow dir='L' y='16' bc='Y' />
 		<wall y='14' />
 		<earth y='10' />
-		<block y='9' bc='Y' />
-		<gem y='8' bc='B' />
-		<gem y='7' bc='B' />
-		<gem y='6' bc='B' />
+		<block y='9' bc='B' />
+		<gem y='8' bc='R' />
+		<gem y='7' bc='R' />
+		<gem y='6' bc='R' />
 		<wall y='4' round7='1' round9='1' />
 		<wall y='3' />
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='21' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<wall y='14' />
 		<wall y='13' round1='1' />
 		<wall y='10' round1='1' round7='1' />
-		<gem y='8' bc='B' />
-		<gem y='7' bc='B' />
-		<gem y='6' bc='B' />
+		<gem y='8' bc='R' />
+		<gem y='7' bc='R' />
+		<gem y='6' bc='R' />
 		<wall y='3' />
 		<wall y='1' />
 		<wall y='0' />
@@ -13417,37 +13431,37 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='16' />
 		<wall y='15' round3='1' />
 		<wall y='10' />
-		<block y='6' bc='Y' round='1' />
+		<block y='6' bc='B' round='1' />
 		<wall y='3' />
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='25' y='19' />
-		<block y='14' bc='Y' />
-		<block y='13' bc='Y' />
-		<block y='12' bc='Y' />
-		<block y='11' bc='Y' />
+		<block y='14' bc='B' />
+		<block y='13' bc='B' />
+		<block y='12' bc='B' />
+		<block y='11' bc='B' />
 		<wall y='10' />
 		<beast y='9' dir='R' kind='1' />
-		<block y='7' bc='Y' round='1' />
+		<block y='7' bc='B' round='1' />
 		<wall y='3' />
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='26' y='19' />
-		<block y='15' bc='Y' />
+		<block y='15' bc='B' />
 		<beast y='12' dir='R' kind='1' />
 		<wall y='10' />
-		<gem y='9' bc='B' />
-		<block y='8' bc='Y' round='1' />
+		<gem y='9' bc='R' />
+		<block y='8' bc='B' round='1' />
 		<wall y='3' round3='1' round9='1' />
 		<wall y='1' round9='1' />
 		<wall y='0' />
 		<wall x='27' y='19' />
-		<block y='16' bc='Y' />
+		<block y='16' bc='B' />
 		<wall y='10' />
 		<pusher y='9' dir='D' bc='Y' />
 		<wall y='0' />
 		<wall x='28' y='19' />
-		<gem y='17' bc='B' />
+		<gem y='17' bc='R' />
 		<beast y='12' dir='R' kind='3' />
 		<wall y='10' />
 		<wall y='9' />
@@ -13489,17 +13503,18 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 <hint>Build a prison</hint>
 <bye>This is getting to extremes!</bye>
 <palette>
-    <color id='1' red="189" green="173" blue="142" mode="RECOLOR" />
-    <color id='2' red="217" green="206" blue="184" mode="RECOLOR" />
-    <color id='3' red="255" green="242" blue="217" mode="RECOLOR" />
+    <color id='1' red="150" green="150" blue="150" />
+    <color id='2' red="102" green="153" blue="255"/>
+    
 </palette>
 <default>
-    <wall color='1' />
+    <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    <area color='3' x1='0' x2='29' y1='0' y2='19' />
+    
 </floor>
+
 	<ground>
 		<oneway dir='R' x='11' y='18' />
 		<oneway dir='L' y='1' />
@@ -13571,23 +13586,23 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='3' y='19' />
-		<gem y='18' bc='B' />
+		<gem y='18' bc='R' />
 		<wall y='17' round3='1' round9='1' />
-		<gem y='16' bc='B' />
+		<gem y='16' bc='R' />
 		<wall y='15' />
-		<gem y='14' bc='B' />
+		<gem y='14' bc='R' />
 		<wall y='13' round3='1' round9='1' />
-		<gem y='12' bc='B' />
+		<gem y='12' bc='R' />
 		<wall y='11' />
-		<gem y='10' bc='B' />
+		<gem y='10' bc='R' />
 		<wall y='9' round3='1' round9='1' />
-		<gem y='8' bc='B' />
+		<gem y='8' bc='R' />
 		<wall y='7' />
-		<gem y='6' bc='B' />
+		<gem y='6' bc='R' />
 		<wall y='5' round3='1' round9='1' />
-		<gem y='4' bc='B' />
+		<gem y='4' bc='R' />
 		<wall y='3' />
-		<gem y='2' bc='B' />
+		<gem y='2' bc='R' />
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='4' y='19' />
@@ -13612,21 +13627,21 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='0' />
 		<wall x='8' y='19' />
 		<wall y='17' />
-		<gem y='16' bc='B' />
+		<gem y='16' bc='R' />
 		<wall y='15' round1='1' round7='1' />
-		<gem y='14' bc='B' />
+		<gem y='14' bc='R' />
 		<wall y='13' />
-		<gem y='12' bc='B' />
+		<gem y='12' bc='R' />
 		<wall y='11' round1='1' round7='1' />
-		<gem y='10' bc='B' />
+		<gem y='10' bc='R' />
 		<wall y='9' />
-		<gem y='8' bc='B' />
+		<gem y='8' bc='R' />
 		<wall y='7' round1='1' round7='1' />
-		<gem y='6' bc='B' />
+		<gem y='6' bc='R' />
 		<wall y='5' />
-		<gem y='4' bc='B' />
+		<gem y='4' bc='R' />
 		<wall y='3' round1='1' round7='1' />
-		<gem y='2' bc='B' />
+		<gem y='2' bc='R' />
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='9' y='19' />
@@ -13765,7 +13780,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='R' y='1' bc='Y' round='1' />
 		<wall y='0' />
 		<wall x='17' y='19' />
-		<gem y='8' bc='B' />
+		<gem y='8' bc='R' />
 		<arrow dir='R' y='7' bc='Y' round='1' />
 		<arrow dir='R' y='6' bc='Y' round='1' />
 		<arrow dir='R' y='5' bc='Y' round='1' />
@@ -13828,31 +13843,31 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='0' />
 		<wall x='23' y='19' />
 		<wall y='9' />
-		<block y='4' bc='Y' round='1' />
-		<gem y='1' bc='B' />
+		<block y='4' bc='B' round='1' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='24' y='19' />
 		<wall y='9' />
-		<block y='4' bc='Y' round='1' />
+		<block y='4' bc='B' round='1' />
 		<wall y='0' />
 		<wall x='25' y='19' />
 		<wall y='18' />
 		<wall y='17' />
 		<wall y='16' round1='1' />
 		<wall y='9' />
-		<block y='4' bc='Y' round='1' />
+		<block y='4' bc='B' round='1' />
 		<wall y='0' />
 		<wall x='26' y='19' />
 		<auto y='18' dir='L' bc='Y' round='1' />
 		<wall y='16' round3='1' round9='1' />
 		<wall y='9' round3='1' round9='1' />
 		<pusher y='7' dir='D' bc='Y' />
-		<block y='5' bc='Y' round='1' />
+		<block y='5' bc='B' round='1' />
 		<beast y='4' dir='R' kind='1' />
 		<wall y='0' />
 		<wall x='27' y='19' />
 		<auto y='18' dir='D' bc='Y' />
-		<clocker y='9' bc='Y' />
+		<clocker y='9' bc='B' />
 		<wall y='7' round1='1' round7='1' />
 		<blacky y='6' />
 		<wall y='5' />
@@ -13876,7 +13891,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='6' />
 		<wall y='5' />
 		<wall y='4' />
-		<gem y='3' bc='B' />
+		<gem y='3' bc='R' />
 		<wall y='2' />
 		<wall y='1' />
 		<wall y='0' />
@@ -13909,17 +13924,18 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 <hint>Careful timing, but no rush</hint>
 <bye>Fun!</bye>
 <palette>
-    <color id='1' red="189" green="173" blue="142" mode="RECOLOR" />
-    <color id='2' red="217" green="206" blue="184" mode="RECOLOR" />
-    <color id='3' red="255" green="242" blue="217" mode="RECOLOR" />
+    <color id='1' red="150" green="150" blue="150" />
+    <color id='2' red="102" green="153" blue="255"/>
+    
 </palette>
 <default>
-    <wall color='1' />
+    <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    <area color='3' x1='0' x2='29' y1='0' y2='19' />
+    
 </floor>
+
 	<ground>
 		<oneway dir='L' x='2' y='3' />
 		<oneway dir='U' x='24' y='2' />
@@ -13956,12 +13972,12 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='1' />
 		<wall y='0' />
 		<wall x='1' y='19' />
-		<gem y='10' bc='B' />
+		<gem y='10' bc='R' />
 		<arrow dir='D' y='9' bc='Y' />
 		<arrow dir='D' y='8' bc='Y' />
 		<arrow dir='D' y='7' bc='Y' />
 		<arrow dir='R' y='6' bc='Y' />
-		<aclocker y='5' bc='Y' />
+		<aclocker y='5' bc='B' />
 		<wall y='4' />
 		<arrow dir='U' y='1' bc='Y' />
 		<wall y='0' />
@@ -13985,33 +14001,33 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall y='0' />
 		<wall x='3' y='19' />
 		<wall y='17' />
-		<gem y='16' bc='B' />
-		<block y='11' bc='Y' round='1' />
-		<gem y='1' bc='B' />
+		<gem y='16' bc='R' />
+		<block y='11' bc='B' round='1' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='4' y='19' />
 		<wall y='17' />
-		<gem y='16' bc='B' />
-		<block y='11' bc='Y' round='1' />
-		<gem y='2' bc='B' />
+		<gem y='16' bc='R' />
+		<block y='11' bc='B' round='1' />
+		<gem y='2' bc='R' />
 		<arrow dir='U' y='1' bc='Y' round='1' />
 		<wall y='0' />
 		<wall x='5' y='19' />
 		<wall y='17' />
-		<gem y='16' bc='B' />
+		<gem y='16' bc='R' />
 		<beast y='12' dir='R' kind='1' />
-		<block y='11' bc='Y' round='1' />
-		<gem y='3' bc='B' />
+		<block y='11' bc='B' round='1' />
+		<gem y='3' bc='R' />
 		<arrow dir='U' y='2' bc='Y' round='1' />
 		<arrow dir='U' y='1' bc='Y' round='1' />
 		<wall y='0' />
 		<wall x='6' y='19' />
 		<wall y='17' />
-		<gem y='16' bc='B' />
+		<gem y='16' bc='R' />
 		<wall y='15' round1='1' round7='1' />
-		<block y='11' bc='Y' round='1' />
+		<block y='11' bc='B' round='1' />
 		<pusher y='6' dir='L' bc='Y' />
-		<gem y='4' bc='B' />
+		<gem y='4' bc='R' />
 		<arrow dir='U' y='3' bc='Y' round='1' />
 		<arrow dir='U' y='2' bc='Y' round='1' />
 		<arrow dir='U' y='1' bc='Y' round='1' />
@@ -14118,7 +14134,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall x='24' y='19' />
 		<wall y='14' />
 		<magnet y='13' horz='1' kind='0' />
-		<gem y='1' bc='B' />
+		<gem y='1' bc='R' />
 		<wall y='0' />
 		<wall x='25' y='19' />
 		<wall y='17' round7='1' round9='1' />
@@ -14135,7 +14151,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<arrow dir='D' y='18' bc='Y' round='1' />
 		<arrow dir='D' y='17' bc='Y' round='1' />
 		<arrow dir='D' y='16' bc='Y' round='1' />
-		<gem y='15' bc='B' />
+		<gem y='15' bc='R' />
 		<wall y='11' round7='1' />
 		<wall y='10' />
 		<wall y='9' />
@@ -14191,17 +14207,18 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 <hint>Attack the Fortress!</hint>
 <bye>Fun!</bye>
 <palette>
-    <color id='1' red="189" green="173" blue="142" mode="RECOLOR" />
-    <color id='2' red="217" green="206" blue="184" mode="RECOLOR" />
-    <color id='3' red="255" green="242" blue="217" mode="RECOLOR" />
+    <color id='1' red="150" green="150" blue="150" />
+    <color id='2' red="102" green="153" blue="255"/>
+    
 </palette>
 <default>
-    <wall color='1' />
+    <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    <area color='3' x1='0' x2='29' y1='0' y2='19' />
+    
 </floor>
+
 	<ground>
 	</ground>
 	<objects>
@@ -14262,7 +14279,7 @@ All of my levels here are copyright 2004 by myself, Colin Phipps. You may do wha
 		<wall x='14' y='19' />
 		<auto y='18' dir='L' bc='Y' round='1' />
 		<blacky y='11' />
-		<gem y='10' bc='B' />
+		<gem y='10' bc='R' />
 		<blacky y='9' />
 		<auto y='1' dir='L' bc='Y' round='1' />
 		<wall y='0' />
