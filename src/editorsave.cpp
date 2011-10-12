@@ -572,6 +572,9 @@ void saveColorStuff( std::ofstream & file, editorboard*board)
 
         saveDefault(file, "wall", board, EDITOR_COLOR_WALLS);
         saveDefault(file, "earth", board, EDITOR_COLOR_EARTH);
+        saveDefault(file, "oneway", board, EDITOR_COLOR_DOORS);
+        saveDefault(file, "force", board, EDITOR_COLOR_FORCE);
+
         file<<"    </default>"<<endl;
         
         if (! board->colors[EDITOR_COLOR_FLOOR].useDefault) {

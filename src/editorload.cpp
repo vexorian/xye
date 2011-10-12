@@ -16,6 +16,7 @@ int editorload_xyey;
 
 int editorload_portal_x[5][2];
 int editorload_portal_y[5][2];
+int editorload_defaultwall = 0;
 
 string editor::loadError;
 
@@ -111,7 +112,7 @@ bool getGroundElementPosition(TiXmlElement *el, int &x , int &y, bool allowSameP
 bool editor_LoadWall(TiXmlElement* el, bool round = false)
 {
     int x,y; if(!getTopElementPosition(el,x,y)) return false;
-    int t=0;
+    int t=editorload_defaultwall;
     el->QueryIntAttribute("type",&t);
     if( t<0 || t>5 ) {
         //fix variations...
@@ -940,11 +941,13 @@ void loadKyeChar( char ch, boardelement & o , int x)
         break;
     case '5':
         o.type = EDOT_WALL;
+        o.variation = editorload_defaultwall;
         break;
     case('1'): case('2'): case('3'): case('4'):
     case('6'): case('7'): case('8'): case('9'):
         o.type = EDOT_WALL;
         o.round = true;
+        o.variation = editorload_defaultwall;
         break;
     case 'b':
         o.type = EDOT_BLOCK;
@@ -1224,12 +1227,28 @@ bool editor_LoadDefaults(TiXmlElement* el)
             if (! editor_LoadDefault(ch, editorload_colors[EDITOR_COLOR_WALLS]) ) {
                 return false;
             }
+            int x = -1;
+            ch->QueryIntAttribute("type", &x);
+            if (x!=-1) {
+                editorload_defaultwall = x;
+            }
         }
         if (v=="earth") {
             if (! editor_LoadDefault(ch, editorload_colors[EDITOR_COLOR_EARTH]) ) {
                 return false;
             }
         }
+        if (v=="oneway" || v=="trick" || v=="hiddenway" ) {
+            if (! editor_LoadDefault(ch, editorload_colors[EDITOR_COLOR_DOORS]) ) {
+                return false;
+            }            
+        }
+        if (v=="force") {
+            if (! editor_LoadDefault(ch, editorload_colors[EDITOR_COLOR_FORCE]) ) {
+                return false;
+            }
+        }
+
         ch=ch->NextSiblingElement();
     }
     
@@ -1244,7 +1263,6 @@ bool editor_LoadFloor(TiXmlElement* el)
         
         string v=ch->Value();
         if (v=="area") {
-            cout<<"!!area"<<endl;
             int x1=400,x2=400,y1=400,y2=400;
             ch->QueryIntAttribute("x1",&x1);
             ch->QueryIntAttribute("x2",&x2);
@@ -1253,7 +1271,6 @@ bool editor_LoadFloor(TiXmlElement* el)
             if (x1 != 0 || x2 != 29 || y1 != 0 || y2 != 19 ) {
                 return true;
             }
-            cout<<"!!will"<<endl;
 
             if (! editor_LoadDefault(ch, editorload_colors[EDITOR_COLOR_FLOOR]) ) {
                 return false;
@@ -1335,7 +1352,7 @@ bool editor::load_KyeFormat(TiXmlElement* el)
         }
     }
     editorload_xyex = editor::board->xye_x;
-    editorload_xyey = editor::board->xye_y;
+    editorload_xyey = XYE_VERT - editor::board->xye_y - 1;
 
     return true;
 }
@@ -1373,6 +1390,7 @@ bool editor::appendLevels(const string file)
             int i,j;
             editorload_xyex=-1;
 
+            editorload_defaultwall = 0;
             for (int i=0; i<TOTAL_EDITOR_COLOR_OPTIONS; i++) {
                 editorload_colors[i].useDefault = true;
             }
@@ -1431,8 +1449,8 @@ bool editor::appendLevels(const string file)
                         return false;
                     }
                 } else {
-                    cout << "Editor-incompatible <level> child: "<<v<<"\n";
                     if ( v!="palette" && v!="floor" && v!="default") {
+                        cout << "Editor-incompatible <level> child: "<<v<<"\n";
                         loadError="Found a tag <"+v+"> that is incompatible with the level editor. Had to stop loading, sorry.";
                         return false;
                     } else {

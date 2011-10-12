@@ -151,6 +151,8 @@ class editor
      static void continueChangeLevelNumber(bool okclicked, const string text, inputDialogData * dat);
      static void beginChangeLevelNumber(const buttondata*data);
      
+     static void continueChangeLevelColor(bool okclicked, const string text, inputDialogData * dat);
+     static void beginChangeLevelColor(const buttondata*data);
      
      static void onClearConfirmation(bool yes);
      static void onClearClick(const buttondata* data);
@@ -337,10 +339,13 @@ struct DefaultColorData {
     bool useDefault;
     SDL_Color color;
 };
-const int TOTAL_EDITOR_COLOR_OPTIONS = 3;
+const int TOTAL_EDITOR_COLOR_OPTIONS = 5;
 const int EDITOR_COLOR_WALLS = 0;
 const int EDITOR_COLOR_FLOOR = 1;
 const int EDITOR_COLOR_EARTH = 2;
+const int EDITOR_COLOR_DOORS = 3;
+const int EDITOR_COLOR_FORCE = 4;
+
 
 
 class editorboard: public control
