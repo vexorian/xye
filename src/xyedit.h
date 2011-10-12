@@ -337,8 +337,11 @@ struct DefaultColorData {
     bool useDefault;
     SDL_Color color;
 };
-const int TOTAL_EDITOR_COLOR_OPTIONS = 1;
+const int TOTAL_EDITOR_COLOR_OPTIONS = 3;
 const int EDITOR_COLOR_WALLS = 0;
+const int EDITOR_COLOR_FLOOR = 1;
+const int EDITOR_COLOR_EARTH = 2;
+
 
 class editorboard: public control
 {

@@ -2144,7 +2144,12 @@ void editorboard::drawWallInBoard(SDL_Surface*target,int ox,int oy, int x, int y
 void editorboard::draw(SDL_Surface* target)
 {
     int i,j;
-    SDL_FillRect(target,x,y,w,h,SDL_MapRGB(target->format,options::FloorColor));
+    DefaultColorData &cd = colors[EDITOR_COLOR_FLOOR];
+    if (cd.useDefault) {
+        SDL_FillRect(target,x,y,w,h,SDL_MapRGB(target->format,options::FloorColor));        
+    } else {
+        SDL_FillRect(target,x,y,w,h,SDL_MapRGB(target->format,cd.color));
+    }
     for (i=0;i<XYE_HORZ;i++)for (j=0;j<XYE_VERT;j++)
     {
         boardelement &o=objects[i][j];
@@ -2435,7 +2440,12 @@ void drawEarth( SDL_Surface * target, int x, int y, bool round)
     if(round) tx=2;
     else tx=1;
     Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
-    D.SetColors(&options::EarthColor,255);
+    DefaultColorData & cd = editor::board->colors[EDITOR_COLOR_EARTH];
+    if (! cd.useDefault ) {
+        D.SetColors( &cd.color, 255);
+    } else {
+        D.SetColors( &options::EarthColor, 255);
+    }
     D.Draw(target,x,y);
 }
 
