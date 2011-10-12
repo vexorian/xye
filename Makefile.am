@@ -40,6 +40,9 @@ res/classic32.xml \
 res/kye32.png \
 res/kye32_luminosity.png \
 res/clean40_luminosity.png \
+res/clean30.xml \
+res/clean30.png \
+res/clean30_luminosity.png \
 res/kye_luminosity.png \
 res/xmaskye.xml \
 res/xmaskye32.xml \
@@ -57,6 +60,8 @@ res/detailed_L.png \
 res/detailed_L20.png \
 res/detailed_L30.png \
 res/detailed_icon.png \
+res/default_icon.png \
+res/kye_icon.png \
 res/detailed_COPYING
 
 
