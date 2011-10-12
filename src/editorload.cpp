@@ -1225,12 +1225,48 @@ bool editor_LoadDefaults(TiXmlElement* el)
                 return false;
             }
         }
+        if (v=="earth") {
+            if (! editor_LoadDefault(ch, editorload_colors[EDITOR_COLOR_EARTH]) ) {
+                return false;
+            }
+        }
         ch=ch->NextSiblingElement();
     }
     
     return true;
 }
 
+bool editor_LoadFloor(TiXmlElement* el)
+{
+    TiXmlElement * ch=el->FirstChildElement();
+
+    while(ch!=NULL) {
+        
+        string v=ch->Value();
+        if (v=="area") {
+            cout<<"!!area"<<endl;
+            int x1=400,x2=400,y1=400,y2=400;
+            ch->QueryIntAttribute("x1",&x1);
+            ch->QueryIntAttribute("x2",&x2);
+            ch->QueryIntAttribute("y1",&y1);
+            ch->QueryIntAttribute("y2",&y2);
+            if (x1 != 0 || x2 != 29 || y1 != 0 || y2 != 19 ) {
+                return true;
+            }
+            cout<<"!!will"<<endl;
+
+            if (! editor_LoadDefault(ch, editorload_colors[EDITOR_COLOR_FLOOR]) ) {
+                return false;
+            }
+
+        } else {
+            return false;
+        }
+        ch=ch->NextSiblingElement();
+    }
+    
+    return true;
+}
 
 
 void editorload_loadKyeLevel(const KyeLevel& klv)
@@ -1410,7 +1446,13 @@ bool editor::appendLevels(const string file)
                                 return "There were issues while loading a <default> tag";
                             }
                         }
-                        colorWarn = true;
+                        //colorWarn = true;
+                        if (v=="floor") {
+                            if (! editor_LoadFloor(el) ) {
+                                return "There were issues while loading a <floor> tag.";
+                            }
+                        }
+                        
                     }
                 }
                 el=el->NextSiblingElement();
