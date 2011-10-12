@@ -411,7 +411,7 @@ struct LevelSorting
                 string x = s.substr(lf.length());
                 if(x=="tutorials.xye") r=5;
                 if(x=="levels.xye") r=4;
-                if(x=="kyeclone.xye") r=3;
+                if(x=="Phipps.xye") r=3;
                 if(x=="kye.xye") r=2;
                 
             }
