@@ -1956,6 +1956,9 @@ void editorboard::LoadCopy(editorboard* ed)
 void editorboard::makeDefaultLevel()
 {
     int i,j;
+    for (i=0; i<TOTAL_EDITOR_COLOR_OPTIONS; i++) {
+        colors[i].useDefault = true;
+    }
     bool already = true;
     for (i=0;i<XYE_HORZ;i++)for (j=0;j<XYE_VERT;j++)
     {

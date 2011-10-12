@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <pack>
 <name>Tutorials</name><author>vexorian</author>
-<description>25 small puzzles intented to introduce players to the objects in the game.  You can watch solutions by pressing [S] during the game. If you want a challenge, try getting the stars.</description>
+<description>26 small puzzles intented to introduce players to the objects in the game.  You can watch solutions by pressing [S] during the game. If you want a challenge, try getting the stars.</description>
 
 <level>
 <title>T1: Piece of cake</title>

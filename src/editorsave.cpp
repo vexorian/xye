@@ -562,8 +562,9 @@ void saveColorStuff( std::ofstream & file, editorboard*board)
                 file << " red='"<<(int)cd.color.r<<"'";
                 file << " green='"<<(int)cd.color.g<<"'";
                 file << " blue='"<<(int)cd.color.b<<"'";
+                file << " />"<<endl;
             }
-            file << " />"<<endl;
+            
         }
         file<<"    </palette>"<<endl;
         
