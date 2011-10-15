@@ -1294,6 +1294,12 @@ void editorload_loadKyeLevel(const KyeLevel& klv)
     editor::board->solution = "";
     editor::board->xye_x = 0;
     editor::board->xye_y = 0;
+    for (int i=0; i<TOTAL_EDITOR_COLOR_OPTIONS; i++) {
+        DefaultColorData &cd = editor::board->colors[i];
+        cd.useDefault = true;
+    }
+
+    
     for (int i=0;i<XYE_HORZ;i++)for (int j=0;j<XYE_VERT;j++)
     {
         loadKyeChar( klv.data[i][j], editor::board->objects[i][XYE_VERT - j - 1], i );
