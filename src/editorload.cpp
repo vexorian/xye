@@ -169,9 +169,14 @@ editorcolor getElementColor(TiXmlElement* el)
     string v=ptr;
     
     if (v.length() >= 1) {
-        if(v[0]=='R') return EDCO_RED;
-        else if (v[0]=='G') return EDCO_GREEN;
-        else if (v[0]=='B') return EDCO_BLUE;
+        switch(v[0]) {
+        case 'R': case 'r':
+            return EDCO_RED;
+        case 'G': case 'g':
+            return EDCO_GREEN;
+        case 'B': case 'b':
+            return EDCO_BLUE;            
+        }
     }
  return EDCO_YELLOW;
 }
@@ -1265,8 +1270,13 @@ bool editor_LoadFloor(TiXmlElement* el)
         if (v=="area") {
             int x1=400,x2=400,y1=400,y2=400;
             ch->QueryIntAttribute("x1",&x1);
-            ch->QueryIntAttribute("x2",&x2);
             ch->QueryIntAttribute("y1",&y1);
+            if (x1==400) {
+                ch->QueryIntAttribute("x",&x1);
+                ch->QueryIntAttribute("y",&y1);
+            }
+
+            ch->QueryIntAttribute("x2",&x2);
             ch->QueryIntAttribute("y2",&y2);
             if (x1 != 0 || x2 != 29 || y1 != 0 || y2 != 19 ) {
                 return true;
