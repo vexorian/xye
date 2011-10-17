@@ -1892,6 +1892,7 @@ void game::MoveXye()
             if (! recording::get_undo(DK_DIR,nm)) {
                 
                 cameraon=true;
+                PlayingRecording = false;
                 undo=false;
                 UpdateAll=true;
                 game::XYE->alpha=200;
