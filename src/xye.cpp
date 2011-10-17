@@ -93,7 +93,7 @@ unsigned int game::mouse_x,game::mouse_y;
 
 //recordings:
 bool game::cameraon;
-bool game::playingrec;
+bool game::PlayingRecording;
 bool game::undo=false;
 
 
@@ -144,6 +144,8 @@ button* Button_Undo;
 button* Button_RecordSolution;
 
 bool Button_ToolTipWasDrawn;
+
+recordingmode game::RecordingMode;
 
 //======================================================================
 //gameboard methods:
@@ -616,7 +618,8 @@ bool game::EvalDirKeys()
 void game::PlayRecording(const string rc)
 {
     recording::load(rc.c_str());
-    playingrec=true;
+    PlayingRecording=true;
+    RecordingMode = RECORDING_MODE_MOVIE;
 }
 
 void game::AfterLevelLoad()
@@ -627,7 +630,7 @@ void game::AfterLevelLoad()
     if(!xye_fromeditortest) {
         options::SaveLevelFile( LevelPack::OpenFile, LevelPack::OpenFileLn);
     }
-    Button_Solution->Enabled = ( (LevelPack::HasSolution()) && !playingrec);
+    Button_Solution->Enabled = ( (LevelPack::HasSolution()) && !PlayingRecording);
     Button_Hint->Enabled= (hint::GlobalHintExists());
     Button_Hint->resetToggle();
     Button_NextLevel->Enabled = Button_PrevLevel->Enabled  = (LevelPack::n > 1);
@@ -639,7 +642,8 @@ void game::AfterLevelLoad()
 
 void game::RestartCommand( const buttondata*bd)
 {
-    if (!playingrec) SaveReplay();
+    if (!PlayingRecording) SaveReplay();
+    options::ForgetLevelGame(LevelPack::OpenFile.c_str(), LevelPack::OpenFileLn);
     end();
     start();
     LevelPack::Restart();
@@ -667,14 +671,18 @@ void game::ExitCommand( const buttondata*bd)
 
 void game::loadGame()
 {
-    string s = options::LoadLevelGame(LevelPack::OpenFile.c_str(), LevelPack::OpenFileLn);
-    if (s != "") {
-        recording::load(s.c_str());
-        options::ForgetLevelGame(LevelPack::OpenFile.c_str(), LevelPack::OpenFileLn);
-        undo = true;
-        string oldcap = LevelPack::CurrentLevelTitle;
-        oldcap += " (Your previous game has been loaded.)";
-        SDL_WM_SetCaption(oldcap.c_str(),0);
+    if (! PlayingRecording ) {
+        string s = options::LoadLevelGame(LevelPack::OpenFile.c_str(), LevelPack::OpenFileLn);
+        if (s != "") {
+            recording::load(s.c_str());
+            cout<<"AMNESIA"<<endl;
+            //options::ForgetLevelGame(LevelPack::OpenFile.c_str(), LevelPack::OpenFileLn);
+            undo = true;
+            RecordingMode = RECORDING_MODE_BACKGROUND;
+            string oldcap = LevelPack::CurrentLevelTitle;
+            oldcap += " (Your previous game has been loaded.)";
+            SDL_WM_SetCaption(oldcap.c_str(),0);
+        }
     }
 
 }
@@ -682,10 +690,13 @@ void game::loadGame()
 
 void game::saveGame()
 {
-    char * tm = recording::save();
-    string s = tm;
-    options::SaveLevelGame(LevelPack::OpenFile.c_str(), LevelPack::OpenFileLn, s);
-    delete[]tm;
+    if (! PlayingRecording ) {
+        cout<<"SAVE"<<endl;
+        char * tm = recording::save();
+        string s = tm;
+        options::SaveLevelGame(LevelPack::OpenFile.c_str(), LevelPack::OpenFileLn, s);
+        delete[]tm;
+    }
 }
 
 void game::GoPreviousCommand( const buttondata*bd)
@@ -730,7 +741,7 @@ void game::FFUpCommand( const buttondata*bd)
 
 void game::UndoCommand( const buttondata*bd)
 {
-    if (! playingrec) Undo();
+    if (! PlayingRecording) Undo();
 }
 
 void game::RecordSolutionCommand( const buttondata*bd)
@@ -755,11 +766,14 @@ void game::SolutionCommand( const buttondata*bd)
 {
     if (LevelPack::HasSolution())
     {
+        saveGame();
         end();
+        PlayingRecording=true;
         start();
         LevelPack::Restart();
         recording::load(LevelPack::Solution.c_str() );
-        playingrec=true;
+        PlayingRecording=true;
+        RecordingMode = RECORDING_MODE_MOVIE;
         AfterLevelLoad();
     }
 }
@@ -1153,9 +1167,11 @@ void game::start(bool undotime)
     started=true;
 
     cameraon=!undotime;
-    playingrec=false; //true;
+    PlayingRecording=false;
 
     if (undo=undotime) {
+        PlayingRecording = true;
+        RecordingMode = RECORDING_MODE_BACKGROUND;
     } else {
         recording::clean();
     }
@@ -1353,7 +1369,7 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
     string hintx="";
 
 
-    if (playingrec)
+    if (PlayingRecording)
     {
         if(xye_fromeditortest) {
             if (GameOver) {
@@ -1690,7 +1706,7 @@ void game::draw(Sint16 px, Sint16 py)
     }
     DoArrowThing = (!GameOver &&  (DoArrowThing || (ShiftPressed && (counter9<5)) ));
 
-    if (DoArrowThing && (!playingrec))
+    if (DoArrowThing && (!PlayingRecording))
     {
             signed char incx[4]={ 1, 1,-1,-1};
             signed char incy[4]={ 1,-1, 1,-1};
@@ -1854,12 +1870,12 @@ void game::MoveXye()
     
     if ( (LastXyeMove+1) < counter)
     {
-        if (playingrec) {
+        if (PlayingRecording && (RecordingMode != RECORDING_MODE_BACKGROUND) )  {
             bool nm;
 
             if (! recording::get(DK_DIR,nm)) {
                 game::TerminateGame(false);
-                playingrec = false;
+                PlayingRecording = false;
             }
             
             if (!nm) {
@@ -2260,7 +2276,7 @@ void game::SaveReplay()
 void game::TerminateGame(bool good)
 {
    undo = false;
-   if (!playingrec)
+   if (!PlayingRecording)
    {
         SaveReplay();
 

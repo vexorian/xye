@@ -1331,6 +1331,12 @@ class gameboard : public control
 
 class gamepanel;
 
+enum recordingmode
+{
+    RECORDING_MODE_MOVIE,
+    RECORDING_MODE_BACKGROUND
+};
+
 /**class game*/
 class game
 {
@@ -1409,7 +1415,8 @@ class game
     static bool EvalDirGrid(Uint16 x1,Uint16 y1,Uint16 x2,Uint16 y2,edir &dir);
     static bool EvalDirGrid(obj* object,Uint16 x2,Uint16 y2,edir &dir);
     static bool cameraon;
-    static bool playingrec;
+    static bool          PlayingRecording;
+    static recordingmode RecordingMode;
     static bool undo;
     
     static void onKeyUp(SDLKey keysim, Uint16 unicode);
