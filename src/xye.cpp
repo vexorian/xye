@@ -675,7 +675,6 @@ void game::loadGame()
         string s = options::LoadLevelGame(LevelPack::OpenFile.c_str(), LevelPack::OpenFileLn);
         if (s != "") {
             recording::load(s.c_str());
-            cout<<"AMNESIA"<<endl;
             //options::ForgetLevelGame(LevelPack::OpenFile.c_str(), LevelPack::OpenFileLn);
             undo = true;
             RecordingMode = RECORDING_MODE_BACKGROUND;
@@ -691,7 +690,6 @@ void game::loadGame()
 void game::saveGame()
 {
     if (! PlayingRecording ) {
-        cout<<"SAVE"<<endl;
         char * tm = recording::save();
         string s = tm;
         options::SaveLevelGame(LevelPack::OpenFile.c_str(), LevelPack::OpenFileLn, s);
