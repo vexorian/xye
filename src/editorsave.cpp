@@ -1,6 +1,9 @@
 #include "xyedit.h"
 #include <iostream>
 #include <fstream>
+#include <algorithm>
+using std::pair;
+using std::max_element;
 
 
 
@@ -138,7 +141,7 @@ void saveDangerFactory(std::ofstream &file, boardelement &o, int x ,int y)
     
 }
 
-
+int defaultWallVariation = 0;
 void saveNormalObject(std::ofstream &file, boardelement &o, int x, int y)
 {
     switch(o.type)
@@ -197,7 +200,8 @@ void saveNormalObject(std::ofstream &file, boardelement &o, int x, int y)
                 if(o.r9mem) file << "round9='1' ";
             }
 
-            if(o.variation) file << "type='"<<o.variation<<"' ";
+            
+            if(o.variation != defaultWallVariation) file << "type='"<<o.variation<<"' ";
 
             file <<"/>\n";
             break;
@@ -543,8 +547,33 @@ void saveDefault( std::ofstream & file, string tag, editorboard*board, int i)
          file<<"        <"<<tag<<" ";
          file<<" color='"<<(i+1)<<"' />" <<endl;
      }
+}
+
+void saveWallDefault( std::ofstream & file, editorboard*board)
+{
+    const int MAX_WALL_VARIATIONS = 6;
+    pair<int, int> variationCount[MAX_WALL_VARIATIONS];
+    for (int i=0; i<MAX_WALL_VARIATIONS; i++) {
+        variationCount[i] = make_pair(0, i);
+    }
+    for (int i=0; i<XYE_HORZ; i++) {
+        for (int j=0; j<XYE_VERT; j++) {
+            if (board->objects[i][j].type == EDOT_WALL ) {
+                variationCount[board->objects[i][j].variation].first++;
+            }
+        } 
+    }
+    defaultWallVariation = max_element(variationCount, variationCount + MAX_WALL_VARIATIONS)->second;
+    file<<"        <wall type='"<< defaultWallVariation <<"' ";
+    DefaultColorData &cd = board->colors[EDITOR_COLOR_WALLS];
+    if (! cd.useDefault ) {
+        file<<" color='"<<(EDITOR_COLOR_WALLS+1)<<"' ";
+    }
+    
+    file << " />" <<endl;
 
 }
+
 
 void saveColorStuff( std::ofstream & file, editorboard*board)
 {
@@ -567,24 +596,25 @@ void saveColorStuff( std::ofstream & file, editorboard*board)
             
         }
         file<<"    </palette>"<<endl;
+    }
         
-        //now save the defaults...
-        file<<"    <default>"<<endl;
+    //now save the defaults...
+    file<<"    <default>"<<endl;
 
-        saveDefault(file, "wall", board, EDITOR_COLOR_WALLS);
-        saveDefault(file, "earth", board, EDITOR_COLOR_EARTH);
-        saveDefault(file, "oneway", board, EDITOR_COLOR_DOORS);
-        saveDefault(file, "force", board, EDITOR_COLOR_FORCE);
+    //saveDefault(file, "wall", board, EDITOR_COLOR_WALLS);
+    saveWallDefault(file, board);
+    saveDefault(file, "earth", board, EDITOR_COLOR_EARTH);
+    saveDefault(file, "oneway", board, EDITOR_COLOR_DOORS);
+    saveDefault(file, "force", board, EDITOR_COLOR_FORCE);
 
-        file<<"    </default>"<<endl;
-        
-        if (! board->colors[EDITOR_COLOR_FLOOR].useDefault) {
-            file <<"    <floor><area color = '"<<(EDITOR_COLOR_FLOOR+1)<<"' ";
-            file << "x1='0' x2='29' y1='0' y2='19' /></floor>"<<endl;
-        }
+    file<<"    </default>"<<endl;
+    
+    if (! board->colors[EDITOR_COLOR_FLOOR].useDefault) {
+        file <<"    <floor><area color = '"<<(EDITOR_COLOR_FLOOR+1)<<"' ";
+        file << "x1='0' x2='29' y1='0' y2='19' /></floor>"<<endl;
+    }
             
 
-    }
 }
 bool editor::save(const string &target, bool onlyOneLevel)
 {
