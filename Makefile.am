@@ -88,14 +88,14 @@ src/Makefile.in
 
 
 xye_SOURCES = src/main.cpp src/browser.cpp \
-src/font.cpp src/gen.cpp src/kye_script.cpp src/levels.cpp src/list.cpp src/options.cpp \
+src/font.cpp src/gen.cpp src/kye_script.cpp src/levels.cpp src/options.cpp \
 src/tinyxml/xye_tinystr.cpp \
 src/tinyxml/xye_tinyxml.cpp \
 src/tinyxml/xye_tinyxmlerror.cpp \
 src/tinyxml/xye_tinyxmlparser.cpp \
 src/vxsdl.cpp src/xye.cpp src/xsb_level.cpp \
 src/xye_script.cpp src/browser.h src/font.h src/gen.h src/kye_script.h src/xsb_level.h src/levels.h \
-src/list.h src/options.h \
+src/listbox.cpp src/listbox.h src/options.h \
 src/vxsdl.h src/xye.h src/xye_script.h \
 src/tinyxml/xye_tinystr.h \
 src/tinyxml/xye_tinyxml.h \
