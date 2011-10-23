@@ -3295,6 +3295,16 @@ bool roboxye::Loop(bool* died)
 SDL_Color wall::DefaultColor[wall::MAX_VARIATIONS];
 unsigned char wall::defkind=0;
 
+int wall::GetDefaultVariationVulnerableToFire()
+{
+    if (defkind < 4) {
+        return defkind;
+    } else {
+        return 0;
+    }
+}
+
+
 void wall::ResetDefaults()
 {
     for (int i=0; i<MAX_VARIATIONS; i++)
@@ -5693,17 +5703,20 @@ void surprise::Transform()
                 int r = BC.r;
                 int g = BC.g;
                 int b = BC.b;
-                r = (r+wall::DefaultColor[0].r)/2;
-                g = (g+wall::DefaultColor[0].g)/2;
-                b = (b+wall::DefaultColor[0].b)/2;
+                int v = wall::GetDefaultVariationVulnerableToFire();
+                
+                r = (r+wall::DefaultColor[v].r)/2;
+                g = (g+wall::DefaultColor[v].g)/2;
+                b = (b+wall::DefaultColor[v].b)/2;
                 wl->ChangeColor(r,g,b, false);
+                wl->ChangeKind(v);
  
                 if(b7) b7->UpdateSquare();
                 if(b9) b9->UpdateSquare();
                 if(b3) b3->UpdateSquare();
                 if(b1) b1->UpdateSquare();
 
-                //wl->ChangeColor(BC.r,BC.g,BC.b, false);
+                wl->ChangeColor(r,g,b, false);
                 break;
             }
 
@@ -5777,12 +5790,15 @@ void surprise::Draw(unsigned int x, unsigned int y)
                     if(b3) b3->UpdateSquare();
                     if(b1) b1->UpdateSquare();
 
+                int v = wall::GetDefaultVariationVulnerableToFire();
+                
                 int r = SprColor.r;
                 int g = SprColor.g;
                 int b = SprColor.b;
-                r = (r+wall::DefaultColor[0].r)/2;
-                g = (g+wall::DefaultColor[0].g)/2;
-                b = (b+wall::DefaultColor[0].b)/2;
+                r = (r+wall::DefaultColor[v].r)/2;
+                g = (g+wall::DefaultColor[v].g)/2;
+                b = (b+wall::DefaultColor[v].b)/2;
+                wl->ChangeKind(v);
                 wl->ChangeColor(r,g,b, false);
 
                 wl->Draw(x,y);

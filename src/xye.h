@@ -351,6 +351,7 @@ class wall : public obj
      static void ResetDefaults();
      static wall* find(char sx, char sy, unsigned char kind = 6);
      void IntelligentUpdateCorners(wall *by);
+     static int GetDefaultVariationVulnerableToFire();
 };
 
 
