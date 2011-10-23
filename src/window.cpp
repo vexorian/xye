@@ -38,14 +38,12 @@ void beforeDrawDoNothing() {}
 
 bool window::InitSDL()
 {
-    if(window::SDLactive)
-    {
+    if(window::SDLactive) {
         fprintf(stderr,"Unable to init SDL because it has already been initialized\n");
         return false;
     }
 
-    if (SDL_Init(SDL_INIT_TIMER)==-1)
-    {
+    if (SDL_Init(SDL_INIT_TIMER)==-1) {
         fprintf(stderr, "Unable to init SDL: %s\n", SDL_GetError());
         return false;
     }
@@ -77,9 +75,9 @@ void window::Close()
 
 void window::endSub()
 {
-    if(sub==0) fprintf(stderr,"Warning: attempt to close sub window when none is open\n");
-    else
-    {
+    if(sub==0) {
+        fprintf(stderr,"Warning: attempt to close sub window when none is open\n");
+    } else {
         deleteControls();
         sub--;
         controln=subcontroln[sub];
@@ -92,10 +90,12 @@ void window::endSub()
 
 void window::beginSub()
 {
-    if(sub==MAXSUBS) fprintf(stderr,"Warning: ignored request to begin a sub window");
-    else
-    {
-        for (int i=0;i<controln;i++) subcontrols[sub][i]=controls[i];
+    if(sub==MAXSUBS) {
+        fprintf(stderr,"Warning: ignored request to begin a sub window");
+    } else {
+        for (int i=0;i<controln;i++) {
+            subcontrols[sub][i]=controls[i];
+        }
         subcontroln[sub]=controln;
         
         subOnKeyUp[sub] = onKeyUp;
@@ -165,8 +165,7 @@ window* window::create(int width, int height, const char * caption)
     
     if(CurrentInstance!=NULL) return CurrentInstance;
 
-    if(!window::SDLactive)
-    {
+    if(!window::SDLactive) {
         fprintf(stderr,"SDL is not initialized, cannot create a window\n");
         return NULL;
     }
@@ -183,8 +182,7 @@ void window::reset()
 {
     beforeDraw=NULL;
     deleteControls();
-    while (sub>0)
-    {
+    while (sub>0) {
         endSub();
     }
 
@@ -205,8 +203,9 @@ SDL_Surface* window::getDrawingSurface()
 
 void window::draw()
 {
-    if(beforeDraw!=NULL)
+    if(beforeDraw!=NULL) {
         beforeDraw();
+    }
     drawControls();
     SDL_Flip(surface);
 }
@@ -224,8 +223,7 @@ void window::Error(const char* msg)
 Uint32 window::timer(Uint32 interval, void *param)
 {
     
-    if (!CurrentInstance->TriggeredLoop)
-    {
+    if (!CurrentInstance->TriggeredLoop) {
         SDL_Event event;
         SDL_UserEvent userevent;
 
@@ -252,8 +250,6 @@ void window::SetTransition( voidFunction tra )
     transition = tra;
 }
 
-
-using namespace std;
 void window::loop(double fps)
 {
     bool &done=halt;
@@ -265,16 +261,13 @@ void window::loop(double fps)
 
     TriggeredLoop=InActive=false;
     SDL_TimerID tim = SDL_AddTimer( per, window::timer,0);
-    while (!done)
-    {
+    while (!done) {
         int t=0;
         
         // message processing loop
-        while (SDL_PollEvent(&event) && (!done))
-        {
+        while (SDL_PollEvent(&event) && (!done)) {
             // check for messages
-            switch (event.type)
-            {
+            switch (event.type) {
                 // exit if the window is closed
                 case SDL_QUIT:
                     onExitAttempt();
@@ -289,8 +282,7 @@ void window::loop(double fps)
                     break;
 
             case (SDL_MOUSEBUTTONDOWN):
-                if(event.button.button==SDL_BUTTON_LEFT)
-                {
+                if(event.button.button==SDL_BUTTON_LEFT) {
                     mouse_x=event.button.x;mouse_y=event.button.y;
                     window::handleMouseDown(mouse_x,mouse_y);
                     mouse_pressed=true;
@@ -298,13 +290,10 @@ void window::loop(double fps)
                 break;
 
             case (SDL_MOUSEBUTTONUP):
-                if(event.button.button==SDL_BUTTON_LEFT)
-                {
+                if(event.button.button==SDL_BUTTON_LEFT) {
                     mouse_pressed=false;
                     window::handleMouseUp(mouse_x,mouse_y);
-                }
-                else if(event.button.button==SDL_BUTTON_RIGHT)
-                {
+                } else if(event.button.button==SDL_BUTTON_RIGHT) {
                     window::handleMouseRightUp(mouse_x,mouse_y);
                 }
 
@@ -317,11 +306,9 @@ void window::loop(double fps)
                 break;
 
             case (SDL_USEREVENT): //the only user event is the normal loop:
-                if(transition==NULL)
-                {
+                if(transition==NULL) {
                     st=SDL_GetAppState();
-                    if ( st & (SDL_APPMOUSEFOCUS | SDL_APPINPUTFOCUS) )
-                    {
+                    if ( st & (SDL_APPMOUSEFOCUS | SDL_APPINPUTFOCUS) ) {
                         loopControls();
                         draw();
                     }
@@ -338,8 +325,7 @@ void window::loop(double fps)
 
 
         }
-        if(transition!=NULL)
-        {
+        if(transition!=NULL) {
             reset();
             transition(this);
             transition = NULL;
@@ -357,15 +343,12 @@ void window::loop(double fps)
     return;
 }
 
-
-
 void window::deleteControls()
 {
-    for (int i=0;i<controln;i++)
-    {
-        if(i==curcontrol) 
+    for (int i=0;i<controln;i++) {
+        if(i==curcontrol) {
             controls[curcontrol]->onMouseOut();
-            
+        }
         delete controls[i];
     }
     curcontrol = -1;
@@ -376,22 +359,21 @@ void window::addControl(control *c)
 {
 
 
-    if(curcontrol!=-1)
-    {
+    if(curcontrol!=-1) {
         controls[curcontrol]->onMouseOut();
         curcontrol=-1;
     }
-    if(controln==MAXCONTROLS)
-    {
+    if(controln==MAXCONTROLS) {
         window::Error("Too many GUI controls!!");
     }
     int i=0;
 
-    while((i<controln) && (  (controls[i]->depth) < (c->depth) )) i++;
+    while((i<controln) && (  (controls[i]->depth) < (c->depth) )) {
+        i++;
+    }
 
     int k=controln;
-    while (k>i)
-    {
+    while (k>i) {
         controls[k]=controls[k-1];
         k--;
     }
@@ -405,11 +387,9 @@ void window::addControl(control *c)
 
 void window::handleMouseMove(int x, int y)
 {
-    for (int i=controln-1;i>=0;i--)
-    {
+    for (int i=controln-1;i>=0;i--) {
         control* c=controls[i];
-        if (( x>= c->x) && ( x<= c->x+c->w) && ( y>= c->y) && ( y<= c->y + c->h) )
-        {
+        if (( x>= c->x) && ( x<= c->x+c->w) && ( y>= c->y) && ( y<= c->y + c->h) ) {
             if((i!=curcontrol) && (curcontrol!=-1)) controls[curcontrol]->onMouseOut();
             curcontrol=i;
             c->onMouseMove(x-c->x,y-c->y);
@@ -423,13 +403,11 @@ void window::handleMouseMove(int x, int y)
 
 void window::handleMouseDown(int x, int y)
 {
-    for (int i=controln-1;i>=0;i--)
-    {
+    for (int i=controln-1;i>=0;i--) {
         control* c=controls[i];
         
         
-        if (( x>= c->x) && ( x<= c->x+c->w) && ( y>= c->y) && ( y<= c->y+c->h) )
-        {
+        if (( x>= c->x) && ( x<= c->x+c->w) && ( y>= c->y) && ( y<= c->y+c->h) ) {
             c->onMouseDown(x-c->x,y-c->y);
             return;
         }
@@ -438,11 +416,9 @@ void window::handleMouseDown(int x, int y)
 }
 void window::handleMouseUp(int x, int y)
 {
-    for (int i=controln-1;i>=0;i--)
-    {
+    for (int i=controln-1; i>=0; i--) {
         control* c=controls[i];
-        if (( x>= c->x) && ( x<= c->x+c->w) && ( y>= c->y) && ( y<= c->y+c->h) )
-        {
+        if (( x>= c->x) && ( x<= c->x+c->w) && ( y>= c->y) && ( y<= c->y+c->h) ) {
             c->onMouseUp(x-c->x,y-c->y);
             return;
         }
@@ -452,11 +428,9 @@ void window::handleMouseUp(int x, int y)
 
 void window::handleMouseRightUp(int x, int y)
 {
-    for (int i=controln-1;i>=0;i--)
-    {
+    for (int i=controln-1; i>=0; i--) {
         control* c=controls[i];
-        if (( x>= c->x) && ( x<= c->x+c->w) && ( y>= c->y) && ( y<= c->y+c->h) )
-        {
+        if (( x>= c->x) && ( x<= c->x+c->w) && ( y>= c->y) && ( y<= c->y+c->h) ) {
             c->onMouseRightUp(x-c->x,y-c->y);
             return;
         }
@@ -465,13 +439,21 @@ void window::handleMouseRightUp(int x, int y)
 
 void window::drawControls()
 {
-    for (int j=0;j<sub;j++) for (int i=0;i<subcontroln[j];i++) subcontrols[j][i]->draw(surface);
-    for (int i=0;i<controln;i++) controls[i]->draw(surface);
+    for (int j=0; j<sub; j++) {
+        for (int i=0; i<subcontroln[j]; i++) {
+            subcontrols[j][i]->draw(surface);
+        }
+    }
+    for (int i=0;i<controln;i++) {
+        controls[i]->draw(surface);
+    }
 }
 
 void window::loopControls()
 {
-    for (int i=0;i<controln;i++) controls[i]->loop();
+    for (int i=0;i<controln;i++) {
+        controls[i]->loop();
+    }
 }
 /*** The rectangle control!! **/
 rectangle::rectangle(int sx, int sy, int sw, int sh, Uint8 red, Uint8 green, Uint8 blue)
@@ -574,20 +556,21 @@ void button::draw(SDL_Surface* target)
     }
     
 
-    if(w>sz)
-    {
+    if(w>sz) {
         int ty=NormalTextureY;
         int tx=LongTextureX;
-        if(pressed) ty=PressedTextureY;
+        if(pressed) {
+            ty=PressedTextureY;
+        }
         Drawer A(button::SourceSurface,tx*sz,ty*sz,  std::max(std::min(w-sz ,sz),0)  ,sz);
-        if(! Enabled)
+        if(! Enabled) {
             A.SetColors(255,255,255,disablealpha);
+        }
 
         A.Draw(target,x,y);
 
         
-        for (int i=x+sz;i<x+w-sz;i+=sz)
-        {
+        for (int i=x+sz;i<x+w-sz;i+=sz) {
             A.ChangeRect( (tx+1)*sz,ty*sz, std::min(x+w-sz-i ,sz)   ,sz);
             A.Draw(target,i,y);
         }
@@ -595,9 +578,7 @@ void button::draw(SDL_Surface* target)
         A.ChangeRect((tx+2)*sz,ty*sz,sz,sz);
         A.Draw(target,x+w-sz,y);
 
-    }
-    else if (w==sz)
-    {
+    } else if (w==sz) {
         int ty=NormalTextureY;
         int tx=ShortTextureX;
         if(pressed) ty=PressedTextureY;
@@ -608,10 +589,11 @@ void button::draw(SDL_Surface* target)
         C.Draw(target,x,y);
     }
     int o=0;
-    if(pressed) o=1;
+    if(pressed) {
+        o=1;
+    }
 
-    if(button::FontResource!=NULL && Enabled)
-    {
+    if (button::FontResource!=NULL && Enabled) {
         button::FontResource->Write(target,o+x+(w-button::FontResource->TextWidth(text.c_str()))/2 ,o+y+(sz-button::FontResource->Height())/2,text.c_str());
         
         if(mouseInside > 0) {
@@ -627,8 +609,7 @@ void button::draw(SDL_Surface* target)
 
 
     }
-    if ( (iconx!=-1) )
-    {
+    if ( (iconx!=-1) ) {
         Drawer I(button::SourceSurface, iconx*sz, icony*sz, sz,sz);
         if(! Enabled)
             I.SetColors(0,0,0,64);
@@ -647,8 +628,7 @@ void button::onMouseMove(int px,int py)
 void button::onMouseOut()
 {
     mouseInside = 0;
-    if( click && ! ToggleButton)
-    {
+    if( click && ! ToggleButton) {
         if(onRelease!=NULL) onRelease(data);
         click=false;
     }
@@ -667,9 +647,15 @@ void button::onMouseDown(int px,int py)
 
 void button::onMouseUp(int px,int py)
 {
-    if(ToggleButton) return;
-    if(onRelease!=NULL) onRelease(data);
-    if( /*(onClick!=NULL)*/ onClick && click && Visible) onClick(data);
+    if(ToggleButton) {
+        return;
+    }
+    if(onRelease!=NULL) {
+        onRelease(data);
+    }
+    if( /*(onClick!=NULL)*/ onClick && click && Visible) {
+        onClick(data);
+    }
     click = false;
 }
 
@@ -680,13 +666,17 @@ void button::flash()
 
 button::~button()
 {
-    if(data!=NULL) delete data;
+    if(data!=NULL) {
+        delete data;
+    }
 }
 
 Sint16 button::recommendedWidth(const char* s)
 {
     Sint16 w=FontResource->TextWidth(s) + Size;
-    if(w<Size) return Size;
+    if(w<Size) {
+        return Size;
+    }
     return w;
 }
 
