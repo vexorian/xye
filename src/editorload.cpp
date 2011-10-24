@@ -1373,6 +1373,7 @@ bool editor::load_KyeFormat(TiXmlElement* el)
     return true;
 }
 
+
 bool editor::appendLevels(const string file)
 {
     loadPortalIssue = false;
@@ -1398,6 +1399,7 @@ bool editor::appendLevels(const string file)
         level=pack->FirstChildElement("level");
         bool colorWarn = false;
         bool errorsWarn = false;
+        bool hiddenSolutionWarn = false;
         int tn = 0;
         while(level!=NULL)
         {
@@ -1454,10 +1456,13 @@ bool editor::appendLevels(const string file)
                     const char* gt=el->GetText();
                     lbye= ( (gt!=NULL) ? gt : "");
                 }
-                else if (v=="solution")
+                else if ( (v=="solution") ||(v=="hiddensolution") )
                 {
                     const char* gt=el->GetText();
                     lsolution= ( (gt!=NULL) ? gt : "");
+                    if (v == "hiddensolution") {
+                        hiddenSolutionWarn = true;
+                    }
                 }
                 else if (v=="kyeformat") {
                     if ( ! load_KyeFormat(el) ) {
@@ -1551,6 +1556,9 @@ bool editor::appendLevels(const string file)
         if (loadPortalIssue) {
             loadError += "Some portal objects used features that are not compatible with the editor. ";
             
+        }
+        if (hiddenSolutionWarn) {
+            loadError += "The <hiddensolution> tag is not supported by the editor yet, the hidden solution has been loaded as a normal one. ";
         }
         cout << "File loaded successfully.\n";
         editorboard::LoadLevelNumber(editor::board, oldn);
