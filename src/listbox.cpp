@@ -39,10 +39,44 @@ namespace listbox_private
             barWidth = 10;
             clicked = false;
             selectedValid = true;
+            maxLines = -1;
         }
         
-        void handleSelectEvent()
+        void handleSelectEvent(bool centerIt = false)
         {
+            if (maxLines < 0) {
+                updateMaxLines();
+            }
+            if (selectedIndex == -1) {
+                return;
+            }
+            if ( centerIt) {
+                if ( tags.size() > maxLines ) {
+                    viewIndex = selectedIndex - maxLines/2;
+                    // {viewIndex == selectedIndex - maxLines/2 }
+                    // {viewIndex + maxLines/2 == selectedIndex}
+                } else {
+                    viewIndex = 0;
+                }
+            } else {
+                //  update the viewIndex so that the
+                // newly selected item is visible:
+                if ( selectedIndex < viewIndex ) {
+                    cout<<"x"<<endl;
+                    viewIndex = selectedIndex;
+                }
+                if ( selectedIndex >= viewIndex + maxLines ) {
+                    cout<<"y"<<endl;
+                    // viewIndex + maxLines - 1 = selectedIndex
+                    // viewIndex = selectedIndex - maxLines + 1
+                    viewIndex = selectedIndex - (maxLines - 1);
+                    if (viewIndex < 0) {
+                        viewIndex = 0;
+                    }
+                }
+            }
+            
+
             if (onSelect != NULL) {
                 selectedValid = onSelect(this);
             } else{
@@ -73,24 +107,41 @@ namespace listbox_private
         {
         }
         void selectItem(int index) {
+            int old = selectedIndex;
             if (index >= tags.size() ) {
                 selectedIndex = -1;
             } else {
                 selectedIndex = index;
             }
+            if (old != selectedIndex ) {
+                handleSelectEvent( old == -1 );
+            }
         }
         void selectItem(string value) {
-            for (selectedIndex = 0; selectedIndex < tags.size(); selectedIndex++)
-            {
+            int old = selectedIndex;
+            for (selectedIndex = 0; selectedIndex < tags.size(); selectedIndex++) {
                 if (values[selectedIndex]==value) {
+                    handleSelectEvent( old == -1 );
                     return;
                 }
             }
             selectedIndex = -1;
-            
+            handleSelectEvent();
         }
         
         int maxLines;
+        
+        void updateMaxLines()
+        {
+            int cy = y;
+            int fh = NormalFont->Height();
+            int i = 0;
+            maxLines = 0;
+            while ( cy + fh < y + h) {
+                maxLines++;
+                cy += fh;
+            }
+        }
         
         void draw(SDL_Surface* target)
         {
@@ -188,8 +239,77 @@ namespace listbox_private
         void loop()
         {
         }
+        
+        void onKeyUp(SDLKey keysim, Uint16 unicode);
+
 
     };
+
+    bool IsCharKeyEvent(SDLKey& k,char & a,char &b)
+    {
+    
+        a='\0';
+        if ((k >= SDLK_a) && (k<=SDLK_z))
+        {
+            a= 'a'+(k-SDLK_a);
+            b = 'A'+(k-SDLK_a);
+        }
+        else if ((k >= SDLK_0) && (k<=SDLK_9))
+            a='0'+(k-SDLK_0);
+        return (a!='\0');
+    }
+
+    void list::onKeyUp(SDLKey keysim, Uint16 unicode)
+    {
+        char a='\0',b=a;
+        int oldsel = selectedIndex;
+        
+        int s = tags.size();
+        
+        if (IsCharKeyEvent(keysim,a,b)) {
+            int l = selectedIndex;
+            int i = l + 1;
+            while (i != selectedIndex) {
+                if (i==s) {
+                    i=0;
+                }
+                const string & p = tags[i];
+                if (  (p.length()>0) && ( (p[0]==a) || (p[0]==b)) ) {
+                    selectedIndex=i;
+                } else {
+                    i++;
+                }
+            }
+        } else {
+            switch (keysim)
+            {
+        
+                case(SDLK_UP):
+                    selectedIndex--;
+                    if (selectedIndex<0) selectedIndex=s-1;
+                    break;
+                case(SDLK_DOWN):
+        
+                    selectedIndex++;
+                    if (selectedIndex>=s) selectedIndex=0;
+                    break;
+        
+                case(SDLK_PAGEUP):
+                    selectedIndex -= maxLines/2+1;
+                    if (selectedIndex<0) selectedIndex=s-1;
+                    break;
+                case(SDLK_PAGEDOWN):
+        
+                    selectedIndex += maxLines/2+1;
+                    if (selectedIndex>=s) selectedIndex=0;
+                    break;
+            }
+        }
+        if (oldsel != selectedIndex) {
+            handleSelectEvent();
+        }
+    
+    }
 
 } 
 
