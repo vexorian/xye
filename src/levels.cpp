@@ -15,11 +15,6 @@ Permission is granted to anyone to use this software for any purpose, including 
 
 */
 
-//levels.cpp contains the level browser, this is my first experience at GUI development so no wonder it actually
-//blows. It will eventually improve or under the license you can always contribute.
-//
-
-
 #include "xye.h"
 #include "xyedit.h"
 #include "xye_script.h"
@@ -410,6 +405,7 @@ void FillArrayWithFilenames()
         }
     }
 
+    //Add the files to the listbox
     for (i=0;i<c;i++) {
         levellistbox->addItem(StripPath(FoundFile[i]), FoundFile[i]);
     }
@@ -603,7 +599,6 @@ void StartSection(window* wind)
     ll->InvalidColor = options::LevelMenu_selectederror;
     ll->BarColor = options::LevelMenu_selected;
     ll->onSelect = onItemSelected;
-    
     ll->depth= 1;
     wind->addControl(ll);
     

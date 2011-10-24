@@ -22,6 +22,7 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include "levels.h"
 #include "options.h"
 #include "vxsdl.h"
+#include "listbox.h"
 #include<string>
 #include<cstring>
 #include<algorithm>
@@ -38,12 +39,9 @@ using options::SkinInformation;
 
 namespace SkinBrowser
 {
-
-
-    
-
-
+  
 window* thewindow;
+listbox* skinlistbox;
 button* SetButton;
 
 Font* MenuFont;
@@ -69,111 +67,6 @@ bool ActiveIsValid;
 void LoadActiveFileInfo();
 
 const char* SPACING_TEXT = "                             ";
-
-
-class SkinList: public control
-{
-public:
-
-    SkinList(int sx, int sy, int sw, int sh)
-    {
-        x=sx, y=sy, w=sw, h=sh;
-        
-    }
-    
-    void loop(){}
-    
-    void draw(SDL_Surface* target)
-    {
-        Uint32 back=SDL_MapRGB(target->format, options::LevelMenu_menu);
-        SDL_FillRect(target, x,y,w,h,    back);
-
-        Sint16 cy=y,cx=x+2;
-
-        Uint16 nw,fp=cx+ InfoFont->TextWidth(" ");
-        
-        Uint8 fh=options::GetGridSize();//  game::FontRes->Height();
-        int fof=0;
-        int fohei=InfoFont->Height();
-
-        if(fh<fohei)
-        {
-            fh=InfoFont->Height()+2;
-            fof=1;
-        }
-        else fof=(fh-fohei)/2;
-
-        Uint16 sh=h - fh;
-        //int i=0;
-        int i=0;
-        int fxh= (int)(  (h *0.5) / fh );
-        if (Active>fxh)
-        {
-            i=Active-fxh+1;
-        }
-        nw=w-2;
-        while ((i<FileN) && (cy<sh))
-        {
-            string tm=StripPath( FoundFile[i] );
-            if (Active==i)
-            {
-
-                SDL_FillRect(target, cx , cy, nw  , fh,
-                    ActiveIsValid?
-                        SDL_MapRGB(target->format, options::LevelMenu_selected):
-                        SDL_MapRGB(target->format, options::LevelMenu_selectederror));
-
-                MenuSelectedFont->Write(target,fp,cy+fof, tm);
-            }
-            else
-                MenuFont->Write(target,fp,cy+fof, tm);
-            i++;
-            cy+=fh;
-        }
-
-        cx=nw+5; cy=30;
-
-
-    }
-    
-    void onMouseMove(int px,int py){}
-    void onMouseOut() {}
-    void onMouseDown(int px,int py) {}
-    
-    
-    void onMouseUp(int px,int py)
-    {
-        //Now get the initial index so we know how to calculate the stuff
-        int i=0;
-        Uint8 fh=game::GRIDSIZE;
-        int fxh= (int)(  (h *0.5) / fh );
-        if (Active>fxh)
-        {
-            i=Active-fxh+1;
-        }
-
-        fxh=fh;
-        int j=i;
-        while (py>fxh)
-        {
-            j++;
-            fxh+=fh;
-        }
-        if (j<FileN)
-        {
-            if (Active==j)
-            {
-                //PlayLevel();
-                return;
-            }
-            Active=j;
-            LoadActiveFileInfo();
-        }
-
-
-    }
-    void onMouseRightUp(int px,int py) {}
-};
 
 class SkinInfoControl: public control
 {
@@ -430,6 +323,14 @@ struct LevelSorting
     }
 };
 
+bool onItemSelected(listbox* lb)
+{
+    Active = lb->getSelectedIndex();
+    LoadActiveFileInfo();
+    return ActiveIsValid;
+}
+
+
 void FillArrayWithFilenames()
 {
 
@@ -482,15 +383,21 @@ void FillArrayWithFilenames()
     sort(FoundFile, FoundFile+c, LevelSorting(levelsfolder) );
     delete[] levelsfolder;
 
+    Active    =0;
     //Finally find the value of res and if someone has it, make sure Active points to it
     string tm = options::GetSkinFile();
-    for (i=0;i<c;i++)
-        if (StripPath(FoundFile[i])==tm)
-        {
+    for (i=0;i<c;i++) {
+        if (FoundFile[i]==tm) {
             Active=i;
-            return;
         }
-    Active    =0;
+    }
+
+    //Add the files to the listbox
+    for (i=0;i<c;i++) {
+        skinlistbox->addItem(StripPath(FoundFile[i]), FoundFile[i]);
+    }
+    
+    skinlistbox->selectItem(Active);
 
 }
 
@@ -510,20 +417,6 @@ void onKeyDown(SDLKey keysim, Uint16 unicode)
 {
 }
 
-bool IsCharKeyEvent(SDLKey& k,char & a,char &b)
-{
-
-    a='\0';
-    if ((k >= SDLK_a) && (k<=SDLK_z))
-    {
-        a= 'a'+(k-SDLK_a);
-        b = 'A'+(k-SDLK_a);
-    }
-    else if ((k >= SDLK_0) && (k<=SDLK_9))
-        a='0'+(k-SDLK_0);
-    return (a!='\0');
-}
-
 
 void OnSetButtonClick(const buttondata* data)
 {
@@ -539,59 +432,9 @@ void OnCancelButtonClick(const buttondata* data)
 
 void onKeyUp(SDLKey keysim, Uint16 unicode)
 {
-    char a='\0',b=a;
-
-    if (IsCharKeyEvent(keysim,a,b))
-    {
-        int l=Active;
-        int i=Active+1;
-        string fn;
-        while (i!=Active)
-        {
-            if (i==FileN) i=0;
-            fn = StripPath(FoundFile[i]);
-            if ( (fn.length()!=0) && ((fn[0]==a) || (fn[0]==b)) )
-            {
-                Active=i;
-            }
-            else
-                i++;
-
-        }
-        LoadActiveFileInfo();
-        return;
-    }
-
-
+    skinlistbox->onKeyUp(keysim, unicode);
     switch (keysim)
     {
-
-        case(SDLK_UP):
-            Active--;
-            if (Active<0) Active=FileN-1;
-            LoadActiveFileInfo();
-
-            break;
-        case(SDLK_DOWN):
-
-            Active++;
-            if (Active>=FileN) Active=0;
-            LoadActiveFileInfo();
-            break;
-
-        case(SDLK_PAGEUP):
-            Active-=10;
-            if (Active<0) Active=FileN-1;
-            LoadActiveFileInfo();
-
-            break;
-        case(SDLK_PAGEDOWN):
-
-            Active+=10;
-            if (Active>=FileN) Active=0;
-            LoadActiveFileInfo();
-            break;
-
         case(SDLK_ESCAPE):
         case(SDLK_BACKSPACE):
              OnCancelButtonClick(NULL);
@@ -642,8 +485,21 @@ void StartSection(window* wind)
     thewindow = wind;
     wind->SetCaption("Xye - Select a theme");
     Sint16 lw = 2+game::FontRes->TextWidth(SPACING_TEXT);
-    SkinList* ll = new SkinList(0,0, lw , wind->Height);
+    listbox* ll = listbox::makeNew(0,0, lw , wind->Height);
+    skinlistbox = ll;
     ll->depth= 1;
+    ll->NormalFont = MenuFont;
+    ll->SelectedFont = MenuSelectedFont;
+    ll->BackgroundColor = options::LevelMenu_menu;
+    ll->SelectedColor = options::LevelMenu_selected;
+    ll->InvalidColor = options::LevelMenu_selectederror;
+    ll->BarColor = options::LevelMenu_selected;
+    ll->onSelect = onItemSelected;
+    ll->depth= 1;
+    wind->addControl(ll);
+
+    
+    
     SkinInfoControl* li = new SkinInfoControl(lw, 0, wind->Width-lw, wind->Height);
     li->depth= 2;
     
@@ -669,7 +525,6 @@ void StartSection(window* wind)
     wind->addControl(but);
     
     //...    
-    wind->addControl(ll);
     wind->addControl(li);
     wind->onKeyUp = onKeyUp;
     wind->onKeyDown = onKeyDown;
