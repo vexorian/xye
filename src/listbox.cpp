@@ -40,6 +40,7 @@ namespace listbox_private
             selectedIndex = -1;
             barWidth = 10;
             clicked = false;
+            barClicked = false;
             selectedValid = true;
             maxLines = -1;
         }
@@ -206,20 +207,26 @@ namespace listbox_private
             }
         }
         
+        bool barClicked;
         bool clicked;
+        
+        bool insideBar(int px, int py)
+        {
+            if ( tags.size() > maxLines ) {
+                return px >= w - barWidth;
+            }
+            return false;
+        }
      
         void verifyBarClick(int mousex, int mousey)
         {
-            if ( clicked && ( tags.size() > maxLines ) ) {
-                //the bar
-                if (mousex >= w - barWidth) {
-                    int p = (mousey*tags.size()) / h;
-                    if (p <= tags.size() - maxLines) {
-                        viewIndex = p;
-                    } else {
-                        //v + maxLines == tags.size()
-                        viewIndex = tags.size() - maxLines; 
-                    }
+            if ( barClicked && ( tags.size() > maxLines ) ) {
+                int p = (mousey*tags.size()) / h;
+                if (p <= tags.size() - maxLines) {
+                    viewIndex = p;
+                } else {
+                    //v + maxLines == tags.size()
+                    viewIndex = tags.size() - maxLines; 
                 }
             }
         }
@@ -234,11 +241,18 @@ namespace listbox_private
         }
         void onMouseDown(int mousex, int mousey)
         {
-            clicked = true;
-            verifyBarClick(mousex, mousey);
+            if (insideBar(mousex, mousey) ) {
+                barClicked = true;
+            } else {
+                clicked = true;
+            }
         }
         void onMouseUp(int mousex, int mousey)
         {
+            if (barClicked) {
+                barClicked = false;
+                return ;
+            }
             clicked = false;
             if ( (tags.size() <= maxLines) || (mousex < w - barWidth) ) {
                 //item click.
