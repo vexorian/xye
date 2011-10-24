@@ -500,7 +500,7 @@ void StartSection(window* wind)
     ll->BackgroundColor = options::LevelMenu_menu;
     ll->SelectedColor = options::LevelMenu_selected;
     ll->InvalidColor = options::LevelMenu_selectederror;
-    ll->BarColor = options::LevelMenu_selected;
+    ll->BarColor = options::LevelMenu_info;
     ll->onSelect = onItemSelected;
     ll->onItemDoubleClick = onItemDoubleClick;
     ll->depth= 1;

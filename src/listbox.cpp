@@ -188,8 +188,21 @@ namespace listbox_private
             if ( bh > 0 ) {
                 int barheight = (maxLines*h)/tags.size();
                 int barpos = (viewIndex*h)/tags.size();
+                
+                Uint8 r = BarColor.r/2 + BackgroundColor.r/2;
+                Uint8 g = BarColor.g/2 + BackgroundColor.g/2;
+                Uint8 b = BarColor.b/2 + BackgroundColor.b/2;
+                
+                Uint32 black = SDL_MapRGB(target->format, 0,0,0);
+                
+                Uint32 barfcol = SDL_MapRGB(target->format, r,g,b);
+                /*SDL_FillRect(target, x +w - barWidth, 0, barWidth, h, black);
+                SDL_FillRect(target, x +w - barWidth + 1, 1, barWidth-2, h-2, barfcol);*/
+                SDL_FillRect(target, x +w - barWidth, 0, barWidth, h, barfcol);
+                
                 Uint32 barcol = SDL_MapRGB(target->format, BarColor);
-                SDL_FillRect(target, x +w - barWidth, y+barpos, barWidth, barheight, barcol);
+                SDL_FillRect(target, x +w - barWidth, y+barpos, barWidth, barheight, black);
+                SDL_FillRect(target, x +w - barWidth+1, y+barpos+1, barWidth-2, barheight-2, barcol);
             }
         }
         
