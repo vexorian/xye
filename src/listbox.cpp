@@ -336,12 +336,12 @@ namespace listbox_private
         
                 case(SDLK_PAGEUP):
                     rel = selectedIndex - viewIndex;
-                    selectedIndex -= maxLines;
+                    selectedIndex -= maxLines/2+1;
                     if (selectedIndex<0) selectedIndex=s-1;
                     break;
                 case(SDLK_PAGEDOWN):
                     rel = selectedIndex - viewIndex;
-                    selectedIndex += maxLines;
+                    selectedIndex += maxLines/2+1;
                     if (selectedIndex>=s) selectedIndex=0;
                     break;
             }
