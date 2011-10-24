@@ -5,6 +5,7 @@ this is a placeholder
 #include "listbox.h"
 #include <vector>
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -32,6 +33,7 @@ namespace listbox_private
         {
             this->x = x; this->y = y; this->w = w; this->h = h;
             onSelect = NULL;
+            onItemDoubleClick = NULL;
             NormalFont = NULL;
             SelectedFont = NULL;
             viewIndex = 0;
@@ -51,22 +53,24 @@ namespace listbox_private
                 return;
             }
             if ( centerIt) {
-                if ( tags.size() > maxLines ) {
+                int s = tags.size();
+                if ( s > maxLines ) {
                     viewIndex = selectedIndex - maxLines/2;
                     // {viewIndex == selectedIndex - maxLines/2 }
                     // {viewIndex + maxLines/2 == selectedIndex}
+                    
+                    viewIndex = std::max( std::min(s - maxLines, viewIndex) , 0);
                 } else {
                     viewIndex = 0;
                 }
+                
             } else {
                 //  update the viewIndex so that the
                 // newly selected item is visible:
                 if ( selectedIndex < viewIndex ) {
-                    cout<<"x"<<endl;
                     viewIndex = selectedIndex;
                 }
                 if ( selectedIndex >= viewIndex + maxLines ) {
-                    cout<<"y"<<endl;
                     // viewIndex + maxLines - 1 = selectedIndex
                     // viewIndex = selectedIndex - maxLines + 1
                     viewIndex = selectedIndex - (maxLines - 1);
@@ -225,10 +229,17 @@ namespace listbox_private
             clicked = false;
             if ( (tags.size() <= maxLines) || (mousex < w - barWidth) ) {
                 //item click.
+                int old = selectedIndex;
                 int p = mousey/ NormalFont->Height();
                 if ( (p < maxLines) && (p + viewIndex < tags.size() ) ) {
                     selectedIndex = viewIndex + p;
-                    handleSelectEvent();
+                    if (old == selectedIndex) {
+                        if ( onItemDoubleClick != NULL) {
+                            onItemDoubleClick(this);
+                        }
+                    } else {
+                        handleSelectEvent();
+                    }
                 }
             }
         }

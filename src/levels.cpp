@@ -344,6 +344,13 @@ bool onItemSelected(listbox* lb)
     return ActiveIsValid;
 }
 
+void onItemDoubleClick(listbox* lb)
+{
+    if (ActiveIsValid) {
+        PlayLevel();
+    }
+}
+
 void FillArrayWithFilenames()
 {
 
@@ -599,6 +606,7 @@ void StartSection(window* wind)
     ll->InvalidColor = options::LevelMenu_selectederror;
     ll->BarColor = options::LevelMenu_selected;
     ll->onSelect = onItemSelected;
+    ll->onItemDoubleClick = onItemDoubleClick;
     ll->depth= 1;
     wind->addControl(ll);
     

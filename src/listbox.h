@@ -23,6 +23,8 @@ class listbox: public control
     virtual void   addItem(const string tag, const string value)=0; 
     
     bool (*onSelect)(listbox* thelist); //returns true or false if selection is invalid
+    
+    void (*onItemDoubleClick)(listbox* thelist);
 
  
     
