@@ -291,7 +291,6 @@ void window::loop(double fps)
 
             case (SDL_MOUSEBUTTONUP):
                 if(event.button.button==SDL_BUTTON_LEFT) {
-                    mouse_pressed=false;
                     window::handleMouseUp(mouse_x,mouse_y);
                 } else if(event.button.button==SDL_BUTTON_RIGHT) {
                     window::handleMouseRightUp(mouse_x,mouse_y);
@@ -387,13 +386,22 @@ void window::addControl(control *c)
 
 void window::handleMouseMove(int x, int y)
 {
+    if (mouse_pressed) {
+        //do not exit.
+        if ( curcontrol != -1 ) {
+            control * c = controls[curcontrol];
+            c->onMouseMove(x - c->x, y - c->y);
+            return ;
+        }
+    }
     for (int i=controln-1;i>=0;i--) {
         control* c=controls[i];
         if (( x>= c->x) && ( x<= c->x+c->w) && ( y>= c->y) && ( y<= c->y + c->h) ) {
-            if((i!=curcontrol) && (curcontrol!=-1)) controls[curcontrol]->onMouseOut();
+            if((i!=curcontrol) && (curcontrol!=-1)) {
+                controls[curcontrol]->onMouseOut();
+            }
             curcontrol=i;
             c->onMouseMove(x-c->x,y-c->y);
-            if(mouse_pressed) mouse_pressed=false; //c->onMouseDown(x-c->x,y-c->y);
             return;
         }
     }
@@ -416,13 +424,15 @@ void window::handleMouseDown(int x, int y)
 }
 void window::handleMouseUp(int x, int y)
 {
-    for (int i=controln-1; i>=0; i--) {
-        control* c=controls[i];
-        if (( x>= c->x) && ( x<= c->x+c->w) && ( y>= c->y) && ( y<= c->y+c->h) ) {
-            c->onMouseUp(x-c->x,y-c->y);
-            return;
+    if (mouse_pressed) {
+        if ( curcontrol != -1 ) {
+            control * c = controls[curcontrol];
+            c->onMouseUp(x - c->x, y - c->y);
+            return ;
         }
+        mouse_pressed = false;
     }
+    handleMouseMove(x,y);
 }
 
 
