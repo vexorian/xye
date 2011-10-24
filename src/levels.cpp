@@ -485,27 +485,12 @@ void onKeyDown(SDLKey keysim, Uint16 unicode)
 {
 }
 
-
 void attemptEditFile()
 {
     if(ActiveIsEditable)
     {
         EditFile();
     }
-}
-
-bool IsCharKeyEvent(SDLKey& k,char & a,char &b)
-{
-
-    a='\0';
-    if ((k >= SDLK_a) && (k<=SDLK_z))
-    {
-        a= 'a'+(k-SDLK_a);
-        b = 'A'+(k-SDLK_a);
-    }
-    else if ((k >= SDLK_0) && (k<=SDLK_9))
-        a='0'+(k-SDLK_0);
-    return (a!='\0');
 }
 
 void OnSkinButtonClick(const buttondata* data)
@@ -518,60 +503,31 @@ void OnWelcomeSkinButtonClick(bool x)
 }
 
 
+
+void OnPlayButtonClick(const buttondata* data)
+{
+    PlayLevel();
+}
+void OnEditorButtonClick(const buttondata* data)
+{
+    OpenEditor();
+}
+void OnEditButtonClick(const buttondata* data)
+{
+    attemptEditFile();
+}
+
+
+void OnQuitButtonClick(const buttondata* data)
+{
+    thewindow->Close();
+}
+
 void onKeyUp(SDLKey keysim, Uint16 unicode)
 {
-    char a='\0',b=a;
-    int oldactive = Active;
-    
-    if (IsCharKeyEvent(keysim,a,b))
-    {
-        int l=Active;
-        int i=Active+1;
-        string fn;
-        while (i!=Active)
-        {
-            if (i==FileN) i=0;
-            fn = StripPath(FoundFile[i]);
-            if (  (fn.length()>0) && ((fn[0]==a) || (fn[0]==b)) )
-            {
-                Active=i;
-            }
-            else
-                i++;
-        }
-
-        if (oldactive != Active) {
-            levellistbox->selectItem(Active);
-        }
-
-        return;
-    }
-
-
-
+    levellistbox->onKeyUp(keysim, unicode);
     switch (keysim)
     {
-
-        case(SDLK_UP):
-            Active--;
-            if (Active<0) Active=FileN-1;
-            break;
-        case(SDLK_DOWN):
-
-            Active++;
-            if (Active>=FileN) Active=0;
-            break;
-
-        case(SDLK_PAGEUP):
-            Active-=10;
-            if (Active<0) Active=FileN-1;
-            break;
-        case(SDLK_PAGEDOWN):
-
-            Active+=10;
-            if (Active>=FileN) Active=0;
-            break;
-
         case(SDLK_F1):
              OpenEditor();
              //return false;
@@ -595,30 +551,10 @@ void onKeyUp(SDLKey keysim, Uint16 unicode)
         case(SDLK_RETURN): case(SDLK_KP_ENTER): //Enter
             PlayLevel();
     }
-    if (oldactive != Active) {
-        levellistbox->selectItem(Active);
-    }
 
 }
 
-void OnPlayButtonClick(const buttondata* data)
-{
-    PlayLevel();
-}
-void OnEditorButtonClick(const buttondata* data)
-{
-    OpenEditor();
-}
-void OnEditButtonClick(const buttondata* data)
-{
-    attemptEditFile();
-}
 
-
-void OnQuitButtonClick(const buttondata* data)
-{
-    thewindow->Close();
-}
 
 
 
@@ -729,8 +665,8 @@ void StartSection(window* wind)
     
     //...    
     wind->addControl(li);
-    wind->onKeyUp = onKeyUp;
     wind->onKeyDown = onKeyDown;
+    wind->onKeyUp = onKeyUp;
     wind->onExitAttempt = onExitAttempt;
     
     if (! options::HasConsciouslyChosenTheme() ) {
