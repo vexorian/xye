@@ -243,6 +243,7 @@ namespace listbox_private
         {
             if (insideBar(mousex, mousey) ) {
                 barClicked = true;
+                verifyBarClick(mousex,mousey);
             } else {
                 clicked = true;
             }
