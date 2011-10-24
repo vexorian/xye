@@ -303,6 +303,7 @@ namespace listbox_private
         int oldsel = selectedIndex;
         
         int s = tags.size();
+        int rel = -1;
         
         if (IsCharKeyEvent(keysim,a,b)) {
             int l = selectedIndex;
@@ -333,18 +334,25 @@ namespace listbox_private
                     break;
         
                 case(SDLK_PAGEUP):
-                    selectedIndex -= maxLines/2+1;
+                    rel = selectedIndex - viewIndex;
+                    selectedIndex -= maxLines;
                     if (selectedIndex<0) selectedIndex=s-1;
                     break;
                 case(SDLK_PAGEDOWN):
-        
-                    selectedIndex += maxLines/2+1;
+                    rel = selectedIndex - viewIndex;
+                    selectedIndex += maxLines;
                     if (selectedIndex>=s) selectedIndex=0;
                     break;
             }
         }
         if (oldsel != selectedIndex) {
             handleSelectEvent();
+            if ( rel != -1 ) {
+                viewIndex = selectedIndex - rel;
+                viewIndex = std::max( viewIndex, 0 );
+                viewIndex = std::min( viewIndex, (int)tags.size() - maxLines  );
+                // { viewIndex = selectedIndex - rel }
+            }
         }
     
     }
