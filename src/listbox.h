@@ -29,7 +29,7 @@ class listbox: public control
     virtual void   selectItem(int index)=0;
     virtual void   selectItem(string value)=0;
     
-    
+    virtual void   onKeyUp(SDLKey keysim, Uint16 unicode) = 0;
     
 };
 
