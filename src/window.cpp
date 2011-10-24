@@ -347,6 +347,7 @@ void window::deleteControls()
     for (int i=0;i<controln;i++) {
         if(i==curcontrol) {
             controls[curcontrol]->onMouseOut();
+            mouse_pressed = false;
         }
         delete controls[i];
     }
@@ -360,6 +361,7 @@ void window::addControl(control *c)
 
     if(curcontrol!=-1) {
         controls[curcontrol]->onMouseOut();
+        mouse_pressed = false;
         curcontrol=-1;
     }
     if(controln==MAXCONTROLS) {
@@ -392,7 +394,10 @@ void window::handleMouseMove(int x, int y)
             control * c = controls[curcontrol];
             c->onMouseMove(x - c->x, y - c->y);
             return ;
+        } else {
+            mouse_pressed = false;
         }
+        
     }
     for (int i=controln-1;i>=0;i--) {
         control* c=controls[i];
@@ -425,12 +430,12 @@ void window::handleMouseDown(int x, int y)
 void window::handleMouseUp(int x, int y)
 {
     if (mouse_pressed) {
+        mouse_pressed = false;
         if ( curcontrol != -1 ) {
             control * c = controls[curcontrol];
             c->onMouseUp(x - c->x, y - c->y);
-            return ;
         }
-        mouse_pressed = false;
+        
     }
     handleMouseMove(x,y);
 }
@@ -660,11 +665,14 @@ void button::onMouseUp(int px,int py)
     if(ToggleButton) {
         return;
     }
+    
     if(onRelease!=NULL) {
         onRelease(data);
     }
-    if( /*(onClick!=NULL)*/ onClick && click && Visible) {
-        onClick(data);
+    if ( px >= 0 && py >= 0 && px <= w && py <= h) {
+        if( /*(onClick!=NULL)*/ onClick && click && Visible) {
+            onClick(data);
+        }
     }
     click = false;
 }
