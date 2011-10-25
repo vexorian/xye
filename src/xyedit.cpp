@@ -2023,7 +2023,7 @@ void editorboard::onMouseMove(int px,int py)
     if(clicked)
     {
         int bi=px/sz,bj=py/sz;
-        solution = "";
+        //solution = "";
         applyFromButtons(bi,bj);
 
     }
@@ -2041,7 +2041,7 @@ void editorboard::onMouseOut()
 void editorboard::onMouseDown(int px,int py)
 {
     int bi=px/sz,bj=py/sz;
-    solution = "";
+    //solution = "";
     applyFromButtons(bi,bj);
     clicked=true;
 }
