@@ -282,18 +282,30 @@ void window::loop(double fps)
                     break;
 
             case (SDL_MOUSEBUTTONDOWN):
-                if(event.button.button==SDL_BUTTON_LEFT) {
+                switch(event.button.button) {
+                case SDL_BUTTON_LEFT:
                     mouse_x=event.button.x;mouse_y=event.button.y;
                     window::handleMouseDown(mouse_x,mouse_y);
                     mouse_pressed=true;
+                    break;
+                case SDL_BUTTON_WHEELUP:
+                case SDL_BUTTON_WHEELDOWN:
+                    window::handleMouseWheel(mouse_x, mouse_y, event.button.button, true);
                 }
                 break;
+            
 
             case (SDL_MOUSEBUTTONUP):
-                if(event.button.button==SDL_BUTTON_LEFT) {
+                switch(event.button.button) {
+                case SDL_BUTTON_LEFT:
                     window::handleMouseUp(mouse_x,mouse_y);
-                } else if(event.button.button==SDL_BUTTON_RIGHT) {
+                    break;
+                case SDL_BUTTON_RIGHT:
                     window::handleMouseRightUp(mouse_x,mouse_y);
+                    break;
+                case SDL_BUTTON_WHEELUP:
+                case SDL_BUTTON_WHEELDOWN:
+                    window::handleMouseWheel(mouse_x, mouse_y, event.button.button, false);
                 }
 
                 break;
@@ -414,6 +426,17 @@ void window::handleMouseMove(int x, int y)
 }
 
 
+void window::handleMouseWheel(int x, int y, Uint8 wheel, bool down)
+{
+    for (int i=controln-1; i>=0; i--) {
+        control* c=controls[i];
+        if (( x>= c->x) && ( x<= c->x+c->w) && ( y>= c->y) && ( y<= c->y+c->h) ) {
+            c->onMouseWheel(x - c->x, y - c->y, wheel, down);
+            return;
+        }
+    }
+}
+
 void window::handleMouseDown(int x, int y)
 {
     for (int i=controln-1;i>=0;i--) {
@@ -425,8 +448,8 @@ void window::handleMouseDown(int x, int y)
             return;
         }
     }
-
 }
+
 void window::handleMouseUp(int x, int y)
 {
     if (mouse_pressed) {

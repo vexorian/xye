@@ -280,6 +280,15 @@ namespace listbox_private
         }
         
         void onKeyUp(SDLKey keysim, Uint16 unicode);
+        
+        void onMouseWheel(int x, int y, Uint8 wheel, bool down)
+        {
+            if (wheel == SDL_BUTTON_WHEELUP) {
+                onKeyUp(SDLK_PAGEUP, 0);
+            } else {
+                onKeyUp(SDLK_PAGEDOWN, 0);
+            }
+        }
 
 
     };
@@ -336,13 +345,13 @@ namespace listbox_private
         
                 case(SDLK_PAGEUP):
                     rel = selectedIndex - viewIndex;
-                    selectedIndex -= maxLines/2+1;
-                    if (selectedIndex<0) selectedIndex=s-1;
+                    selectedIndex -= maxLines/4+1;
+                    if (selectedIndex<0) selectedIndex=0;
                     break;
                 case(SDLK_PAGEDOWN):
                     rel = selectedIndex - viewIndex;
-                    selectedIndex += maxLines/2+1;
-                    if (selectedIndex>=s) selectedIndex=0;
+                    selectedIndex += maxLines/4+1;
+                    if (selectedIndex>=s) selectedIndex=s-1;
                     break;
             }
         }
