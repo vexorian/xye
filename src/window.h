@@ -45,6 +45,8 @@ class control
      virtual void draw(SDL_Surface* target)=0;
      virtual void loop()=0;
      
+     virtual void onMouseWheel(int x, int y, Uint8 wheel, bool down) {};
+     
      virtual ~control() {}
 
 };
@@ -95,6 +97,7 @@ class window
      void handleMouseRightUp(int x, int y);
      void drawControls();
      void loopControls();
+     void handleMouseWheel(int x, int y, Uint8 wheel, bool down);
      
      
 
@@ -139,6 +142,7 @@ class window
     static void QuitSDL();
     void Close();
     void SetTransition( voidFunction tra);
+    
 };
 
 class rectangle: public control
