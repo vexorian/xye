@@ -283,10 +283,16 @@ namespace listbox_private
         
         void onMouseWheel(int x, int y, Uint8 wheel, bool down)
         {
-            if (wheel == SDL_BUTTON_WHEELUP) {
-                onKeyUp(SDLK_PAGEUP, 0);
-            } else {
-                onKeyUp(SDLK_PAGEDOWN, 0);
+            int s = tags.size();
+            if ( s > maxLines ) { 
+                if (wheel == SDL_BUTTON_WHEELUP) {
+                    viewIndex -= max(maxLines/8,1);
+                    viewIndex = max(viewIndex,0);
+                } else {
+                    viewIndex += max(maxLines/8,1);
+                    viewIndex = min(viewIndex, s - maxLines);
+
+                }
             }
         }
 
