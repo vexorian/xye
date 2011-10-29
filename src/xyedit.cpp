@@ -1333,6 +1333,7 @@ string gettextRC(const char * base, editorcolor color, bool round)
         case EDCO_RED: res="Red "; break;
         case EDCO_GREEN: res="Green "; break;
         case EDCO_YELLOW: res="Yellow "; break;
+        case EDCO_PURPLE: res="Purple "; break;
         case EDCO_WHITE: res="White "; break;
         case EDCO_METAL: res="Metal "; break;
         case EDCO_WILD:  res="Wildcard "; break;
@@ -1619,7 +1620,7 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
 
     switch(ot)
     {
-        case EDOT_GEM: colorchoice=2; break;
+        case EDOT_GEM: colorchoice=1; break;
 
         case EDOT_COLORSYSTEM: colorchoice=1; maxvariations=8; break;
         case EDOT_RATTLERHEAD: maxvariations=10;  dirchoice = 4;break;
@@ -1667,10 +1668,10 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
     int variationstart=2;
     int colorcount=0;
     int dirstart=0;
-    if(colorchoice == 4) colorcount=7;
-    else if(colorchoice == 3) colorcount=6;
-    else if (colorchoice == 2) colorcount=5;
-    else if (colorchoice == 1) colorcount=4;
+    if(colorchoice == 4) colorcount=8;
+    else if(colorchoice == 3) colorcount=7;
+    else if (colorchoice == 2) colorcount=6;
+    else if (colorchoice == 1) colorcount=5;
 
     int upperlength = 0;
     int upperstart = 0;

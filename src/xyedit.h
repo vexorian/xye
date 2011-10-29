@@ -94,9 +94,10 @@ enum editorcolor
     EDCO_GREEN=3,
     EDCO_BLUE=2,
     EDCO_YELLOW=0,
-    EDCO_WHITE=4,
-    EDCO_METAL = 5,
-    EDCO_WILD = 6
+    EDCO_PURPLE=4,
+    EDCO_WHITE=5,
+    EDCO_METAL = 6,
+    EDCO_WILD = 7
     
 };
 
