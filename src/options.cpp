@@ -572,9 +572,9 @@ TiXmlDocument* defaultxyeconf(const char* path,TiXmlElement *&options)
     file.open (path,std::ios::trunc | std::ios::out );
     if (!file.is_open()) return NULL; //ouch just halt.
 
-    file << "<?xml version='1.0' encoding='ISO-8859-1'?>\n\
-<!--xye config file-->\n\
-<options levelfile='#browse#' skinfile='default.xml' red='0' green='255' blue='0' />";
+    file << "<?xml version='1.0' encoding='ISO-8859-1'?>\n"
+"<!--xye config file-->\n"
+"<options levelfile='#browse#' skinfile='default.xml' red='102' green='255' blue='102' />";
 
     file.close();
     TiXmlDocument* r=new TiXmlDocument(path);
@@ -648,7 +648,7 @@ void Init()
 
     haspickedtheme = false;
     enundo=true;
-    r=b=0;
+    r=b=102;
     g=255;
     bini=true;
     GridSize=20;
