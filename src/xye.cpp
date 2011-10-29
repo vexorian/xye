@@ -5662,11 +5662,17 @@ void surprise::Transform()
     wall* wl;
     dangerous* bh;
     impacter* bn;
+    magnetic* mg;
 
         switch(c)
         {
             case(B_YELLOW):
                 bn=new impacter(sq,B_YELLOW,YellowDir);
+                break;
+            case(B_PURPLE):
+                game::XYE->alpha=32;
+                game::FlashXyePosition();
+                game::XYE->move(sq->sqx, sq->sqy);
                 break;
 
             case(B_GREEN):
@@ -5749,6 +5755,7 @@ void surprise::Draw(unsigned int x, unsigned int y)
         wall* wl;
         dangerous* bh;
         impacter* bn;
+        magnetic* mg;
 
         switch(c)
         {
@@ -5756,6 +5763,15 @@ void surprise::Draw(unsigned int x, unsigned int y)
                 bn=new impacter(sq,B_YELLOW,YellowDir);
                 SprColor=BC;
                 bn->Draw(x,y);
+                break;
+            case(B_PURPLE):
+                //mg=new magnetic(sq, T_MAGNET, YellowDir!=D_UP && YellowDir!=D_DOWN);
+                SprColor=BC;
+                //mg->Draw(x,y);
+                game::XYE->alpha=32;
+                game::FlashXyePosition();
+                game::XYE->move(sq->sqx, sq->sqy);
+                game::XYE->Draw(x,y);
                 break;
 
             case(B_GREEN):
@@ -5843,7 +5859,7 @@ bool surprise::trypush(edir dir,obj* pusher)
     if (trypush_common(dir,pusher, round,&died))
     {
         if ((died) || (magnetic::IsInstance(pusher) ) || (c==B_RED))  return true;
-        if (c==B_YELLOW) YellowDir=dir;
+        if (c==B_YELLOW || c==B_PURPLE) YellowDir=dir;
         if (! died)
         {
             changing=true;
