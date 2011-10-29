@@ -1816,7 +1816,7 @@ void editorboard::assign(editorboard* other)
 
     xye_x = other->xye_x;
     xye_y = other->xye_y;
-    for (int i=0; i<5; i++)
+    for (int i=0; i<XYE_OBJECT_COLORS+1; i++)
         for (int j=0; j<2; j++)
         {
             portal_x[i][j] = other->portal_x[i][j];
@@ -1992,7 +1992,7 @@ void editorboard::makeDefaultLevel()
     }
     xye_x=-1;
     xye_y=-1;
-    for (int i=0; i<5; i++)
+    for (int i=0; i<XYE_OBJECT_COLORS+1; i++)
         for (int j=0; j<2; j++)
             portal_x[i][j]= portal_y[i][j]=-1;
 }
@@ -2311,7 +2311,7 @@ void editorboard::applyFromButtons(int x, int y)
         xye_x=-1;
         xye_y=-1;
     }
-    for (int i=0; i<5; i++)
+    for (int i=0; i<XYE_OBJECT_COLORS+1; i++)
         for (int j=0; j<2; j++)
             if((x==portal_x[i][j]) && (y==portal_y[i][j]))
             {
