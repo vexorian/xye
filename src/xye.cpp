@@ -4442,7 +4442,12 @@ gemblock::gemblock(square* sq,blockcolor tc)
 void gemblock::Draw(unsigned int x, unsigned int y)
 {
     Uint8 tx,ty=9;
-    bool movable=gem::GotAllGems(c);
+    bool movable;
+    if ( c==B_PURPLE ) {
+        movable = ( star::GetRemaining() == 0 );
+    } else {
+        movable = gem::GotAllGems(c);
+    } 
     tx=(movable?7:6);
     Drawer D(game::sprites,sz*tx,sz*ty,sz,sz);
     D.SetColors(options::BKColor[c],255);
@@ -4456,7 +4461,13 @@ void gemblock::Draw(unsigned int x, unsigned int y)
 }
 
 bool gemblock::trypush(edir dir,obj* pusher) {
-    return ( (gem::GotAllGems(c)) && trypush_common(dir,pusher, false,NULL));
+    bool movable;
+    if ( c==B_PURPLE ) {
+        movable = ( star::GetRemaining() == 0 );
+    } else {
+        movable = gem::GotAllGems(c);
+    } 
+    return ( movable && trypush_common(dir,pusher, false,NULL));
 }
 
 bool gemblock::HasRoundCorner(roundcorner rnc) { return false; }
@@ -4464,7 +4475,13 @@ bool gemblock::HasRoundCorner(roundcorner rnc) { return false; }
 bool gemblock::Loop(bool* died)
 {
     UpdateSquare(); //In theory only a few gemblocks exist in a level so this shouldn't hurt
-    bool movable=gem::GotAllGems(c);
+    bool movable;
+    if ( c==B_PURPLE ) {
+        movable = ( star::GetRemaining() == 0 );
+    } else {
+        movable = gem::GotAllGems(c);
+    } 
+
     if (! movable) return false;
 
     *died=false;
