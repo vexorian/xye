@@ -46,8 +46,8 @@ void LoadSkinFile(const char* file);
     
     SDL_Color HintColor;
     
-    SDL_Color BFColor[4];
-    SDL_Color BKColor[4];
+    SDL_Color BFColor[5];
+    SDL_Color BKColor[5];
     
     SDL_Color LevelMenu_info;
     SDL_Color LevelMenu_selected;
@@ -137,8 +137,8 @@ struct parsedSkinFile
     SDL_Color WallColor      [XYE_WALL_VARIATIONS];
     SDL_Color WallSpriteColor[XYE_WALL_VARIATIONS];
     
-    SDL_Color BFColor[4];
-    SDL_Color BKColor[4];
+    SDL_Color BFColor[5];
+    SDL_Color BKColor[5];
     
     SDL_Color HintColor;
     
@@ -320,11 +320,13 @@ string parseSkinColors(TiXmlElement* ele, parsedSkinFile & ps) {
         return tm;
     }
     int i;
-    char cname[4];
+    char cname[5];
     cname[B_YELLOW]='Y';
     cname[B_BLUE]='B';
     cname[B_GREEN]='G';
     cname[B_RED]='R';
+    cname[B_PURPLE]='P';
+
     //defaults:
     for (int i=0; i<XYE_WALL_VARIATIONS; i++)
     {
@@ -341,7 +343,7 @@ string parseSkinColors(TiXmlElement* ele, parsedSkinFile & ps) {
     if(tm != "") {
         return "";
     }
-    for (i=0;i<4;i++)
+    for (i=0;i<5;i++)
     {
         if (! tryParseColorOptions(ele, ps.BKColor+i, 'B', cname[i] ) )
         switch(i)
@@ -362,6 +364,11 @@ string parseSkinColors(TiXmlElement* ele, parsedSkinFile & ps) {
                 ps.BKColor[i].r=0;
                 ps.BKColor[i].g=0;
                 ps.BKColor[i].b=255;
+                break;
+            case(B_PURPLE):
+                ps.BKColor[i].r = 128;
+                ps.BKColor[i].g = 0;
+                ps.BKColor[i].b = 128;
                 break;
 
             default: //green
@@ -393,6 +400,12 @@ string parseSkinColors(TiXmlElement* ele, parsedSkinFile & ps) {
                 ps.BFColor[i].b=255;
                 break;
 
+            case(B_PURPLE):
+                ps.BFColor[i].r = 255;
+                ps.BFColor[i].g = 255;
+                ps.BFColor[i].b = 255;
+                break;
+                
             default: //Green
                 //
                 ps.BFColor[i].r=255;
@@ -747,7 +760,7 @@ void LoadMenuColors(parsedSkinFile & ps)
 void LoadColors(parsedSkinFile & ps)
 {
     LoadMenuColors(ps);
-    for (int i=0; i<4; i++) {
+    for (int i=0; i<5; i++) {
         BFColor[i] = ps.BFColor[i];
         BKColor[i] = ps.BKColor[i];
     }

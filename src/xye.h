@@ -41,7 +41,8 @@ enum blockcolor
     B_YELLOW=0,
     B_RED=1,
     B_BLUE=2,
-    B_GREEN=3
+    B_GREEN=3,
+    B_PURPLE=4
 };
 enum roundcorner { RC_1,RC_7,RC_9,RC_3 };
 
