@@ -14,8 +14,8 @@ boardelement editorload_objects[XYE_HORZ][XYE_VERT];
 int editorload_xyex;
 int editorload_xyey;
 
-int editorload_portal_x[5][2];
-int editorload_portal_y[5][2];
+int editorload_portal_x[XYE_OBJECT_COLORS+1][2];
+int editorload_portal_y[XYE_OBJECT_COLORS+1][2];
 int editorload_defaultwall = 0;
 
 string editor::loadError;
@@ -580,11 +580,17 @@ bool editor_LoadPortal(TiXmlElement * el)
 
     int defcolor=-1;
     el->QueryIntAttribute("defcolor", &defcolor);
-    if ( (defcolor<0) || (defcolor>=5) )
+    if ( (defcolor<0) || (defcolor>=XYE_OBJECT_COLORS+1) )
     {
         defcolor  = 0;
         loadPortalIssue = true;
         cout<< "Notice: A <portal> tag had a strange/missing defcolor value. This could indicate that the level was not made by this version of the editor."<<endl;
+    } else {
+        if (defcolor == 4) {
+            defcolor = 5;
+        } else if (defcolor == 5) {
+            defcolor = 4;
+        }
     }
     if( editorload_portal_x[defcolor][0] == -1)
     {
@@ -1320,7 +1326,7 @@ void editorload_loadKyeLevel(const KyeLevel& klv)
             editor::board->xye_y = XYE_VERT - j - 1;
         }
     }
-    for (int i=0; i<5; i++) {
+    for (int i=0; i<XYE_OBJECT_COLORS+1; i++) {
         for (int j=0; j<2; j++) {
             editor::board->portal_x[i][j] = -1,
             editor::board->portal_y[i][j] = -1;
@@ -1363,7 +1369,7 @@ bool editor::load_KyeFormat(TiXmlElement* el)
     {
         editorload_objects[i][j] = editor::board->objects[i][XYE_VERT-j-1];
     }
-    for (int i=0; i<5; i++) {
+    for (int i=0; i<XYE_OBJECT_COLORS+1; i++) {
         for (int j=0; j<2; j++) {
             editorload_portal_x[i][j] = editor::board->portal_x[i][j],
             editorload_portal_y[i][j] = XYE_VERT-editor::board->portal_y[i][j]-1;
@@ -1415,7 +1421,7 @@ bool editor::appendLevels(const string file)
                 editorload_colors[i].useDefault = true;
             }
 
-            for (int i=0; i<5; i++) {
+            for (int i=0; i<XYE_OBJECT_COLORS+1; i++) {
                 for (int j=0; j<2;j++) {
                     editorload_portal_x[i][j] = editorload_portal_y[i][j] = -1;
                 }
@@ -1513,7 +1519,7 @@ bool editor::appendLevels(const string file)
             {
                 editor::board->objects[i][XYE_VERT-j-1]=editorload_objects[i][j];
             }
-            for (int i=0; i<5; i++) {
+            for (int i=0; i<XYE_OBJECT_COLORS+1; i++) {
                 for (int j=0; j<2; j++) {
                     editor::board->portal_x[i][j] = editorload_portal_x[i][j],
                     editor::board->portal_y[i][j] = XYE_VERT-editorload_portal_y[i][j]-1;

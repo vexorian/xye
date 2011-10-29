@@ -23,6 +23,7 @@ Permission is granted to anyone to use this software for any purpose, including 
     #include "window.h"
 #endif
 #include "dialogs.h"
+const int XYEDIT_OBJECT_COLORS = 5;
 
 using namespace std;
 
@@ -372,8 +373,8 @@ class editorboard: public control
     boardelement objects[XYE_HORZ ][XYE_VERT];
     int xye_x;
     int xye_y;
-    int portal_x[5][2];
-    int portal_y[5][2];
+    int portal_x[XYEDIT_OBJECT_COLORS+1][2];
+    int portal_y[XYEDIT_OBJECT_COLORS+1][2];
     
     
     
