@@ -4649,7 +4649,7 @@ void number::Draw(unsigned int x, unsigned int y)
 
     SDL_Color mx = options::BKColor[c];
 
-    if ((c==B_GREEN) && (GreenFlash))
+    if ((c==B_GREEN || c==B_PURPLE) && (GreenFlash))
     {
         UpdateSquare();
         SDL_Color tm;
@@ -4708,7 +4708,7 @@ bool number::green_activator_present(square * sq)
     if (ot==OT_XYE) return true;
     if (ot!=OT_NUMBER) return false;
     number* num=static_cast<number*>(object);
-    return ((num->c==B_GREEN) && (num->GreenActive!=0) && (num->GreenActive!=game::counter)  );
+    return ((num->c==c) && (num->GreenActive!=0) && (num->GreenActive!=game::counter)  );
 }
 
 
@@ -4725,7 +4725,7 @@ bool number::Loop(bool* died)
         case(B_BLUE): tic=(tic>=300?0:tic); break;
         default: tic=(tic>=60?0:tic); break;
     }
-    if (c==B_GREEN)
+    if (c==B_GREEN || c==B_PURPLE)
     {
         if (GreenActive==0)
         {
@@ -4762,7 +4762,7 @@ inline bool number::HasBlockColor(blockcolor bc) { return (c==bc); }
 
 void number::OnDeath()
 {
-    if ((c==B_RED) && (! KilledByBlackHole) && (! ignoreDeath) )
+    if ((c==B_RED || c==B_PURPLE) && (! KilledByBlackHole) && (! ignoreDeath) )
     {
         ignoreDeath=true;
         explode();
