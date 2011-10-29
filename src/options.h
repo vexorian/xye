@@ -66,8 +66,8 @@ namespace options {
     extern SDL_Color WallColor      [XYE_WALL_VARIATIONS];
     extern SDL_Color WallSpriteColor[XYE_WALL_VARIATIONS];
     
-    extern SDL_Color BFColor[4];
-    extern SDL_Color BKColor[4];
+    extern SDL_Color BFColor[5];
+    extern SDL_Color BKColor[5];
 
     extern SDL_Color HintColor;
 

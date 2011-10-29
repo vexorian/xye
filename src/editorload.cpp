@@ -175,7 +175,9 @@ editorcolor getElementColor(TiXmlElement* el)
         case 'G': case 'g':
             return EDCO_GREEN;
         case 'B': case 'b':
-            return EDCO_BLUE;            
+            return EDCO_BLUE;
+        case 'P': case 'p':
+            return EDCO_PURPLE;            
         }
     }
  return EDCO_YELLOW;
@@ -217,7 +219,7 @@ bool editor_LoadStar(TiXmlElement* el)
 
     boardelement &o=editorload_objects[x][y];
     o.type=EDOT_GEM;
-    o.color = EDCO_WHITE;
+    o.color = EDCO_PURPLE;
     return true;
 }
 

@@ -15,6 +15,7 @@ void saveColor(std::ofstream &file,boardelement &o,bool allownocolor=false)
         case EDCO_BLUE: file<<"bc='B' "; break;
         case EDCO_YELLOW: file<<"bc='Y' "; break;
         case EDCO_RED: file<<"bc='R' "; break;
+        case EDCO_PURPLE: file<<"bc='P' "; break;
         default: file<<"bc='G' "; break;
     }
 
@@ -172,7 +173,7 @@ void saveNormalObject(std::ofstream &file, boardelement &o, int x, int y)
             }
             break;
         case EDOT_GEM:
-            if(o.color == EDCO_WHITE)
+            if(o.color == EDCO_PURPLE)
             {
                 file<<"\t\t<star ";
                 savePosition(file,x,y);
