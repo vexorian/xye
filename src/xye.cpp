@@ -244,7 +244,7 @@ void game::InitGraphics()
     //Init cache
     printf("Initializing Recolor cache...\n");
     RecolorCache::restart(sprites.sprites);
-    for (int i=0;i<4;i++)
+    for (int i=0;i<XYE_OBJECT_COLORS;i++)
     {
         RecolorCache::savecolor(&options::BFColor[i]);
         RecolorCache::savecolor(&options::BKColor[i]);
@@ -1439,7 +1439,7 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
     SDL_FillRect(screen, cx,y, 2, Ah, black);
     cx+=5;
 
-    unsigned int yl,rd,bl,gr;
+    unsigned int yl,rd,bl,gr,pr;
     cy=y+2;
     if(xye_fromeditortest)
     {
@@ -1462,7 +1462,7 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
 
     }
 
-    if (key::GetXyesKeys(yl,rd,bl,gr) || star::GetAcquired() )
+    if (key::GetXyesKeys(yl,rd,bl,gr,pr) || star::GetAcquired() )
     {
         cx+=5;
         FontRes->Write(screen,cx, y+2+dif ,"Got: ");
@@ -1475,6 +1475,8 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
             DrawPanelInfo(D, cx,cy, 6, 4, yl,dif, options::BKColor[B_YELLOW] );
         if (rd)
             DrawPanelInfo(D, cx,cy, 6, 4, rd,dif, options::BKColor[B_RED] );
+        if (pr)
+            DrawPanelInfo(D, cx,cy, 6, 4, pr,dif, options::BKColor[B_PURPLE] );
         
         if(star::GetAcquired()) {
             DrawPanelInfo(D, cx,cy, 9, 12, star::GetAcquired() ,dif);
@@ -5883,13 +5885,15 @@ void surprise::FinalExplode()
 
 /**Start Class Toggle**/
 
-bool toggle::State[4] = {false,false,false,false};
+bool toggle::State[XYE_OBJECT_COLORS] = {false,false,false,false,false};
 Uint32 toggle::ChangeTic;
 
 void toggle::Reset()
 {
     ChangeTic=0;
-    State[0]=State[1]=State[2]=State[3]=false;
+    for (int i=0; i<XYE_OBJECT_COLORS; i++) {
+        State[i] = false;
+    }
 }
 
 toggle::toggle(square* sq,blockcolor tc,bool makeround, bool state)
@@ -7671,7 +7675,7 @@ inline bool earth::HasBlockColor(blockcolor bc) { return false; }
 
 
 /**Start Class Key**/
-unsigned int key::Got[4];
+unsigned int key::Got[XYE_OBJECT_COLORS];
 
 key::key(square* sq, blockcolor color)
 {
@@ -7732,20 +7736,23 @@ void key::UseKey(blockcolor ofcolor)
 }
 void key::ResetCounts()
 {
-    Got[0]=Got[1]=Got[2]=Got[3]=0;
+    for (int i=0; i<XYE_OBJECT_COLORS; i++) {
+        Got[i] = 0;
+    }
 }
 bool key::GotKey(blockcolor ofcolor)
 {
     return (Got[(unsigned int)(ofcolor)] > 0 );
 }
 
-bool key::GetXyesKeys(unsigned int &yl,unsigned int &rd,unsigned int &bl,unsigned int &gr)
+bool key::GetXyesKeys(unsigned int &yl,unsigned int &rd,unsigned int &bl,unsigned int &gr,unsigned int &pr)
 {
     yl=Got[0];
     rd=Got[1];
     bl=Got[2];
     gr=Got[3];
-    return (yl || rd || bl|| gr);
+    pr=Got[4];
+    return (yl || rd || bl|| gr || pr);
 }
 
 
@@ -7790,11 +7797,14 @@ inline bool lock::HasBlockColor(blockcolor bc) { return false; }
 
 /**Start Class Gem**/
 
-unsigned int gem::count[5];
+unsigned int gem::count[XYE_OBJECT_COLORS + 1];
 
 gem::gem(square* sq,gemtype t)
 {
-    count[4]++;
+    if (t == B_PURPLE ) {
+        t = B_BLUE;
+    }
+    count[XYE_OBJECT_COLORS]++;
     count[(unsigned int)(t)]++;
     type=OT_GEM;
     gemkind=t;
@@ -7804,12 +7814,12 @@ gem::gem(square* sq,gemtype t)
 
 void gem::ResetCounts()
 {
-    count[0]=count[1]=count[2]=count[3]=count[4]=0;
+    count[0]=count[1]=count[2]=count[3]=count[XYE_OBJECT_COLORS]=0;
 }
 
 bool gem::GotAllGems()
 {
-    return (count[4]==0);
+    return (count[XYE_OBJECT_COLORS]==0);
 }
 
 bool gem::GotAllGems(blockcolor c)
@@ -7872,9 +7882,9 @@ bool gem::trypush(edir dir,obj* pusher)
 
 
         game::Square(x,y)->object=NULL;
-        count[4]--;
+        count[XYE_OBJECT_COLORS]--;
         count[(unsigned int)(gemkind)]--;
-        if (! count[4])
+        if (! count[XYE_OBJECT_COLORS])
             game::TerminateGame(true);
 
 
@@ -8213,12 +8223,14 @@ bool marked::CanEnter(obj *entering, edir dir)
 }
 bool marked::CanLeave(obj *entering, edir dir) { return true; }
 
-unsigned int marked::count[4];
-unsigned int marked::activeN[4];
+unsigned int marked::count[XYE_OBJECT_COLORS];
+unsigned int marked::activeN[XYE_OBJECT_COLORS];
 
 void marked::Reset()
 {
-    count[0]=count[1]=count[2]=count[3]=activeN[0]=activeN[1]=activeN[2]=activeN[3]=0;
+    for (int i=0; i<XYE_OBJECT_COLORS; i++) {
+        count[i] = activeN[i] = 0;
+    }
 
 }
 
@@ -8645,8 +8657,8 @@ void portal::ChangeColor(Uint8 cR, Uint8 cG, Uint8 cB)
 /**Start class window block **/
 /** Window Block **/
 
-unsigned int windowblock::count[4];
-unsigned int windowblock::activeN[4];
+unsigned int windowblock::count[XYE_OBJECT_COLORS];
+unsigned int windowblock::activeN[XYE_OBJECT_COLORS];
 
 windowblock::windowblock(square* sq,blockcolor b)
 {
@@ -8733,7 +8745,7 @@ bool windowblock::Loop(bool* died)
 
 void windowblock::ResetCounts()
 {
-    for(int i=0;i<4;i++) activeN[i]=count[i]=0;
+    for(int i=0;i<XYE_OBJECT_COLORS;i++) activeN[i]=count[i]=0;
 }
 
 /** End class windowblock**/
