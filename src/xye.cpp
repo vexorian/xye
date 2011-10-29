@@ -4846,12 +4846,14 @@ void impacter::turn()
 {
     switch(c)
     {
-          case(B_YELLOW): fac=Opposite(fac); break;
+          case(B_YELLOW): case (B_PURPLE): fac=Opposite(fac); break;
            case(B_BLUE): fac=Clock(fac); break;
            case(B_GREEN): fac=AClock(fac); break;
-           case(B_RED): case (B_PURPLE): time=9;
+           case(B_RED): time=9;
     }
-    if (c!=B_RED && c!=B_PURPLE) UpdateSquare();
+    if (c!=B_RED) {
+            UpdateSquare();
+    }
 
 }
 
@@ -4865,7 +4867,7 @@ bool impacter::Loop(bool* died)
 
     unsigned int ClockTic=game::Counter();
     time++;
-  if ( (time>=10) ||c==B_PURPLE) {
+  if ( (time>=10) || (c==B_PURPLE && time>=5) ) {
 
     time=0;
     if  (DoMagnetism(true,true,&Moved)) return Moved;
@@ -4928,10 +4930,9 @@ bool impacter::Loop(bool* died)
 
         if (! go)
         {
-            if (object==NULL)
+            if (object==NULL) {
                   go=true;
-            else if (object->trypush(fac,this))
-            {
+            } else if (object->trypush(fac,this)) {
                 go=(c==B_RED || c==B_PURPLE);
                 pushed=true;
             }
