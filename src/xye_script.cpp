@@ -1405,6 +1405,7 @@ blockcolor GetElementBlockColor(TiXmlElement* el, blockcolor def)
         case('G'): case('g'): return (B_GREEN);
         case('R'): case('r'): return (B_RED);
         case('Y'): case('y'): return (B_YELLOW);
+        case('P'): case('p'): return (B_PURPLE);            
     }
 
     return (def);

@@ -44,6 +44,7 @@ enum blockcolor
     B_GREEN=3,
     B_PURPLE=4
 };
+const int XYE_OBJECT_COLORS = 5;
 enum roundcorner { RC_1,RC_7,RC_9,RC_3 };
 
 typedef blockcolor gemtype;
@@ -361,8 +362,8 @@ class windowblock : public obj
 {
  private:
      blockcolor bc;
-     static unsigned int count[4];
-     static unsigned int activeN[4];
+     static unsigned int count[XYE_OBJECT_COLORS];
+     static unsigned int activeN[XYE_OBJECT_COLORS];
      void OnDeath() { count[bc]--;  if (active) activeN[bc]--; }
      unsigned int anim;
      bool active;
@@ -793,7 +794,7 @@ class toggle : public obj
      blockcolor c;
      bool round;
      bool kind;
-     static bool State[4];
+     static bool State[XYE_OBJECT_COLORS];
      static Uint32 ChangeTic;
      Uint32 Updated;
      void OnDeath() {}
@@ -1025,7 +1026,7 @@ class key : public obj
  private:
 
      void OnDeath() {}
-     static unsigned int Got[4];
+     static unsigned int Got[XYE_OBJECT_COLORS];
 
  public:
      key(square* sq,blockcolor color);
@@ -1039,7 +1040,7 @@ class key : public obj
      static void UseKey(blockcolor ofcolor);
      static void ResetCounts();
      static bool GotKey(blockcolor ofcolor);
-     static bool GetXyesKeys(unsigned int &yl,unsigned int &rd,unsigned int &bl,unsigned int &gr);
+     static bool GetXyesKeys(unsigned int &yl,unsigned int &rd,unsigned int &bl,unsigned int &gr, unsigned int &pr);
 
 };
 
@@ -1071,7 +1072,7 @@ class gem : public obj
      bool anim;
      gemtype gemkind;
      void OnDeath() {}
-     static unsigned int count[5];
+     static unsigned int count[XYE_OBJECT_COLORS+1];
  public:
      gem(square* sq, gemtype t);
      void Draw(unsigned int x, unsigned int y);
@@ -1152,8 +1153,8 @@ class marked: public gobj
      bool active;
      unsigned char anim;
      void OnDeath();
-     static unsigned int count[4];
-     static unsigned int activeN[4];
+     static unsigned int count[XYE_OBJECT_COLORS];
+     static unsigned int activeN[XYE_OBJECT_COLORS];
 
 
     public:
