@@ -4828,7 +4828,7 @@ void impacter::Draw(unsigned int x, unsigned int y)
 
 bool impacter::trypush(edir dir,obj* pusher) {
  unsigned int ClockTic=game::Counter();
-    if ((tic!=ClockTic) && trypush_common(dir,pusher, false,NULL))
+    if ( (tic!=ClockTic) && trypush_common(dir,pusher, false,NULL))
     {
         /*switch(pusher->GetType())
         {
@@ -4849,9 +4849,9 @@ void impacter::turn()
           case(B_YELLOW): fac=Opposite(fac); break;
            case(B_BLUE): fac=Clock(fac); break;
            case(B_GREEN): fac=AClock(fac); break;
-           case(B_RED): time=9;
+           case(B_RED): case (B_PURPLE): time=9;
     }
-    if (c!=B_RED) UpdateSquare();
+    if (c!=B_RED && c!=B_PURPLE) UpdateSquare();
 
 }
 
@@ -4865,7 +4865,7 @@ bool impacter::Loop(bool* died)
 
     unsigned int ClockTic=game::Counter();
     time++;
-    if (time>=10) {
+  if ( (time>=10) ||c==B_PURPLE) {
 
     time=0;
     if  (DoMagnetism(true,true,&Moved)) return Moved;
@@ -4932,7 +4932,7 @@ bool impacter::Loop(bool* died)
                   go=true;
             else if (object->trypush(fac,this))
             {
-                go=(c==B_RED);
+                go=(c==B_RED || c==B_PURPLE);
                 pushed=true;
             }
 
@@ -4953,7 +4953,7 @@ bool impacter::Loop(bool* died)
 
     if ((! go) || pushed) turn();
 
-    }
+  }
 
     return false;
 }

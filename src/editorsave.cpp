@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include "xye.h"
 using std::pair;
 using std::max_element;
 
@@ -402,7 +403,7 @@ void saveNormalObject(std::ofstream &file, boardelement &o, int x, int y)
 
 void savePortals(std::ofstream &file, editorboard *board)
 {
-    for (int i=0; i<5; i++)
+    for (int i=0; i<XYE_OBJECT_COLORS+1; i++)
         if( board->portal_x[i][0] != -1)
         {
             int x = board->portal_x[i][0];
@@ -413,14 +414,21 @@ void savePortals(std::ofstream &file, editorboard *board)
             if(ty<0) ty=0;
             file<<"\t\t<portal ";
             savePosition(file, x,XYE_VERT-y-1);
-            file<<"defcolor='"<<i<<"' ";
+            int ni = i;
+            if ( i == 5 ) {
+                ni = 4;
+            } else if (i==4) {
+                ni = 5;
+            }
+
+            file<<"defcolor='"<<ni<<"' ";
             file<<"targetx='"<<tx<<"' targety='"<<(XYE_VERT-ty-1)<<"' ";
             file << "/>\n";
             if(board->objects[tx][ty].variation == 1)
             {
                 file<<"\t\t<portal ";
                 savePosition(file, tx,XYE_VERT-ty-1);
-                file<<"defcolor='"<<i<<"' ";
+                file<<"defcolor='"<<ni<<"' ";
                 file<<"targetx='"<<x<<"' targety='"<<(XYE_VERT-y-1)<<"' ";
                 file << "/>\n";
 

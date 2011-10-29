@@ -1306,14 +1306,22 @@ void Load_Portal(TiXmlElement* el)
     Uint8 R,G,B;
     R=G=B=255;
     el->QueryIntAttribute("defcolor",&defcolor);
-    if( (defcolor>=0) && (defcolor<4))
+    if (defcolor == 4) {
+        defcolor = XYE_OBJECT_COLORS;
+    } else if (defcolor >= 5){
+        defcolor--;
+    }
+    
+    if( (defcolor>=0) && (defcolor<XYE_OBJECT_COLORS))
     {
             SDL_Color cc = options::BKColor[defcolor];
             R=cc.r;
             G=cc.g;
             B=cc.b;
     }
-    else if (c) palette::GetColor(c,R,G,B);
+    else if (c) {
+        palette::GetColor(c,R,G,B);
+    }
 
     portal* pt= new portal(game::SquareN(LastX,LastY),R,G,B,tx,ty);
 }
