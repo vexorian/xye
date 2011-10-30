@@ -1,3 +1,35 @@
+Version 0.12.0
+==============
+Major gameplay changes:
+- A new block has been added, purple.
+- Purple arrows and dot blocks are as fast as red arrows.
+- Purple pushers are twice as fast as yellow pushers and bounce differently.
+- Purple timers are like a mix between the green and red ones, explode a time after Xye activates them.
+- Purple surprise blocks teleport Xye to their location if pushed.
+- Purple gems do not exist, instead purple gem blocks are activated once you get all the stars in the level.
+
+Other features:
+- The listbox control has been made closer to the familiar idea in usual GUI environments. For example, it supports the mouse wheel and can have a scroll bar if necessary.
+- Xye's default color has been changed to a less saturated green tone.
+
+Official levels:
+- Added two new tutorials.
+- Updated the order of some of the levels.
+- New levels: Complexity, puzzle, Chekhov's brick, Robot bot trouble, .
+
+Updates to other level files:
+- Phipps.xye: Changed the color scheme for the levels from problem.kye.
+
+New editor features:
+- Slightly more compatibility with level features.
+- 
+
+Bug fixes:
+- Fixed the bug that made .Kye levels in the editor load with black walls, background and earth.
+- Fixed bugs related to not being able to play the level's solution / a replay file in the first attempt when there is a saved game for that level.
+- Other minor features and bug fixes.
+
+
 Version 0.11.2
 ==============
 Updates to the official levels:

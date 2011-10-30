@@ -58,8 +58,9 @@
 		<Unit filename="kye_script.h" />
 		<Unit filename="levels.cpp" />
 		<Unit filename="levels.h" />
-		<Unit filename="list.cpp" />
 		<Unit filename="list.h" />
+		<Unit filename="listbox.cpp" />
+		<Unit filename="listbox.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="options.cpp" />
 		<Unit filename="options.h" />
