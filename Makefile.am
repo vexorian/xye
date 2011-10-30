@@ -26,30 +26,18 @@ levels/xyester.xye
 
 resdir= $(datadir)/@PACKAGE@/res
 res_DATA = res/default.xml \
-res/classic.xml \
 res/xye.png \
 res/xye_luminosity.png \
-res/kye.png \
 res/DejaVuSans.ttf \
 res/DejaVuSans-Bold.ttf \
 res/fon.bmp \
 res/fon_bold.bmp \
 res/clean40.xml \
 res/clean40.png \
-res/classic32.xml \
-res/kye32.png \
-res/kye32_luminosity.png \
 res/clean40_luminosity.png \
 res/clean30.xml \
 res/clean30.png \
 res/clean30_luminosity.png \
-res/kye_luminosity.png \
-res/xmaskye.xml \
-res/xmaskye32.xml \
-res/XMASKye_luminosity.png \
-res/XMASKye32_luminosity.png \
-res/XMASKye32.png \
-res/XMASKye.png \
 res/detailed.xml \
 res/detailed20.xml \
 res/detailed30.xml \
@@ -61,7 +49,6 @@ res/detailed_L20.png \
 res/detailed_L30.png \
 res/detailed_icon.png \
 res/default_icon.png \
-res/kye_icon.png \
 res/detailed_COPYING
 
 
