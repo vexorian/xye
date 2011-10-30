@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <pack>
 <name>Tutorials</name><author>vexorian</author>
-<description>26 small puzzles intented to introduce players to the objects in the game.  You can watch solutions by pressing [S] during the game. If you want a challenge, try getting the stars.</description>
+<description>28 small puzzles intented to introduce players to the objects in the game.
+You can watch solutions by pressing [S] during the game. If you want a challenge, 
+try getting the optional stars.</description>
 
 <level>
 <title>T1: Piece of cake</title>
@@ -11182,8 +11184,453 @@
 </level>
 
 <level>
-<title>T22: Linked blocks</title>
-<hint>They need to be adjacent to a block of the same color.</hint>
+    <title>T22 : [!] Blocks 3</title>
+    <hint>Avoid doing large routes more than once.</hint>
+    <solution>000000004202226808840800240444448048084444444204444808606808888888860620
+    620600002022222222240444444442024000202206000006000606806
+    6666666620668066206202260660400000000000000000000000000000000000000000000000000000
+    00000000000000000000000000000000000000000006206620668404448042024042044444444480800
+    00040420444420444460666666620666666620222220000804044444
+    4444806062408088860202606666806664044406060000808000000606624044444806</solution>
+    <bye>Objects that can teleport you without permission. What&apos;s next?</bye>
+    <default>
+        <wall type='0'  />
+    </default>
+	<ground>
+	</ground>
+	<objects>
+		<wall x='0' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='1' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='10' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='2' y='19' />
+		<wall y='18' />
+		<wall y='7' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='3' y='19' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='5' />
+		<wall y='4' />
+		<gem y='3' bc='B' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='4' y='19' />
+		<wall y='18' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='5' />
+		<wall y='4' />
+		<arrow dir='R' y='3' bc='Y' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='5' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='14' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<beast y='9' dir='R' kind='8' />
+		<wall y='8' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='6' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='8' />
+		<wall y='6' />
+		<wall y='5' />
+		<surprise y='4' bc='R' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='7' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='14' />
+		<beast y='13' dir='L' kind='8' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<beast y='9' dir='R' kind='8' />
+		<wall y='8' />
+		<wall y='6' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='8' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<beast y='12' dir='U' kind='8' />
+		<beast y='10' dir='U' kind='8' />
+		<wall y='8' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='9' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='10' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<gem y='13' bc='Y' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='8' />
+		<wall y='6' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='11' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' round1='1' round3='1' />
+		<gem y='14' bc='Y' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='8' />
+		<wall y='6' />
+		<surprise y='4' bc='P' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='12' y='19' />
+		<timer y='16' bc='Y' val='4' />
+		<timer y='15' bc='Y' val='4' />
+		<wall y='12' round9='1' />
+		<wall y='11' />
+		<wall y='8' />
+		<arrow dir='L' y='4' bc='Y' />
+		<surprise y='2' bc='P' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='13' y='19' />
+		<pusher y='17' dir='D' bc='P' />
+		<timer y='16' bc='Y' val='8' />
+		<timer y='15' bc='Y' val='8' />
+		<surprise y='13' bc='P' />
+		<wall y='11' />
+		<wall y='8' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='14' y='19' />
+		<timer y='16' bc='Y' val='4' />
+		<timer y='15' bc='Y' val='4' />
+		<wall y='12' round7='1' />
+		<wall y='11' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<surprise y='2' bc='P' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='15' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' round1='1' round3='1' />
+		<gem y='14' bc='Y' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='16' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<gem y='13' bc='Y' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<surprise y='2' bc='P' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='17' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='18' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<pusher y='5' dir='L' bc='P' />
+		<surprise y='2' bc='P' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='19' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='6' />
+		<earth y='5' />
+		<wall y='0' />
+		<wall x='20' y='19' />
+		<wall y='18' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<timer y='2' bc='Y' val='4' />
+		<wall y='0' />
+		<wall x='21' y='19' />
+		<wall y='18' />
+		<wall y='16' />
+		<surprise y='15' bc='R' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='22' y='19' />
+		<wall y='18' />
+		<wall y='16' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='6' />
+		<surprise y='5' bc='P' />
+		<wall y='2' />
+		<gem y='1' bc='B' />
+		<wall y='0' />
+		<wall x='23' y='19' />
+		<wall y='18' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='8' />
+		<wall y='6' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='24' y='19' />
+		<wall y='18' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='8' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='25' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='14' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<beast y='9' dir='R' kind='8' />
+		<wall y='8' />
+		<earth y='7' />
+		<arrow dir='U' y='6' bc='Y' />
+		<arrow dir='U' y='5' bc='Y' />
+		<arrow dir='U' y='4' bc='Y' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='26' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<arrow dir='R' y='15' bc='Y' />
+		<wall y='14' />
+		<blacky y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<surprise y='4' bc='R' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='27' y='19' />
+		<arrow dir='D' y='18' bc='Y' />
+		<arrow dir='D' y='17' bc='Y' />
+		<arrow dir='D' y='16' bc='Y' />
+		<arrow dir='D' y='15' bc='Y' />
+		<arrow dir='D' y='14' bc='Y' />
+		<arrow dir='D' y='13' bc='Y' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='28' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<aclocker y='16' bc='B' />
+		<wall y='14' />
+		<pusher y='13' dir='L' bc='P' />
+		<blacky y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='29' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<aclocker y='15' bc='B' />
+		<wall y='14' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+	</objects>
+	<xye x='20' y='4' lives='1' />
+</level>
+
+<level>
+    <title>T23: Linked blocks</title>
+    <hint>They need to be adjacent to a block of the same color.</hint>
+    <solution>0000000000000000008000000000000040606600804040000084048088888886066666600000
+    0202200000000084000000060040004000200000086062022060680888000
+    0480080608402480040004260000006006080060680606600008060888606662026668066666024</solution>
 	<ground>
 		<marked x='8' y='16' bc='R' />
 		<marked x='9' y='16' bc='R' />
@@ -11643,7 +12090,7 @@
 </level>
 
 <level>
-<title>T23: Mines and pits</title>
+<title>T24: Mines and pits</title>
 <hint>They are slightly different.</hint>
 <solution>
 000000000000000000000000000000000000000040000000000008080040200206202224
@@ -12189,21 +12636,21 @@
     <xye x='15' y='7' lives='1' />
 </level>
 <level>
-<title>T24: Green timers</title>
-<hint>Do not get the blue gems too soon.</hint>
-<solution>
-000000000080000060666600000000000000000000000000000000000080888888884044
-440000000000202200000000060604080600404806066004080404444202220060808848
-060666000400006006040444202600008486066080600062008400426040444202222600
-808840860666680006002000200020420600080080800800000002000000080600042608
-060200042040020002060486000808606666202222222222404442222000004006000006
-000000000000040000000000000000000000000000000000000000000000000000000000
-000000000000000000000000000000000000000000000000000000000000000000000000
-000000000000000000000000000000000000000000000000000000000000000000000000
-000000000000000000000000000040444206008088886062022666662060668088404420
-244448088800068088888000000000080000000800000000000000000000000000006000
-00600000200020040000008
-</solution>
+    <title>T25: Green timers</title>
+    <hint>Do not get the blue gems too soon.</hint>
+    <solution>
+    000000000080000060666600000000000000000000000000000000000080888888884044
+    440000000000202200000000060604080600404806066004080404444202220060808848
+    060666000400006006040444202600008486066080600062008400426040444202222600
+    808840860666680006002000200020420600080080800800000002000000080600042608
+    060200042040020002060486000808606666202222222222404442222000004006000006
+    000000000000040000000000000000000000000000000000000000000000000000000000
+    000000000000000000000000000000000000000000000000000000000000000000000000
+    000000000000000000000000000000000000000000000000000000000000000000000000
+    000000000000000000000000000040444206008088886062022666662060668088404420
+    244448088800068088888000000000080000000800000000000000000000000000006000
+    00600000200020040000008
+    </solution>
     <ground>
         <blockdoor x='12' y='15' bc='G' />
         <blockdoor x='13' y='2' bc='G' />
@@ -12765,8 +13212,526 @@
     </objects>
     <xye x='14' y='5' lives='1' />
 </level>
+
 <level>
-<title>T25: The fugitive</title>
+    <title>T26: Time bombs</title>
+    <hint>Explosions are dangerous, but they are sometimes the only way to open your path.</hint>
+    <solution>000000000000040040000000000006202404860002608088860840440024808800
+    2060600200206240400606680888000000000000000000000000000000008000000000000000
+    0006000000000000000000000800000000000000000006062068040040040008008000000000
+    0000000000000000000000000000000000000000000000000000000000000000000000000000
+    0000000000000000000000000000000000000000000000008060666680662000242600040420
+    2606660000000000000000000000000000000000000000000000000000000000000000000000
+    0000000000000000000000000000000000000000000000000000000000000000000080860666
+    6000000200000060800600200206020024008000800000000000000006800840200000000200
+    0000602024080000000000000060800840200000080080008000004000000800060060000400
+    0000000000000000000000020222222222006</solution>
+    <default>
+        <wall type='0'  />
+    </default>
+	<ground>
+		<marked x='9' y='12' bc='R' />
+		<marked y='7' bc='R' />
+		<blockdoor x='13' y='11' bc='R' />
+		<hint x='25' y='16' >This pusher can allow you to detonate the red blocks without getting hurt.</hint>	</ground>
+	<objects>
+		<wall x='0' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='1' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='2' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='3' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='4' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='5' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='6' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='7' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='8' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='8' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='9' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='8' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='10' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='8' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='11' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<timer y='9' bc='R' val='4' />
+		<timer y='7' bc='R' val='9' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='12' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='13' y='19' />
+		<timer y='13' bc='P' val='0' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='14' y='19' />
+		<timer y='17' bc='P' val='4' />
+		<wall y='11' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='15' y='19' />
+		<timer y='16' bc='P' val='3' />
+		<timer y='13' bc='P' val='3' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='16' y='19' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='17' y='19' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='18' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='19' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<arrow dir='D' x='20' y='19' bc='R' />
+		<arrow dir='D' y='18' bc='R' />
+		<timer y='17' bc='R' val='2' />
+		<timer y='16' bc='P' val='0' />
+		<timer y='15' bc='P' val='9' />
+		<wall y='11' type='5' />
+		<wall y='10' type='5' />
+		<wall y='9' />
+		<arrow dir='R' y='7' bc='Y' />
+		<star y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<arrow dir='D' x='21' y='19' bc='R' />
+		<arrow dir='D' y='18' bc='R' />
+		<timer y='17' bc='R' val='2' />
+		<timer y='16' bc='R' val='2' />
+		<timer y='13' bc='R' val='9' />
+		<wall y='11' type='5' />
+		<wall y='10' type='5' />
+		<wall y='9' type='5' />
+		<arrow dir='D' y='7' bc='Y' />
+		<arrow dir='D' y='6' bc='Y' />
+		<arrow dir='D' y='5' bc='Y' />
+		<arrow dir='D' y='4' bc='Y' />
+		<arrow dir='R' y='3' bc='Y' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='22' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='11' type='5' />
+		<wall y='9' />
+		<wall y='5' />
+		<wall y='4' />
+		<arrow dir='R' y='3' bc='Y' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='23' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<timer y='13' bc='R' val='9' />
+		<wall y='11' type='5' />
+		<metalblock y='9' />
+		<wall y='8' type='5' />
+		<wall y='7' type='5' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='24' y='19' />
+		<wall y='18' />
+		<wall y='17' type='5' />
+		<pusher y='16' dir='D' bc='R' />
+		<earth y='15' />
+		<wall y='9' />
+		<timer y='4' bc='R' val='0' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='25' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='9' type='5' />
+		<wall y='8' />
+		<gem y='6' bc='B' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='26' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' type='5' />
+		<wall y='10' type='5' />
+		<wall y='9' type='5' />
+		<wall y='8' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='27' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='28' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='29' y='19' />
+		<wall y='18' />
+		<wall y='17' />
+		<wall y='16' />
+		<wall y='15' />
+		<wall y='14' />
+		<wall y='13' />
+		<wall y='12' />
+		<wall y='11' />
+		<wall y='10' />
+		<wall y='9' />
+		<wall y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+	</objects>
+	<xye x='13' y='8' lives='1' />
+</level>
+
+<level>
+<title>T27: The fugitive</title>
 <hint>Those guys are tough! You will have to outsmart  them.</hint>
 <bye>Just one level left!</bye>
 <solution>
@@ -13215,7 +14180,7 @@
 </level>
 
 <level>
-<title>T26: Stronger</title>
+<title>T28: Stronger</title>
 <solution>
 000000000000000000000000000404000200204004004006006000600606006006006000
 004004000020000020000200020000000000020006000060000000000000600000000000
