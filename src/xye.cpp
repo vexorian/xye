@@ -3098,6 +3098,7 @@ void xye::Kill()
             GetCheckPoint(cx,cy);
             if (game::GetRevivePoint(cx,cy,nx,ny)) {
                 move(nx,ny);
+                alpha = 0;
             } else {
                 game::deathsq1=game::Square(x,y);
                 lives=0;
@@ -5749,8 +5750,9 @@ void surprise::Transform()
 
         }
 
-    if (changing)
+    if (changing) {
         recycle::add(this);;
+    }
 
 
 }
@@ -5773,7 +5775,6 @@ void surprise::Draw(unsigned int x, unsigned int y)
         wall* wl;
         dangerous* bh;
         impacter* bn;
-        magnetic* mg;
 
         switch(c)
         {
@@ -5783,13 +5784,13 @@ void surprise::Draw(unsigned int x, unsigned int y)
                 bn->Draw(x,y);
                 break;
             case(B_PURPLE):
-                //mg=new magnetic(sq, T_MAGNET, YellowDir!=D_UP && YellowDir!=D_DOWN);
                 SprColor=BC;
-                //mg->Draw(x,y);
-                game::XYE->alpha=32;
-                game::FlashXyePosition();
-                game::XYE->move(sq->sqx, sq->sqy);
-                game::XYE->Draw(x,y);
+                if ( game::XYE->GetLives() != 0 ) {
+                    game::XYE->alpha=32;
+                    game::FlashXyePosition();
+                    game::XYE->move(sq->sqx, sq->sqy);
+                    game::XYE->Draw(x,y);
+                }
                 break;
 
             case(B_GREEN):
@@ -5845,27 +5846,31 @@ void surprise::Draw(unsigned int x, unsigned int y)
     }
 
 
-    if (round)
+    if (round) {
         D.ChangeRect(sz*2,0,sz,sz);
-    else
+    } else {
         D.ChangeRect(sz,0,sz,sz);
+    }
 
     SprColor=BC;
-    if (changing)
+    if (changing) {
         D.SetColors(SprColor,128);
-    else
+    } else {
         D.SetColors(SprColor,255);
+    }
 
     D.Draw(game::screen,x,y);
     D.ChangeRect(3*sz,7*sz,sz,sz);
     SprColor=FBC;
-    if (changing)
+    if (changing) {
         D.SetColors(SprColor,128);
-    else
+    } else {
         D.SetColors(SprColor,255);
+    }
     D.Draw(game::screen,x,y);
-    if (changing)
+    if (changing) {
         recycle::add(this);;
+    }
 
 
 }
@@ -8656,9 +8661,10 @@ void portal::OnEnter(obj *entering)
 
         if (! game::FindGoodPoint(cx,cy,rx,ry, game::XYE, AllowedForPortalTeleport )) game::Error(  "level is full?!");
         ignore=true;
+        xyealpha=game::XYE->alpha;
         game::XYE->alpha=32;
         game::FlashXyePosition();
-        xyealpha=255;
+        
         game::XYE->move(rx,ry);
 
         ignore=false;
