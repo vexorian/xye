@@ -46,8 +46,8 @@ void LoadSkinFile(const char* file);
     
     SDL_Color HintColor;
     
-    SDL_Color BFColor[5];
-    SDL_Color BKColor[5];
+    SDL_Color BFColor[6];
+    SDL_Color BKColor[6];
     
     SDL_Color LevelMenu_info;
     SDL_Color LevelMenu_selected;
@@ -137,8 +137,8 @@ struct parsedSkinFile
     SDL_Color WallColor      [XYE_WALL_VARIATIONS];
     SDL_Color WallSpriteColor[XYE_WALL_VARIATIONS];
     
-    SDL_Color BFColor[5];
-    SDL_Color BKColor[5];
+    SDL_Color BFColor[6];
+    SDL_Color BKColor[6];
     
     SDL_Color HintColor;
     
@@ -320,12 +320,13 @@ string parseSkinColors(TiXmlElement* ele, parsedSkinFile & ps) {
         return tm;
     }
     int i;
-    char cname[5];
+    char cname[6];
     cname[B_YELLOW]='Y';
     cname[B_BLUE]='B';
     cname[B_GREEN]='G';
     cname[B_RED]='R';
     cname[B_PURPLE]='P';
+    cname[5]='W';
 
     //defaults:
     for (int i=0; i<XYE_WALL_VARIATIONS; i++)
@@ -343,11 +344,16 @@ string parseSkinColors(TiXmlElement* ele, parsedSkinFile & ps) {
     if(tm != "") {
         return "";
     }
-    for (i=0;i<5;i++)
+    for (i=0;i<6;i++)
     {
         if (! tryParseColorOptions(ele, ps.BKColor+i, 'B', cname[i] ) )
         switch(i)
         {
+            case 5:
+                ps.BKColor[i].r=255;
+                ps.BKColor[i].g=255;
+                ps.BKColor[i].b=255;
+                break;
             case(B_YELLOW):
                 ps.BKColor[i].r=255;
                 ps.BKColor[i].g=255;
@@ -380,6 +386,12 @@ string parseSkinColors(TiXmlElement* ele, parsedSkinFile & ps) {
         if (! tryParseColorOptions(ele, ps.BFColor+i, 'F', cname[i]   ))
         switch(i)
         {
+            case 5:
+                ps.BFColor[i].r=0;
+                ps.BFColor[i].g=0;
+                ps.BFColor[i].b=0;
+                break;
+
             case(B_YELLOW):
                 ps.BFColor[i].r=255;
                 ps.BFColor[i].g=0;
@@ -574,7 +586,7 @@ TiXmlDocument* defaultxyeconf(const char* path,TiXmlElement *&options)
 
     file << "<?xml version='1.0' encoding='ISO-8859-1'?>\n"
 "<!--xye config file-->\n"
-"<options levelfile='#browse#' skinfile='default.xml' red='102' green='255' blue='102' />";
+"<options levelfile='#browse#' skinfile='default.xml' red='52' green='255' blue='52' />";
 
     file.close();
     TiXmlDocument* r=new TiXmlDocument(path);
@@ -648,7 +660,7 @@ void Init()
 
     haspickedtheme = false;
     enundo=true;
-    r=b=102;
+    r=b=52;
     g=255;
     bini=true;
     GridSize=20;
@@ -760,7 +772,7 @@ void LoadMenuColors(parsedSkinFile & ps)
 void LoadColors(parsedSkinFile & ps)
 {
     LoadMenuColors(ps);
-    for (int i=0; i<5; i++) {
+    for (int i=0; i<6; i++) {
         BFColor[i] = ps.BFColor[i];
         BKColor[i] = ps.BKColor[i];
     }

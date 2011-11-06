@@ -3,7 +3,7 @@
 <pack n="1">
 <name>Logo</name>
 <author>Vexorian</author>
-<description>It is the official XYE logo!</description>
+<description>It is the official Xye logo!</description>
 
 
 	<level>
@@ -54,7 +54,7 @@
             <surprise y="17" bc="BLUE" />
             <surprise y="16" bc="YELLOW" />
             <surprise y="14" bc="RED" />
-            <beast x="1" y="14" kind="4" />
+            <beast x="1" y="14" kind="1" />
 
             <!-- real level: -->
             <wall x='0' x2='29' y='0' />
