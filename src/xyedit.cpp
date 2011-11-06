@@ -2446,6 +2446,8 @@ void drawBlock( SDL_Surface * target, int x, int y, bool round, editorcolor colo
     else if(color!=EDCO_WHITE)
     {
         D.SetColors(&options::BKColor[color],255);
+    } else {
+        D.SetColors(&options::BKColor[5],255);
     }
     D.Draw(target,x,y);
 }
@@ -2457,11 +2459,11 @@ void drawPortal( SDL_Surface * target, int x, int y, editorcolor color, int vari
 
     Uint8 alpha = 255;
     if(variation>0) alpha = 200;
-    if(color!=EDCO_WHITE)
-    {
+    if(color!=EDCO_WHITE) {
         D.SetColors(&options::BKColor[color],alpha);
+    } else if(alpha!=255) {
+        D.SetColors(255,255,255,alpha);
     }
-    else if(alpha!=255) D.SetColors(255,255,255,alpha);
     D.Draw(target,x,y);
     if(variation==2)
     {
@@ -2631,8 +2633,11 @@ void drawTurner( SDL_Surface * target, int x, int y, bool round, editorcolor col
 
     Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
 
-    if(color!=EDCO_WHITE) D.SetColors(&options::BFColor[color],255);
-    else D.SetColors(0,0,0,255);
+    if(color!=EDCO_WHITE) {
+        D.SetColors(&options::BFColor[color],255);
+    } else {
+        D.SetColors(&options::BFColor[5],255);
+    }
     D.Draw(target,x,y);
 }
 
@@ -2670,12 +2675,24 @@ void drawLargeBlockByFlags( SDL_Surface * target, int x, int y, editorcolor colo
     tx = 10;
     ty = var + 15;
     Drawer D(editor::sprites, tx*sz,  ty*sz,sz2,sz2);
-    Uint8 alpha = 255, white=255;
+    Uint8 alpha = 255;
     if( doalpha) alpha = 128;
-    if(editor::buttons->SelectedObjectType == EDOT_LARGEBLOCK) white = 220;
+    
+    
 
-    if(color!=EDCO_WHITE) D.SetColors(&options::BKColor[color],alpha);
-    else D.SetColors(white,white,white,alpha);
+    if(color!=EDCO_WHITE) {
+        D.SetColors(&options::BKColor[color],alpha);
+    } else {
+        Uint8 r = options::BKColor[5].r;
+        Uint8 g = options::BKColor[5].g;
+        Uint8 b = options::BKColor[5].b;
+        if(editor::buttons->SelectedObjectType == EDOT_LARGEBLOCK) {
+            r *= 0.86;
+            g *= 0.86;
+            b *= 0.86;
+        }
+        D.SetColors(r,g,b,alpha);
+    }
     D.Draw(target,x,y);
 
     //top right corner:
