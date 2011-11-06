@@ -3748,7 +3748,11 @@ void block::Draw(unsigned int x, unsigned int y,bool colorless, blockcolor c, bo
     else
         D.ChangeRect(game::GRIDSIZE , 0 , game::GRIDSIZE, game::GRIDSIZE);
 
-    if (! colorless) D.SetColors( &(options::BKColor[c]),255);
+    if (! colorless) {
+        D.SetColors( &(options::BKColor[c]),255);
+    } else {
+        D.SetColors( &(options::BKColor[5]),255);
+    }
     D.Draw(game::screen,x,y);
 }
 
@@ -3817,9 +3821,12 @@ void largeblock::Draw(unsigned int x, unsigned int y)
     tx = 10;
     ty = var + 15;
     Drawer D(game::sprites, tx*sz,  ty*sz,sz2,sz2);
-    Uint8 alpha = 255, white=255;   
-    if(! colorless) D.SetColors(&options::BKColor[(int)(c)],alpha);
-    else D.SetColors(white,white,white,alpha);
+    Uint8 alpha = 255;   
+    if(! colorless) {
+        D.SetColors(&options::BKColor[(int)(c)],alpha);
+    } else {
+        D.SetColors(&options::BKColor[5],alpha);
+    }
     D.Draw(game::screen,x,y);
 
     //top right corner:   
@@ -5603,9 +5610,12 @@ void turner::Draw(unsigned int x, unsigned int y)
     else ty=10;
 
     Drawer D(game::sprites,sz*tx,sz*ty,sz,sz);
-    if (colorless) D.SetColors(0,0,0);
-    else D.SetColors(options::BFColor[c]);
-        D.Draw(game::screen,x,y);
+    if (colorless) {
+        D.SetColors(options::BFColor[5]);
+    } else {
+        D.SetColors(options::BFColor[c]);
+    }
+    D.Draw(game::screen,x,y);
 
 }
 
