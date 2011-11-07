@@ -28,6 +28,8 @@ using std::string;
 namespace options
 {
 
+   
+    
 struct parsedSkinFile;
 void LoadColors(parsedSkinFile & ps);
 void LoadLevelFile();
@@ -62,7 +64,12 @@ void LoadSkinFile(const char* file);
 
 const int MAX_FILENAMES_TO_REMEMBER = 100;
 string currentSkinFile;
+bool disableLevelColors = false;
 
+bool LevelColorsDisabled()
+{
+    return disableLevelColors;
+}
 
 
 //for simplicity's sake I copied it, hopefully we won't ever change this enum
@@ -71,7 +78,8 @@ enum blockcolor
     B_YELLOW=0,
     B_RED=1,
     B_BLUE=2,
-    B_GREEN=3
+    B_GREEN=3,
+    B_PURPLE=4
 };
 
 string homefolder;
@@ -658,6 +666,7 @@ void Init()
     if (bini) return;
 
 
+    disableLevelColors = false;
     haspickedtheme = false;
     enundo=true;
     r=b=52;
@@ -703,6 +712,14 @@ void Init()
             
         }
     }
+    if (tm=ele->Attribute("disablelevelcolors"))
+    {
+        if( tm[0] == 'Y' || tm[0] == 'y' ) {
+            disableLevelColors = true;
+        }
+    }
+    
+    
     
     
     tm=ele->Attribute("levelfile");
@@ -1034,6 +1051,9 @@ void SaveConfigFile()
     }
     if ( HasConsciouslyChosenTheme() ) {
         file<<"pickedtheme='YES' ";
+    }
+    if ( disableLevelColors ) {
+        file<<"disablelevelcolors='YES' ";
     }
     
     file<<"/>"<<endl;

@@ -600,36 +600,41 @@ void Load_Wall(TiXmlElement* el, bool defround)
 
     square* sq;
 
-        el->QueryIntAttribute("x",&LastX);
-        el->QueryIntAttribute("y",&LastY);
+    el->QueryIntAttribute("x",&LastX);
+    el->QueryIntAttribute("y",&LastY);
 
-        el->QueryIntAttribute("x2",&x2);
-        el->QueryIntAttribute("y2",&y2);
+    el->QueryIntAttribute("x2",&x2);
+    el->QueryIntAttribute("y2",&y2);
 
-        //for compat
-        el->QueryIntAttribute("round1",&r1);
-        el->QueryIntAttribute("round3",&r3);
-        el->QueryIntAttribute("round7",&r7);
-        el->QueryIntAttribute("round9",&r9);
+    //for compat
+    el->QueryIntAttribute("round1",&r1);
+    el->QueryIntAttribute("round3",&r3);
+    el->QueryIntAttribute("round7",&r7);
+    el->QueryIntAttribute("round9",&r9);
 
-        //round attrib
-        const char* rnd=el->Attribute("round");
-        if (rnd)
-         for (int i=0; ((rnd[i]!=0) && (i<4)) ;i++)
-           switch (rnd[i])
-           {
-               case('1'): r1=true; break;
-               case('3'): r3=true; break;
-               case('7'): r7=true; break;
-               default : r9=true;
-           }
-
-
+    //round attrib
+    const char* rnd=el->Attribute("round");
+    if (rnd)
+     for (int i=0; ((rnd[i]!=0) && (i<4)) ;i++)
+       switch (rnd[i])
+       {
+           case('1'): r1=true; break;
+           case('3'): r3=true; break;
+           case('7'): r7=true; break;
+           default : r9=true;
+       }
 
 
-        el->QueryIntAttribute("type",&t);
+
+
+    el->QueryIntAttribute("type",&t);
+    
+
+    if (options::LevelColorsDisabled()) {
+        cid = 0;
+    } else {
         el->QueryIntAttribute("color",&cid);
-
+    }
 
 
     //normalize:
@@ -968,16 +973,16 @@ void Load_Earth(TiXmlElement* el)
 
         el->QueryIntAttribute("x",&LastX);
         el->QueryIntAttribute("y",&LastY);
-        el->QueryIntAttribute("color",&c);
         el->QueryIntAttribute("round",&r);
 
     earth* et=new earth(game::SquareN(LastX,LastY));
-
-    if (c)
-    {
-        Uint8 r,g,b;
-        palette::GetColor(c,r,g,b);
-        et->ChangeColor(r,g,b);
+    if (! options::LevelColorsDisabled()) {
+        el->QueryIntAttribute("color",&c);
+        if (c) {
+            Uint8 r,g,b;
+            palette::GetColor(c,r,g,b);
+            et->ChangeColor(r,g,b);
+        }
     }
     if (r) et->SetRound(r);
 
@@ -1301,7 +1306,9 @@ void Load_Portal(TiXmlElement* el)
 
         el->QueryIntAttribute("targetx",&tx);
         el->QueryIntAttribute("targety",&ty);
+    if (! options::LevelColorsDisabled()) {
         el->QueryIntAttribute("color",&c);
+    }
 
     Uint8 R,G,B;
     R=G=B=255;
@@ -1332,7 +1339,9 @@ void Load_TrickDoor(TiXmlElement* el, int opt)
    int c=0;
    el->QueryIntAttribute("x",&LastX);
    el->QueryIntAttribute("y",&LastY);
-   el->QueryIntAttribute("color",&c);
+   if (! options::LevelColorsDisabled()) {
+       el->QueryIntAttribute("color",&c);
+   }
 
    //tdoor(square* sq,tdtype t,bool up, bool right, bool down, bool left);
 
@@ -1386,8 +1395,7 @@ void Load_TrickDoor(TiXmlElement* el, int opt)
    Uint8 red,green,blue;
 
 
-   if (c)
-   {
+   if (c) {
         palette::GetColor(c,red,green,blue);
         td->ChangeColor(red,green,blue);
    }
@@ -1599,8 +1607,10 @@ void LoadDefaults_Wall(TiXmlElement* el)
 {
     int cid=0;
     int t=0;
+    if (! options::LevelColorsDisabled() ) {
         el->QueryIntAttribute("color",&cid);
-        el->QueryIntAttribute("type",&t);
+    }
+    el->QueryIntAttribute("type",&t);
 
     if (cid)
     {
@@ -1619,13 +1629,14 @@ void LoadDefaults_Tdoor(TiXmlElement* el)
 {
     int cid=0;
     int t=0;
+    if (! options::LevelColorsDisabled()) {
         el->QueryIntAttribute("color",&cid);
-
-    if (cid)
-    {
-        Uint8 r,g,b;
-        palette::GetColor(cid,r,g,b);
-        tdoor::ChangeDefaultColor(r,g,b);
+        if (cid)
+        {
+            Uint8 r,g,b;
+            palette::GetColor(cid,r,g,b);
+            tdoor::ChangeDefaultColor(r,g,b);
+        }
     }
 
 }
@@ -1635,13 +1646,15 @@ void LoadDefaults_ForceArrow(TiXmlElement* el)
 {
     int cid=0;
     int t=0;
-        el->QueryIntAttribute("color",&cid);
+        
 
-    if (cid)
-    {
-        Uint8 r,g,b;
-        palette::GetColor(cid,r,g,b);
-        tdoor::ChangeForceArrowDefaultColor(r,g,b);
+    if (! options::LevelColorsDisabled()) {
+        el->QueryIntAttribute("color",&cid);
+        if (cid) {
+            Uint8 r,g,b;
+            palette::GetColor(cid,r,g,b);
+            tdoor::ChangeForceArrowDefaultColor(r,g,b);
+        }
     }
 
 }
@@ -1650,13 +1663,13 @@ void LoadDefaults_Earth(TiXmlElement* el)
 {
     int cid=0;
     int t=0;
+    if (! options::LevelColorsDisabled()) {
         el->QueryIntAttribute("color",&cid);
-
-    if (cid)
-    {
-        Uint8 r,g,b;
-        palette::GetColor(cid,r,g,b);
-        earth::SetDefaultColor(r,g,b);
+        if (cid) {
+            Uint8 r,g,b;
+            palette::GetColor(cid,r,g,b);
+            earth::SetDefaultColor(r,g,b);
+        }
     }
 
 }
@@ -1695,6 +1708,9 @@ void LoadDefaults(TiXmlElement* def)
 
 void LoadFloor(TiXmlElement* floor)
 {
+    if (options::LevelColorsDisabled()) {
+        return;
+    }
     int i,j;
     int x2=0,y2=0;
     int cid=0;
@@ -1724,8 +1740,9 @@ void LoadFloor(TiXmlElement* floor)
         if (y2<LastY) y2=LastY;
 
         //Load color from palette:
-        if (cid)
+        if (cid) {
             palette::GetColor(cid,R,G,B);
+        }
 
 
         //Change squares:
