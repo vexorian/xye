@@ -53,6 +53,7 @@ namespace options {
     unsigned char Green();
     unsigned char Blue();
     
+    bool LevelColorsDisabled();
     bool UndoEnabled();
     bool HasConsciouslyChosenTheme();
 
