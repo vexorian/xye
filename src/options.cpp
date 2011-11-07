@@ -1149,7 +1149,8 @@ struct previewMaker {
 
         D = new Drawer(ls,0,0,sz,sz);
         result = SDL_CreateRGBSurface(0,w,h,32,SDL_ENDIAN32MASKS);
-        SDL_FillRect(result, 0, 0, w, h, 0xFFFFFFFF);
+        Uint32 col = SDL_MapRGB(result->format,  ps.FloorColor );
+        SDL_FillRect(result, 0, 0, w, h, col );
         
         draw(0,0,          1,0, Red(), Green(), Blue());
         
