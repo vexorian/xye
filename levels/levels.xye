@@ -1632,37 +1632,33 @@
     <xye x='8' y='8' lives='1' />
 </level>
 
+
 <level>
-  <title>Change their destination</title>
-  <bye>That was nice.</bye>
- <palette>
-    <color id='1' red='242' green='194' blue='145' />
- </palette>
- <default>
-    <wall color='1' />
- </default>
+    <title>Change their destination</title>
+    <bye>That was nice.</bye>
+    <palette>
+        <color id='1' red='242' green='194' blue='145' />
+    </palette>
+    <default>
+        <wall type='0'  color='1'  />
+    </default>
 	<ground>
 	</ground>
 	<objects>
-		<wall x='0' y='4' />
-		<wall y='3' />
-		<wall y='2' />
-		<wall y='1' />
-		<wall y='0' />
-		<wall x='1' y='5' />
+		<wall x='0' y='5' />
 		<wall y='4' />
 		<wall y='3' />
 		<wall y='2' />
 		<wall y='1' />
 		<wall y='0' />
-		<wall x='2' y='6' />
+		<wall x='1' y='6' />
 		<wall y='5' />
 		<wall y='4' />
 		<wall y='3' />
 		<wall y='2' />
 		<wall y='1' />
 		<wall y='0' />
-		<wall x='3' y='7' />
+		<wall x='2' y='7' />
 		<wall y='6' />
 		<wall y='5' />
 		<wall y='4' />
@@ -1670,7 +1666,17 @@
 		<wall y='2' />
 		<wall y='1' />
 		<wall y='0' />
-		<wall x='4' y='8' round1='1' round7='1' round3='1' round9='1' />
+		<wall x='3' y='8' />
+		<wall y='7' />
+		<wall y='6' />
+		<wall y='5' />
+		<wall y='4' />
+		<wall y='3' />
+		<wall y='2' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='4' y='9' round1='1' round7='1' round3='1' round9='1' />
+		<arrow dir='D' y='8' bc='Y' round='1' />
 		<arrow dir='D' y='7' bc='Y' round='1' />
 		<arrow dir='D' y='6' bc='Y' round='1' />
 		<arrow dir='D' y='5' bc='Y' round='1' />
@@ -1679,7 +1685,8 @@
 		<wall y='2' />
 		<wall y='1' />
 		<wall y='0' />
-		<wall x='5' y='9' round1='1' round7='1' round3='1' round9='1' />
+		<wall x='5' y='10' round1='1' round7='1' round3='1' round9='1' />
+		<arrow dir='D' y='9' bc='Y' round='1' />
 		<arrow dir='D' y='8' bc='Y' round='1' />
 		<gem y='7' bc='B' />
 		<gem y='6' bc='B' />
@@ -1689,7 +1696,8 @@
 		<wall y='2' />
 		<wall y='1' />
 		<wall y='0' />
-		<wall x='6' y='10' round1='1' round7='1' round3='1' round9='1' />
+		<wall x='6' y='11' round1='1' round7='1' round3='1' round9='1' />
+		<arrow dir='D' y='10' bc='Y' round='1' />
 		<arrow dir='D' y='9' bc='Y' round='1' />
 		<gem y='8' bc='B' />
 		<earth y='7' />
@@ -1700,9 +1708,10 @@
 		<arrow dir='R' y='2' bc='Y' round='1' />
 		<arrow dir='R' y='1' bc='Y' round='1' />
 		<wall y='0' />
-		<wall x='7' y='11' />
+		<wall x='7' y='12' round1='1' round7='1' round3='1' round9='1' />
+		<arrow dir='D' y='11' bc='Y' round='1' />
 		<arrow dir='D' y='10' bc='Y' round='1' />
-		<arrow dir='D' y='9' bc='Y' round='1' />
+		<gem y='9' bc='B' />
 		<gem y='8' bc='B' />
 		<gem y='7' bc='B' />
 		<arrow dir='D' y='6' bc='Y' round='1' />
@@ -1712,8 +1721,9 @@
 		<arrow dir='R' y='2' bc='Y' round='1' />
 		<arrow dir='R' y='1' bc='Y' round='1' />
 		<wall y='0' />
-		<wall x='8' y='12' />
-		<wall y='11' />
+		<wall x='8' y='13' />
+		<arrow dir='D' y='12' bc='Y' round='1' />
+		<arrow dir='D' y='11' bc='Y' round='1' />
 		<arrow dir='D' y='10' bc='Y' round='1' />
 		<arrow dir='D' y='9' bc='Y' round='1' />
 		<arrow dir='D' y='8' bc='Y' round='1' />
