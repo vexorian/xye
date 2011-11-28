@@ -10,7 +10,7 @@ are present and also to decorate some levels. The original Kye files are availab
 -->
 <pack>
 <name>Quests, Jungle, Problem and Mystical</name><author>Colin Phipps</author>
-<description>This is a collection of Kye levels by Colin Phipps. The file contains levels from quests.kye, jungle.kye, problem.kye and mystical.kye. Intermediate to hard difficulty. The last four levels are for experts only. Find more at http://games.moria.org.uk/kye/mylevels .</description>
+<description>This is a collection of Kye levels by Colin Phipps. The file contains levels from quests.kye, jungle.kye, problem.kye and mystical.kye. Intermediate to hard difficulty. The last two levels are for experts only. Find more at http://games.moria.org.uk/kye/mylevels .</description>
 
 <level>
 <title>TRICK</title>
@@ -14551,6 +14551,7 @@ are present and also to decorate some levels. The original Kye files are availab
 <xye lives='4' />
 </level>
 
+<!--
 <level>
 <title>RASTER</title>
 <hint>Use both sentries - reversed!</hint>
@@ -14632,5 +14633,5 @@ are present and also to decorate some levels. The original Kye files are availab
 ]]></kyeformat>
 <xye lives='4' />
 </level>
-
+-->
 </pack>
