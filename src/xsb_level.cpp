@@ -129,7 +129,9 @@ bool IsValidXsbLine(std::string &s)
 unsigned int RealSokoLineLength(std::string &s)
 {
     unsigned int L=s.length();
-    while (s[L-1]==' ') L--;
+    while ( (L>=1) && (s[L-1]==' ') ) {
+        L--;
+    }
     return L;
 }
 
