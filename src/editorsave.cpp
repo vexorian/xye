@@ -503,7 +503,7 @@ void saveGroundObject(std::ofstream &file,boardelement &o, int x, int y)
         case EDOT_HINT:
             file << "\t\t<hint ";
             savePosition(file,x,y);
-            file<<">"<<stripXML(o.hint)<<"</hint>";
+            file<<">"<<StripXML(o.hint)<<"</hint>";
             break;
 
     }
@@ -521,33 +521,7 @@ bool editor::save()
 }
 
 
-string  stripXML(const string s)
-{
-    string r="";
-    
-    int k=0;
-    for (int i=0;i<s.length();i++)
-    {
-        switch(s[i])
-        {
-            case '<':
-                r+=s.substr(k,i-k);r+="&lt;";k=i+1;break;
-            case '>':
-                r+=s.substr(k,i-k);r+="&gt;";k=i+1;break;
-            case '&':
-                r+=s.substr(k,i-k);r+="&amp;";k=i+1;break;
-            case '"':
-                r+=s.substr(k,i-k);r+="&quot;";k=i+1;break;    
-                
-            case '\'':
-                r+=s.substr(k,i-k);r+="&apos;";k=i+1;break;    
-            
-        }
-    }
-    if(k<s.length()) r+=s.substr(k,s.length()-k);
-    
-    return r;
-}
+
 
 void saveDefault( std::ofstream & file, string tag, editorboard*board, int i)
 {
@@ -640,25 +614,25 @@ bool editor::save(const string &target, bool onlyOneLevel)
     editorboard::LoadLevelNumber(board, first);
 
     file << "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
-    file << "<pack>\n<name>"<< stripXML(editorboard::filetitle) <<"</name><author>"<< stripXML(editorboard::author) <<"</author>\n<description>"<< stripXML(editorboard::description) <<"</description>\n";
+    file << "<pack>\n<name>"<< StripXML(editorboard::filetitle) <<"</name><author>"<< StripXML(editorboard::author) <<"</author>\n<description>"<< StripXML(editorboard::description) <<"</description>\n";
     
     for (int i=first; i<editorboard::CountLevels(); i++) {
         editorboard::LoadLevelNumber(board, i);
         file << "\n<level>\n";
-        file << "<title>"<< stripXML(board->title) <<"</title>\n";
+        file << "<title>"<< StripXML(board->title) <<"</title>\n";
         
         if(board->hint!="")
         {
-            file << "<hint>"<< stripXML(board->hint) <<"</hint>\n";
+            file << "<hint>"<< StripXML(board->hint) <<"</hint>\n";
         }
         if(board->solution!="")
         {
-            file << "<solution>"<< stripXML(board->solution) <<"</solution>\n";
+            file << "<solution>"<< StripXML(board->solution) <<"</solution>\n";
         }
     
         if(board->bye!="")
         {
-            file << "<bye>"<< stripXML(board->bye) <<"</bye>\n";
+            file << "<bye>"<< StripXML(board->bye) <<"</bye>\n";
         }
         saveColorStuff(file, board);
     

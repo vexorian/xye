@@ -2,6 +2,7 @@
 #include "record.h"
 #include <iostream>
 #include <fstream>
+#include "gen.h"
 
 
 recentry* recording::first;
@@ -204,14 +205,14 @@ char* recording::save()
     return(r);
 }
 
-bool recording::saveInFile(const char* target,const char* levelfn,unsigned int ln)
+bool recording::saveInFile(string target,const char* levelfn,unsigned int ln)
 {
     std::ofstream file;
-    file.open (target,std::ios::trunc | std::ios::out );
+    file.open (target.c_str(),std::ios::trunc | std::ios::out );
     if (!file.is_open()) return false; //ouch just halt.
 
     file << "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><!--Xye replay file-->\n<xyereplay\n     levelfile='";
-    file << levelfn;
+    file << StripXML(levelfn);
     file << "'\n     leveln='";
     file << ln;
     file << "'\n>\n<moves>\n";
