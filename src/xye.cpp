@@ -2500,7 +2500,6 @@ bool FindMagnetic(square* sq, bool rSticky, bool rHorz, magnetic* &mg, bool ds=f
     if (ds && (rSticky) )
         return (mg->IsSticky(rd));
 
-
     return (mg->IsSticky()==rSticky);
 
 }
@@ -4516,13 +4515,14 @@ magnetic::magnetic(square* sq, mgtype kind, bool horizontal)
     type=OT_MAGNETIC;
     LastPushDir=D_DOWN;
     ObjectConstruct(sq);
+    MovedTic = 0;
 }
 bool magnetic::IsSticky() { return (    (mt==T_MAGNET) || (mt==T_STICKY)); }
 
 bool magnetic::IsSticky(edir reqdir)
 {
     if(mt==T_MAGNET) return true;
-    if ((mt==T_STICKY) && (MovedTic+1>=game::Counter()) && (LastPushDir==reqdir))
+    if ( (mt==T_STICKY) && (MovedTic+1>=game::Counter()) && (LastPushDir==reqdir))
     {
 
         return true;
