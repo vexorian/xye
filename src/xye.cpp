@@ -617,7 +617,7 @@ bool game::EvalDirKeys()
 }
 void game::PlayRecording(const string rc)
 {
-    recording::load(rc.c_str());
+    recording::load(rc);
     PlayingRecording=true;
     RecordingMode = RECORDING_MODE_MOVIE;
 }
