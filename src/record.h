@@ -19,7 +19,7 @@ class recording
  public:
     static void init();
 
-    static bool load(const char* st);
+    static bool load(const string st);
     static char* save(); //use delete[] on returned value.
 
     static bool saveInFile(const string target,const char* levelfn,unsigned int ln);

@@ -158,44 +158,41 @@ bool recording::get(edir &r, bool& nomove)
  return true;
 }
 
-bool recording::load(const char* st)
+bool recording::load(const string st)
 {
-    unsigned int L,i=0;
-    if (  (!st) || (!(L=strlen(st)) ) ) return false;
+    unsigned int L = st.length(),i=0;
+    if (L == 0) return false;
     recording::clean();
-    while (i<L)
-    {
-        switch(st[i])
-        {
+    while (i<L) {
+        switch(st[i]) {
             case('4'): recording::add(4); break;
             case('8'): recording::add(8); break;
             case('2'): recording::add(2); break;
             case('6'): recording::add(6); break;
             case('0'): recording::add(0);
-            default: //Allows other characters for example line breaks
+            default: //Allows other characters, for example line breaks
             ;
         }
         i++;
     }
     undos = first;
     return true;
-
 }
+
 char* recording::save()
 {
     unsigned int L=0;
     recentry* tm=NULL;
-    while ( tm= (!tm)?first:tm->next)
+    while ( tm= (!tm)?first:tm->next) {
         L+=tm->count;
+    }
 
 
     char * r=new char[L+1];
     tm=first;
     unsigned int i=0,j;
-    while(i<L)
-    {
-        for (j=1;j<=tm->count;j++)
-        {
+    while(i<L) {
+        for (j=1;j<=tm->count;j++) {
             r[i]=(char)('0'+tm->val);
             i++;
         }
