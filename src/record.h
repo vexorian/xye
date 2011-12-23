@@ -22,7 +22,7 @@ class recording
     static bool load(const char* st);
     static char* save(); //use delete[] on returned value.
 
-    static bool saveInFile(const char* target,const char* levelfn,unsigned int ln);
+    static bool saveInFile(const string target,const char* levelfn,unsigned int ln);
     static bool undo();
 
     static void add(edir a);
