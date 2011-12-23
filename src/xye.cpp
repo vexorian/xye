@@ -2257,21 +2257,18 @@ void game::SaveReplay()
 {
     //save the replay.
     const char* home=getenv("HOME");
-    char* lastgame;
-    if (home)
+    string lastgame;
+    if (home != NULL)
     {
-        lastgame=new char[strlen(home)+strlen("/.xye/levels/lastgame.xyr")+1];
-        strcpy(lastgame,home);
-        strcat(lastgame,"/.xye/levels/lastgame.xyr");
+        lastgame = home;
+        lastgame += "/.xye/levels/lastgame.xyr";
     }
     else
     {
-        lastgame=new char[strlen("./levels/lastgame.xyr")+1];
-        strcpy(lastgame,"./levels/lastgame.xyr");
+        lastgame = "./levels/lastgame.xyr";
     }
 
     recording::saveInFile(lastgame,LevelPack::OpenFile.c_str(),LevelPack::OpenFileLn);
-    delete[] lastgame;
 }
 
 void game::TerminateGame(bool good)
