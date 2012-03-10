@@ -24,8 +24,9 @@ namespace options {
     string GetDir();
     const string& GetDataHomeFolder();
     const string& GetConfigHomeFolder();
-    string GetLevelsHomeFolder(); // ~/.local/share/xye/levels or mylevels
-    string GetResHomeFolder(); // ~/.local/share/xye/levels or mylevels
+    string GetLevelsHomeFolder(); // ~/.local/share/xye/levels or nothing
+    string GetResHomeFolder(); // ~/.local/share/xye/levels or nothing
+    string GetMyLevelsFolder(); //~/.local/share/xye/levels or mylevels
     
     string  fixpath(const string path, bool dohomecheck=false);
     void Init();

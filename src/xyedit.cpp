@@ -202,7 +202,7 @@ void editor::continueAppendFile(bool okclicked, const string text, inputDialogDa
     }
     SavedFile = false;
     string tname=stripDotXyeExtension(text);
-    string tfilename=myLevelsPath+tname;
+    string tfilename=options::GetMyLevelsFolder()+tname;
     std::ifstream file;
     file.open(tfilename.c_str(), std::ios::in );
     if(! file.is_open()) {
@@ -436,8 +436,9 @@ void editor::updateCountRelated()
     sprintf(x,"%d", ln );
     sprintf(y,"%d", t );
     
+    string mylevels = options::GetMyLevelsFolder();
     int i=0;
-    while ( i < filename.length() && i < myLevelsPath.length() && (filename[i]==myLevelsPath[i]) ) {
+    while ( i < filename.length() && i < mylevels.length() && (filename[i]==mylevels[i]) ) {
         i++;
     }
     
@@ -447,14 +448,13 @@ void editor::updateCountRelated()
     
 }
 
-string editor::myLevelsPath;
 
 void editor::saveAs(bool okclicked, const string text, inputDialogData * dat)
 {
     if(okclicked)
     {
         string tname=stripDotXyeExtension(text);
-        string tfilename=myLevelsPath+tname;
+        string tfilename=options::GetMyLevelsFolder()+tname;
         std::ifstream file;
         file.open (tfilename.c_str(), std::ios::in );
         if(file.is_open() && (filename!=tfilename) )
@@ -466,7 +466,7 @@ void editor::saveAs(bool okclicked, const string text, inputDialogData * dat)
 
         filename=tfilename;
         filename_name=tname;
-        filename_path=myLevelsPath;
+        filename_path=options::GetMyLevelsFolder();
         if (save())
         {
             updateCountRelated();
