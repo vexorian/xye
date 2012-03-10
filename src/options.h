@@ -22,9 +22,12 @@ namespace options {
     
     void IgnoreLevelSave();
     string GetDir();
-    const string& GetHomeFolder();
+    const string& GetDataHomeFolder();
+    const string& GetConfigHomeFolder();
+    string GetLevelsHomeFolder(); // ~/.local/share/xye/levels or mylevels
+    string GetResHomeFolder(); // ~/.local/share/xye/levels or mylevels
+    
     string  fixpath(const string path, bool dohomecheck=false);
-    char* fixpath(const char * path,bool dohomecheck=false);
     void Init();
     void Clean();
     const char* GetLevelFile();
