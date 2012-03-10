@@ -179,8 +179,6 @@ class editor
      static string filename_name;
      static string filename_path;
      
-     static string myLevelsPath;
-
     static editorobjecttype SelectedType();
     static bool SavedFile;
     static void SetFile(const string &path, const string &file);
