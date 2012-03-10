@@ -179,4 +179,14 @@ const char* Folder::NextSubFolder()
  return NULL;
 }
 
+bool TryToOpenFolder(const char* path)
+{
+    Folder F(path);
+    if (F.Open()) {
+        F.Close();
+        return true;
+    }
+    return false;
+}
+
 

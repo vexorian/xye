@@ -1,5 +1,8 @@
 #include <cstdio>
 #include <dirent.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+
 class Folder
 {
  private:
@@ -20,3 +23,14 @@ class Folder
 };
 
 bool HasExtension(const char* n, const char* ext );
+
+#ifndef MKDIR
+    #ifdef _WIN32
+         #define MKDIR(d, p) mkdir(d)
+    #else
+         #define MKDIR mkdir
+    #endif
+#endif
+
+bool TryToOpenFolder(const char* path);
+
