@@ -32,12 +32,14 @@ using std::sort;
 
 #include "browser.h"
 
-#define levsfolder "levels/"
-//#define levsfolder "levels/kye/charity/"
+
 
 
 namespace LevelBrowser
 {
+
+const char* LEVELS_FOLDER = "levels/";
+
 
 void PlayLevel();
 void OpenEditor();
@@ -194,21 +196,6 @@ bool Akyexyelevel(const char* f)
     // the standard forces xye extension to be lower case.
 }
 
-char* getHomeDir()
-{
-    char* f =getenv("HOME");
-    string tm;
-    if (f)
-    {
-        tm=f;
-        tm+="/.xye/levels/";       
-    }
-    char * fm = new char[tm.length()+1];
-    strcpy(fm, tm.c_str());
-    return fm;
-}
-
-
 unsigned int CountMatchingFiles(const char* nf)
 {
     Folder F(nf);
@@ -237,19 +224,17 @@ unsigned int CountMatchingFiles(const char* nf)
 
 unsigned int CountMatchingFiles()
 {
-    char* nf=options::fixpath(levsfolder);
-    char *hm=getHomeDir();
+    string nf = options::fixpath(LEVELS_FOLDER);
+    string hm = options::GetLevelsHomeFolder();
     unsigned int c;
 
-    if (strlen(hm)==0)
-       c=CountMatchingFiles(nf);
-    else
-       c=CountMatchingFiles(nf)+CountMatchingFiles(hm);
-
-    delete[] hm;
-    delete[] nf;
-
-return(c);
+    c = CountMatchingFiles(nf.c_str());
+    
+    if ( hm.length() != 0 ) {
+       c += CountMatchingFiles(hm.c_str());
+    }
+ 
+    return(c);
 }
 
 void FillArrayWithFilenames(const char* nf, const char* lvp, unsigned int &c)
@@ -354,10 +339,12 @@ void onItemDoubleClick(listbox* lb)
 void FillArrayWithFilenames()
 {
 
-    char* nf=options::fixpath(levsfolder);
-    Folder F(nf);
+    string nf=options::fixpath(LEVELS_FOLDER);
+    Folder F(nf.c_str() );
 
-    if (! F.Open()) game::Error("cannot find a levels folder");
+    if (! F.Open()) {
+        game::Error("cannot find a levels folder");
+    }
     unsigned int c=0;
     int i;
     const char* N;
@@ -380,10 +367,10 @@ void FillArrayWithFilenames()
     F.Reset();
     while ((c<FileN) && (N=F.NextSubFolder()))
     {
-        char* tm1=new char[strlen(N)+strlen(nf)+2];
-        char* tm2=new char[strlen(N)+2];
+        char* tm1=new char[strlen(N) + nf.length() + 2];
+        char* tm2=new char[strlen(N)+ 2];
 
-        strcpy(tm1,nf);strcat(tm1,N);strcat(tm1,"/");
+        strcpy(tm1,nf.c_str());strcat(tm1,N);strcat(tm1,"/");
         strcpy(tm2,N);strcat(tm2,"/");
 
         //FillArrayWithFilenames(tm1,tm2,c);
@@ -392,16 +379,17 @@ void FillArrayWithFilenames()
         delete[]tm2;
     }
 
-    char * levelsfolder = nf;
+    string levelsfolder = nf;
 
     //Add levels on %home%/.xye/levels
-    nf=getHomeDir();
-    if ((strlen(nf)!=0) && c) FillArrayWithFilenames(nf,nf,c);
-    delete[] nf;
+    nf = options::GetLevelsHomeFolder();
+    if ((nf.length()!=0) && c) {
+        FillArrayWithFilenames(nf.c_str(),nf.c_str(),c);
+    }
+
 
      //sort the array alphabetically
-    sort(FoundFile, FoundFile+c, LevelSorting(levelsfolder) );
-    delete[] levelsfolder;
+    sort(FoundFile, FoundFile+c, LevelSorting(levelsfolder.c_str()) );
     
     Active    =0;
     //Finally find the value of res and if someone has it, make sure Active points to it
@@ -569,8 +557,10 @@ void Show()
 
     
     if (FoundFile!=NULL) delete[] FoundFile;
-    FileN=CountMatchingFiles();
-    if (! FileN) game::Error("No level files found");
+    FileN = CountMatchingFiles();
+    if (! FileN) { 
+        game::Error("No level files found");
+    }
     FoundFile= new string[FileN];
     FillArrayWithFilenames();
 

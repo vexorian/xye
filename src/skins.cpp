@@ -182,20 +182,6 @@ bool Axyeskin(const char* f)
     return HasExtension(f,"xml");
 }
 
-char* getHomeDir()
-{
-    char* f =getenv("HOME");
-    string tm;
-    if (f)
-    {
-        tm=f;
-        tm+="/.xye/res/";       
-    }
-    char * fm = new char[tm.length()+1];
-    strcpy(fm, tm.c_str());
-    return fm;
-}
-
 
 unsigned int CountMatchingFiles(const char* nf)
 {
@@ -225,19 +211,16 @@ unsigned int CountMatchingFiles(const char* nf)
 
 unsigned int CountMatchingFiles()
 {
-    char* nf=options::fixpath(themesfolder);
-    char *hm=getHomeDir();
+    string nf = options::fixpath(themesfolder);
+    string hm = options::GetResHomeFolder();
     unsigned int c;
+    
+    c = CountMatchingFiles(nf.c_str() );
+    if ( hm.length() != 0 ) {
+       c += CountMatchingFiles(hm.c_str() );
+    }
 
-    if (strlen(hm)==0)
-       c=CountMatchingFiles(nf);
-    else
-       c=CountMatchingFiles(nf)+CountMatchingFiles(hm);
-
-    delete[] hm;
-    delete[] nf;
-
-return(c);
+    return(c);
 }
 
 void FillArrayWithFilenames(const char* nf, const char* lvp, unsigned int &c)
@@ -335,21 +318,21 @@ bool onItemSelected(listbox* lb)
 void FillArrayWithFilenames()
 {
 
-    char* nf=options::fixpath(themesfolder);
-    Folder F(nf);
+    string nf = options::fixpath(themesfolder);
+    Folder F(nf.c_str());
 
-    if (! F.Open()) game::Error("cannot find a levels folder");
+    if (! F.Open()) {
+        game::Error("cannot find a levels folder");
+    }
     unsigned int c=0;
     int i;
     const char* N;
     unsigned int L;
     string aux;
 
-    while ((c<FileN) && (N=F.NextFileMatching(Axyeskin)))
-    {
+    while ((c<FileN) && (N=F.NextFileMatching(Axyeskin))) {
         L=strlen(N);
-        if (L<=20)
-        {
+        if (L<=20) {
             i=0;
             FoundFile[c]=nf;
             FoundFile[c]+=N;
@@ -359,12 +342,11 @@ void FillArrayWithFilenames()
 
     // Add levels on subfolders of levels/
     F.Reset();
-    while ((c<FileN) && (N=F.NextSubFolder()))
-    {
-        char* tm1=new char[strlen(N)+strlen(nf)+2];
-        char* tm2=new char[strlen(N)+2];
+    while ((c<FileN) && (N=F.NextSubFolder())) {
+        char* tm1=new char[strlen(N) + nf.length() + 2];
+        char* tm2=new char[strlen(N) + 2];
 
-        strcpy(tm1,nf);strcat(tm1,N);strcat(tm1,"/");
+        strcpy(tm1,nf.c_str());strcat(tm1,N);strcat(tm1,"/");
         strcpy(tm2,N);strcat(tm2,"/");
 
         //FillArrayWithFilenames(tm1,tm2,c);
@@ -373,16 +355,16 @@ void FillArrayWithFilenames()
         delete[]tm2;
     }
 
-    char * levelsfolder = nf;
+    string levelsfolder = nf;
 
     //Add levels on %home%/.xye/res
-    nf=getHomeDir();
-    if ((strlen(nf)!=0) && c) FillArrayWithFilenames(nf,nf,c);
-    delete[] nf;
+    nf = options::GetResHomeFolder();
+    if ( (nf.length()!=0 ) && c ) {
+        FillArrayWithFilenames(nf.c_str(), nf.c_str(), c);
+    }
 
      //sort the array alphabetically
-    sort(FoundFile, FoundFile+c, LevelSorting(levelsfolder) );
-    delete[] levelsfolder;
+    sort(FoundFile, FoundFile+c, LevelSorting(levelsfolder.c_str()) );
 
     Active    =0;
     //Finally find the value of res and if someone has it, make sure Active points to it
