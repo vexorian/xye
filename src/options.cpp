@@ -17,16 +17,21 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include "options.h"
 #include "gen.h"
 #include "xye.h"
+#include "browser.h"
 
 #include<iostream>
 #include<fstream>
 #include<map>
 #include<algorithm>
 #include<string>
+
 using std::string;
 
 namespace options
 {
+//With respect of ~ 
+const char* XDG_DEFAULT_DATA_HOME = "/.local/share";
+const char* XDG_DEFAULT_CONFIG_HOME = "/.config";
 
    
     
@@ -637,7 +642,7 @@ string getXDGDataHome()
         if (home == "") {
             return "";
         }
-        data = home + "/.local/share";
+        data = home + XDG_DEFAULT_DATA_HOME;
         if (! DoesFileExist(data)) {
             return "";
         }
@@ -653,7 +658,7 @@ string getXDGConfigHome()
         if (home == "") {
             return "";
         }
-        config = home + "/.config";
+        config = home + XDG_DEFAULT_CONFIG_HOME;
         if (! DoesFileExist(config)) {
             return "";
         }
@@ -668,11 +673,27 @@ void SetupXDGFolders()
     #ifndef _WIN32
          datahomefolder = getXDGDataHome();
          if (datahomefolder != "") {
-             if (! DoesFileExist(datahomefolder+"/xye")) {
-                 cout << "one day, create "<<(datahomefolder+"/xye")<<endl;
-                 datahomefolder = "";
+             string xyedatahomefolder = (datahomefolder+"/xye");
+             if (! TryToOpenFolder(xyedatahomefolder.c_str())  ) {
+                 MKDIR( xyedatahomefolder.c_str() , S_IRWXU);
+                 if (! TryToOpenFolder(xyedatahomefolder.c_str()) )  {
+                     datahomefolder = "";
+                 } else {
+                     string levelhomefolder = xyedatahomefolder+"/levels";
+                     string reshomefolder = xyedatahomefolder+"/res";
+                     if (! DoesFileExist(levelhomefolder) ) {
+                         cout << "Attempt to create '"<<levelhomefolder<<"'"<<endl;
+                         MKDIR( levelhomefolder.c_str() , S_IRWXU);;
+                     }
+                     if (! DoesFileExist(reshomefolder) ) {
+                         cout << "Attempt to create '"<<reshomefolder<<"'"<<endl;
+                         MKDIR( reshomefolder.c_str() , S_IRWXU);;
+                     }
+
+                     datahomefolder = xyedatahomefolder;
+                 }                 
              } else {
-                 datahomefolder += "/xye";
+                 datahomefolder = xyedatahomefolder;
              }
          }
          //config only holds xyeconf.xml at this moment
@@ -910,7 +931,7 @@ string GetLevelsHomeFolder()
 {
     string f = options::GetDataHomeFolder();
     if (f.length() != 0) {
-        return f + "levels/";
+        return f + "/levels/";
     } else {
         return "";
     }
@@ -920,7 +941,7 @@ string GetResHomeFolder()
 {
     string f = options::GetDataHomeFolder();
     if (f.length() != 0) {
-        return f + "res/";
+        return f + "/res/";
     } else {
         return "";
     }
