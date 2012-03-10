@@ -415,8 +415,8 @@ void LoadActiveFileInfo()
     
     ActiveIsValid= LevelPack::GetFileData(fl.c_str(),FileAuthor,FileDesc,FileTitle,FileLevelsN);
     
-    
-    ActiveIsEditable= ActiveIsValid && (fl.substr(0,editor::myLevelsPath.size()) == editor::myLevelsPath);
+    string mylevs = options::GetMyLevelsFolder();
+    ActiveIsEditable= ActiveIsValid && (fl.substr(0, mylevs.size()) == mylevs);
     string flext = "";
     flext = fl.substr(fl.length()-4);
     ActiveIsEditable= ActiveIsEditable && (flext==".xye" ||flext==".kye" ||flext==".KYE");
@@ -431,7 +431,8 @@ void LoadActiveFileInfo()
 void EditFile()
 {
     CurrentFileName = FoundFile[Active];
-    editor::SetFile(editor::myLevelsPath,CurrentFileName.substr(editor::myLevelsPath.size() ) );
+    string mylevs= options::GetMyLevelsFolder();
+    editor::SetFile(mylevs, CurrentFileName.substr(mylevs.size() ) );
     thewindow->SetTransition(editor::StartSection);
 /*        string commandline=options::ExecutablePath;
         commandline+=" --edit ";
@@ -449,8 +450,9 @@ void EditFile()
 
 void OpenEditor()
 {
-    CurrentFileName = editor::myLevelsPath+"editortest.xye";
-    editor::SetFile(editor::myLevelsPath,"editortest.xye");
+    string mylevs = options::GetMyLevelsFolder();
+    CurrentFileName = mylevs+"editortest.xye";
+    editor::SetFile(mylevs, "editortest.xye");
     thewindow->SetTransition(editor::StartSection);
 /*        string commandline=options::ExecutablePath;
         commandline+=" --edit editortest.xye ";

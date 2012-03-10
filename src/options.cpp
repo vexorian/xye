@@ -937,6 +937,15 @@ string GetLevelsHomeFolder()
     }
 }
 
+string GetMyLevelsFolder()
+{
+    string f = GetLevelsHomeFolder();
+    if (f == "") {
+        return Dir+"/levels/mylevels";
+    }
+    return f;
+}
+
 string GetResHomeFolder()
 {
     string f = options::GetDataHomeFolder();
