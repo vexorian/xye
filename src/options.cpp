@@ -82,7 +82,8 @@ enum blockcolor
     B_PURPLE=4
 };
 
-string homefolder;
+string datahomefolder;
+string confighomefolder;
 bool haspickedtheme=false;
 bool enundo=false;
 bool bini=false;
@@ -544,42 +545,17 @@ TiXmlElement* GetOptionsElement(TiXmlDocument* cnf)
 
 string fixpath(const string path, bool dohomecheck)
 {
-    char* fx=fixpath( path.c_str(),dohomecheck);
-    string s=fx;
-    delete [] fx;
-    return s;
-}
-
-//
-char* fixpath(const char * path,bool dohomecheck)
-{
-    const char* home=getenv("HOME");
-    int L1= strlen(path);
     #ifndef _WIN32
-    if (dohomecheck && home)
-    {
-        char* homeloc=new char[strlen(home)+strlen("/.xye/")+L1+1];
-        strcpy(homeloc,home);
-        strcat(homeloc,"/.xye/");
-        strcat(homeloc,path);
-        if (DoesFileExist(homeloc))
-        {
-            return homeloc;
+        string home = GetDataHomeFolder();
+        if (dohomecheck && (home.length() != 0) ) {
+            string homeloc = home + path;
+            if (DoesFileExist(homeloc.c_str()) ) {
+                return homeloc;
+            }
         }
-        delete[] homeloc;
-    }
     #endif
-    int L2=Dir.length();
-
-    char* r= new char[L1+L2+1];
-    int i;
-    for (i=0;i<L2;i++) r[i]=Dir[i];
-    for (i=0;i<L1;i++) r[i+L2]=path[i];
-    r[L2+L1]='\0';
-    return r;
-
+    return Dir + path;
 }
-
 
 void Default()
 {
@@ -608,63 +584,111 @@ TiXmlDocument* defaultxyeconf(const char* path,TiXmlElement *&options)
 
 TiXmlDocument* getxyeconf(TiXmlElement *&options  )
 {
-    printf("looking for valid xyeconf.xml:\n");
-    const char* home=NULL;
-    
+    printf("Looking for valid xyeconf.xml:\n");
+    string home = GetConfigHomeFolder(), loc;
+    redo:
     TiXmlDocument* r;
-    if (home=getenv("HOME"))
-    {
-        string loc = string(home)+"/.xye/xyeconf.xml";
-        //string loc="./xyeconf.xml";
-        r= new TiXmlDocument(loc.c_str());
-        if (options=GetOptionsElement(r))
-        {
-            printf("found %s\n",loc.c_str() );
-            return (r);
-        }
-        delete r;
-
-
-        r=defaultxyeconf(loc.c_str(),options);
-        if (r)
-        {
-            printf("Generated default xyeconf.xml");
-            return r;
-        }
-
-
+    if (home.length() != 0) {
+        loc = home + "/xyeconf.xml";
+    } else {
+        loc = Dir + "/xyeconf.xml";
     }
-
-
-
-    r= new TiXmlDocument("./xyeconf.xml");
-    if (options=GetOptionsElement(r))
-    {
-        printf("found ./xyeconf.xml\n");
-        return (r);
+    r = new TiXmlDocument(loc.c_str());
+    if (options = GetOptionsElement(r) ) {
+        cout << "xyeconf.xml location: "<<loc<<endl;
+        return r;
     }
     delete r;
-
-    r=defaultxyeconf("./xyeconf.xml",options);
-    if(r)
-    {
-        printf("generated default ./xyeconf.xml\n");
-        return(r);
+    r = defaultxyeconf(loc.c_str(), options);
+    if (r != NULL) {
+        cout << "Generated default " << loc << endl;
+        return r;
+    } else if (home != "") {
+        home = "";
+        goto redo;
+    } else {
+        r = defaultxyeconf("./xyeconf.xml", options);
+        if (r == NULL) {
+            printf("Cannot get xyeconf.xml");
+            return NULL;
+        }
+        cout << "Generated default ./xyeconf.xml" << endl;
+        return r;
     }
-
-
- return NULL;
 
 
 }
 
+string strGetEnv(const char* var)
+{
+    const char* e = getenv(var);
+    if (e == NULL) {
+        return "";
+    } else{
+        return e;
+    }
+}
+
+string getXDGDataHome()
+{
+    string home = strGetEnv("HOME");
+    string data = strGetEnv("XDG_DATA_HOME");
+    if ( (data == "") || ! DoesFileExist(data) ) {
+        if (home == "") {
+            return "";
+        }
+        data = home + "/.local/share";
+        if (! DoesFileExist(data)) {
+            return "";
+        }
+    }
+    return data;
+}
+
+string getXDGConfigHome()
+{
+    string home = strGetEnv("HOME");
+    string config = strGetEnv("XDG_CONFIG_HOME");
+    if ( (config == "") || ! DoesFileExist(config) ) {
+        if (home == "") {
+            return "";
+        }
+        config = home + "/.config";
+        if (! DoesFileExist(config)) {
+            return "";
+        }
+    }
+    return config;
+
+}
+
+
+void SetupXDGFolders()
+{
+    #ifndef _WIN32
+         datahomefolder = getXDGDataHome();
+         if (datahomefolder != "") {
+             if (! DoesFileExist(datahomefolder+"/xye")) {
+                 cout << "one day, create "<<(datahomefolder+"/xye")<<endl;
+                 datahomefolder = "";
+             } else {
+                 datahomefolder += "/xye";
+             }
+         }
+         //config only holds xyeconf.xml at this moment
+         confighomefolder = getXDGConfigHome();
+    #else
+        datahomefolder = "";
+        confighomefolder = "";
+    #endif
+}
 
 void Init()
 {
 
 
     if (bini) return;
-
+    SetupXDGFolders();
 
     disableLevelColors = false;
     haspickedtheme = false;
@@ -728,47 +752,26 @@ void Init()
 
    
     const char * sknfile = ele->Attribute("skinfile");
-    char *skin;
+    string skin;
 
-    if (! sknfile)
-    {
+    if (! sknfile) {
          //12345678901234567
          //"res/default.xml";
          skin = fixpath("res/default.xml",true);
          printf("No skin file selection found in xyeconf.xml, will use default.xml.\n");
-    }
-    else
-    {
-         char* ttt = new char[strlen(sknfile)+5];
-         strcpy(ttt,"res/");
-         strcat(ttt,sknfile);
-         skin=fixpath(ttt,true);
-         delete [] ttt;
+    } else {
+         skin = fixpath(string("res/") + sknfile);
     }
 
-    LoadSkinFile(skin);
-    delete[] skin;
+    LoadSkinFile(skin.c_str() );
 
+    //fix the paths of all the options that are file locations:
 
-//fix the paths of all the options that are file locations:
+    
+    if (LevelFile != "#browse#") {
+        LevelFile = fixpath(string("levels/")+LevelFile, true);
+    }
 
-char* tem;
-
-if (LevelFile != "#browse#")
-{
-   char* tem2=new char[strlen("levels/")+LevelFile.length()+1];
-   strcpy(tem2,"levels/");
-   strcat(tem2,LevelFile.c_str());
-   tem = fixpath(tem2,true);LevelFile=tem;
-   delete[] tem2;
-}
-
-
-    tem = fixpath("./", true);
-    homefolder=tem;
-    if( (homefolder.length() >= 3) && (homefolder.substr( homefolder.length()-3, 3)=="/./") )
-        homefolder.resize( homefolder.length() - 2);
-    delete[] tem;
 
     LoadLevelFile();
     delete cnf;
@@ -892,12 +895,36 @@ int GetGridSize()
     return GridSize;
 }
 
-const string& GetHomeFolder()
+const string& GetDataHomeFolder()
 {
     ! bini? Error("Attempt to call unitialized options"):0;
-    return homefolder;
+    return datahomefolder;
+}
+const string& GetConfigHomeFolder()
+{
+    ! bini? Error("Attempt to call unitialized options"):0;
+    return confighomefolder;
 }
 
+string GetLevelsHomeFolder()
+{
+    string f = options::GetDataHomeFolder();
+    if (f.length() != 0) {
+        return f + "levels/";
+    } else {
+        return "";
+    }
+}
+
+string GetResHomeFolder()
+{
+    string f = options::GetDataHomeFolder();
+    if (f.length() != 0) {
+        return f + "res/";
+    } else {
+        return "";
+    }
+}
 
 
 unsigned char Red()
@@ -1002,7 +1029,7 @@ void PerformLevelFileSave()
 {
     if(options_saveignored) return;
     std::ofstream file;
-    string path = GetHomeFolder()+"lastlevel.conf";
+    string path = GetDataHomeFolder()+"lastlevel.conf";
     file.open (path.c_str(),std::ios::trunc | std::ios::out );
     if (!file.is_open()) return ; //ouch just halt.
     
@@ -1014,7 +1041,7 @@ void PerformLevelFileSave()
     
     file.close();
 
-    path = GetHomeFolder()+"savedgames.conf";
+    path = GetDataHomeFolder()+"savedgames.conf";
     file.open (path.c_str(),std::ios::trunc | std::ios::out );
     if (!file.is_open()) return ; //ouch just halt.
     
@@ -1038,7 +1065,7 @@ string GetSkinFile()
 void SaveConfigFile()
 {
     std::ofstream file;
-    string path = GetHomeFolder()+"xyeconf.xml";
+    string path = GetConfigHomeFolder()+"/xyeconf.xml";
     file.open (path.c_str(),std::ios::trunc | std::ios::out );
     if (!file.is_open()) return ; //ouch just halt.
     file<<"<?xml version='1.0' encoding='ISO-8859-1'?>"<<endl;
@@ -1073,7 +1100,7 @@ void LoadLevelFile()
     std::ifstream file;
 
     // ............. Load saved games
-    string path = GetHomeFolder()+"savedgames.conf";
+    string path = GetDataHomeFolder()+"savedgames.conf";
     file.open (path.c_str(), std::ios::in );
     if ( file.is_open())
     {
@@ -1095,7 +1122,7 @@ void LoadLevelFile()
     file.close();
 
 
-    path = GetHomeFolder()+"lastlevel.conf";
+    path = GetDataHomeFolder()+"lastlevel.conf";
     file.open (path.c_str(), std::ios::in );
     if (!file.is_open())
     {
