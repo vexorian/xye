@@ -7,8 +7,8 @@
 
 <level>
      <title>Round</title>
-     <hint>They are round blocks for a reason.</hint>
-     <bye>That&apos;s just the beginning.</bye>
+     <hint>There is a good reason for the shape of each of the blocks in this level. If you need help you can watch the solution movie. You shall also try to play a couple tutorial levels before playing this package.</hint>
+     <bye>... And that&apos;s just the beginning. Did you know that in the first playable version of this game, a harder version of this level was the first editorial?</bye>
     <solution>
         002002404448086066002060062608080880002022224044480888884088888888860620
         222000000200080888840420222226066620006006206808008002022606600008040440
@@ -562,6 +562,7 @@
 <level>
      <title>Umbrella</title>
      <hint>What&apos;s up with the level&apos;s name?</hint>
+     <bye>What are you waiting for? Take the next level.</bye>
         <ground>
             <blocktrap open='1' x='17' y='12' bc='G' />
             <blocktrap open='1' x='18' y='13' bc='G' />
@@ -1069,7 +1070,7 @@
         </default>
 
 
-  <bye>That was easy.</bye>
+  <bye>Ok, I guess you want something more challenging than that. If you feel so confident try the next level.</bye>
     <ground>
         <marked x='9' y='9' bc='G' />
         <marked x='9' y='7' bc='G' />
@@ -1635,7 +1636,7 @@
 
 <level>
     <title>Change their destination</title>
-    <bye>That was nice.</bye>
+    <bye>There is some charm to the more classical game style of dealing with those moving blocks.</bye>
     <palette>
         <color id='1' red='242' green='194' blue='145' />
     </palette>
@@ -3550,7 +3551,7 @@
 </level>
 <level>
      <title>The world in movement</title>
-     <bye>Having fun?</bye>
+     <bye>Believe it or not, back in 2006 this was the very second tutorial level.</bye>
     <palette>
         <color id="1" red="220" green="220"  blue="220"/>
         <color id="2" red="250" green="250"  blue="250"/>
@@ -3562,9 +3563,8 @@
         <area x="0" y="0" x2="29" y2="19" color="2"/>
     </floor>
     <ground>
-        <hint x="28" y="1">You need that block to stay there then move away</hint>
-        <hint x="13" y="4">Once that green area is active there is not need to come back here</hint>
-        <hint x="5" y="10">You can push clockers and aclockers to manipulate the paths of arrow blocks</hint>
+        <hint x="28" y="1">This is a predicament, is&apos;nt it? You need that block to stay there yet you also need it to leave the red area once you manage to enter the room up there... ...Do you happen to know of a way to move blocks without direct intervention?</hint>
+        <hint x="5" y="10">Those blocks make the arrows rotate. Remember that you can push them to alter the path the arrow blocks take.</hint>
         <blockdoor x="5" y="7" bc="GREEN"/>
         <blockdoor x="26" y="9" bc="RED"/>
         <blockdoor y="8" bc="RED"/>
