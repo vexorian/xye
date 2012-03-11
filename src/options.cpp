@@ -452,7 +452,8 @@ string parseSkinFile(const char*filename, parsedSkinFile & ps)
     bool correct = false;
     TiXmlDocument skinxml(filename);
     if ( ! skinxml.LoadFile()) {
-        return "Not a valid XML file";
+        cout << skinxml.ErrorDesc()<<endl;
+        return "Not a valid XML file.";
     }
     TiXmlElement* ele=skinxml.FirstChild("xyeskin")->ToElement();
     if ( ele == NULL ) {
@@ -553,7 +554,7 @@ string fixpath(const string path, bool dohomecheck)
     #ifndef _WIN32
         string home = GetDataHomeFolder();
         if (dohomecheck && (home.length() != 0) ) {
-            string homeloc = home + path;
+            string homeloc = home + "/" + path;
             if (DoesFileExist(homeloc.c_str()) ) {
                 return homeloc;
             }
@@ -781,7 +782,7 @@ void Init()
          skin = fixpath("res/default.xml",true);
          printf("No skin file selection found in xyeconf.xml, will use default.xml.\n");
     } else {
-         skin = fixpath(string("res/") + sknfile);
+         skin = fixpath(string("res/") + sknfile, true);
     }
 
     LoadSkinFile(skin.c_str() );
@@ -1389,9 +1390,10 @@ void LoadSkinFile(const char* file) {
 }
 
 
-void ChangeSkinFile(const char* file)
+void ChangeSkinFile(const char* file, bool enableLevelColors)
 {
     LoadSkinFile(file);
+    disableLevelColors = ! enableLevelColors;
     game::RefreshGraphics();
     haspickedtheme = true;
     options::SaveConfigFile();
