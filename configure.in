@@ -1,7 +1,7 @@
 # $Id$
 
 # Process this file with autoconf to produce a configure script.
-AC_INIT(xye,0.12.0,vexorian@gmail.com)
+AC_INIT(xye,0.12.1,vexorian@gmail.com)
 
 # Setup for automake
 AM_INIT_AUTOMAKE
@@ -19,7 +19,7 @@ AC_C_CONST
 
 
 # Check for SDL
-SDL_VERSION=1.2.7
+SDL_VERSION=1.2.9
 AM_PATH_SDL($SDL_VERSION, :,
             AC_MSG_ERROR([*** SDL version $SDL_VERSION not found!]))
 CFLAGS="$CFLAGS $SDL_CFLAGS"
