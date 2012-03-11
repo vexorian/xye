@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>Xye readme</title>
+</head>
+<body>
+
+<h1>License information</h1>
+
+Xye is free, open source software. The license used is a copy of the zlib/libpng license. See COPYING.txt for more information.
+
+<h1>Game information</h1>
+
+<p>The website at <a href='http://xye.sourceforge.net'>http://xye.sourceforge.net</a>, provides a very detailed description and screenshots.</p>
+
+
+
+<h2>Win32 users</h2>
+<p>The windows version of xye is portable software, it means that you do not need to install it and can run it directly from the directory you get after
+extracting the zip file. Double click on Xye.exe (With a green ball icon) to play.</p>
+
+
+<h2>Linux/*nix users</h2>
+<h3>Compiling the game</h3>
+<p>You might be able to avoid this step if you can find a package of the game for your operating system distribution. There might be some in your repository (look for Xye). Or in the web.</p>
+<p>In order to compile Xye you need:</p>
+<ul>
+<li>g++ 4 or greater.</li>
+<li>GNU Make.</li>
+<li>Autoconf / Automake (if you wish to use autogen.sh</li>
+<li>The last items may all be installable by using a package called build-essentials.</li>
+<li>The SDL library (Most *nix systems have an easy to install package  for this. Note that since you are compiling a game, you need the -dev (development) packages as well.</li>
+<li>In the same note, SDL_Image and SDL_ttf.</li>
+</ul>
+
+<p>Extract the tar.gz file. Then open a terminal and go to the extracted folder. (ie: type &quot;cd ~/Downloads/xye-0.XX.Y&quot; (Quotes for clarity).</p>
+<p>In the command line type: ./configure && make</p>
+<p>IF the last step was succesful, to install type: make install</p>
+<p>In many systems there might exist a more convenient alternative to make install. For example, in debian and ubuntu-based systems, try typing : sudo checkinstall</p>
+<p>You may also run the game without installing. Just type: &quot;./xye ./&quot; from this directory.</p>
+<p>If ./configure is not succesful, try typing ./autoconf.sh before ./configure.</p>
+
+<p>After installing, the xye command should run the game.</p>
+
+<h2>Selecting a theme</h2>
+<p>The first screen you shall see after running the game for the first time is the theme selector. Pick the theme you like the most. If you make the wrong choice, do not worry. You can always return to the theme selector by using the [F3] Theme button.</p>
+
+<h2>The level browser</h2>
+<p>Here you can select a level file. Newcomers shall try the tutorials.xye file first.</p>
+
+<h2>The gameplay</h2>
+<p>Xye is a green ball that can move one cell up, down, left or right in every move. You can use the keyboard cursors to move or you can also use the mouse cursor. I recommend a keyboard because some levels require some speed.</p>
+
+<h2>The levels</h2>
+<p>Tutorial levels are easy to solve by simple experimentation. You can read hints (The light bulb button) or play solution videos (The film with an S button) if you wish.</p>
+<p>The levels.xye file holds the official levels. At this moment of beta, the order of the levels may not be optimal. Although level 1 is definitely easier than level 15, level 10 is not necessarily harder than level 4. Either way, Xye is designed in a way that lets you skip any level if you want  to. Whenever you leave a level, the progress is saved and will be loaded automatically when you return to it.</p>
+<p>There are plenty of other bonus levels, many made by people in the community using the level editor. Also, the web site might have some other levels that are not included in the game.</p>
+
+<h2>More levels and the editor</h2>
+<p>Visit this address: <a href='http://xye.sourceforge.net/levels.php'>http://xye.sourceforge.net/levels.php</a> if you wish to have information about the level editor and more levels that you can download and play.</p>
+
+
+<h1>Charity</h1>
+<p>Kye was a charityware, although Xye targets to be completelly free software, it is fair to add these lines to the readme: if you really enjoy this game and want to give me a good reason to continue improving it. Instead of asking for donations I am gonna ask you to donate to any Children Charity. If you do it BECAUSE OF XYE, and feel like making the authors feel better, email me at vexorian@gmail.com to tell me you did it :) (do not include any private information/proof as that is risky, just tell me you donated to charity because you enjoyed Xye). I will admit that after 6 years of development this has not happened yet.</p>
+ 
+<h1>Who is responsible for this mess?</h1>
+<p>The AUTHORS file contains information about all those who contributed to this open project. Admitedly, a single developer does most of the work. If you have suggestions or bug reports please send them to vexorian@gmail.com.</p>
+ </body>
+  
