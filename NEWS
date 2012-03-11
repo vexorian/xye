@@ -1,3 +1,17 @@
+Version 0.12.1
+==============
+- Added option to change white/colorless block color in a skin file.
+- The default Xye color is closer to the pure green of old.
+- The skin selector now allows you to disable the ability of levels to customize colors. You might like some skins better by keeping the same color scheme independently of the level data.
+- The skin selector now shows the correct floor color if the skin modifies it.
+- Fixed a crash that was related to microban.xsb in some systems.
+- Fixed a bug related to magnets not behaving deterministically.
+- In *nix, Xye will no longer use files at  ~/.xye, but will instead use $XDG_CONFIG_HOME and $XDG_DATA_HOME to store configuration and custom levels/skins.
+- Various text updates to the official levels.
+- 5 new levels have been added to the official levels file. However, these levels were already available in the web before.
+- Including a new bonus level file.
+- Some skin tweaks.
+
 Version 0.12.0
 ==============
 Major gameplay changes:

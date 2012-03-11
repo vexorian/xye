@@ -8,7 +8,7 @@ xye_LDFLAGS =
 
 
 docedir = $(datadir)/@PACKAGE@
-doce_DATA = README GAMEINTRO.txt xye.svg NEWS COPYING AUTHORS INSTALL
+doce_DATA = ReadMe.html xye.svg NEWS ChangeLog AUTHORS
 
 levelsdir= $(datadir)/@PACKAGE@/levels
 levels_DATA = levels/5levels.xye \
@@ -19,10 +19,12 @@ levels/pxlevels.xye \
 levels/microban.xsb \
 levels/oldtutorials.xye \
 levels/sphinx.xye \
+levels/SuperJustin.xye \
 levels/cracked.xye \
 levels/tutorials.xye \
 levels/Phipps.xye \
-levels/xyester.xye
+levels/xyester.xye \
+levels/SuperJustin.xye
 
 resdir= $(datadir)/@PACKAGE@/res
 res_DATA = res/default.xml \
@@ -35,9 +37,6 @@ res/fon_bold.bmp \
 res/clean40.xml \
 res/clean40.png \
 res/clean40_luminosity.png \
-res/clean30.xml \
-res/clean30.png \
-res/clean30_luminosity.png \
 res/detailed.xml \
 res/detailed20.xml \
 res/detailed30.xml \
@@ -56,8 +55,7 @@ res/detailed_COPYING
 
 
 
-EXTRA_DIST1 = readme.txt \
-             autogen.sh \
+EXTRA_DIST1 =autogen.sh \
              clean.sh \
              build-linux.sh \
              build-win32.sh \
@@ -65,7 +63,6 @@ EXTRA_DIST1 = readme.txt \
              cross-make.sh \
 src/xye.cbp \
 xye.ico \
-res/kye.xcf \
 res/xye.xcf \
 xye.svg \
 src/resource.rc \

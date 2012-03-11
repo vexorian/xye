@@ -122,8 +122,8 @@ unsigned int lvnum;
 // Used for saving level file numbers and recent level files...
 int MemTime = 0;
 typedef std::map< std::pair<int, string>, int> memmap;
-std::map< std::pair<int, string>, int> MemFileLevelNumber;
-std::map< string, int> MemFileLevelTime;
+        memmap MemFileLevelNumber;
+        std::map< string, int> MemFileLevelTime;
 
 
 std::map< std::pair<string,int> , string > MemSavedGame;
@@ -560,7 +560,7 @@ string fixpath(const string path, bool dohomecheck)
             }
         }
     #endif
-    return Dir + path;
+    return Dir + "/" + path;
 }
 
 void Default()
@@ -942,7 +942,7 @@ string GetMyLevelsFolder()
 {
     string f = GetLevelsHomeFolder();
     if (f == "") {
-        return Dir+"/levels/mylevels";
+        return Dir+"/levels/mylevels/";
     }
     return f;
 }
@@ -1060,7 +1060,13 @@ void PerformLevelFileSave()
 {
     if(options_saveignored) return;
     std::ofstream file;
-    string path = GetDataHomeFolder()+"lastlevel.conf";
+    string home = GetDataHomeFolder();
+    string path;
+    if (home.length() > 0) {
+        path = home+"/lastlevel.conf";
+    } else {
+        path = Dir+"/lastlevel.conf";
+    }
     file.open (path.c_str(),std::ios::trunc | std::ios::out );
     if (!file.is_open()) return ; //ouch just halt.
     
@@ -1071,8 +1077,12 @@ void PerformLevelFileSave()
     
     
     file.close();
+    if (home.length() > 0) {
+        path = home+"/savedgames.conf";
+    } else {
+        path = Dir+"/savedgames.conf";
+    }
 
-    path = GetDataHomeFolder()+"savedgames.conf";
     file.open (path.c_str(),std::ios::trunc | std::ios::out );
     if (!file.is_open()) return ; //ouch just halt.
     
@@ -1096,7 +1106,13 @@ string GetSkinFile()
 void SaveConfigFile()
 {
     std::ofstream file;
-    string path = GetConfigHomeFolder()+"/xyeconf.xml";
+    string home = GetConfigHomeFolder();
+    string path;
+    if (home.length() > 0) {
+        path = home+"/xyeconf.xml";
+    } else {
+        path = Dir+"/xyeconf.xml";
+    }
     file.open (path.c_str(),std::ios::trunc | std::ios::out );
     if (!file.is_open()) return ; //ouch just halt.
     file<<"<?xml version='1.0' encoding='ISO-8859-1'?>"<<endl;
@@ -1128,10 +1144,17 @@ void LoadLevelFile()
     MemFileLevelTime.clear();
 
    
-    std::ifstream file;
+    std::ifstream file, file2;
 
     // ............. Load saved games
-    string path = GetDataHomeFolder()+"savedgames.conf";
+    string home = GetDataHomeFolder();
+    string path;
+    if (home.length() > 0) {
+        path = home + "/savedgames.conf";
+    } else {
+        path = Dir + "/savedgames.conf";
+    }
+    cout << "{{{{{{{"<<endl;
     file.open (path.c_str(), std::ios::in );
     if ( file.is_open())
     {
@@ -1153,10 +1176,13 @@ void LoadLevelFile()
     file.close();
 
 
-    path = GetDataHomeFolder()+"lastlevel.conf";
-    file.open (path.c_str(), std::ios::in );
-    if (!file.is_open())
-    {
+    if (home.length() > 0) {
+        path = home + "/lastlevel.conf";
+    } else {
+        path = Dir + "/lastlevel.conf";
+    }
+    file2.open (path.c_str(), std::ios::in );
+    if ( (!file2.is_open()) || (file2.eof() ) ) {
         printf("Could not open lastlevel.conf\n");
         LevelFile = "#browse#";
         lvnum = 0;
@@ -1164,13 +1190,13 @@ void LoadLevelFile()
     }
     string LevelFile;
     int lvnum;
-    while( !file.eof()  )
+    while( !file2.eof()  )
     {
-        getline(file,LevelFile);
+        getline(file2,LevelFile);
         if(LevelFile=="") break;
-        file>>lvnum;
+        file2>>lvnum;
         SaveLevelFile(LevelFile.c_str(), lvnum);
-        getline(file,LevelFile);
+        getline(file2,LevelFile);
     }
 
 }
