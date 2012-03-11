@@ -83,6 +83,18 @@ int main ( int argc, char** argv )
     
         #endif
     }
+    int i=options::Dir.length()-1;
+    while ( (i>=0) && (options::Dir[i]!= '\\') && (options::Dir[i]!= '/') ) {
+        i--;
+    }
+    options::Dir.resize(i);
+    while (i>=0) {
+        if (options::Dir[i]=='\\') {
+            options::Dir[i] = '/';
+        }
+        i--;
+    }
+
     cout << "Will look on "<<options::Dir<<" for data files.\n"<<endl;
 
     if (! TryToOpenFolder(options::Dir.c_str())) {
