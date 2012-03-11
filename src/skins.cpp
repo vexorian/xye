@@ -42,6 +42,7 @@ namespace SkinBrowser
   
 window* thewindow;
 listbox* skinlistbox;
+listbox* levelColorsListBox;
 button* SetButton;
 
 Font* MenuFont;
@@ -404,7 +405,8 @@ void onKeyDown(SDLKey keysim, Uint16 unicode)
 void OnSetButtonClick(const buttondata* data)
 {
     if(ActiveIsValid) {
-        options::ChangeSkinFile(FoundFile[Active].c_str());
+        bool levelColors = ( levelColorsListBox->getSelectedValue() == "YES");
+        options::ChangeSkinFile(FoundFile[Active].c_str(), levelColors);
         thewindow->SetTransition(LevelBrowser::StartSection);
     }
 }
@@ -474,7 +476,14 @@ void StartSection(window* wind)
     thewindow = wind;
     wind->SetCaption("Xye - Select a theme");
     Sint16 lw = 2+game::FontRes->TextWidth(SPACING_TEXT);
-    listbox* ll = listbox::makeNew(0,0, lw , wind->Height);
+    
+    const char* allow = "Custom level colors:";
+    Sint16 captionNeed = game::FontRes->splitByLines(allow, lw - game::GRIDSIZE).size() * game::FontRes->Height() + game::GRIDSIZE;
+    Sint16 listNeed = game::FontRes->Height() * 2 + game::GRIDSIZE;
+    
+
+    Sint16 lh = wind->Height - captionNeed - listNeed;
+    listbox* ll = listbox::makeNew(0,0, lw , lh  );
     skinlistbox = ll;
     ll->depth= 1;
     ll->NormalFont = MenuFont;
@@ -487,6 +496,36 @@ void StartSection(window* wind)
     ll->onItemDoubleClick = onItemDoubleClick;
     ll->depth= 1;
     wind->addControl(ll);
+    
+    control* tmcontrol;
+    tmcontrol = new rectangle(0,lh,lw,captionNeed, options::LevelMenu_info );
+    tmcontrol->depth = 1;
+    wind->addControl(tmcontrol);
+    
+    textblock * tx = new textblock(game::GRIDSIZE/2, lh + game::GRIDSIZE/2, lw - game::GRIDSIZE, captionNeed - game::GRIDSIZE/2, game::FontRes);
+    tx->depth = 2;
+    tx->text= allow;
+    wind->addControl(tx);
+
+    
+    ll = listbox::makeNew(0, captionNeed + lh, lw, listNeed);
+    levelColorsListBox = ll;
+    ll->NormalFont = MenuFont;
+    ll->SelectedFont = MenuSelectedFont;
+    ll->BackgroundColor = options::LevelMenu_menu;
+    ll->SelectedColor = options::LevelMenu_selected;
+    ll->InvalidColor = options::LevelMenu_selectederror;
+    ll->BarColor = options::LevelMenu_info;
+    ll->addItem("Enabled", "YES");
+    ll->addItem("Disabled", "NO");
+    if (options::LevelColorsDisabled()) {
+        ll->selectItem(1);
+    } else {
+        ll->selectItem(0);
+    }
+    ll->depth= 1;
+    wind->addControl(ll);
+
 
     
     

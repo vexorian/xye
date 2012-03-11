@@ -180,9 +180,16 @@ void dialogs::makeButtonDialog(window* target, string prompt, string yescaption,
     dialogs::yesnoCurrent.push(dt);
     target->beginSub();
 
-    control* tmcntrl=new rectangle(px+3,py+3,pw,ph, 0,0,0 );
+    control* tmcntrl;
+    
+    tmcntrl = new rectangle(px-1,py-1,pw+2,ph+2, 0,0,0 );
     tmcntrl->depth=1;
     target->addControl(tmcntrl);
+
+    tmcntrl = new rectangle(px+3,py+3,pw,ph, 0,0,0 );
+    tmcntrl->depth=1;
+    target->addControl(tmcntrl);
+
     
     tmcntrl=new rectangle(px,py,pw,ph, BackgroundColor );
     tmcntrl->depth=2;
@@ -299,6 +306,7 @@ void dialogs::makeTextInputDialog(window* target,  string prompt, string default
     Sint16 px = target->Width/4;
     Sint16 py = (target->Height - ph)/2;
     
+    
     Sint16 ith = lines*FontResource->Height(); 
     Sint16 textblockheight=ph - 4*button::Size - 2 - ith;
     Sint16 itw = pw-2*button::Size;  
@@ -319,7 +327,12 @@ void dialogs::makeTextInputDialog(window* target,  string prompt, string default
     target->onKeyUp=inputOnKeyUp;
     target->onKeyDown=inputOnKeyDown;
 
-    control* tmcntrl=new rectangle(px+3,py+3,pw,ph, 0,0,0 );
+    control * tmcntrl;
+    tmcntrl = new rectangle(px-1,py-1,pw+2,ph+2, 0,0,0 );
+    tmcntrl->depth=1;
+    target->addControl(tmcntrl);
+
+    tmcntrl = new rectangle(px+3,py+3,pw,ph, 0,0,0 );
     tmcntrl->depth=1;
     target->addControl(tmcntrl);
     
