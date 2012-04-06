@@ -2253,6 +2253,47 @@ void editorboard::drawWallInBoard(SDL_Surface*target,int ox,int oy, int x, int y
 
 }
 
+void editorboard::drawTeleportInBoard(SDL_Surface*target,int ox,int oy, int x, int y, int direction)
+{
+    Uint8 variation = 0;
+    switch(direction) {
+    case EDITORDIRECTION_LEFT: case EDITORDIRECTION_RIGHT:
+        for (int i=0; i < XYE_HORZ; i++) if (i != ox) {
+            boardelement & o = objects[i][oy];
+            if ( (o.type == EDOT_TELEPORT) && (o.direction != direction )
+                 && ( o.direction == EDITORDIRECTION_RIGHT || o.direction == EDITORDIRECTION_LEFT) 
+               ) {
+                variation = 1;
+                break;
+            }
+        }
+        break;
+    case EDITORDIRECTION_UP: case EDITORDIRECTION_DOWN:
+        for (int j=0; j < XYE_VERT; j++) if (j != oy) {
+            boardelement & o = objects[ox][j];
+            if ( (o.type == EDOT_TELEPORT) && (o.direction != direction )
+                 && ( o.direction == EDITORDIRECTION_UP || o.direction == EDITORDIRECTION_DOWN) 
+               ) {
+                variation = 1;
+                break;
+            }
+        }    
+        break;            
+    }
+    
+    
+    Uint8 tx,ty;
+    switch(direction) {
+        case EDITORDIRECTION_RIGHT: tx=4;break;
+        case EDITORDIRECTION_DOWN: tx=5; break;
+        case EDITORDIRECTION_LEFT: tx=6; break;
+        default: /*up*/            tx=7;
+    }
+    ty = (variation? 1:  2);
+    Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
+    D.Draw(target,x,y);    
+}
+
 
 void editorboard::draw(SDL_Surface* target)
 {
@@ -2263,19 +2304,19 @@ void editorboard::draw(SDL_Surface* target)
     } else {
         SDL_FillRect(target,x,y,w,h,SDL_MapRGB(target->format,cd.color));
     }
-    for (i=0;i<XYE_HORZ;i++)for (j=0;j<XYE_VERT;j++)
-    {
+    for (i=0;i<XYE_HORZ;i++) for (j=0;j<XYE_VERT;j++) {
         boardelement &o=objects[i][j];
-        if(o.type!=EDOT_NONE)
-        {
-            if ( o.type==EDOT_WALL)
+        if(o.type!=EDOT_NONE) {
+            if ( o.type==EDOT_WALL) {
                 drawWallInBoard(target,i,j,x+i*sz,y+j*sz,o.variation, o.round);
-            else if ( o.type == EDOT_LARGEBLOCK )
+            } else if ( o.type == EDOT_LARGEBLOCK ) {
                 drawLargeBlockInBoard(target,i,j,x+i*sz,y+j*sz,o.color, o.variation, o.direction);
-            else
+            } else if ( o.type == EDOT_TELEPORT) {
+                drawTeleportInBoard(target, i, j, x+i*sz, y+j*sz, o.direction);
+            } else {
                 drawObjectBySpecs(target,x+i*sz,y+j*sz, o.type, o.color, o.round, o.variation, o.direction);
+            }
         }
-
     }
 }
 
@@ -2953,7 +2994,6 @@ void drawHazard( SDL_Surface * target, int x, int y, int variation)
     D.Draw(target,x,y);
 }
 
-
 void drawTeleport( SDL_Surface * target, int x, int y, int direction)
 {
     Uint8 tx,ty;
@@ -2968,6 +3008,8 @@ void drawTeleport( SDL_Surface * target, int x, int y, int direction)
     Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
     D.Draw(target,x,y);
 }
+
+
 
 
 void drawBot( SDL_Surface * target, int x, int y)
