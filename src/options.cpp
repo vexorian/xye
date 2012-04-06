@@ -1154,7 +1154,6 @@ void LoadLevelFile()
     } else {
         path = Dir + "/savedgames.conf";
     }
-    cout << "{{{{{{{"<<endl;
     file.open (path.c_str(), std::ios::in );
     if ( file.is_open())
     {
