@@ -354,6 +354,7 @@ class editorboard: public control
     void applyFromButtons(int x, int y);
     
     void drawWallInBoard(SDL_Surface*target,int ox,int oy, int x,int y, int variation, bool round);
+    void drawTeleportInBoard(SDL_Surface*target,int ox,int oy, int x, int y, int direction);
     void drawLargeBlockInBoard(SDL_Surface * target, int ox,int oy, int x, int y, editorcolor color, int variation, int direction);
     void enforceUniquePortals(int x, int y, int variation, editorcolor color);
 
