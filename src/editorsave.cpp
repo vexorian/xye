@@ -636,7 +636,7 @@ bool editor::save(const string &target, bool onlyOneLevel)
         }
         saveColorStuff(file, board);
     
-        int i,j;
+        int j;
         file << "\t<ground>\n";
         resetSavedPosition();
         for (i=0;i<XYE_HORZ;i++) for (j=0;j<XYE_VERT;j++) saveGroundObject(file,editor::board->objects[i][j],i,XYE_VERT-j-1);
