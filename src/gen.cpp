@@ -21,6 +21,7 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include<cstdio>
 #include<iostream>
 #include<fstream>
+#include <unistd.h>
 
 const float F_RAND_MAX = (float)(RAND_MAX);
 
