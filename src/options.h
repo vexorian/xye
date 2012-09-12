@@ -90,7 +90,7 @@ namespace options {
     bool GetSkinInformation(const char* file, SkinInformation & si);
     void ChangeSkinFile(const char* file, bool enableLevelColors);
     
-    string GetSkinFile();
+    string GetSkinFile(bool stripPath = true);
 }
 
 #endif
