@@ -257,11 +257,11 @@ void FillArrayWithFilenames(const char* nf, const char* lvp, unsigned int &c)
 
 }
 
-struct LevelSorting
+struct SkinSorting
 {
     string lf;
     
-    LevelSorting(const char* levelfolder)
+    SkinSorting(const char* levelfolder)
     {
         lf = levelfolder;
     }
@@ -365,7 +365,7 @@ void FillArrayWithFilenames()
     }
 
      //sort the array alphabetically
-    sort(FoundFile, FoundFile+c, LevelSorting(levelsfolder.c_str()) );
+    sort(FoundFile, FoundFile+c, SkinSorting(levelsfolder.c_str()) );
 
     Active    =0;
     //Finally find the value of res and if someone has it, make sure Active points to it
@@ -454,6 +454,14 @@ void Show()
     if (! FileN) game::Error("No level files found");
     FoundFile= new string[FileN];
     FillArrayWithFilenames();
+    
+    string sk = options::GetSkinFile(false);
+    for (int i=0; i<FileN; i++) {
+        if (FoundFile[i] == sk) {
+            skinlistbox->selectItem(i);
+        }
+    }
+    
 
     LoadActiveFileInfo();
 

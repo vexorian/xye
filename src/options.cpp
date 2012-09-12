@@ -1099,9 +1099,14 @@ void PerformLevelFileSave()
 
 
 
-string GetSkinFile()
+string GetSkinFile(bool stripPath)
 {
-    return StripPath(currentSkinFile);
+    if (stripPath) {
+        return StripPath(currentSkinFile);
+    } else {
+        return currentSkinFile;
+    }
+    
 }
 void SaveConfigFile()
 {
