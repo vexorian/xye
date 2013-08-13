@@ -1,3 +1,12 @@
+Version 0.12.2
+==============
+- Included desktop icon and launcher in the tarball.
+- Fixed compilation issues in gcc 4.7+.
+- Level update: "So close yet so far" no longer allows an excessively easy.
+- Teleports in the editor will now show the "Active" sprite when lined up.
+- The skin dialog remembers the currently selected skin.
+
+
 Version 0.12.1
 ==============
 - Added option to change white/colorless block color in a skin file.
