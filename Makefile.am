@@ -8,7 +8,7 @@ xye_LDFLAGS =
 
 
 docedir = $(datadir)/@PACKAGE@
-doce_DATA = ReadMe.html xye.svg NEWS ChangeLog AUTHORS
+doce_DATA = ReadMe.html NEWS ChangeLog AUTHORS
 
 levelsdir= $(datadir)/@PACKAGE@/levels
 levels_DATA = levels/5levels.xye \
@@ -19,7 +19,6 @@ levels/pxlevels.xye \
 levels/microban.xsb \
 levels/oldtutorials.xye \
 levels/sphinx.xye \
-levels/SuperJustin.xye \
 levels/cracked.xye \
 levels/tutorials.xye \
 levels/Phipps.xye \
@@ -50,7 +49,11 @@ res/detailed_icon.png \
 res/default_icon.png \
 res/detailed_COPYING
 
+pixmapsdir = $(datadir)/pixmaps
+pixmaps_DATA = pixmaps/xye.png
 
+desktopdir = $(datadir)/applications
+desktop_DATA = xye.desktop
 
 
 
@@ -62,11 +65,15 @@ EXTRA_DIST1 =autogen.sh \
              cross-configure.sh \
              cross-make.sh \
 src/xye.cbp \
-xye.ico \
 res/xye.xcf \
-xye.svg \
 src/resource.rc \
-src/Makefile.in
+src/Makefile.in \
+pixmaps/xye.svg \
+pixmaps/xye.ico \
+pixmaps/xye.xpm \
+pixmaps/xye.png \
+xye.desktop
+
 
 
 

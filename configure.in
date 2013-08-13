@@ -1,14 +1,14 @@
 # $Id$
 
 # Process this file with autoconf to produce a configure script.
-AC_INIT(xye,0.12.1,vexorian@gmail.com)
-
-# Setup for automake
-AM_INIT_AUTOMAKE
+AC_INIT([xye],[0.12.2],[vexorian@gmail.com])
 
 # Detect the canonical host and target build environment
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
+
+# Setup for automake
+AM_INIT_AUTOMAKE
 
 # Check for tools
 AC_PROG_CC
