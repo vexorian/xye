@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<pack n="1">
-<author>Mc!</author>
+<pack>
+<name>micky/Mic4.xye</name><author>Mc!</author>
 <description>A couple of special levels by Mc.</description>
+
 <level>
 <name>Mic4</name>
 <title>Mic4</title>
@@ -17,12 +18,12 @@
 <blocktrap x='28' y='16' />
 
 </ground>
-<palette>
+    <palette>
 <color id='2' red='255' green='255' blue='200' mode='MULTIPLY' />
-</palette>
-<default>
+    </palette>
+    <default>
    <wall color='2' />
-</default>
+    </default>
 <normal>
 <wall x="0" y="0" y2='16' />
 <wall x="0" y="17" round1="1" round3="1"/>
@@ -430,13 +431,12 @@
 
 <level>
 <title>4cols</title>
-<palette>
+    <palette>
 <color id='2' red='255' green='255' blue='200'  mode='MULTIPLY'/>
-</palette>
-<default>
+    </palette>
+    <default>
    <wall color='2' />
-</default>
-
+    </default>
     <hint>Sometimes you need to slow down the opponent in order to win a race.</hint>
     <solution>
 000060666666680888888606664044420222000040444606666808888666666666604044
@@ -510,33 +510,32 @@
 888840444444
 
     </solution>
-
-    <ground>
-        <firepad x='0' y='17' />
-        <force dir='D' x='1' y='16' />
-        <blocktrap x='2' y='4' bc='G' />
-        <blocktrap x='3' y='12' bc='Y' />
-        <marked x='4' y='4' bc='B' />
-        <blocktrap x='5' y='3' bc='B' />
-        <blocktrap x='7' y='18' bc='Y' />
+	<ground>
+		<firepad x='0' y='17' />
+		<force dir='D' x='1' y='16' />
+		<blocktrap x='2' y='4' bc='G' />
+		<blocktrap x='3' y='12' bc='Y' />
+		<marked x='4' y='4' bc='B' />
+		<blocktrap x='5' y='3' bc='B' />
+		<blocktrap x='7' y='18' bc='Y' />
         <marked x='7' y='1' bc='G' />
-        <blockdoor x='9' y='5' bc='G' />
-        <blocktrap x='10' y='11' bc='R' />
+		<blockdoor x='9' y='5' bc='G' />
+		<blocktrap x='10' y='11' bc='R' />
         <marked x='10' y='4' bc='G' />
         <marked x='10' y='3' bc='G' />
         <marked x='10' y='2' bc='G' />
-        <blockdoor x='13' y='5' bc='G' />
-        <oneway dir='R' x='14' y='15' />
+		<blockdoor x='13' y='5' bc='G' />
+		<oneway dir='R' x='14' y='15' />
         <blockdoor x='14' y='1' bc='G' />
-        <firepad x='20' y='15' />
+		<firepad x='20' y='15' />
         <firepad x='20' y='3' />
-        <firepad x='21' y='4' />
-        <marked x='22' y='6' bc='R' />
-        <firepad x='23' y='6' />
-        <firepad x='25' y='6' />
-        <marked x='28' y='17' bc='Y' />
-    </ground>
-    <objects>
+		<firepad x='21' y='4' />
+		<marked x='22' y='6' bc='R' />
+		<firepad x='23' y='6' />
+		<firepad x='25' y='6' />
+		<marked x='28' y='17' bc='Y' />
+	</ground>
+	<objects>
         <wall x='0' y='19' type='3' />
         <magnet x='0' y='18' horz='1' kind='1' />
         <wall x='0' y='16' type='3' />
@@ -730,7 +729,7 @@
         <wall x='14' y='3' type='3' />
         <wall x='14' y='2' type='3' />
         <wall x='14' y='0' type='3' />
-        <gemblock x='15' y='18' bc='B' />
+		<gemblock x='15' y='18' bc='B' />
         <wall x='15' y='17' type='3' />
         <wall x='15' y='16' type='3' />
         <lock x='15' y='14' bc='B' />
@@ -904,7 +903,7 @@
         <aclocker x='26' y='5' bc='R' />
         <wall x='26' y='4' type='3' />
         <wall x='26' y='0' type='3' />
-        <blacky x='27' y='19' />
+		<blacky x='27' y='19' />
         <wall x='27' y='18' type='3' />
         <wall x='27' y='17' round1='1' round3='1' type='3' />
         <wall x='27' y='15' round9='1' type='3' />
@@ -919,7 +918,7 @@
         <wall x='27' y='4' type='3' />
         <wall x='27' y='2' type='3' />
         <wall x='27' y='0' type='3' />
-        <gem x='28' y='19' bc='Y' />
+		<gem x='28' y='19' bc='Y' />
         <wall x='28' y='11' type='3' />
         <gemblock x='28' y='9' bc='R' />
         <magnet x='28' y='7' kind='0' />
@@ -927,7 +926,7 @@
         <wall x='28' y='5' type='3' />
         <wall x='28' y='4' type='3' />
         <wall x='28' y='0' type='3' />
-        <blacky x='29' y='19' />
+		<blacky x='29' y='19' />
         <window x='29' y='18' bc='Y' />
         <wild x='29' y='17' />
         <wall x='29' y='16' round7='1' round9='1' type='3' />
@@ -946,8 +945,460 @@
         <wall x='29' y='2' type='3' />
         <wall x='29' y='1' type='3' />
         <wall x='29' y='0' round3='1' type='3' />
-    </objects>
-    <xye x='7' y='8' lives='1' />
+	</objects>
+	<xye x='7' y='8' lives='1' />
 </level>
 
+<level>
+<title>Tiger Temple</title>
+<hint>Some colors can be evil - Try getting the stars</hint>
+<bye>You just defeated the Tiger! Did you get the stars?</bye>
+    <default>
+        <wall type='1'  />
+    </default>
+<palette>
+<color id='2' red='255' green='255' blue='200' mode='MULTIPLY' />
+</palette>
+<default>
+   <wall color='2' />
+</default>
+	<ground>
+	</ground>
+	<objects>
+		<gemblock x='0' y='19' bc='Y' />
+		<gemblock y='18' bc='G' />
+		<gem y='15' bc='Y' />
+		<gem y='13' bc='R' />
+		<gem y='11' bc='Y' />
+		<wall y='9' type='0' />
+		<gem y='7' bc='R' />
+		<wall y='5' type='0' />
+		<timer y='1' bc='Y' val='3' />
+		<beast y='0' dir='R' kind='13' />
+		<wall x='1' y='17' type='0' />
+		<wall y='15' />
+		<wall y='14' type='0' />
+		<wall y='13' />
+		<wall y='12' type='0' />
+		<wall y='11' />
+		<gem y='10' bc='Y' />
+		<wall y='9' />
+		<gem y='8' bc='R' />
+		<magnet y='7' kind='0' />
+		<timer y='6' bc='B' val='4' />
+		<gemblock y='5' bc='R' />
+		<wall y='3' />
+		<wall y='2' type='0' />
+		<wall y='1' />
+		<wall y='0' type='0' />
+		<magnet x='2' y='19' horz='1' kind='0' />
+		<magnet y='18' horz='1' kind='0' />
+		<gem y='16' bc='R' />
+		<wall y='15' type='0' />
+		<gem y='13' bc='R' />
+		<gem y='11' bc='R' />
+		<wall y='9' type='0' />
+		<wall y='7' type='0' />
+		<gem y='6' bc='B' />
+		<wall y='5' type='0' />
+		<gem y='3' bc='Y' />
+		<gem y='1' bc='Y' />
+		<wall x='3' y='19' />
+		<wall y='18' type='0' />
+		<wall y='16' type='0' />
+		<wall y='15' />
+		<gem y='14' bc='G' />
+		<wall y='13' />
+		<wall y='12' type='0' />
+		<wall y='11' />
+		<gem y='10' bc='R' />
+		<wall y='9' />
+		<gem y='8' bc='R' />
+		<wall y='7' />
+		<wall y='6' type='0' />
+		<wall y='5' />
+		<wall y='4' type='0' />
+		<wall y='3' />
+		<wall y='2' type='0' />
+		<wall y='1' />
+		<gem y='0' bc='Y' />
+		<wall x='4' y='19' type='0' />
+		<wall y='18' />
+		<gem y='17' bc='R' />
+		<wall y='16' />
+		<wall y='11' type='0' />
+		<wall y='9' type='0' />
+		<gem y='7' bc='R' />
+		<gem y='5' bc='R' />
+		<gem y='3' bc='R' />
+		<wall y='1' type='0' />
+		<wall x='5' y='19' />
+		<wall y='18' type='0' />
+		<wall y='16' type='0' />
+		<gem y='15' bc='G' />
+		<wall y='14' type='0' />
+		<wall y='13' />
+		<wall y='12' type='0' />
+		<wall y='11' />
+		<gem y='10' bc='Y' />
+		<wall y='9' />
+		<wall y='8' type='0' />
+		<wall y='7' />
+		<wall y='5' />
+		<wall y='4' type='0' />
+		<wall y='3' />
+		<wall y='1' />
+		<gem y='0' bc='R' />
+		<wall x='6' y='19' type='0' />
+		<wall y='18' />
+		<gem y='17' bc='Y' />
+		<wall y='16' />
+		<wall y='14' />
+		<gem y='9' bc='Y' />
+		<wall y='7' type='0' />
+		<timer y='5' bc='B' val='4' />
+		<wall y='3' type='0' />
+		<gem y='1' bc='Y' />
+		<wall x='7' y='19' />
+		<wall y='18' type='0' />
+		<wall y='16' type='0' />
+		<gem y='15' bc='G' />
+		<wall y='14' type='0' />
+		<wall y='13' />
+		<wall y='12' type='0' />
+		<wall y='11' />
+		<wall y='10' type='0' />
+		<wall y='9' />
+		<gem y='8' bc='R' />
+		<wall y='7' />
+		<wall y='6' type='0' />
+		<wall y='5' />
+		<wall y='4' type='0' />
+		<wall y='3' />
+		<gem y='2' bc='R' />
+		<wall y='1' />
+		<wall y='0' type='0' />
+		<wall x='8' y='19' type='0' />
+		<wall y='18' />
+		<gem y='17' bc='Y' />
+		<wall y='16' />
+		<gem y='13' bc='G' />
+		<gem y='11' bc='R' />
+		<wall y='9' type='0' />
+		<gem y='7' bc='Y' />
+		<gem y='5' bc='Y' />
+		<wall y='3' type='0' />
+		<gem y='1' bc='Y' />
+		<wall x='9' y='19' />
+		<wall y='18' type='0' />
+		<wall y='16' type='0' />
+		<wall y='15' />
+		<wall y='13' />
+		<wall y='12' type='0' />
+		<wall y='11' />
+		<gem y='10' bc='G' />
+		<wall y='9' />
+		<wall y='8' type='0' />
+		<wall y='7' />
+		<wall y='6' type='0' />
+		<wall y='5' />
+		<gem y='4' bc='Y' />
+		<wall y='3' />
+		<wall y='2' type='0' />
+		<wall y='1' />
+		<gem y='0' bc='Y' />
+		<wall x='10' y='19' type='0' />
+		<wall y='18' />
+		<gem y='17' bc='Y' />
+		<wall y='15' type='0' />
+		<wall y='13' type='0' />
+		<star y='12' />
+		<timer y='11' bc='B' val='5' />
+		<gem y='9' bc='G' />
+		<gem y='7' bc='G' />
+		<gem y='5' bc='G' />
+		<gem y='3' bc='Y' />
+		<wall y='1' type='0' />
+		<wall x='11' y='19' />
+		<wall y='18' type='0' />
+		<wall y='17' />
+		<gem y='16' bc='Y' />
+		<wall y='15' />
+		<wall y='13' />
+		<wall y='11' />
+		<wall y='10' type='0' />
+		<wall y='9' />
+		<wall y='8' type='0' />
+		<wall y='7' />
+		<wall y='6' type='0' />
+		<wall y='5' />
+		<wall y='4' type='0' />
+		<wall y='3' />
+		<gem y='2' bc='R' />
+		<wall y='1' />
+		<gem y='0' bc='Y' />
+		<wall x='12' y='19' type='0' />
+		<wall y='17' type='0' />
+		<wall y='15' type='0' />
+		<wall y='13' type='0' />
+		<wall y='11' type='0' />
+		<gem y='10' bc='R' />
+		<gem y='8' bc='G' />
+		<gem y='6' bc='G' />
+		<wall y='3' type='0' />
+		<gem y='1' bc='Y' />
+		<wall x='13' y='19' />
+		<gem y='18' bc='R' />
+		<wall y='17' />
+		<gem y='16' bc='R' />
+		<wall y='15' />
+		<wall y='13' />
+		<wall y='11' />
+		<wall y='9' />
+		<wall y='8' type='0' />
+		<wall y='7' />
+		<wall y='5' />
+		<wall y='4' type='0' />
+		<wall y='3' />
+		<wall y='2' type='0' />
+		<wall y='1' />
+		<wall y='0' type='0' />
+		<wall x='14' y='19' type='0' />
+		<wall y='17' type='0' />
+		<wall y='15' type='0' />
+		<wall y='13' type='0' />
+		<wall y='11' type='0' />
+		<wall y='9' type='0' />
+		<wall y='7' type='0' />
+		<gem y='6' bc='R' />
+		<wall y='5' type='0' />
+		<gem y='3' bc='Y' />
+		<wall y='1' type='0' />
+		<wall x='15' y='19' />
+		<gem y='18' bc='Y' />
+		<wall y='17' />
+		<gem y='16' bc='Y' />
+		<wall y='15' />
+		<wall y='13' />
+		<wall y='11' />
+		<wall y='9' />
+		<wall y='7' />
+		<wall y='5' />
+		<gem y='4' bc='Y' />
+		<wall y='3' />
+		<gem y='2' bc='Y' />
+		<wall y='1' />
+		<wall x='16' y='19' type='0' />
+		<wall y='17' type='0' />
+		<wall y='15' type='0' />
+		<wall y='13' type='0' />
+		<wall y='11' type='0' />
+		<wall y='9' type='0' />
+		<wall y='7' type='0' />
+		<gem y='6' bc='G' />
+		<wall y='5' type='0' />
+		<wall y='3' type='0' />
+		<wall y='1' type='0' />
+		<wall x='17' y='19' />
+		<gem y='18' bc='R' />
+		<wall y='17' />
+		<gem y='16' bc='Y' />
+		<wall y='15' />
+		<wall y='13' />
+		<wall y='11' />
+		<wall y='9' />
+		<gem y='8' bc='Y' />
+		<wall y='7' />
+		<wall y='5' />
+		<gem y='4' bc='R' />
+		<wall y='3' />
+		<gem y='2' bc='Y' />
+		<wall y='1' />
+		<gem y='0' bc='R' />
+		<wall x='18' y='19' type='0' />
+		<wall y='17' type='0' />
+		<wall y='15' type='0' />
+		<wall y='13' type='0' />
+		<wall y='11' type='0' />
+		<wall y='9' type='0' />
+		<wall y='7' type='0' />
+		<gem y='6' bc='G' />
+		<wall y='5' type='0' />
+		<wall y='3' type='0' />
+		<wall y='1' type='0' />
+		<wall x='19' y='19' />
+		<gem y='18' bc='Y' />
+		<wall y='17' />
+		<gem y='16' bc='R' />
+		<wall y='15' />
+		<wall y='13' />
+		<wall y='9' />
+		<gem y='8' bc='R' />
+		<wall y='7' />
+		<wall y='5' />
+		<gem y='4' bc='Y' />
+		<wall y='3' />
+		<gem y='2' bc='R' />
+		<wall y='1' />
+		<gem y='0' bc='G' />
+		<wall x='20' y='19' type='0' />
+		<wall y='17' type='0' />
+		<wall y='15' type='0' />
+		<wall y='14' />
+		<wall y='13' type='0' />
+		<wall y='12' />
+		<wall y='11' type='0' />
+		<wall y='10' />
+		<wall y='9' type='0' />
+		<gem y='6' bc='Y' />
+		<wall y='3' type='0' />
+		<wall y='1' type='0' />
+		<wall x='21' y='19' />
+		<gem y='18' bc='Y' />
+		<wall y='17' />
+		<gem y='16' bc='Y' />
+		<gem y='14' bc='Y' />
+		<gem y='12' bc='Y' />
+		<gem y='10' bc='R' />
+		<gem y='8' bc='Y' />
+		<wall y='7' />
+		<wall y='6' type='0' />
+		<wall y='5' />
+		<wall y='4' type='0' />
+		<wall y='3' />
+		<gem y='2' bc='Y' />
+		<wall y='1' />
+		<gem y='0' bc='G' />
+		<wall x='22' y='19' type='0' />
+		<wall y='17' type='0' />
+		<wall y='16' />
+		<wall y='15' type='0' />
+		<wall y='14' />
+		<wall y='13' type='0' />
+		<wall y='12' />
+		<wall y='11' type='0' />
+		<wall y='10' />
+		<wall y='9' type='0' />
+		<wall y='8' />
+		<wall y='7' type='0' />
+		<gem y='5' bc='Y' />
+		<wall y='3' type='0' />
+		<wall y='1' type='0' />
+		<wall x='23' y='19' />
+		<gem y='18' bc='R' />
+		<wall y='17' />
+		<gem y='16' bc='Y' />
+		<gem y='14' bc='Y' />
+		<wall y='13' />
+		<gem y='12' bc='R' />
+		<gem y='10' bc='Y' />
+		<gem y='8' bc='Y' />
+		<wall y='7' />
+		<gem y='6' bc='Y' />
+		<wall y='5' type='0' />
+		<gem y='4' bc='Y' />
+		<wall y='3' />
+		<gem y='1' bc='Y' />
+		<gem y='0' bc='R' />
+		<wall x='24' y='19' type='0' />
+		<wall y='17' type='0' />
+		<wall y='15' type='0' />
+		<wall y='13' type='0' />
+		<wall y='11' type='0' />
+		<wall y='10' />
+		<wall y='9' type='0' />
+		<wall y='7' type='0' />
+		<wall y='5' />
+		<wall y='3' type='0' />
+		<wall y='2' />
+		<wall y='1' type='0' />
+		<wall x='25' y='19' />
+		<gem y='18' bc='Y' />
+		<wall y='17' />
+		<gem y='16' bc='Y' />
+		<wall y='15' />
+		<gem y='14' bc='R' />
+		<wall y='13' />
+		<gem y='12' bc='Y' />
+		<gem y='10' bc='Y' />
+		<wall y='9' />
+		<gem y='8' bc='Y' />
+		<wall y='7' />
+		<gem y='6' bc='Y' />
+		<wall y='5' type='0' />
+		<gem y='4' bc='Y' />
+		<gem y='2' bc='Y' />
+		<gem y='0' bc='Y' />
+		<wall x='26' y='19' type='0' />
+		<wall y='17' type='0' />
+		<wall y='15' type='0' />
+		<wall y='13' type='0' />
+		<wall y='12' />
+		<wall y='11' type='0' />
+		<wall y='9' type='0' />
+		<wall y='7' type='0' />
+		<wall y='5' />
+		<wall y='4' type='0' />
+		<wall y='3' />
+		<wall y='2' type='0' />
+		<wall y='1' />
+		<wall y='0' />
+		<wall x='27' y='19' />
+		<gem y='18' bc='Y' />
+		<wall y='17' />
+		<gem y='16' bc='Y' />
+		<wall y='15' />
+		<gem y='14' bc='Y' />
+		<wall y='13' />
+		<wall y='12' type='0' />
+		<wall y='11' />
+		<gem y='10' bc='Y' />
+		<wall y='9' />
+		<gem y='8' bc='Y' />
+		<wall y='7' />
+		<gem y='6' bc='R' />
+		<gem y='4' bc='Y' />
+		<gem y='2' bc='R' />
+		<timer y='1' bc='B' val='4' />
+		<star y='0' />
+		<timer x='28' y='19' bc='B' val='4' />
+		<gem y='17' bc='Y' />
+		<wall y='15' type='0' />
+		<gem y='13' bc='Y' />
+		<gem y='11' bc='Y' />
+		<wall y='9' type='0' />
+		<gem y='7' bc='Y' />
+		<wall y='5' type='0' />
+		<wall y='4' />
+		<wall y='3' type='0' />
+		<wall y='2' />
+		<wall y='1' type='0' />
+		<wall y='0' />
+		<wall x='29' y='18' type='0' />
+		<wall y='17' />
+		<wall y='16' type='0' />
+		<wall y='15' />
+		<wall y='14' type='0' />
+		<wall y='13' />
+		<wall y='12' type='0' />
+		<wall y='11' />
+		<wall y='10' type='0' />
+		<wall y='9' />
+		<timer y='8' bc='B' val='4' />
+		<wall y='7' />
+		<wall y='6' type='0' />
+		<wall y='5' />
+		<wall y='4' type='0' />
+		<wall y='3' />
+		<wall y='2' type='0' />
+		<wall y='1' />
+		<wall y='0' type='0' />
+		<portal x='12' y='18' defcolor='0' targetx='0' targety='3' />
+		<portal x='4' y='12' defcolor='1' targetx='0' targety='4' />
+		<portal x='12' y='4' defcolor='2' targetx='1' targety='4' />
+		<portal x='6' y='4' defcolor='3' targetx='29' targety='19' />
+		<portal x='29' y='19' defcolor='3' targetx='6' targety='4' />
+	</objects>
+	<xye x='0' y='2' lives='1' />
+</level>
 </pack>
