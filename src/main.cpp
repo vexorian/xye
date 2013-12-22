@@ -87,7 +87,7 @@ int main ( int argc, char** argv )
     while ( (i>=0) && (options::Dir[i]!= '\\') && (options::Dir[i]!= '/') ) {
         i--;
     }
-    options::Dir.resize(i);
+    options::Dir.resize(i+1);
     while (i>=0) {
         if (options::Dir[i]=='\\') {
             options::Dir[i] = '/';
