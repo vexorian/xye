@@ -27,6 +27,7 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include "xyedit.h"
 #include "skins.h"
 #include <iostream>
+#include <fstream>
 
 #define sz game::GRIDSIZE //typing game::GRIDSIZE is an annoyance
 
@@ -213,7 +214,7 @@ class gamepanel : public control
 // Class game methods.
 //
 
-void game::InitGraphics()
+bool game::InitGraphics()
 {
     xye::useDirectionSprites = options::xyeDirectionSprites;
 
@@ -222,12 +223,22 @@ void game::InitGraphics()
     PlayerColor.b=options::Blue();
     PlayerColor.unused=255;
 
-     GRIDSIZE=options::GetGridSize();
-     SKIN=options::GetSpriteFile();
-
-
-
-    const char *tm=SKIN.c_str();
+    GRIDSIZE = options::GetGridSize();
+    const char *tm = options::GetSpriteFile();
+    if ( tm == NULL ) {
+        printf("Error loading sprites file (Possibly wrong specified data folder?)\n");
+        return false;
+    }
+    SKIN = tm;
+    ifstream f(tm);
+    if (! f.good()) {
+        printf("File does not exist: %s\n", tm); 
+        f.close();
+        return false;
+    } else {
+        f.close();
+    }
+    
     printf("Loading %s\n",tm);
     sprites.sprites=IMG_Load(tm);
     {
@@ -316,6 +327,7 @@ void game::InitGraphics()
     GameWidth=XYE_HORZ*GRIDSIZE+XYE_GAMEX+XYE_XTRA_X;
     GameHeight=XYE_VERT*GRIDSIZE+XYE_GAMEY+2*XYE_XTRA_Y+ GRIDSIZE+2+1+GRIDSIZE;
  
+    return true;
 }
 
 void game::CleanGraphics()
@@ -386,7 +398,9 @@ int game::Init(const char* levelfile)
 
 
 
-    game::InitGraphics();
+    if (! game::InitGraphics() ) {
+        return 1;
+    }
     
     if (!window::InitSDL()) return 0;
     printf("Setting video mode...\n");
