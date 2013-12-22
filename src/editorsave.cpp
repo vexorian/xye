@@ -636,16 +636,16 @@ bool editor::save(const string &target, bool onlyOneLevel)
         }
         saveColorStuff(file, board);
     
-        int j;
+        int i_redeclaration,j;
         file << "\t<ground>\n";
         resetSavedPosition();
-        for (i=0;i<XYE_HORZ;i++) for (j=0;j<XYE_VERT;j++) saveGroundObject(file,editor::board->objects[i][j],i,XYE_VERT-j-1);
+        for (i_redeclaration=0;i_redeclaration<XYE_HORZ;i_redeclaration++) for (j=0;j<XYE_VERT;j++) saveGroundObject(file,editor::board->objects[i_redeclaration][j],i_redeclaration,XYE_VERT-j-1);
         file << "\t</ground>\n";
         file << "\t<objects>\n";
         resetSavedPosition();
-        for (i=0;i<XYE_HORZ;i++) for (j=0;j<XYE_VERT;j++)
+        for (i_redeclaration=0;i_redeclaration<XYE_HORZ;i_redeclaration++) for (j=0;j<XYE_VERT;j++)
         {
-            saveNormalObject(file,editor::board->objects[i][j],i,XYE_VERT-j-1);
+            saveNormalObject(file,editor::board->objects[i_redeclaration][j],i_redeclaration,XYE_VERT-j-1);
         }
         savePortals( file, editor::board);
         
