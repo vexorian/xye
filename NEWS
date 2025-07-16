@@ -1,0 +1,390 @@
+Version 0.12.2
+==============
+- Included desktop icon and launcher in the tarball.
+- Fixed compilation issues in gcc 4.7+.
+- Level update: "So close yet so far" no longer allows an excessively easy.
+- Teleports in the editor will now show the "Active" sprite when lined up.
+- The skin dialog remembers the currently selected skin.
+
+
+Version 0.12.1
+==============
+- Added option to change white/colorless block color in a skin file.
+- The default Xye color is closer to the pure green of old.
+- The skin selector now allows you to disable the ability of levels to customize colors. You might like some skins better by keeping the same color scheme independently of the level data.
+- The skin selector now shows the correct floor color if the skin modifies it.
+- Fixed a crash that was related to microban.xsb in some systems.
+- Fixed a bug related to magnets not behaving deterministically.
+- In *nix, Xye will no longer use files at  ~/.xye, but will instead use $XDG_CONFIG_HOME and $XDG_DATA_HOME to store configuration and custom levels/skins.
+- Various text updates to the official levels.
+- 5 new levels have been added to the official levels file. However, these levels were already available in the web before.
+- Including a new bonus level file.
+- Some skin tweaks.
+
+Version 0.12.0
+==============
+Major gameplay changes:
+- A new block has been added, purple.
+- Purple arrows and dot blocks are as fast as red arrows.
+- Purple pushers are twice as fast as yellow pushers and bounce differently.
+- Purple timers are like a mix between the green and red ones, explode a time after Xye activates them.
+- Purple surprise blocks teleport Xye to their location if pushed.
+- Purple gems do not exist, instead purple gem blocks are activated once you get all the stars in the level.
+
+Other features:
+- The listbox control has been made closer to the familiar idea in usual GUI environments. For example, it supports the mouse wheel and can have a scroll bar if necessary.
+- Xye's default color has been changed to a less saturated green tone.
+
+Official levels:
+- Added two new tutorials.
+- Updated the order of some of the levels.
+- New levels: Complexity, puzzle, Chekhov's brick, Robot bot trouble, .
+
+Updates to other level files:
+- Phipps.xye: Changed the color scheme for the levels from problem.kye.
+
+New editor features:
+- Slightly more compatibility with level features.
+- 
+
+Bug fixes:
+- Fixed the bug that made .Kye levels in the editor load with black walls, background and earth.
+- Fixed bugs related to not being able to play the level's solution / a replay file in the first attempt when there is a saved game for that level.
+- Other minor features and bug fixes.
+
+
+Version 0.11.2
+==============
+Updates to the official levels:
+- Firestrikers: It is no longer impossible to get the gems after the star.
+- Added new levels, for example: "Turn around", "Savage stuff", "So typical",  "4x4-4" and more.
+- Added a new tutorial.
+- In total we now have 26 tutorials and 60 official levels.
+- Removed kyeclone.xye. Instead Phipps.xye was added, which includes 44 many great Kye levels.
+
+New editor features:
+- Can place ground hints.
+- Undo button is no longer disabled when recording a solution.
+- It is now possible to change wall, earth and floor colors in a level. 
+
+Bug fixes:
+- Fix compatibility with OS/X line breaks in xsb level files.
+- Fix the bug that made the editor load teleporters as doors in .kye files.
+- Fixed a bug that was causing random editor crashes.
+- Fixed a bug that could make the game hang if a level was modified and saved data was incompatible.
+- Fixed a crash that could happen when trying to respawn Xye in a full level. If that situation happens, you will lose the game, however.
+- 
+
+There were tweaks and fixes to the skins. A 30x30 of the clean skin was also added.
+
+
+Version 0.11.1
+==============
+- Fixed a bug that caused the editor to sometimes save wrong round wall data when saving files with multiple levels.
+- The editor is once again able to rotate teleport objects.
+- Fixed a bug that made the editor replace description and author of a level file when adding/removing levels from it.
+- Fixed a crash when typing large words in input boxes.
+- The editor can now load kye level files.
+- The editor can now place hidden path squares.
+- The editor can load and save ground hints  from level files. Although there is no interface in place to create or edit them.
+- The editor can now change the level number of a level in a level file.
+- We decided to stop including kye.xye with the game's package. As those levels are from shareware Kye and it is probably best not to redistribute them. Instead, a new level file called kyeclone.xye is available, with 14 simple levels that try to explain some of the basic concepts from the original Kye.
+- New official level: Forces that we are not supposed to control.
+- In total, this version brings 15 new levels.
+- Improved the way the game creates its window icon.
+
+Version 0.11.0
+==============
+- A new, detailed game skin.
+- Also a Kye Jr. appearance skin.
+- The editor now supports level files with multiple levels.
+- The editor can also import the levels from multiple level files.
+- It is now easier to change object rotation in the editor.
+- Minor bug fixes.
+- New level: Take them out.
+
+
+Version 0.10.0
+==============
+- Whenever you leave a level file, the positions of all objects and the UNDO history
+ will be saved automatically. The next time you open the level, it will be loaded
+ automatically.
+- The undo last move command is now enabled by default.
+- A prompt Yes/No dialog will ask for confirmation before leaving the game.
+- Moving Xye once will make the idle arrows go away permanently until Xye moves into a portal or dies.
+- Fixed colors in one of the extra level files: Mic4.
+
+Version 0.9.3
+=============
+- The in-game buttons now have tooltips.
+- Many graphical updates, specially to the clean40 skin.
+- Fast forward now also affects the game's hint marquee's speed.
+- The text input dialog used by the editor now has a clear button, in case you need to quickly erase long messages.
+- Change to sprites file: number blocks now have a sprite for each block, insteado of a hard coded alpha channel change.
+- Change to skin file features: It is now possible to alter the floor , earth, force arrow and hint colors.
+- Added new official levels, the current count is 25 tutorials, 50 official levels.
+- Added a new level to sphinx.xye
+- Some levels have also been updated to remove exploit solutions,  to make them more viable and also to look better.
+- Fixed a game bug that made red turner blocks explode when hit by a scroll (one way) block. This was not intended behavior.
+- Fixed a bug that made the editor crash or have a wall graphics glitch in the first load in some situations.
+- Fixed an issue with wall sprites not updating correctly after a blue surprise block becomes a wall nearby, this was not noticeable on skins with border-less walls.
+- Fixed an issue that stopped replay files from loading correctly.
+- Fixed a bug with how pits were recolored if they were above non-white floor.
+- Fixed a bug about large blocks or snakes above a pit that suddenly become  a single cell object, they were supposed to fall into the pit, they do now.
+- The way the side at which round objects slide when pushed against another round object has been updated. It is now guaranteed to pick the side to which the block slides at 50% chance. It was previously not the case and the distribution did not work correctly. This change may make replays/solutions from older versions stop working correctly.
+- Fixed a bug that made the more advanced monsters able to get confused some times when using teleports. This may also make some old custom solutions and levels stop working correctly.
+- Fixed a bug that made the editor unable load levels that use the deprecated wall type.
+
+
+
+
+Version 0.9.2
+=============
+- There is now a working GUI to easily change the game's theme.
+- The bottom panel will now show the number of acquired stars while playing a level.
+- Hint button will now only require a single click to begin showing the hint and another click to stop it.
+- The editor can now place wild card blocks above marked areas.
+- Various graphical updates, including polishing of the skins and the addition of two new skins: classic32 (the classic skin now resized to have a 32 pizels cell size) and celan40 (the default skin resized to have a 40 pixels cell size). The new skins should be useful in larger resolutions.
+- Small bug fix regarding snakes sometimes causing graphical glitches when their last segment is killed.
+- New levels: "Choose your own adventure" in the main level list and the xmas level pack.
+
+Version 0.9.1
+=============
+- Game, editor and editor test all execute in the same process.
+- The editor is now able to record and save solutions for your levels.
+- Xye will remember the last level number you played in up to 100 level files.
+- Xye now supports .slc sokoban level file format (XML).
+- Added some few small levels to balance the load of larger levels. Level count raises to 25 tutorials, 41 official levels.
+- Sprite rendering system now allows a luminosity mask.
+- Wall color for each wall type and also the door color can be set in the skin file.
+- Wall color supports real recolor when the skin supports so, allowing many more wall colors in level files. Take a look at the levels in levels.xye and the skin in default.xml for more information.
+- Some minor graphic updates for the default skin.
+- In the classic skin, monsters such as the wards and the spinners were modified to look closer to the ones in the default skin.
+- The movement of the spinner beasts looks better.
+- In *n*x* environments, documentation dir has been changed to $prefix/share/doc/xye .
+
+
+Version 0.9.0
+==============
+- The interface is a little easier to use, adding GUI buttons for actions that were previously only accessible through keyboard.
+- Many new official and bonus levels. (32 new official levels).
+- Tutorials were replaced by simpler and quicker levels, The old tutorials are still available in the oldtutorials level file.
+- The default theme has been heavily modified torwards a different, cleaner style, the older theme is still available.
+- New objects: stars and large blocks.
+- The editor now supports portal and factory objects.
+- Various bug fixes.
+- "intertia" factories now correctly create the inertia in moving mode.
+- Fixed a small glitch with blue walls turning darker after an undo operation.
+- Firepads now turn the red blocks into fire red blocks, which are not too different to fireballs in gameplay, besides that they still count as red 
+blocks. A bug has also been fixed that made these 'fireballs' get ahead by an extra frame, this makes firepads slightly slower than before.
+- The level browser sorts files alphabetically.
+- Clicking clear twice in the editor allows you to clear the layout completely, including the border walls.
+- Source compilable in newer g++ versions (which now require more explicity #includes).
+- Xye will remember the last file you played and the level number in it.
+
+
+ Version 0.8.0
+================
+ - A level editor is included.
+ - Fixed behaviour of green timer blocks.
+ - Added metal blocks.
+ - Colliding fireballs now destroy each other correctly.
+ - A fire ball destroying a bomb-timer block will cause an explosion.
+ - Number-block (timers) and wildcards now can have a round variation.
+ - Sticky blocks behave correctly with bots.
+ - A new beast: the tiger (very hard)-
+ - Game skins were updated.
+ - The snake creature is able to go above pits if it is long enough.
+ - Using TTF fonts instead of bitmap fonts to support UTF8 encoding in level files.
+
+ Version 0.7.6.2
+ ===============
+ - This version simply updates the source package to add a configure script, the game itself has no changes so it still counts as 0.7.6 
+
+
+ Version 0.7.6
+ =============
+ - Added the ability to undo movements.
+ - Can now play level files in standard sokoban format.
+ - Fixed compile errors in font.cpp 
+ - New level: Dilema
+ - levels.xye renamed to tutorials.xye and tour.xye renamed to levels.xye . levels.xye is now to be considered an official level pack.
+ - Improved the sprites for marked areas and gems.
+
+ - No longer gets to consume a lot of memory if accidentally left open in a level for a long of time.
+ - Various minor fixes.
+
+
+ Version 0.7.5
+ =============
+ - Added the ability to save/play replays.
+ - Levels may contain and play their solution.
+ - Reduced processor usage thanks to some caching added to recolor methods.
+ - Changed the behaviour of old beasts so it is closer to their behaviour in original kye.
+ - Fixed a timing bug related to the movement of beasts.
+ - Remove every randomization factor that could affect gameplay. The rules that used to rely on random numbers are still
+   difficult to predict, but if you play the same level twice and do exactly the same moves the outcome is supposed to be
+   the same, namely the AI of monsters and the behaviour of round objects when moving towards other round objects were 
+   changed
+ - The built-in level browser now supports sub folders. Also supports the Page Up and Page Down keys for faster scrolling when there are a lot of level files. It can also check Kye levels for errors.
+ - The white font is now easier to read on red/blue background
+ - Improved the layout of the info panel.
+ - Improved some sprites, for example the yellow marked areas are easier to see.
+ - Added one level to tour.xye : "The key of the puzzle"
+ - For non-win32 builds, it now uses /home/username/.xye for custom levels, data and xyeconf.xml. And the place where we locate the original data is determined on compile time and no longer has to be the same folder where the executable is located. So make install will work correctly now. And you will be able to use xye as command like other software.
+
+ Version 0.7 Beta
+ ==================
+ - Fixed the bug that caused xye to freeze after inactivity time.
+ - Built-in level browser now is able to report the line and column which causes a level file to be invalid.
+ - Pressing c during the game enables a coordinate mode that shows the game coordinate of the mouse position. It is useful for level development.
+ - During the game, Backspace will take you back to the level browser.
+ - Fixed a bug that made the level file browser unable to show the complete description of a file sometimes.
+ - An skin may now specify different colors for blocks.
+ - It is now possible to set default color for earth in a level.
+ - Fixed a bug that prevented multiple defaults to be declared.
+ - The official levels are now simply the 10 tutorials, the rest of the levels were moved to tour.xye  .
+ - Updated some of the levels in 5levels.xye
+ - Improved the Makefile , it should be able to find SDL in more situations and does not show a bunch of warnings. It won't require you to specify linux either.
+ - It should be easier to compile in posix platforms now (added scripts that allow ./configure then make)
+ - When a level ends it will tell you what keys to use in order to change of level
+ - Fixed problems with font.cpp causing compile errors problems in some OS .
+
+ Version 0.6.2 Beta
+ ==================
+ - Fixed a bug that caused a crash in linux when you beat a level that didn't have a bye message
+ - Fixed a bug that caused a crash when defeating a level that used kyeformat tag.
+ - Fixed bugs that made the game unable to play levels when stufflocation was specified.
+
+ Version 0.6 Beta
+ ================
+
+ It is the last release that will add any object, the game's rules are finished and it will be safe from now to
+ make levels without worrying about rule shifting, note that bugs with the objects' behaviour may exist and they
+ will still be fixed in new versions.
+
+ - Xye is now able to play .KYE level files. And the kye level format has been extended to allow some of the new xye objects.
+ - Mouse support.
+ - xyeconf.xml can have an stufflocation attribute that makes it redirect to another folder with another xyeconf and skin, levels folders.
+ - P or - can now take you to the previous level.
+ - Aclockers/clockers now allow the round attribute.
+ - Fixed a graphical glitch that happened when rattlers were hit in the head.
+
+ - rockies (round arrow  blocks) can not be pushed towards other round objects and have the round slide if the direction is not the one they point towards.
+ - as a derivated change the same happens with moving dot-blocks
+
+ - It is now more probable that blobs, gnashers and viruses will fall in blackies. So they behave closer to their Kye versions.
+ - Bots / Patience no longer move for free at the beginning of the level.
+ - Fixed undefined code related bug with fillers.
+ - New object: the pit.
+ - Old version 0.5 had a couple of erroneus code that could trigger when no skin data is specified by xyeconf/skinfiles.
+ - New beast : static
+ - New beast : ranger
+ - Fireballs are now as fast as red arrows.
+ - The Xye level format has also been updated:
+    * You can embed level data in .KYE format using the <kyeformat> tag. You can then use the xye format to add objects/options that are not supported by the kye format.
+    * <hint> tag can appear as a child of <level> and allow a hint that does not require xye to step on it, but instead requires the
+      player to press H.
+
+ - Updates to xye.exe's built-in level file browser:
+    * Can support more quantities of files (allows scrolling down now).
+    * Escape exits the game during level file browsing mode.
+    * Fixed a bug that could make it think folders that end with .xye were level files.
+    * Can browse for .kye and .KYE files.
+    * You can press alphanumeric keys to navigate through the levels easier.
+    * Improved its looks.
+
+ - The codeblocks project file:
+    * Added multiple target options, there are now windows, linux and ubuntu_debug (ubuntu_debug is just linux' but executes the game in a console so we can see the error messages)
+    * Uses Makefile.
+    * Fixed plenty of things in the source that prevented to compile on other platforms different to win32
+    * Makefile included in source should now be possible to compile xye in most of the modern platforms that have SDL and SDL_image installed.
+
+
+ Version 0.5 Beta
+ ================
+ - Fixed a bug that prevented a level from being loaded correctly if there were comments in some parts of the xml
+ - Fixed a bug that allowed Gems to be moved by magnetic objects.
+ - Changed the movement code so it no longer gives the sensation that Xye has moved twice instead of one sometimes.
+ - Remade all the level files, now they are XML standard compliant (can be opened by XML editors/viewers)
+ - Fixed a bug that allowed red pushers to kill Xye
+ - New object: the factory
+ - New object: the window
+ - New object: the scroll block
+ - New ground object: Force arrow
+ - New beast : Red Blob.
+ - You can now select Xye's color, Skin file and the starting level of the file (specially if you use XyeGUI).
+ - New skin: classic (16�6 , less shading)
+ - The level format also changed:
+    * now you can just use a single <objects> tag instead of using separated <ground> and <normal>
+    * bc and dir attributes only consider the first character of the values and are not case sensitive ( dir="U" or dir="u" now work the way dir="UP" worked before, also dir="UP" and dir="uuu" would work ).
+    * wall element now also allows a round attribute which lists the round corners instead of using an attribute per corner. instead of round1='1' round3='1' you can now use round="13" )
+ - Enabled land mines to be used in levels.
+
+
+ TODO: Editor
+
+ Version 0.04 alpha
+ =================
+ - Now uses SDL should be cross platform (not tested in other OS yet)
+ - Added new monster types: patience, rattler, spinner, aspinner
+ - New objects: Sniper, Filler, Rattler food and low density block.
+ - 2 new tutorials.
+ - Levels from kye included
+ - Finally some GUI: A level selector , currently it is only functional and lacks any eye candy / mouse support
+
+
+ Version 0.03 alpha
+ ==================
+
+ - Playable version but lacks any interface.
+ - Level format done.
+ - Added beasts
+ - Made timing fixes to mimic Kye rules.
+ - Auto arrow blocks, now called clocks, work like the Kye versions but they are different, much more
+   predictable.
+ - A convertor from .kye files to .xye files is available at kye.sourceforge.net too.
+ - Red surprise blocks now act as SKye bombs with the difference they can actually kill xye.
+ - Finally Xye has lives so game over is something that may happen
+
+ - New object: portal.
+ - 1 new beast: the dard.
+ - New enemy: Robo-xye
+
+
+
+ Todo: 
+
+ - Make more beasts
+ - replace hge with an SDL engine
+ - add interface
+ - Make the editor
+
+
+
+
+  2nd early alpha version
+  =======================
+  
+  Additions:
+  - surprise! blocks
+  - arrow blocks
+  - land mines
+  - low density blocks
+  - magnetic blocks
+  - toggle (+/-) blocks
+  - timer blocks
+  - pushers
+  - auto arrow blocks
+  
+  Todo:
+  - make Xye killing a method of xye class
+  - fix or at least do something about the way to use the game class
+  - script system (let people / me make actual playable levels)
+  - openable doors, locks, keys, and colored areas.
+  - monsters
+  - replace hge with an SDL engine
+  - add interface
+
+
+

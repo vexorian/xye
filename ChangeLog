@@ -1,0 +1,128 @@
+0.12.2: SVN Revision  404
+
+0.12.1
+SVN Revisions 375 to 392
+
+0.12.0
+SVN Revisions 334 to 374
+
+0.11.2
+SVN Revisions 295 to 333
+
+0.11.1
+SVN Revisions from 266 to 294
+
+0.11.0
+SVN Revisions from 229 to 265
+
+0.10.0
+SVN Revisions from 229 to 235
+
+0.9.3
+SVN Revisions from 165 to 228
+
+0.9.2
+SVN Revisions from 127 to 164.
+
+0.9.1
+SVN Revisions from 43 to 122.
+
+0.9.0:
+xye moved to subversion (SVN) All revisions from 0 to 42 are changes from 0.8.1 to 0.9.0
+
+0.8.1
+on tutorials.xye : level 5's timers now have a timeout value of 2 , up from 0.
+on makefile.in: ./configure is now able to correctly handle custom --prefix for documentation.
+on Mic4.xye: added solution movie to level 2.
+
+
+0.8.0
+on levels.cpp, options.cpp, options.h: The color for selected files with errors in the format can now be determined by the skin file.
+on levels.cpp, xye.cpp and options.cpp: can now change colors of the select level menu through skin xml. 
+on levels.cpp, font.cpp : Hint marquee now fades for an small amount of time before showing in/out.
+on levels.cpp: fixed various mistakes that allowed windows version of level browser to list some files twice.
+on font.cpp and options.cpp : New SDL_ttf requirement, xye now supports truetype fonts and therefore unicode characters in level files through UTF8.
+on tutorials.xye : The second hint had wrong XML, used " instead of &quot;
+on xye.cpp,IsXyeAt : Fixed a bug that caused plenty of mistakes in the beast AI.
+on xye.cpp,IsXyeAt : Fixed a bug that caused plenty of mistakes in the beast AI.
+on xye.cpp, GoFindASquare : Fixed a bug that made AI unable to take proper advantage from teleports.
+on xye.cpp and options.cpp : Undo now requires an special tweak in xyeconf.xml, considered a cheat code.
+on xye.h,xye.cpp,xye_script.cpp,kye_script.cpp: wildcards and number blocks now got a round variation, added metal blocks.
+on xye.h,xye.cpp: added the "tiger" beast.
+on xye.h,xye.cpp: Rattler may now go above pits if it is longer than one unit.
+on xye.cpp : Fixed a bug with colliding fire balls. (They didn't explode and begin to behave like walls)
+on xye.cpp : changed object and game clock behavior when the game is over, to fix a glitch with explosion graphics. 
+on xye.cpp,TryMagneticMove : Fixed a glitch with bots sometimes pulling yellow sticky blocks.
+on xye.cpp,xye.h : explosions are now able to slightly offset (graphicaly ) objects and ground objects in their squares, for added eye candy.
+on xye.cpp: nodes added to a death queue during the death queue evaluation will explode on the next round, this means that contiguous red timers
+            will explode in a sequencial way.
+on xye.cpp, number class : Fixed a glitch with green timers that made them instantly pass active state to nearby timers depending on the direction they were.            
+
+0.7.6
+on xye.cpp:
+- In game::SaveReplay , fixed 2 memory problems regarding the size of arrays to be used as strings.
+- counter is now correctly initialized by sniper::sniper(
+
+- Added xsb_level.cpp and xsb_level.h , allow use of sokoban levels.
+- Modiffied xye_script.cpp a lot in order to allow usage of xsb levels.
+- Fixed memory leaks on KyeLevelPack::Load
+- gem::trypush, earth::trypush and key::trypush will dissallow xye to eath them if they were placed on ground objects that are blocking the path.
+- levels.cpp : FillArrayWithFilenames() : Made it move tutorials.xye to the top of the list.
+- Added undo support to classes game and recording
+- many other changes I forgot to document, sorry
+
+On font.cpp:
+- removed usage of assert, it raised compile errors in some platforms
+
+0.7.5
+on xye.cpp:
+- Added OldBeastPickDirectDir , AI function that behaves in a way like old Kye beasts
+- Changed BeastAI_Default, BeastAI_Blob, BeastAI_Twister, BeastAI_Spike and BeastAI_Virus to use OldBeastPickDirectDir and act more like the kye versions. They also got every random dependant function replaced with mod operations
+- beast::trypush will set the beast's tic value so it does not move again in that cycle.
+- In RoundAdvance_Sub : Replaced Chance(0.5) with a formula so what decides where to move a round object when it slides against another object with both round corners is no longer random.
+- On game::MoveXye(), game:gameover(, game::Draw( , game::DrawPanel(, : added recording support
+- On game::AppLoop()  added support for S key (play solution)
+- On game::draw() initialize local shadow boolean correctly.
+- On game::DrawPanel() draw a film icon if level contains solution. It also now shows the level number/total levels. And the layout is somewhat fixed.
+- On game::Init : made it cache xye's color, and the colors of blocks. Increased the height of the game window for the panel improvements.
+- On arrow::loop : added Died pointer to arguments of object::trypush
+- Added recycle class which is a queue where we leave objects that wanted to "delete this" so this class removes them on
+  the end of the level instead of they getting removed instantly and add risks for memory problems.
+- On IsXyeAt , it now considers that are adjacent to xye as good results as well.
+- On game::DrawPanel
+
+on xye.h :
+- reference to OldBeastPickDirectDir
+
+- Added record.h and record.cpp, support for recordings
+
+
+On xye_script.cpp
+- added level solution support.
+- It now reads the number of levels and the current level.
+- GetFileData is able to validate kye files and also returns the number of levels of a file
+
+On kye_script.cpp
+- ReadData method that can validate a .kye file.
+
+
+On vxsdl.cpp/h : added RecolorCache class and made Recoloring version of SDL_BlitSurface attempt to use the cache
+
+
+
+On levels.cpp:
+- Will also look for .xyr files and is able to play replays.
+- replaced usage of character array + struct with simply an std::string for the list.
+- it now considers subfolders of levels/
+- Added support for page up/down keys
+
+On options.cpp:
+- Fixed a segmentation fault that could happen if no skin file is found (assigns FontBold instead of Font in the if(b3) block)
+- removed support for stufflocation attribute in xyeconf.xml
+- On unix systems xyeconf.xml will be located on /home/user/.xye/xyeconf.xml
+
+On main.cpp:
+- On unix based systems it will try to generate /home/user/.xye/ , /home/user/.xye/levels/ and /home/user/.xye/res/
+
+On font.cpp
+- Font::WriteWrap : added a +1 in the width calculation to prevent a small glitch with the word wrap.
