@@ -784,7 +784,7 @@ return false;
 
 bool FromXyeDFS(int* mem, unsigned char x, unsigned char y)
 {
-    static const unsigned char dx[4] = {0,0,-1,1}, dy[4] = {-1,1,0,0};
+    static const int dx[4] = {0,0,-1,1}, dy[4] = {-1,1,0,0};
     int &res =  mem[y*XYE_HORZ+x];
     if( res==0)
     {
