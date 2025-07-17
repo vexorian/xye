@@ -1,12 +1,12 @@
-#include <stdio.h>
-#include <string>
+#pragma once
 
+#include <cstdio>
+#include <string>
 
 using std::string;
 
 //Sets random seed
 void Randomize();
-
 
 template<class T>
 T GetRandom(T min, T max);

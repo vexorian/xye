@@ -1,3 +1,5 @@
+#pragma once
+
 #include "vxsdl.h"
 #include "window.h"
 

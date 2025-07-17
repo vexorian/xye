@@ -1,6 +1,8 @@
-#include <string>
+#pragma once
+
 #include "vxsdl.h"
 #include "window.h"
+#include <string>
 
 class listbox: public control
 {

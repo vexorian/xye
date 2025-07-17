@@ -14,15 +14,15 @@ Permission is granted to anyone to use this software for any purpose, including 
     3. This notice may not be removed or altered from any source distribution.
 
 */
+#pragma once
+
 #include "vxsdl.h"
-#ifndef FONTINCLUDED
-   #include "font.h"
-#endif
-#include<string>
-#ifndef WINDOWINCLUDED
-    #include "window.h"
-#endif
+#include "font.h"
+#include "window.h"
 #include "dialogs.h"
+
+#include <string>
+
 const int XYEDIT_OBJECT_COLORS = 5;
 
 using namespace std;
@@ -116,9 +116,6 @@ class editor
      static string loadError;
 
      static void loop();
-
-
-
 
      static void onExitAttempt();
      static void onQuitClick(const buttondata* data);
@@ -416,9 +413,6 @@ class editorboard: public control
     static void DeleteLevel(editorboard * ed);
     static void CreateLevel(editorboard * ed);
     static void MoveToLevelNumber(editorboard* ed, int x);
-
-
-
 };
 
 Uint8 getLargeBlockFlagsByVarDir( int variation, int direction);

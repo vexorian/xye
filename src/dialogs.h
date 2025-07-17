@@ -1,20 +1,13 @@
-#ifndef DIALOGSINCLUDED
+#pragma once
 
-#ifndef WINDOWINCLUDED
-    #include "window.h"
-#endif
-#ifndef FONTINCLUDED
-   #include "font.h"
-#endif
-#define DIALOGSINCLUDED
+#include "window.h"
+#include "font.h"
 
-#include<string>
-#include<stack>
+#include <string>
+#include <stack>
+
 using std::string;
 using std::stack;
-
-
-
 
 typedef void (*onDialogEnd)(bool yesclicked);
 void onDialogClickDoNothing(bool yesclicked);
@@ -68,8 +61,6 @@ class dialogs
     static SDL_Color BackgroundColor;
     static SDL_Color TextBoxColor;
 
-
-
     static void makeYesNoDialog(window* target, string prompt, string yescaption, string nocaption, onDialogEnd func);
     static void makeMessageDialog(window* target, string prompt, string buttoncaption, onDialogEnd func);
 
@@ -81,8 +72,4 @@ class dialogs
     static void textDialogClickCancel(const buttondata* data) { textDialogClick(false); }
 
     static string getCurrentInputText();
-
 };
-
-
-#endif
