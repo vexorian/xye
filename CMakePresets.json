@@ -1,0 +1,20 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "default",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": true
+      }
+    },
+    {
+      "name": "vcpkg",
+      "inherits": "default",
+      "generator": "Ninja",
+      "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+      "binaryDir": "${sourceDir}/build"
+    }
+  ]
+}
