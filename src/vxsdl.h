@@ -1,8 +1,9 @@
-#define vxsdlh
-#include <stdio.h>
-#include <string>
+#pragma once
+
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
+#include <cstdio>
+#include <string>
 
 void Init_RecolorTable();
 
@@ -131,10 +132,6 @@ class RecolorCache //we only need to cache for one texture, so it is a static me
   static void savecolor(Uint8 r,Uint8 g,Uint8 b, Uint8 a);
   static void savecolor(SDL_Color *c);
   static SDL_Surface* loadcolor(SDL_Surface* sf,Uint8 r,Uint8 g,Uint8 b, Uint8 a);
-
-
-
 };
-
 
 #endif

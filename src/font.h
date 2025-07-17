@@ -1,4 +1,5 @@
-#define FONTINCLUDED 1
+#pragma once
+
 #include "vxsdl.h"
 
 #ifndef NOTRUETYPE
@@ -7,12 +8,9 @@
     struct TTF_Font{int a;};
 #endif
 
-
 #include <cstdio>
 #include <string>
 #include <vector>
-
-
 
 class Font
 {
@@ -23,8 +21,6 @@ public:
  unsigned int WrappedTextHeight(const std::string text, int w) const;
  unsigned int CharWidth(const char c) const;
 
-
-
  void Write(SDL_Surface* surface, int x, int y,const char* text, Uint8 r, Uint8 g, Uint8 b, Uint8 alpha) const;
 
  void WriteWrap(SDL_Surface* surface, int x, int y, int w, int h,const char* text) const;
@@ -34,7 +30,6 @@ public:
  inline std::vector<std::string> splitByLines(const std::string s, int w) const { return splitByLines(s.c_str(),w); }
 
  void WriteCenter(SDL_Surface *Surface, int y, const char *text);
-
 
  inline void Write(SDL_Surface* surface, int x, int y,const char* text) const
  {

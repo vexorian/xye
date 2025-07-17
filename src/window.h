@@ -14,15 +14,11 @@ Permission is granted to anyone to use this software for any purpose, including 
     3. This notice may not be removed or altered from any source distribution.
 
 */
-#ifndef WINDOWINCLUDED
-
+#pragma once
 
 #include "vxsdl.h"
-#ifndef FONTINCLUDED
-   #include "font.h"
-#endif
-#include<string>
-#define WINDOWINCLUDED
+#include "font.h"
+#include <string>
 
 using namespace std;
 
@@ -265,7 +261,3 @@ class button : public control
         string toolTip;
         buttontooltip* toolTipControl;
 };
-
-
-
-#endif

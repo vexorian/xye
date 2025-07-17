@@ -1,3 +1,5 @@
+#pragma once
+
 /*
 There is a terrible bug when compiling tinyxml with STL support in combination of some compilers.
 
@@ -6,15 +8,12 @@ There is a terrible bug when compiling tinyxml with STL support in combination o
 #endif
 */
 
-#ifndef PALETTE_BASE_SIZE
-    #define PALETTE_BASE_SIZE 20
-#endif
-
 #include "tinyxml/xye_tinyxml.h"
-#include<string>
+#include <string>
+
+#define PALETTE_BASE_SIZE 20
 
 using std::string;
-
 
 void TempMap();
 

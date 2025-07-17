@@ -1,8 +1,7 @@
+#pragma once
+
 #include "tinyxml/xye_tinyxml.h"
 #include "vxsdl.h"
-
-#ifndef OPTIONS_H
-#define OPTIONS_H 1
 
 using std::string;
 
@@ -92,5 +91,3 @@ namespace options {
 
     string GetSkinFile(bool stripPath = true);
 }
-
-#endif
