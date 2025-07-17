@@ -163,7 +163,7 @@ bool DoesFileExist( const string filename)
 string  StripXML(const string s)
 {
     string r="";
-    
+
     int k=0;
     for (int i=0;i<s.length();i++)
     {
@@ -176,19 +176,14 @@ string  StripXML(const string s)
             case '&':
                 r+=s.substr(k,i-k);r+="&amp;";k=i+1;break;
             case '"':
-                r+=s.substr(k,i-k);r+="&quot;";k=i+1;break;    
-                
+                r+=s.substr(k,i-k);r+="&quot;";k=i+1;break;
+
             case '\'':
-                r+=s.substr(k,i-k);r+="&apos;";k=i+1;break;    
-            
+                r+=s.substr(k,i-k);r+="&apos;";k=i+1;break;
+
         }
     }
     if(k<s.length()) r+=s.substr(k,s.length()-k);
-    
+
     return r;
 }
-
-
-
-
-

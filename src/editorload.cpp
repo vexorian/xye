@@ -36,10 +36,10 @@ bool isObjectTypeGround(editorobjecttype ed)
     case EDOT_COLORSYSTEM:
     case EDOT_FIREPAD:
     case EDOT_HINT:
-        return true;    
-        
+        return true;
+
     }
-    
+
     return false;
 }
 bool isObjectTypeTop(editorobjecttype ed)
@@ -119,7 +119,7 @@ bool editor_LoadWall(TiXmlElement* el, bool round = false)
         if (t != 6) cout<<"Found a unknown wall type: "<<t<<" set to 0."<<endl;
         t = 0;
     }
-        
+
     int test=0;
     el->QueryIntAttribute("round1",&test); round=round || test;
     el->QueryIntAttribute("round3",&test); round=round || test;
@@ -167,7 +167,7 @@ editorcolor getElementColor(TiXmlElement* el)
     }
 
     string v=ptr;
-    
+
     if (v.length() >= 1) {
         switch(v[0]) {
         case 'R': case 'r':
@@ -177,7 +177,7 @@ editorcolor getElementColor(TiXmlElement* el)
         case 'B': case 'b':
             return EDCO_BLUE;
         case 'P': case 'p':
-            return EDCO_PURPLE;            
+            return EDCO_PURPLE;
         }
     }
  return EDCO_YELLOW;
@@ -226,14 +226,14 @@ bool editor_LoadStar(TiXmlElement* el)
 bool editor_LoadGenRC(TiXmlElement* el,editorobjecttype type, int variation=0, editorcolor* oldcolor=NULL)
 {
     int t= errorPositions.size();
-    int x,y; 
-    
+    int x,y;
+
     if (isObjectTypeTop(type)) {
         if(!getTopElementPosition(el,x,y)) return false;
     } else{
         if(!getGroundElementPosition(el,x,y)) return false;
     }
-    
+
     int round=false; el->QueryIntAttribute("round",&round);
     editorcolor col=getElementColor(el);
     boardelement &o=editorload_objects[x][y];
@@ -536,7 +536,7 @@ bool editor_LoadHiddenWay(TiXmlElement * el)
     }
     string v=ptr;
     Uint32 flags = 0;
-    
+
     for (int i=0; i<v.size(); i++) {
         char ch = v[i];
         if ( (ch>='2') && (ch<='8') ) {
@@ -784,12 +784,12 @@ bool editor_LoadBlock(TiXmlElement* el)
         boardelement &o1=editorload_objects[x][y];
         o1.type = EDOT_COLORSYSTEM;
         if (o1.color != col ) {
-            cout<<"The editor cannot yet load a block on top of a marked area of a different color."; 
+            cout<<"The editor cannot yet load a block on top of a marked area of a different color.";
             errorPositions.push_back( make_pair(x,y) );
             //return false;
         }
         o1.variation = 6;
-        
+
     }
     return true;
 }
@@ -827,7 +827,7 @@ bool editor_LoadWildCardBlock(TiXmlElement* el)
             return false;*/
         o1.type = EDOT_COLORSYSTEM;
         o1.variation = 7;
-        
+
     }
     return true;
 }
@@ -839,7 +839,7 @@ bool editor_LoadObjects(TiXmlElement* el)
 
     while(ch!=NULL)
     {
-        
+
         string v=ch->Value();
         if (v=="wall")     { if (! editor_LoadWall(ch)) return false;}
         else if (v=="roundwall")     { if (! editor_LoadWall(ch,true)) return false;}
@@ -915,8 +915,8 @@ bool editor_LoadObjects(TiXmlElement* el)
 bool editor_LoadXye(TiXmlElement* el)
 {
     int x,y;
-    
-    
+
+
     int lives=1;
     el->QueryIntAttribute("lives",&lives);
     el->QueryIntAttribute("x",&editorload_xyex);
@@ -941,9 +941,9 @@ void loadKyeChar( char ch, boardelement & o , int x)
     o.color = EDCO_YELLOW;
     o.direction = 0;
     o.round = false;
-    
+
     int timer = -1;
-    
+
     switch(ch) {
     case 'K':
         o.type = EDOT_XYE;
@@ -1007,7 +1007,7 @@ void loadKyeChar( char ch, boardelement & o , int x)
         o.type = EDOT_MAGNET;
         o.direction = EDITORDIRECTION_RIGHT;
         break;
-        
+
     case ('}'): timer = (3); break;
     case ('|'): timer = (4); break;
     case ('{'): timer = (5); break;
@@ -1015,11 +1015,11 @@ void loadKyeChar( char ch, boardelement & o , int x)
     case ('y'): timer = (7); break;
     case ('x'): timer = (8); break;
     case ('w'): timer = (9); break;
-        
+
     case 'H':
         o.type = EDOT_HAZARD;
         break;
-        
+
     case 'l': case'r': case'u': case'd':
         o.type = EDOT_SPECIALBLOCKS;
         o.variation = 0;
@@ -1085,13 +1085,13 @@ void loadKyeChar( char ch, boardelement & o , int x)
         o.variation = 1;
         o.direction = ( (ch == 'P') ? EDITORDIRECTION_RIGHT : EDITORDIRECTION_UP );
         break;
-        
+
     case '!': //Skye's bomb
         o.type = EDOT_SPECIALBLOCKS;
         o.variation = 5;
         o.color = EDCO_RED;
         break;
-        
+
     case 'O': //Skye's pit
         o.type = EDOT_HAZARD;
         o.variation = 2;
@@ -1107,22 +1107,22 @@ void loadKyeChar( char ch, boardelement & o , int x)
             case '_': o.direction=EDITORDIRECTION_UP; break;
         }
         break;
-        
+
     case 'o': //Xye mine
         o.type = EDOT_HAZARD;
         o.variation = 1;
         break;
-        
+
     case '$':  //Xye emerald
         o.type = EDOT_GEM;
         o.color = EDCO_GREEN;
         break;
-    
+
     case '@':  //Xye  green gem block
         o.type = EDOT_GEMBLOCK;
         o.color = EDCO_GREEN;
         break;
-        
+
     case '#': //Xye yellow marked area
         o.type = EDOT_COLORSYSTEM;
         o.color = EDCO_YELLOW;
@@ -1149,34 +1149,34 @@ void loadKyeChar( char ch, boardelement & o , int x)
         o.round = (ch == ',');
         o.variation = 4;
         break;
-    case ':': case ';':              //In hindsight, I am not really sure why I added 
+    case ':': case ';':              //In hindsight, I am not really sure why I added
                                      // so many extensions to Kye's format
         o.type  = EDOT_SPECIALBLOCKS;
         o.variation = 5;
         o.color = EDCO_BLUE;
         o.round = (ch == ';');
         break;
-        
+
     case '-': case '+':
         o.type  = EDOT_SPECIALBLOCKS;
         o.variation = ((ch=='-')?2:3);
         o.color = EDCO_YELLOW;
         break;
-        
+
     case '?':
         o.type = EDOT_BOT;
         break;
-        
+
     case 'M':
         o.type = EDOT_WALL;
         o.variation = 4;
         break;
-        
+
     case '"': //do nothing
         break;
 
     }
-    
+
     if (timer != -1) {
         o.type = EDOT_NUMBER;
         o.color = EDCO_YELLOW;
@@ -1190,7 +1190,7 @@ bool editor_LoadPalette(TiXmlElement* el)
     TiXmlElement * ch=el->FirstChildElement();
 
     while(ch!=NULL) {
-        
+
         string v=ch->Value();
         if (v=="color") {
             int r,g,b;
@@ -1209,7 +1209,7 @@ bool editor_LoadPalette(TiXmlElement* el)
         }
         ch=ch->NextSiblingElement();
     }
-    
+
     return true;
 }
 
@@ -1226,7 +1226,7 @@ bool editor_LoadDefault(TiXmlElement* el, DefaultColorData& cd)
     SDL_Color c = editorload_palette[key];
     cd.useDefault =false;
     cd.color =c;
-    return true;    
+    return true;
 }
 
 bool editor_LoadDefaults(TiXmlElement* el)
@@ -1234,7 +1234,7 @@ bool editor_LoadDefaults(TiXmlElement* el)
     TiXmlElement * ch=el->FirstChildElement();
 
     while(ch!=NULL) {
-        
+
         string v=ch->Value();
         if (v=="wall") {
             if (! editor_LoadDefault(ch, editorload_colors[EDITOR_COLOR_WALLS]) ) {
@@ -1254,7 +1254,7 @@ bool editor_LoadDefaults(TiXmlElement* el)
         if (v=="oneway" || v=="trick" || v=="hiddenway" ) {
             if (! editor_LoadDefault(ch, editorload_colors[EDITOR_COLOR_DOORS]) ) {
                 return false;
-            }            
+            }
         }
         if (v=="force") {
             if (! editor_LoadDefault(ch, editorload_colors[EDITOR_COLOR_FORCE]) ) {
@@ -1264,7 +1264,7 @@ bool editor_LoadDefaults(TiXmlElement* el)
 
         ch=ch->NextSiblingElement();
     }
-    
+
     return true;
 }
 
@@ -1273,7 +1273,7 @@ bool editor_LoadFloor(TiXmlElement* el)
     TiXmlElement * ch=el->FirstChildElement();
 
     while(ch!=NULL) {
-        
+
         string v=ch->Value();
         if (v=="area") {
             int x1=400,x2=400,y1=400,y2=400;
@@ -1299,7 +1299,7 @@ bool editor_LoadFloor(TiXmlElement* el)
         }
         ch=ch->NextSiblingElement();
     }
-    
+
     return true;
 }
 
@@ -1317,7 +1317,7 @@ void editorload_loadKyeLevel(const KyeLevel& klv)
         cd.useDefault = true;
     }
 
-    
+
     for (int i=0;i<XYE_HORZ;i++)for (int j=0;j<XYE_VERT;j++)
     {
         loadKyeChar( klv.data[i][j], editor::board->objects[i][XYE_VERT - j - 1], i );
@@ -1353,7 +1353,7 @@ bool editor::load_kye()
     }
     editorboard::LoadLevelNumber(editor::board, 0);
     updateCountRelated();
-    
+
     return true;
 }
 
@@ -1388,7 +1388,7 @@ bool editor::appendLevels(const string file)
     loadError = "";
     cout<<"Attempt to append file: "<<file<<endl;
     TiXmlDocument  fil(file.c_str());
-    
+
     int x = editorboard::CurrentLevelNumber();
     int n = editorboard::CountLevels();
     int oldn = n;
@@ -1403,7 +1403,7 @@ bool editor::appendLevels(const string file)
             return false;
         }
 
-        
+
         level=pack->FirstChildElement("level");
         bool colorWarn = false;
         bool errorsWarn = false;
@@ -1426,13 +1426,13 @@ bool editor::appendLevels(const string file)
                     editorload_portal_x[i][j] = editorload_portal_y[i][j] = -1;
                 }
             }
-    
+
             for (i=0;i<XYE_HORZ;i++)for (j=0;j<XYE_VERT;j++) editorload_objects[i][j].type=EDOT_NONE;
-    
+
             loadError="Found tags and/or attributes that are not recognized by the current version.";
             el=level->FirstChildElement();
-    
-    
+
+
             while (el!=NULL)
             {
                 string v=el->Value();
@@ -1499,12 +1499,12 @@ bool editor::appendLevels(const string file)
                                 return "There were issues while loading a <floor> tag.";
                             }
                         }
-                        
+
                     }
                 }
                 el=el->NextSiblingElement();
             }
-    
+
             if(editorload_xyex==-1)
             {
                 cout << "Notice: Unable to find xye in the level file.\n";
@@ -1514,7 +1514,7 @@ bool editor::appendLevels(const string file)
             for (int i=0; i<TOTAL_EDITOR_COLOR_OPTIONS; i++) {
                 editor::board->colors[i] = editorload_colors[i];
             }
-            
+
             for (i=0;i<XYE_HORZ;i++)for (j=0;j<XYE_VERT;j++)
             {
                 editor::board->objects[i][XYE_VERT-j-1]=editorload_objects[i][j];
@@ -1533,14 +1533,14 @@ bool editor::appendLevels(const string file)
                 }
                 errorPositions.resize(0);
             }
-    
+
             editor::board->xye_x = editorload_xyex;
             editor::board->xye_y = XYE_VERT-editorload_xyey-1;
             editor::board->hint = lhint;
             editor::board->title = ltitle;
             editor::board->bye = lbye;
             editor::board->solution = lsolution;
-            
+
             editorboard::SaveAtLevelNumber(editor::board, n);
 
             n++;
@@ -1563,7 +1563,7 @@ bool editor::appendLevels(const string file)
         }
         if (loadPortalIssue) {
             loadError += "Some portal objects used features that are not compatible with the editor. ";
-            
+
         }
         if (hiddenSolutionWarn) {
             loadError += "The <hiddensolution> tag is not supported by the editor yet, the hidden solution has been loaded as a normal one. ";
@@ -1592,7 +1592,7 @@ bool editor::load()
             }
         }
     }
-    
+
     editorboard::ResetLevels(true);
     TiXmlDocument  fil(filename.c_str());
     if (fil.LoadFile())
@@ -1618,7 +1618,7 @@ bool editor::load()
         {
             const char* gt=el->GetText();
             lauthor= (gt!=NULL ? gt : "");
-            
+
         }
 
         el=pack->FirstChildElement("description");
@@ -1637,7 +1637,7 @@ bool editor::load()
         editorboard::description = ldescription;
         editorboard::author = lauthor;
         editorboard::filetitle = lname;
-        
+
         if ( ! appendLevels(filename) ) {
             return false;
         }

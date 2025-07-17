@@ -33,4 +33,3 @@ bool HasExtension(const char* n, const char* ext );
 #endif
 
 bool TryToOpenFolder(const char* path);
-

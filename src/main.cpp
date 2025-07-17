@@ -80,7 +80,7 @@ int main ( int argc, char** argv )
             #else
                 options::Dir="./";
             #endif
-    
+
         #endif
     }
     int i=options::Dir.length()-1;

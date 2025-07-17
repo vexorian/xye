@@ -26,7 +26,7 @@ public:
 
 
  void Write(SDL_Surface* surface, int x, int y,const char* text, Uint8 r, Uint8 g, Uint8 b, Uint8 alpha) const;
- 
+
  void WriteWrap(SDL_Surface* surface, int x, int y, int w, int h,const char* text) const;
  void WriteWrap(SDL_Surface* surface, int x, int y, int w, int h,const std::string& text) const;
 

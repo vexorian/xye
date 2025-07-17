@@ -138,10 +138,3 @@ class RecolorCache //we only need to cache for one texture, so it is a static me
 
 
 #endif
-
-
-
-
-
-
-

@@ -6530,14 +6530,14 @@ are present and also to decorate some levels. The original Kye files are availab
 <palette>
     <color id='1' red="150" green="150" blue="150" />
     <color id='2' red="102" green="153" blue="255"/>
-    
+
 </palette>
 <default>
     <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    
+
 </floor>
 	<ground>
 		<oneway dir='D' x='1' y='5' />
@@ -6898,14 +6898,14 @@ are present and also to decorate some levels. The original Kye files are availab
 <palette>
     <color id='1' red="150" green="150" blue="150" />
     <color id='2' red="102" green="153" blue="255"/>
-    
+
 </palette>
 <default>
     <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    
+
 </floor>
 
 	<ground>
@@ -7364,14 +7364,14 @@ are present and also to decorate some levels. The original Kye files are availab
 <palette>
     <color id='1' red="150" green="150" blue="150" />
     <color id='2' red="102" green="153" blue="255"/>
-    
+
 </palette>
 <default>
     <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    
+
 </floor>
 
 	<ground>
@@ -7766,14 +7766,14 @@ are present and also to decorate some levels. The original Kye files are availab
 <palette>
     <color id='1' red="150" green="150" blue="150" />
     <color id='2' red="102" green="153" blue="255"/>
-    
+
 </palette>
 <default>
     <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    
+
 </floor>
 
 	<ground>
@@ -8184,14 +8184,14 @@ are present and also to decorate some levels. The original Kye files are availab
 <palette>
     <color id='1' red="150" green="150" blue="150" />
     <color id='2' red="102" green="153" blue="255"/>
-    
+
 </palette>
 <default>
     <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    
+
 </floor>
 
 	<ground>
@@ -8612,14 +8612,14 @@ are present and also to decorate some levels. The original Kye files are availab
 <palette>
     <color id='1' red="150" green="150" blue="150" />
     <color id='2' red="102" green="153" blue="255"/>
-    
+
 </palette>
 <default>
     <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    
+
 </floor>
 
 	<ground>
@@ -9106,14 +9106,14 @@ are present and also to decorate some levels. The original Kye files are availab
 <palette>
     <color id='1' red="150" green="150" blue="150" />
     <color id='2' red="102" green="153" blue="255"/>
-    
+
 </palette>
 <default>
     <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    
+
 </floor>
 
 	<ground>
@@ -9507,14 +9507,14 @@ are present and also to decorate some levels. The original Kye files are availab
 <palette>
     <color id='1' red="150" green="150" blue="150" />
     <color id='2' red="102" green="153" blue="255"/>
-    
+
 </palette>
 <default>
     <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    
+
 </floor>
 
 	<ground>
@@ -9949,14 +9949,14 @@ are present and also to decorate some levels. The original Kye files are availab
 <palette>
     <color id='1' red="150" green="150" blue="150" />
     <color id='2' red="102" green="153" blue="255"/>
-    
+
 </palette>
 <default>
     <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    
+
 </floor>
 
 	<ground>
@@ -10352,14 +10352,14 @@ are present and also to decorate some levels. The original Kye files are availab
 <palette>
     <color id='1' red="150" green="150" blue="150" />
     <color id='2' red="102" green="153" blue="255"/>
-    
+
 </palette>
 <default>
     <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    
+
 </floor>
 
 	<ground>
@@ -10746,14 +10746,14 @@ are present and also to decorate some levels. The original Kye files are availab
 <palette>
     <color id='1' red="150" green="150" blue="150" />
     <color id='2' red="102" green="153" blue="255"/>
-    
+
 </palette>
 <default>
     <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    
+
 </floor>
 
 	<ground>
@@ -11149,14 +11149,14 @@ are present and also to decorate some levels. The original Kye files are availab
 <palette>
     <color id='1' red="150" green="150" blue="150" />
     <color id='2' red="102" green="153" blue="255"/>
-    
+
 </palette>
 <default>
     <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    
+
 </floor>
 
 	<ground>
@@ -11547,14 +11547,14 @@ are present and also to decorate some levels. The original Kye files are availab
 <palette>
     <color id='1' red="150" green="150" blue="150" />
     <color id='2' red="102" green="153" blue="255"/>
-    
+
 </palette>
 <default>
     <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    
+
 </floor>
 	<ground>
 		<oneway dir='D' x='1' y='10' />
@@ -12018,14 +12018,14 @@ are present and also to decorate some levels. The original Kye files are availab
 <palette>
     <color id='1' red="150" green="150" blue="150" />
     <color id='2' red="102" green="153" blue="255"/>
-    
+
 </palette>
 <default>
     <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    
+
 </floor>
 
 	<ground>
@@ -12499,14 +12499,14 @@ are present and also to decorate some levels. The original Kye files are availab
 <palette>
     <color id='1' red="150" green="150" blue="150" />
     <color id='2' red="102" green="153" blue="255"/>
-    
+
 </palette>
 <default>
     <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    
+
 </floor>
 
 	<ground>
@@ -12713,14 +12713,14 @@ are present and also to decorate some levels. The original Kye files are availab
 <palette>
     <color id='1' red="150" green="150" blue="150" />
     <color id='2' red="102" green="153" blue="255"/>
-    
+
 </palette>
 <default>
     <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    
+
 </floor>
 
 	<ground>
@@ -13126,14 +13126,14 @@ are present and also to decorate some levels. The original Kye files are availab
 <palette>
     <color id='1' red="150" green="150" blue="150" />
     <color id='2' red="102" green="153" blue="255"/>
-    
+
 </palette>
 <default>
     <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    
+
 </floor>
 
 	<ground>
@@ -13508,14 +13508,14 @@ are present and also to decorate some levels. The original Kye files are availab
 <palette>
     <color id='1' red="150" green="150" blue="150" />
     <color id='2' red="102" green="153" blue="255"/>
-    
+
 </palette>
 <default>
     <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    
+
 </floor>
 
 	<ground>
@@ -13929,14 +13929,14 @@ are present and also to decorate some levels. The original Kye files are availab
 <palette>
     <color id='1' red="150" green="150" blue="150" />
     <color id='2' red="102" green="153" blue="255"/>
-    
+
 </palette>
 <default>
     <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    
+
 </floor>
 
 	<ground>
@@ -14212,14 +14212,14 @@ are present and also to decorate some levels. The original Kye files are availab
 <palette>
     <color id='1' red="150" green="150" blue="150" />
     <color id='2' red="102" green="153" blue="255"/>
-    
+
 </palette>
 <default>
     <wall color='1' type='4'/>
     <earth color='2' />
 </default>
 <floor>
-    
+
 </floor>
 
 	<ground>

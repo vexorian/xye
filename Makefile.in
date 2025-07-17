@@ -236,7 +236,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 DISTCLEANFILES = *~ *.~*
-xye_LDFLAGS = 
+xye_LDFLAGS =
 docedir = $(datadir)/@PACKAGE@
 doce_DATA = ReadMe.html NEWS ChangeLog AUTHORS
 levelsdir = $(datadir)/@PACKAGE@/levels
@@ -399,7 +399,7 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
-xye$(EXEEXT): $(xye_OBJECTS) $(xye_DEPENDENCIES) $(EXTRA_xye_DEPENDENCIES) 
+xye$(EXEEXT): $(xye_OBJECTS) $(xye_DEPENDENCIES) $(EXTRA_xye_DEPENDENCIES)
 	@rm -f xye$(EXEEXT)
 	$(xye_LINK) $(xye_OBJECTS) $(xye_LDADD) $(LIBS)
 

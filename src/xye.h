@@ -271,7 +271,7 @@ class xye : public obj
      unsigned char lives;
      square* checkpoint;
      void OnDeath() { throw "Xye Should not die this way"; }
-     
+
  public:
      Uint8 alpha;
      xye(square* sq);
@@ -317,7 +317,7 @@ class roboxye : public obj
 class wall : public obj
 {
  private:
-     
+
      unsigned int color;
 
      bool round7;
@@ -330,9 +330,9 @@ class wall : public obj
      Uint8 R;
      Uint8 G;
      Uint8 B;
-     
+
      bool containsRoundCorner();
-     
+
  public:
      static SDL_Color DefaultColor[6];
      static const int MAX_VARIATIONS = 6;
@@ -421,8 +421,8 @@ class largeblock : public obj
      Uint8 flags;
      largeblockroot *root;
      void setupBlock();
-     
-     
+
+
      void blockDFS( largeblockroot* root);
      static largeblock* getPart( obj* object, largeblockroot* root);
      bool pushingBlocks(edir dir, int ix, int x0, int x1, int iy, int y0, int y1, int dx ,int dy);
@@ -833,10 +833,10 @@ class dangerous : public obj
      unsigned char mov;
      void OnDeath() {}
      bool disb;
-     
+
 
  public:
-     
+
      dangerous(square* sq, otype kind);
      dangerous(square* sq,edir dir,bool d);
      void FireBall(edir dir);
@@ -1346,11 +1346,11 @@ class game
     friend class gameboard;
     friend class gamepanel;
  private:
-    
+
     game() {}
-    
+
     static bool IsUndoAllowed();
-    
+
     static void AfterLevelLoad();
     static void ExitCommandYesHandler(bool yesClicked);
     static void ExitCommand( const buttondata*bd = NULL);
@@ -1361,7 +1361,7 @@ class game
     static void HintUpCommand( const buttondata*bd = NULL);
     static void UndoCommand( const buttondata*bd = NULL);
     static void RecordSolutionCommand( const buttondata*bd = NULL);
-    
+
     static void FFUpCommand( const buttondata*bd = NULL);
     static void FFDownCommand( const buttondata*bd = NULL);
     static void BrowseCommand( const buttondata*bd = NULL);
@@ -1421,7 +1421,7 @@ class game
     static bool          PlayingRecording;
     static recordingmode RecordingMode;
     static bool undo;
-    
+
     static void onKeyUp(SDLKey keysim, Uint16 unicode);
     static void onKeyDown(SDLKey keysim, Uint16 unicode);
     static void onExitAttempt();
@@ -1429,23 +1429,23 @@ class game
 
     static string InitLevelFile;
     static int         InitLevelFileN;
-    
+
     static void onMouseMove(int x,int y);
     static void onMouseOut();
     static void onMouseDown(int x,int y);
     static void onMouseUp(int x,int y);
     static void InitGraphics();
     static void CleanGraphics();
-    
+
     static void loadGame();
     static void saveGame();
-    
+
  public:
     static void RefreshGraphics();
-    
+
     static void PlayLevel( const char* levelfile, int level);
     static void TestLevel( const char* levelfile, int level, bool playsolution=true);
- 
+
     static Font* FontRes;
     static Font* FontRes_White;
     static Font* FontRes_Bold;
@@ -1619,4 +1619,3 @@ bool AI_RoboMine(obj* foro, edir &r);
 char FixVert(char vert);
 char FixHorz(char horz);
 void FixCoordinates(char &horz, char &vert);
-

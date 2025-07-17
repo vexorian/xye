@@ -89,17 +89,17 @@ public:
     LevelInfo(int sx, int sy, int sw, int sh)
     {
         x=sx, y=sy, w=sw, h=sh;
-        
+
     }
-    
+
     void loop(){}
-    
+
     void draw(SDL_Surface* target)
     {
         Uint32 back=SDL_MapRGB(target->format, options::LevelMenu_info);
         SDL_FillRect(target, x,y,w,h,    back);
         Sint16 sh = h;
-        
+
         Sint16 fh=options::GetGridSize();//  game::FontRes->Height();
         int fof=0;
         int fohei=InfoFont->Height();
@@ -113,7 +113,7 @@ public:
 
 
         Sint16 cy=y+h/8,cx=x+2;
-        
+
 
         cx+=5;
         Sint16 nw = cx+InfoFont->TextWidth("        ");;
@@ -167,7 +167,7 @@ public:
             InfoFont->Write(game::screen,cx,sh-2*fh,"[F1] - Editor");
             if(temwa>temwb) temw=temwa;
             else temw=temwb;
-            
+
             InfoFont->Write(game::screen,cx+temw+10,sh-2*fh,"[F2] - Edit level");
         }
         else
@@ -179,12 +179,12 @@ public:
 
 
     }
-    
+
     void onMouseMove(int px,int py){}
     void onMouseOut() {}
     void onMouseDown(int px,int py) {}
-    
-    
+
+
     void onMouseUp(int px,int py) {}
     void onMouseRightUp(int px,int py) {}
 };
@@ -229,11 +229,11 @@ unsigned int CountMatchingFiles()
     unsigned int c;
 
     c = CountMatchingFiles(nf.c_str());
-    
+
     if ( hm.length() != 0 ) {
        c += CountMatchingFiles(hm.c_str());
     }
- 
+
     return(c);
 }
 
@@ -273,12 +273,12 @@ void FillArrayWithFilenames(const char* nf, const char* lvp, unsigned int &c)
 struct LevelSorting
 {
     string lf;
-    
+
     LevelSorting(const char* levelfolder)
     {
         lf = levelfolder;
     }
-    
+
     int getRank(const string &s)
     {
         int r=0;
@@ -292,14 +292,14 @@ struct LevelSorting
                 if(x=="levels.xye") r=4;
                 if(x=="Phipps.xye") r=3;
                 if(x=="kye.xye") r=2;
-                
+
             }
-            
+
         }
 
         return r;
     }
-    
+
     bool operator()( const string &a, const string &b)
     {
        // printf("LF is %s \n",lf);
@@ -307,18 +307,18 @@ struct LevelSorting
         int brank = getRank(b);
         int asla = count(a.begin(), a.end(), '/')+count(a.begin(), a.end(), '\\');
         int bsla = count(b.begin(), b.end(), '/')+count(b.begin(), b.end(), '\\');;
-        
+
         if( arank==brank)
         {
             if(asla == bsla)
                 return (a<b);
-                
-                
+
+
             return (asla<bsla);
         }
         return (arank>brank);
-        
-        
+
+
     }
 };
 
@@ -390,7 +390,7 @@ void FillArrayWithFilenames()
 
      //sort the array alphabetically
     sort(FoundFile, FoundFile+c, LevelSorting(levelsfolder.c_str()) );
-    
+
     Active    =0;
     //Finally find the value of res and if someone has it, make sure Active points to it
     for (i=0;i<c;i++) {
@@ -404,7 +404,7 @@ void FillArrayWithFilenames()
     for (i=0;i<c;i++) {
         levellistbox->addItem(StripPath(FoundFile[i]), FoundFile[i]);
     }
-    
+
     levellistbox->selectItem(Active);
 
 }
@@ -412,20 +412,20 @@ void FillArrayWithFilenames()
 void LoadActiveFileInfo()
 {
     string &fl=FoundFile[Active];
-    
+
     ActiveIsValid= LevelPack::GetFileData(fl.c_str(),FileAuthor,FileDesc,FileTitle,FileLevelsN);
-    
+
     string mylevs = options::GetMyLevelsFolder();
     ActiveIsEditable= ActiveIsValid && (fl.substr(0, mylevs.size()) == mylevs);
     string flext = "";
     flext = fl.substr(fl.length()-4);
     ActiveIsEditable= ActiveIsEditable && (flext==".xye" ||flext==".kye" ||flext==".KYE");
-    
-    
+
+
     PlayButton->Visible = ActiveIsValid;
     EditButton->Visible = ActiveIsEditable;
-    
-    
+
+
 }
 
 void EditFile()
@@ -439,11 +439,11 @@ void EditFile()
         commandline+=CurrentFileName.substr(editor::myLevelsPath.size() );
         commandline+=" ";
         commandline+=options::Dir;
-        
+
 
         Command::executeParallel(commandline);
-        
-        
+
+
         CurrentFileName="";
         thewindow->stop();*/
 }
@@ -470,8 +470,8 @@ void PlayLevel()
     CurrentFileName = FoundFile[Active];
     CurrentFileLevelN = 1;
     game::PlayLevel(CurrentFileName.c_str(), CurrentFileLevelN);
-    
-    
+
+
 }
 
 void onKeyDown(SDLKey keysim, Uint16 unicode)
@@ -555,12 +555,12 @@ void Show()
 {
     runeditor=false;
     editfile=false;
-    
 
-    
+
+
     if (FoundFile!=NULL) delete[] FoundFile;
     FileN = CountMatchingFiles();
-    if (! FileN) { 
+    if (! FileN) {
         game::Error("No level files found");
     }
     FoundFile= new string[FileN];
@@ -570,7 +570,7 @@ void Show()
 
 
     bool loop=true;
-    
+
     //
     //CurrentFileName = FoundFile[Active];
     //delete[] FoundFile;
@@ -588,7 +588,7 @@ void StartSection(window* wind)
     thewindow = wind;
     wind->SetCaption("Xye - Select a level file");
     Sint16 lw = 2+game::FontRes->TextWidth(SPACING_TEXT);
-    
+
     listbox* ll = listbox::makeNew(0,0,lw, wind->Height);
     levellistbox = ll;
     ll->NormalFont = MenuFont;
@@ -601,11 +601,11 @@ void StartSection(window* wind)
     ll->onItemDoubleClick = onItemDoubleClick;
     ll->depth= 1;
     wind->addControl(ll);
-    
-    
+
+
     LevelInfo* li = new LevelInfo(lw, 0, wind->Width-lw, wind->Height);
     li->depth= 2;
-    
+
     Sint16 w,cx; button* but;
     cx = lw;
 
@@ -618,7 +618,7 @@ void StartSection(window* wind)
     PlayButton = but;
     wind->addControl(but);
     cx+=w+1;
-    
+
     //== Run Editor button
     w = button::recommendedWidth("[F1] Editor");
     but = new button( cx, wind->Height - game::GRIDSIZE, w, game::GRIDSIZE);
@@ -647,9 +647,9 @@ void StartSection(window* wind)
     but->onClick = OnSkinButtonClick;
     wind->addControl(but);
     cx+=w+1;
-    
-    
-    
+
+
+
     //== Quit
     w = button::recommendedWidth("Quit");
     but = new button( wind->Width-1-w, wind->Height - game::GRIDSIZE, w, game::GRIDSIZE);
@@ -657,22 +657,22 @@ void StartSection(window* wind)
     but->depth = 3;
     but->onClick = OnQuitButtonClick;
     wind->addControl(but);
-    
-    //...    
+
+    //...
     wind->addControl(li);
     wind->onKeyDown = onKeyDown;
     wind->onKeyUp = onKeyUp;
     wind->onExitAttempt = onExitAttempt;
-    
+
     if (! options::HasConsciouslyChosenTheme() ) {
         dialogs::makeMessageDialog(wind, "Welcome to Xye. Let us take you to the theme selector. There you will be able to pick the look and feel for the game that best suits your taste/screen size.","Ok",OnWelcomeSkinButtonClick);
-        
+
     }
-    
-    
+
+
     Show();
-    
-    
+
+
     return;
 }
 

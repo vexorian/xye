@@ -31,16 +31,16 @@ class KyeLevelPack
        static KyeLevel* Final;
        static KyeLevel* CurrentLevel;
        static unsigned int tn;
-       
+
        static string LoadService(const char* filename, unsigned int ln=1);
-       
+
 
     public:
         static void Init();
         static void Clean();
-        
+
         static string LoadForEditor(const char* filename, vector<KyeLevel> &out);
-        
+
         static void Load(const char* filename, unsigned int ln=1);
         static const char* ReadData(const char* path,unsigned int &n );
         static void LoadNthLevel(unsigned int n);

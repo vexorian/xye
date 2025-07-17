@@ -29,12 +29,12 @@ using std::string;
 
 namespace options
 {
-//With respect of ~ 
+//With respect of ~
 const char* XDG_DEFAULT_DATA_HOME = "/.local/share";
 const char* XDG_DEFAULT_CONFIG_HOME = "/.config";
 
-   
-    
+
+
 struct parsedSkinFile;
 void LoadColors(parsedSkinFile & ps);
 void LoadLevelFile();
@@ -43,27 +43,27 @@ void LoadSkinFile(const char* file);
 // Public variables:
     bool  xyeDirectionSprites;
     string Dir;
-   
+
     SDL_Color OneWayDoorColor;
     SDL_Color ForceArrowColor;
     SDL_Color EarthColor;
     SDL_Color FloorColor;
     SDL_Color WallColor      [XYE_WALL_VARIATIONS];
     SDL_Color WallSpriteColor[XYE_WALL_VARIATIONS];
-    
+
     SDL_Color HintColor;
-    
+
     SDL_Color BFColor[6];
     SDL_Color BKColor[6];
-    
+
     SDL_Color LevelMenu_info;
     SDL_Color LevelMenu_selected;
     SDL_Color LevelMenu_selectederror;
     SDL_Color LevelMenu_menu;
     SDL_Color LevelMenu_menutext;
-    SDL_Color LevelMenu_selectedtext;   
+    SDL_Color LevelMenu_selectedtext;
     SDL_Color LevelMenu_infotext;
-    
+
     string ExecutablePath;
 
 
@@ -143,25 +143,25 @@ struct parsedSkinFile
     bool   directionSprites;
     int    ttfSize;
     int    gridSize;
-    
+
     SDL_Color OneWayDoorColor;
     SDL_Color ForceArrowColor;
     SDL_Color EarthColor;
     SDL_Color FloorColor;
     SDL_Color WallColor      [XYE_WALL_VARIATIONS];
     SDL_Color WallSpriteColor[XYE_WALL_VARIATIONS];
-    
+
     SDL_Color BFColor[6];
     SDL_Color BKColor[6];
-    
+
     SDL_Color HintColor;
-    
+
     SDL_Color LevelMenu_info;
     SDL_Color LevelMenu_selected;
     SDL_Color LevelMenu_selectederror;
     SDL_Color LevelMenu_menu;
     SDL_Color LevelMenu_menutext;
-    SDL_Color LevelMenu_selectedtext;   
+    SDL_Color LevelMenu_selectedtext;
     SDL_Color LevelMenu_infotext;
 
 };
@@ -247,7 +247,7 @@ string parseMiscColorOptions(TiXmlElement* skn, parsedSkinFile & ps) {
         const char* e1 = tem->Attribute("type");
         SDL_Color * c=NULL;
         int n = 1;
-        
+
         if( (e1!=NULL) && (string(e1)=="WALL") )
         {
             c=ps.WallColor;
@@ -290,7 +290,7 @@ string parseMiscColorOptions(TiXmlElement* skn, parsedSkinFile & ps) {
         {
             for (int j=0; j<n; j++)
             {
-                
+
                 string quo;
                 int i=0;
                 quo=tem->Attribute("red");TryS2I(quo,i);c[j].r=i;
@@ -353,7 +353,7 @@ string parseSkinColors(TiXmlElement* ele, parsedSkinFile & ps) {
     ps.ForceArrowColor.r = 100, ps.ForceArrowColor.g = 200, ps.ForceArrowColor.b = 200, ps.ForceArrowColor.unused = 0 ;
     ps.EarthColor.r = ps.EarthColor.g = 255, ps.EarthColor.b = ps.EarthColor.unused = 0 ;
     ps.FloorColor.r = ps.FloorColor.g = ps.FloorColor.b = 255, ps.FloorColor.unused = 0 ;
-    ps.HintColor.r = ps.HintColor.g = 255, ps.HintColor.b = 200, ps.HintColor.unused = 0; 
+    ps.HintColor.r = ps.HintColor.g = 255, ps.HintColor.b = 200, ps.HintColor.unused = 0;
     tm = parseMiscColorOptions(ele,ps);
     if(tm != "") {
         return "";
@@ -431,7 +431,7 @@ string parseSkinColors(TiXmlElement* ele, parsedSkinFile & ps) {
                 ps.BFColor[i].g = 255;
                 ps.BFColor[i].b = 255;
                 break;
-                
+
             default: //Green
                 //
                 ps.BFColor[i].r=255;
@@ -463,9 +463,9 @@ string parseSkinFile(const char*filename, parsedSkinFile & ps)
     if ( err != "") {
         return err;
     }
-    
+
     parseSkinInformation(ele,ps);
-    
+
     const char* tm;
     if (tm=ele->Attribute("sprites")) {
         ps.sprites = fixpath(string("res/")+string(tm),true);
@@ -692,7 +692,7 @@ void SetupXDGFolders()
                      }
 
                      datahomefolder = xyedatahomefolder;
-                 }                 
+                 }
              } else {
                  datahomefolder = xyedatahomefolder;
              }
@@ -747,7 +747,7 @@ void Init()
         if( tm[0] == 'N' || tm[0] == 'n' ) {
             printf("NOTE: Undo is disabled!\n");
             enundo=false;
-            
+
         }
     }
 
@@ -755,7 +755,7 @@ void Init()
     {
         if( tm[0] == 'Y' || tm[0] == 'y' ) {
             haspickedtheme=true;
-            
+
         }
     }
     if (tm=ele->Attribute("disablelevelcolors"))
@@ -764,15 +764,15 @@ void Init()
             disableLevelColors = true;
         }
     }
-    
-    
-    
-    
+
+
+
+
     tm=ele->Attribute("levelfile");
 
     LevelFile = tm;
 
-   
+
     const char * sknfile = ele->Attribute("skinfile");
     string skin;
 
@@ -789,7 +789,7 @@ void Init()
 
     //fix the paths of all the options that are file locations:
 
-    
+
     if (LevelFile != "#browse#") {
         LevelFile = fixpath(string("levels/")+LevelFile, true);
     }
@@ -842,14 +842,14 @@ void Clean()
         delete [] FontBold;
 
         bini=false;
-        
+
         MemTime = 0;
         MemFileLevelNumber.clear();
         MemFileLevelTime.clear();
         MemSavedGame.clear();
 
     }
-    
+
 }
 
 string GetDir()
@@ -985,7 +985,7 @@ void IgnoreLevelSave()
 void SaveLevelFile(string filename, int levelNumber)
 {
     if(filename == "") return;
-    
+
     MemTime++;
     string &s = filename;
     if( MemFileLevelTime.count(s) == 1)
@@ -995,7 +995,7 @@ void SaveLevelFile(string filename, int levelNumber)
         MemFileLevelNumber.erase( MemFileLevelNumber.find( make_pair(t, s) ) );
         MemFileLevelNumber[ make_pair(MemTime, s) ] =levelNumber;
     }
-    else 
+    else
     {
         if( MemFileLevelTime.size() >= MAX_FILENAMES_TO_REMEMBER )
         {
@@ -1006,9 +1006,9 @@ void SaveLevelFile(string filename, int levelNumber)
         }
         MemFileLevelTime[s] = MemTime;
         MemFileLevelNumber[ make_pair(MemTime,s) ] = levelNumber;
-        
+
     }
-   
+
     LevelFile = filename;
     lvnum = levelNumber;
 }
@@ -1040,7 +1040,7 @@ void ForgetLevelGame(string filename, int levelNumber)
     if ( q != MemSavedGame.end() ) {
         MemSavedGame.erase(q);
     }
-    
+
 }
 
 
@@ -1069,13 +1069,13 @@ void PerformLevelFileSave()
     }
     file.open (path.c_str(),std::ios::trunc | std::ios::out );
     if (!file.is_open()) return ; //ouch just halt.
-    
+
     for ( memmap::iterator q = MemFileLevelNumber.begin(); q!=MemFileLevelNumber.end(); q++)
     {
         file<< q->first.second  << std::endl<< q->second <<std::endl;
     }
-    
-    
+
+
     file.close();
     if (home.length() > 0) {
         path = home+"/savedgames.conf";
@@ -1085,13 +1085,13 @@ void PerformLevelFileSave()
 
     file.open (path.c_str(),std::ios::trunc | std::ios::out );
     if (!file.is_open()) return ; //ouch just halt.
-    
+
     for ( map< pair<string,int>, string >::iterator q = MemSavedGame.begin(); q!=MemSavedGame.end(); q++)
     {
         file<< q->first.first<< std::endl << q->first.second << " "<<q->second <<std::endl;
     }
-    
-    
+
+
     file.close();
 
 
@@ -1106,7 +1106,7 @@ string GetSkinFile(bool stripPath)
     } else {
         return currentSkinFile;
     }
-    
+
 }
 void SaveConfigFile()
 {
@@ -1134,7 +1134,7 @@ void SaveConfigFile()
     if ( disableLevelColors ) {
         file<<"disablelevelcolors='YES' ";
     }
-    
+
     file<<"/>"<<endl;
 
     file.close();
@@ -1148,7 +1148,7 @@ void LoadLevelFile()
     MemFileLevelNumber.clear();
     MemFileLevelTime.clear();
 
-   
+
     std::ifstream file, file2;
 
     // ............. Load saved games
@@ -1165,14 +1165,14 @@ void LoadLevelFile()
         string LevelFile;
         int lvnum;
         string savedgame, empty;
-        
+
         while( !file.eof()  )
         {
             getline(file,LevelFile);
             if(LevelFile=="") break;
             file>>lvnum;
             file>>savedgame;
-            
+
             SaveLevelGame(LevelFile.c_str(), lvnum, savedgame);
             getline(file,LevelFile);
         }
@@ -1221,7 +1221,7 @@ struct previewMaker {
     parsedSkinFile* ps;
     Drawer* D;
     LuminositySprites ls;
-    
+
     SDL_Surface * result;
     previewMaker(parsedSkinFile& ps, int w, int h) {
         this->w = w;
@@ -1239,15 +1239,15 @@ struct previewMaker {
         result = SDL_CreateRGBSurface(0,w,h,32,SDL_ENDIAN32MASKS);
         Uint32 col = SDL_MapRGB(result->format,  ps.FloorColor );
         SDL_FillRect(result, 0, 0, w, h, col );
-        
+
         draw(0,0,          1,0, Red(), Green(), Blue());
-        
+
         //blocks
         draw(1,0,2,0, ps.BKColor[0]);
         draw(1,0,3,0, ps.BKColor[1]);
         draw(1,0,4,0, ps.BKColor[2]);
         draw(1,0,5,0, ps.BKColor[3]);
-        
+
         //arrows
         draw(1,0,9,0, ps.BKColor[0]);
         draw(4,9,9,0, ps.BFColor[0]);
@@ -1257,13 +1257,13 @@ struct previewMaker {
         draw(5,12,9,2, ps.BFColor[2]);
         draw(2,0,9,3, ps.BKColor[3]);
         draw(5,11,9,3, ps.BFColor[3]);
-        
+
         //magnets
         draw(6,12,7,1);
-        
+
         //wildcard
         draw(1,2,7,2);
-        
+
 
         //gems
         draw(2,3+rand()%2,1,1);
@@ -1271,7 +1271,7 @@ struct previewMaker {
         draw(4,3+rand()%2,3,1);
         draw(5,3+rand()%2,2,1);
         draw(9,12+rand()%2,5,1);
-        
+
         //monsters
         draw(16, rand()%2, 1,2);
         draw(19, rand()%2, 2,2);
@@ -1283,16 +1283,16 @@ struct previewMaker {
         //blackie
         draw(0,3, 2,3);
         draw(0,4, 2,3);
-        
+
         //portal
         draw(8,rand()%3, 3,3, ps.BKColor[(int)(rand()%4)] );
-        
+
         { //turner
             int d = rand()%4;
             draw(1,0,7,3, ps.BKColor[d]);
             draw(3,10,7,3, ps.BFColor[d]);
         }
-        
+
         //pusher
         int d=rand()%2;
         draw(4+d,5, 6,0, ps.BKColor[0]);
@@ -1300,8 +1300,8 @@ struct previewMaker {
         d=rand()%2;
         draw(4+d,6, 7,0, ps.BKColor[2]);
         draw(4+d,8, 7,0, ps.BFColor[2]);
-        
-        //wall time ! 
+
+        //wall time !
         sz /= 2;
         draw(18,0, 0,0, ps.WallColor[0]);
         draw(19,0, 1,0, ps.WallColor[0]);
@@ -1338,7 +1338,7 @@ struct previewMaker {
         }
         delete D;
     }
-    
+
     void draw(int sx, int sy, int tx, int ty, SDL_Color col) {
         D->ChangeRect(sx*sz, sy*sz, sz, sz);
         D->SetColors(col,255);
@@ -1360,7 +1360,7 @@ struct previewMaker {
 
 SDL_Surface* makeSkinPreview(parsedSkinFile & ps, int w, int h) {
     previewMaker pr(ps,w,h);
-    return pr.result;    
+    return pr.result;
 }
 
 bool GetSkinInformation(const char* file, SkinInformation & si)
@@ -1396,9 +1396,9 @@ void LoadSkinFile(const char* file) {
     if(tms=="") {
         currentSkinFile = file;
         LoadColors(ps);
-        
+
         WindowIcon = ps.windowicon;
-        
+
         Texture = new char[ps.sprites.length()+1];
         strcpy(Texture, ps.sprites.c_str());
         if(ps.lum == "") {
