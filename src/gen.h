@@ -37,4 +37,3 @@ bool DoesFileExist(const char* filename);
 bool DoesFileExist( const string filename);
 
 string  StripXML(const string s);
-

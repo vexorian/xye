@@ -188,5 +188,3 @@ bool TryToOpenFolder(const char* path)
     }
     return false;
 }
-
-

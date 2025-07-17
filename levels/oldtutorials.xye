@@ -81,7 +81,7 @@
  <block x="15" y="9"/>
  <block x="16" y="8"/><block x="19"/>
  <block x="8" y="7"/><block x="15"/>
-            
+
  <gem x="4" y="5" bc="BLUE" />
  <gem x="10" y="10" bc="RED"/>
  <gem x="16" y="2" bc="YELLOW"/>
@@ -169,7 +169,7 @@
  <portal x='9' color='2' targetx='11' targety='17' />
  <hint x='11'>Seems you forgot to leave the wildcard block in the green marked area of that room. Take a second chance, the orange portal will take you back to that room. Note that most levels don't offer second chances.</hint>
  <blockdoor x='13' y='10' open='1' bc="GREEN" />
-           
+
 
  <blockdoor x='10' y='7' open='1' bc="GREEN" />
  <blockdoor x='9' y='6' open='1' bc="GREEN" />
@@ -278,7 +278,7 @@
 </normal>
 <xye x="1" y="18" />
 </level>
-    
+
     <level>
         <title>Tutorial 3 - Just in time</title>
         <bye>Note the way different color also means different behaviour</bye>
@@ -406,23 +406,23 @@
             <sniper x='15' bc="RED" />
             <pusher x='18' bc="BLUE" dir="RIGHT" />
             <wall x='16' x2='17' />
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
+
+
+
+
+
+
         </normal>
         <xye x='2' y='16' />
-        
+
     </level>
-    
+
     <level>
         <title>Tutorial 4 - Surprise!</title>
         <bye>Things are getting interesting aren't they?</bye>
@@ -474,12 +474,12 @@
             <wall x='27'/>
             <wall y='19' x='1' x2='5'/><wall x='7' x2='29'/>
             <wall x='6' />
-            
+
         </objects>
         <xye lives='0' x='14' y='11'/>
-        
+
     </level>
-    
+
     <level>
         <title>Tutorial 5 - Safari</title>
         <bye>Each beast has a unique personality, sometimes the differences are obvious, sometimes they are not.</bye>
@@ -549,7 +549,7 @@
             <blocktrap x='12' bc="BLUE"/>
             <blockdoor x='20' bc="BLUE"/>
             <blockdoor x='25' bc="BLUE" open='1'/>
-            <timer y='11' x='5' val='2' bc="YELLOW"/>            
+            <timer y='11' x='5' val='2' bc="YELLOW"/>
             <blocktrap x='12' bc="BLUE"/>
             <blockdoor x='20' bc="BLUE"/>
             <gem x='23' bc="YELLOW"/>
@@ -595,11 +595,11 @@
             <earth y='18'/>
             <hint x='1' y='2'>Be careful when unleashing the rattler, cause those things also love to eat xye.</hint>
         </objects>
-        
-        
-        
+
+
+
     </level>
-    
+
     <level>
         <title>Tutorial 6 - Shoot</title>
         <xye lives='2' x='6' y='6'/>
@@ -704,25 +704,25 @@
          <beast x='14' kind='2'/>
          <magnet x='15' kind='2' horz='1'/>
          <wall x='19' y='19'/>
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </objects>
     </level>
-    
+
     <level>
         <title>Tutorial 7 - Kaboom</title>
         <bye>Red is probably the most dangerous block color</bye>
@@ -821,21 +821,21 @@
             <magnet x='27'/>
             <wall x='28' x2='29'/>
             <wall y='19' x='22' x2='29'/>
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
+
+
+
         </objects>
-        
-        
-        
+
+
+
     </level>
-    
+
 <level>
 
 <title>Tutorial 8 - Kaboom II</title>
@@ -855,7 +855,7 @@
 <kyeformat offset='3'><![CDATA[
    000000000011111111112222222222
    012345678901234567890123456789
-                                 
+
 19 555555555555555555555555555555
 18 5        "          *e       5
 17 5 a 555  "       a " e*ea    5
@@ -902,7 +902,7 @@
 
    <hint y='8' x='10'>You should be able to use a bouncer to push the red timer and destroy the wall.</hint>
    <timer x='5' y='6' bc="R" val='0'/>
-   
+
    <gemblock x='20' y='6' bc="B"/>
    <portal x='28' y='1' targetx='15' targety='6' />
    <hint y='6' x='16'>hiddenway squares are like combinations of oneway doors, it is simply impossible to know which entrance they will allow.</hint>
@@ -918,16 +918,16 @@
     <hiddenway x='16' ent='46'/><hiddenway x='17' ent='46'/><hiddenway x='18' ent='4'/>
    <hint y='1' x='13'>The red timer-blocks do not just vanish, they explode and their value is decreased when they are pushed instead of periodically, be careful with those.</hint>
    <timer x='19' bc="R" val='0'/><timer y='2' bc="R" val='2'/>
-   
-   
-   
-   
+
+
+
+
 </objects>
 
 <xye lives='1' />
 </level>
 
-    
+
 <level>
 <title>Tutorial 9 - Fire balls and Bots</title>
 <bye>Bots can be your greatest friend or your greatest enemy, it is a good thing they do not have any common sense.</bye>
@@ -986,7 +986,7 @@
     <firepad y='14'/><firepad x='21'/><firepad x='22'/><firepad x='23'/><firepad x='24'/><firepad x='25'/><firepad x='26'/><firepad x='27'/>
     <hint x='15' y='16'>These metal blocks are resistant to fire</hint>
     <gem x='27' y='1' bc="Y"/>
-    
+
     <hint x='25' y='11'>Seems you will need to make that bot move the yellow blocks to the marked areas</hint>
     <gem y='4' x='9' bc="Y"/><gem x='11' bc="R"/>
 </objects>
@@ -1013,7 +1013,7 @@
 <kyeformat offset='3'><![CDATA[
    000000000011111111112222222222
    012345678901234567890123456789
-                                 
+
 19 555555555555555555555555555555
 18 5   5                        5
 17 5   5"59   "  "  "  "  "  "  5
@@ -1050,13 +1050,13 @@
    <beast y='13' x='23' kind='11'/><beast y='15' x='16' kind='11'/>
    <gem y='13' x='3' bc="Y"/>
    <hint x='11' y='8'>What's left of the level is actually pretty easy, you already know enough about factories and pits to beat it.</hint>
-</objects>    
+</objects>
 
 <xye lives='1' />
 </level>
 
-    
-    
+
+
 
 
 

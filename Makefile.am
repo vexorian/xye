@@ -4,7 +4,7 @@ DISTCLEANFILES = *~ *.~*
 
 
 bin_PROGRAMS = xye
-xye_LDFLAGS = 
+xye_LDFLAGS =
 
 
 docedir = $(datadir)/@PACKAGE@
@@ -109,4 +109,3 @@ DEFS=@data_path_flag@
 
 
 #xye_LDADD = @GL_LIBS@
-  

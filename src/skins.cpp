@@ -39,7 +39,7 @@ using options::SkinInformation;
 
 namespace SkinBrowser
 {
-  
+
 window* thewindow;
 listbox* skinlistbox;
 listbox* levelColorsListBox;
@@ -76,17 +76,17 @@ public:
     SkinInfoControl(int sx, int sy, int sw, int sh)
     {
         x=sx, y=sy, w=sw, h=sh;
-        
+
     }
-    
+
     void loop(){}
-    
+
     void draw(SDL_Surface* target)
     {
         Uint32 back=SDL_MapRGB(target->format, options::LevelMenu_info);
         SDL_FillRect(target, x,y,w,h,    back);
         Sint16 sh = h;
-        
+
         Sint16 fh=options::GetGridSize();//  game::FontRes->Height();
         int fof=0;
         int fohei=InfoFont->Height();
@@ -100,7 +100,7 @@ public:
 
 
         Sint16 cy=y+h/8,cx=x+2;
-        
+
 
         cx+=5;
         Sint16 nw = cx+InfoFont->TextWidth("        ");;
@@ -152,7 +152,7 @@ public:
             InfoFont->WriteWrap(target,nw,cy,x+w - nw-5,y+h-cy, buf);
             cy+=fh;
         }
-        
+
         if(SkinData.preview != NULL) {
             InfoBoldFont->Write(target,cx,cy,"Preview:");
             cy+=fh;
@@ -161,18 +161,18 @@ public:
             cy+=SkinData.ph;
 
         }
-        
+
 
 
 
 
     }
-    
+
     void onMouseMove(int px,int py){}
     void onMouseOut() {}
     void onMouseDown(int px,int py) {}
-    
-    
+
+
     void onMouseUp(int px,int py) {}
     void onMouseRightUp(int px,int py) {}
 };
@@ -215,7 +215,7 @@ unsigned int CountMatchingFiles()
     string nf = options::fixpath(themesfolder);
     string hm = options::GetResHomeFolder();
     unsigned int c;
-    
+
     c = CountMatchingFiles(nf.c_str() );
     if ( hm.length() != 0 ) {
        c += CountMatchingFiles(hm.c_str() );
@@ -260,12 +260,12 @@ void FillArrayWithFilenames(const char* nf, const char* lvp, unsigned int &c)
 struct SkinSorting
 {
     string lf;
-    
+
     SkinSorting(const char* levelfolder)
     {
         lf = levelfolder;
     }
-    
+
     int getRank(const string &s)
     {
         int r=0;
@@ -279,12 +279,12 @@ struct SkinSorting
                 if(x=="levels.xye") r=3;
                 if(x=="kye.xye") r=2;
             }
-            
+
         }
 
         return r;
     }
-    
+
     bool operator()( const string &a, const string &b)
     {
        // printf("LF is %s \n",lf);
@@ -292,18 +292,18 @@ struct SkinSorting
         int brank = getRank(b);
         int asla = count(a.begin(), a.end(), '/')+count(a.begin(), a.end(), '\\');
         int bsla = count(b.begin(), b.end(), '/')+count(b.begin(), b.end(), '\\');;
-        
+
         if( arank==brank)
         {
             if(asla == bsla)
                 return (a<b);
-                
-                
+
+
             return (asla<bsla);
         }
         return (arank>brank);
-        
-        
+
+
     }
 };
 
@@ -380,7 +380,7 @@ void FillArrayWithFilenames()
     for (i=0;i<c;i++) {
         skinlistbox->addItem(StripPath(FoundFile[i]), FoundFile[i]);
     }
-    
+
     skinlistbox->selectItem(Active);
 
 }
@@ -391,11 +391,11 @@ void LoadActiveFileInfo()
     SkinData.pw = 21*options::GetGridSize();
     SkinData.ph = 200;
     ActiveIsValid= options::GetSkinInformation(fl.c_str(),SkinData);
-    
-    
+
+
     SetButton->Visible = ActiveIsValid;
-    
-    
+
+
 }
 void onKeyDown(SDLKey keysim, Uint16 unicode)
 {
@@ -446,28 +446,28 @@ void Show()
 {
     runeditor=false;
     editfile=false;
-    
 
-    
+
+
     if (FoundFile!=NULL) delete[] FoundFile;
     FileN=CountMatchingFiles();
     if (! FileN) game::Error("No level files found");
     FoundFile= new string[FileN];
     FillArrayWithFilenames();
-    
+
     string sk = options::GetSkinFile(false);
     for (int i=0; i<FileN; i++) {
         if (FoundFile[i] == sk) {
             skinlistbox->selectItem(i);
         }
     }
-    
+
 
     LoadActiveFileInfo();
 
 
     bool loop=true;
-    
+
     //
     //delete[] FoundFile;
     //FoundFile=NULL;
@@ -484,11 +484,11 @@ void StartSection(window* wind)
     thewindow = wind;
     wind->SetCaption("Xye - Select a theme");
     Sint16 lw = 2+game::FontRes->TextWidth(SPACING_TEXT);
-    
+
     const char* allow = "Custom level colors:";
     Sint16 captionNeed = game::FontRes->splitByLines(allow, lw - game::GRIDSIZE).size() * game::FontRes->Height() + game::GRIDSIZE;
     Sint16 listNeed = game::FontRes->Height() * 2 + game::GRIDSIZE;
-    
+
 
     Sint16 lh = wind->Height - captionNeed - listNeed;
     listbox* ll = listbox::makeNew(0,0, lw , lh  );
@@ -504,18 +504,18 @@ void StartSection(window* wind)
     ll->onItemDoubleClick = onItemDoubleClick;
     ll->depth= 1;
     wind->addControl(ll);
-    
+
     control* tmcontrol;
     tmcontrol = new rectangle(0,lh,lw,captionNeed, options::LevelMenu_info );
     tmcontrol->depth = 1;
     wind->addControl(tmcontrol);
-    
+
     textblock * tx = new textblock(game::GRIDSIZE/2, lh + game::GRIDSIZE/2, lw - game::GRIDSIZE, captionNeed - game::GRIDSIZE/2, game::FontRes);
     tx->depth = 2;
     tx->text= allow;
     wind->addControl(tx);
 
-    
+
     ll = listbox::makeNew(0, captionNeed + lh, lw, listNeed);
     levelColorsListBox = ll;
     ll->NormalFont = MenuFont;
@@ -535,11 +535,11 @@ void StartSection(window* wind)
     wind->addControl(ll);
 
 
-    
-    
+
+
     SkinInfoControl* li = new SkinInfoControl(lw, 0, wind->Width-lw, wind->Height);
     li->depth= 2;
-    
+
     Sint16 w,cx; button* but;
     cx = lw;
 
@@ -560,17 +560,17 @@ void StartSection(window* wind)
     but->depth = 3;
     but->onClick = OnCancelButtonClick;
     wind->addControl(but);
-    
-    //...    
+
+    //...
     wind->addControl(li);
     wind->onKeyUp = onKeyUp;
     wind->onKeyDown = onKeyDown;
     wind->onExitAttempt = onExitAttempt;
-    
-    
+
+
     Show();
-    
-    
+
+
     return;
 }
 

@@ -75,15 +75,15 @@ enum editorobjecttype
     EDOT_FIREPAD,
     EDOT_RATTLERHEAD,
     EDOT_FOOD,
-    
+
     EDOT_LARGEBLOCK,
     EDOT_PORTAL,
-    
+
     EDOT_COLORFACTORY,
     EDOT_DANGERFACTORY,
-    
+
     EDOT_HINT,
-    
+
     EDOT_ERROR,
 
     EDOT_NONE
@@ -99,7 +99,7 @@ enum editorcolor
     EDCO_WHITE=5,
     EDCO_METAL = 6,
     EDCO_WILD = 7
-    
+
 };
 
 struct TiXmlElement;
@@ -111,7 +111,7 @@ class editor
 
      static button * savebutton;
      static button * solutionbutton;
-     
+
      static bool ExitPrompt;
      static string loadError;
 
@@ -128,12 +128,12 @@ class editor
 
      static void cancel();
      static void cancel(const buttondata* data) { cancel(); }
-     
+
      static window* editorwindow;
-     
+
      static void onExitWithoutSavingClick(bool yes);
      static void onBrowseWithoutSavingClick(bool yes);
-     
+
      static enum setText_state_enum
      {
           ASSIGN_TITLE=0,
@@ -142,20 +142,20 @@ class editor
           ASSIGN_HINT=3,
           ASSIGN_BYE=4,
           ASSIGN_LEVEL_TITLE=5
-          
+
      } setText_state;
      static void continueSetText(bool okclicked, const string text, inputDialogData * dat);
      static void beginSetText(const buttondata* data);
-     
+
      static void continueAppendFile(bool okclicked, const string text, inputDialogData * dat);
      static void beginAppendFile(const buttondata* data);
 
      static void continueChangeLevelNumber(bool okclicked, const string text, inputDialogData * dat);
      static void beginChangeLevelNumber(const buttondata*data);
-     
+
      static void continueChangeLevelColor(bool okclicked, const string text, inputDialogData * dat);
      static void beginChangeLevelColor(const buttondata*data);
-     
+
      static void onClearConfirmation(bool yes);
      static void onClearClick(const buttondata* data);
      static void onPreviousLevelClick(const buttondata* data);
@@ -163,11 +163,11 @@ class editor
      static void onInsertLevelClick(const buttondata* data);
      static void onEraseLevelClick(const buttondata* data);
      static void onEraseLevelConfirmation(bool yes);
-     
+
      static void saveAs(bool okclicked, const string text, inputDialogData * dat);
-     
+
      static void updateCountRelated();
-     
+
      static bool appendLevels(const string filename); //implemented in editorload.cpp
      static bool load_kye(); //implemented in editorload.cpp
      static bool load_KyeFormat(TiXmlElement * el); //implemented in editorload.cpp
@@ -178,7 +178,7 @@ class editor
      static string filename;
      static string filename_name;
      static string filename_path;
-     
+
     static editorobjecttype SelectedType();
     static bool SavedFile;
     static void SetFile(const string &path, const string &file);
@@ -187,13 +187,13 @@ class editor
     static void buttonSave(const buttondata* data) { save(); }
     static void onSaveAsClick(const buttondata* data);
     static void onBrowseClick(const buttondata* data);
-    
+
     static bool load(); //implemented in editorload.cpp
-    
+
     static void SendSolution(const char* sol);
 
     static void test(bool solution);
-    
+
     static void test();
     static void playSolution(const buttondata* data=NULL);
 
@@ -218,10 +218,10 @@ class editor
     static void StartSection(window* wind)  ;
     static void ResumeSection(window* wind)  ;
     static void ResumeSectionAndQuit(window* wind)  ;
-    
+
     static void askHint(boardelement* o);
-    
-    
+
+
 };
 
 
@@ -325,7 +325,7 @@ struct boardelement
     int              parentx;
     int              parenty;
     string           hint;
-    
+
     boardelement() { parentx=parenty = -1; type=EDOT_NONE; };
 
 };
@@ -352,7 +352,7 @@ class editorboard: public control
 {
  private:
     void applyFromButtons(int x, int y);
-    
+
     void drawWallInBoard(SDL_Surface*target,int ox,int oy, int x,int y, int variation, bool round);
     void drawTeleportInBoard(SDL_Surface*target,int ox,int oy, int x, int y, int direction);
     void drawLargeBlockInBoard(SDL_Surface * target, int ox,int oy, int x, int y, editorcolor color, int variation, int direction);
@@ -374,13 +374,13 @@ class editorboard: public control
     int xye_y;
     int portal_x[XYEDIT_OBJECT_COLORS+1][2];
     int portal_y[XYEDIT_OBJECT_COLORS+1][2];
-    
-    
-    
-      
+
+
+
+
     string title;
     string hint;
-    
+
     static string filetitle;
     static string description;
     static string author;
@@ -392,7 +392,7 @@ class editorboard: public control
     editorboard();
 
     void updateWallMem(int ox, int oy);
-    
+
     void draw(SDL_Surface* target);
     void loop() {}
     void onMouseMove(int px,int py);
@@ -400,14 +400,14 @@ class editorboard: public control
     void onMouseDown(int px,int py);
     void onMouseUp(int px,int py);
     void onMouseRightUp(int px,int py);
-    
+
     void makeDefaultLevel();
-    
-    
+
+
     static void SaveCopy(editorboard* ed);
     static void SetCopySolution(const char* sol);
     static void LoadCopy(editorboard* ed);
-    
+
     static int  CountLevels();
     static int  CurrentLevelNumber();
     static void SaveAtLevelNumber(editorboard* ed, int num);

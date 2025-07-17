@@ -308,13 +308,13 @@ int Drawer::Draw(SDL_Surface* target, Sint16 x, Sint16 y)
         r=SDL_BlitSurface(src, &sr, target, &T, R, G, B, A);
     else
         r=SDL_BlitSurface(src, &sr, target, &T);
-        
+
     if( src_lights != NULL)
     {
         if(SDL_BlitSurface(src_lights, &sr, target, &T) == -1)
             r=-1;
     }
-    
+
     return r;
 
 

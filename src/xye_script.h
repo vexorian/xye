@@ -130,5 +130,3 @@ class palette
 
 blockcolor GetElementBlockColor(TiXmlElement* el,blockcolor def=B_YELLOW);
 edir GetElementDir(TiXmlElement* el,edir def=D_LEFT,const char* tag="dir");
-
-

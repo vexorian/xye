@@ -216,7 +216,7 @@ void editor::continueAppendFile(bool okclicked, const string text, inputDialogDa
         }
 
     }
-    
+
 }
 
 void editor::beginAppendFile(const buttondata* data)
@@ -232,7 +232,7 @@ void editor::continueChangeLevelNumber(bool okclicked, const string text, inputD
     SavedFile = false;
     int x;
     string s = "";
-    
+
     if ( TryS2I(text, x) ) {
         int n = board->CountLevels();
         if ( (x >= 1) && (x <= n ) ) {
@@ -240,15 +240,15 @@ void editor::continueChangeLevelNumber(bool okclicked, const string text, inputD
             editor::updateCountRelated();
         } else {
             char buf[30];
-            sprintf(buf, "%d", n); 
-            s = string("\n\nPlease type a level number between 1 and ")+string(buf)+string("."); 
+            sprintf(buf, "%d", n);
+            s = string("\n\nPlease type a level number between 1 and ")+string(buf)+string(".");
         }
     } else {
         s = "\n\nThe requested input must be a number.";
     }
     if (s != "") {
         char buf[30];
-        sprintf(buf, "%d",board->CurrentLevelNumber()+1); 
+        sprintf(buf, "%d",board->CurrentLevelNumber()+1);
         dialogs::makeTextInputDialog(editorwindow,"This advanced option will move the current level to a different position in the file. The other levels will be slided accordingly. Type the new level number. "+s, string(buf), 1, "Ok", "Cancel", continueChangeLevelNumber,NULL);
 
     }
@@ -257,7 +257,7 @@ void editor::continueChangeLevelNumber(bool okclicked, const string text, inputD
 void editor::beginChangeLevelNumber(const buttondata*data)
 {
     char buf[30];
-    sprintf(buf, "%d",board->CurrentLevelNumber()+1); 
+    sprintf(buf, "%d",board->CurrentLevelNumber()+1);
     dialogs::makeTextInputDialog(editorwindow,"This advanced option will move the current level to a different position in the file. The other levels will be slided accordingly. Type the new level number.", string(buf), 1, "Ok", "Cancel", continueChangeLevelNumber,NULL);
 }
 
@@ -407,7 +407,7 @@ void editor::onEraseLevelConfirmation(bool yes)
 
 void editor::onEraseLevelClick(const buttondata* data)
 {
-dialogs::makeYesNoDialog(editorwindow,"Are you sure you want to erase this level?","Yes","No",editor::onEraseLevelConfirmation);    
+dialogs::makeYesNoDialog(editorwindow,"Are you sure you want to erase this level?","Yes","No",editor::onEraseLevelConfirmation);
 }
 
 
@@ -415,7 +415,7 @@ dialogs::makeYesNoDialog(editorwindow,"Are you sure you want to erase this level
 void editor::updateCountRelated()
 {
     int t = editorboard::CountLevels();
-    
+
     if (t == 1) {
         previousbutton->Enabled = false;
         nextbutton->Enabled = false;
@@ -427,7 +427,7 @@ void editor::updateCountRelated()
         erasebutton->Enabled = true;
         changelevelnumberbutton->Enabled = true;
     }
-    
+
     char x[30];
     char y[30];
     int ln = editorboard::CurrentLevelNumber()+1;
@@ -435,17 +435,17 @@ void editor::updateCountRelated()
 
     sprintf(x,"%d", ln );
     sprintf(y,"%d", t );
-    
+
     string mylevels = options::GetMyLevelsFolder();
     int i=0;
     while ( i < filename.length() && i < mylevels.length() && (filename[i]==mylevels[i]) ) {
         i++;
     }
-    
+
     string title = "Xye - Editor: "+filename.substr(i)+" : "+string(x)+"/"+string(y);
     SDL_WM_SetCaption(title.c_str(),0);
 
-    
+
 }
 
 
@@ -471,7 +471,7 @@ void editor::saveAs(bool okclicked, const string text, inputDialogData * dat)
         {
             updateCountRelated();
             dialogs::makeMessageDialog(editorwindow, string(filename)+string(" saved successfully."),"Ok",onDialogClickDoNothing);
-            
+
         }
     }
 }
@@ -567,7 +567,7 @@ void editor::ResumeSection(window* wind)
     editorwindow->addControl(tmbut);
     bx+=bw+1;
 
-    
+
     //**** Test button
     bw=sz32;
     tmbut= new button(bx,0,bw,button::Size);
@@ -605,8 +605,8 @@ void editor::ResumeSection(window* wind)
     editorwindow->addControl(tmbut);
     bx+=bw+1;
 
-    
-    //*** insert button    
+
+    //*** insert button
     bw=button::recommendedWidth("+");
     tmbut= new button(bx,0,bw,button::Size);
     tmbut->text="+";
@@ -627,8 +627,8 @@ void editor::ResumeSection(window* wind)
     erasebutton = tmbut;
     editorwindow->addControl(tmbut);
     bx+=bw+1;
-    
-    
+
+
     bw=button::recommendedWidth("c");
     tmbut= new button(bx,0,bw,button::Size);
     tmbut->text="c";
@@ -648,7 +648,7 @@ void editor::ResumeSection(window* wind)
     tmbut->depth=20;
     editorwindow->addControl(tmbut);
     bx+=bw+1;
-    
+
     //*** Solution button:
     bw=sz32;
     tmbut  = new button(bx,0, bw, button::Size);
@@ -661,7 +661,7 @@ void editor::ResumeSection(window* wind)
     solutionbutton=tmbut;
     bx+=bw+1;
 
-    
+
     //********
 
     bx+=sz/2;
@@ -697,9 +697,9 @@ void editor::ResumeSection(window* wind)
     tmbut->onClick = beginChangeLevelColor;
     editorwindow->addControl(tmbut);
     bx+=bw+1;
-    
+
     bx+=sz/2;
-    
+
     bw=button::recommendedWidth("Save");
     tmbut= new button(bx,0,bw,button::Size);
     tmbut->text="Save";
@@ -760,7 +760,7 @@ void editor::StartSection(window* wind)
         editorboard::LoadCopy(board);
         updateCountRelated();
         dialogs::makeMessageDialog(editorwindow, editor::loadError,"Ok",onDialogClickDoNothing);
-        
+
     } else if ( editor::loadError != "") {
         dialogs::makeMessageDialog(editorwindow, editor::loadError,"Ok",onDialogClickDoNothing);
     }
@@ -1027,8 +1027,8 @@ editorbuttons::editorbuttons(int sx, int sy, int sw, int sh)
 
     buttons[0][2].content=CONTENT_CHANGEOBJECT;
     buttons[0][2].type=EDOT_HINT;
-    
-    
+
+
     SelectedObjectType= EDOT_NONE;
     Eraser=true;
 
@@ -1114,7 +1114,7 @@ void editorbuttons::onMouseMove(int px,int py)
         if (clickedobject != NULL) {
             clickedobject->direction+=rot+4;
             clickedobject->direction%=4;
-            SelectedDirection = clickedobject->direction; 
+            SelectedDirection = clickedobject->direction;
             for (int i=0;i<EDITORBUTTONS_COUNTX;i++) {
                 for (int j=0;j<EDITORBUTTONS_COUNTY;j++){
                     singleobject &o=buttons[i][j];
@@ -1194,7 +1194,7 @@ void editorbuttons::handleClick(singleobject* target)
             break;
 
         case CONTENT_DIRECTION:
-            
+
             ifnotnulldeselect(clickedempty); clickedempty=NULL;
             ifnotnulldeselect(selection);
             switchToObject(SelectedObjectType,SelectedColor, SelectedRound, SelectedVariation, target->direction);
@@ -1205,7 +1205,7 @@ void editorbuttons::handleClick(singleobject* target)
             break;
 
         case CONTENT_VARIATION:
-            
+
             ifnotnulldeselect(clickedempty); clickedempty=NULL;
             ifnotnulldeselect(selection);
             switchToObject(SelectedObjectType,SelectedColor, SelectedRound, target->variation, SelectedDirection);
@@ -1217,7 +1217,7 @@ void editorbuttons::handleClick(singleobject* target)
 
         case CONTENT_MAKEROUND:
 
-            
+
             ifnotnulldeselect(clickedempty); clickedempty=NULL;
             ifnotnulldeselect(selection);
             switchToObject(SelectedObjectType,SelectedColor, target->round, SelectedVariation, SelectedDirection);
@@ -1306,7 +1306,7 @@ void editorbuttons::SaveCopy() {
     copy.saved = true;
     for (int i=0;i<EDITORBUTTONS_COUNTX;i++) {
         for (int j=0;j<EDITORBUTTONS_COUNTY;j++) {
-            copy.buttons[i][j] = buttons[i][j]; 
+            copy.buttons[i][j] = buttons[i][j];
         }
     }
 
@@ -1315,7 +1315,7 @@ void editorbuttons::LoadCopy() {
     for (int i=0;i<EDITORBUTTONS_COUNTX;i++) {
         //for (int j=0;j<EDITORBUTTONS_COUNTY;j++) {
             //only load the objects from the middle line.
-            buttons[i][1] = copy.buttons[i][1]; 
+            buttons[i][1] = copy.buttons[i][1];
             buttons[i][1].selected = false;
         //}
     }
@@ -1569,7 +1569,7 @@ void editorbuttons::updateText( editorobjecttype ot, editorcolor color, bool rou
                 if ( flags & (1<<6) ) {
                     text += "(right) ";
                 }
-                
+
             }
             break;
 
@@ -1657,7 +1657,7 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
         case EDOT_PORTAL: maxvariations=3; colorchoice=2;  break;
         case EDOT_COLORFACTORY: maxvariations=5; colorchoice=1; roundchoice=1; dirchoice=4; break;
         case EDOT_DANGERFACTORY: maxvariations=17; dirchoice=4;  break;
-            
+
         case EDOT_TELEPORT: dirchoice=4; break;
 
         //default : //EDOT_BOT,EDOT_FIREPAD, EDOT_FOOD
@@ -1675,7 +1675,7 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
 
     int upperlength = 0;
     int upperstart = 0;
-    
+
     if (roundchoice) {
         upperlength = 2;
     }
@@ -1685,7 +1685,7 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
     if (dirchoice != 0) {
         upperlength =  upperlength + dirchoice + ( upperlength? 1 : 0);
     }
-    
+
     if (upperlength > 0) {
         upperstart = lastclickedx - upperlength/2;
         if (upperstart < 0) {
@@ -1693,7 +1693,7 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
         }
         upperstart = min<int>(upperstart, EDITORBUTTONS_COUNTX - upperlength);
     }
-    
+
     if(roundchoice)
     {
         roundstart = upperstart;
@@ -1710,7 +1710,7 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
             }*/
         }
     }
-    
+
     if ( colorchoice ) {
         colorstart = upperstart;
         upperstart += 1 + colorcount;
@@ -1722,7 +1722,7 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
         }
     }
 
-    
+
     if (dirchoice) {
         dirstart = upperstart;
         upperstart += dirchoice + 1;
@@ -1731,11 +1731,11 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
             singleobject &o=buttons[dirstart+i][0];
             o.content= CONTENT_DIRECTION;
             o.direction=i;
-            
+
         }
-        
+
     }
-    
+
 
 
     if(maxvariations>0)
@@ -1744,12 +1744,12 @@ void editorbuttons::extendButtons( editorobjecttype ot, editorcolor color, bool 
         if (variationstart < 2) {
             variationstart = 2;
         }
-        
+
         // { variationstart + maxvariations-1 < EDITORBUTTONS_COUNTX }
         // { variationstart < EDITORBUTTONS_COUNTX - maxvariations + 1 }
-        
+
         variationstart = min<int>(variationstart, EDITORBUTTONS_COUNTX - maxvariations);
- 
+
         for (int i=0;i<maxvariations;i++)
         {
             singleobject &o=buttons[variationstart+i][2];
@@ -1771,7 +1771,7 @@ void editorbuttons::switchToObject( editorobjecttype ot, editorcolor color, bool
             singleobject &o=buttons[i][0];
             o.content=CONTENT_NOCONTENT;
             o.selected=false;
-            
+
             if (i>=2) {
                 singleobject &p=buttons[i][2];
                 p.content=CONTENT_NOCONTENT;
@@ -1809,7 +1809,7 @@ void editorboard::assign(editorboard* other)
             objects[i][j] = other->objects[i][j];
         }
     }
-        
+
     for (int i=0; i<TOTAL_EDITOR_COLOR_OPTIONS; i++) {
         colors[i] = other->colors[i];
     }
@@ -1830,7 +1830,7 @@ void editorboard::assign(editorboard* other)
 }
 void editorboard::CreateLevel(editorboard* ed)
 {
-    
+
     SaveCopy(ed);
     int x = levelList.size();
     levelList.resize(++x);
@@ -1840,7 +1840,7 @@ void editorboard::CreateLevel(editorboard* ed)
     LoadLevelNumber(ed, currentLevel+1);
     ed->objects[0][0].type = EDOT_NONE;
     ed->makeDefaultLevel();
-   
+
 }
 void editorboard::MoveToLevelNumber(editorboard* ed, int x)
 {
@@ -1857,7 +1857,7 @@ void editorboard::MoveToLevelNumber(editorboard* ed, int x)
         }
         levelList[x].assign(&levelList[old]);
         currentLevel = x;
-        
+
     } else if (old < x) {
         // old -> x
         // x -> x-1
@@ -1870,8 +1870,8 @@ void editorboard::MoveToLevelNumber(editorboard* ed, int x)
         levelList[x].assign(&levelList[old]);
         currentLevel = x;
     }
-    
-    
+
+
 }
 
 
@@ -1888,7 +1888,7 @@ void editorboard::DeleteLevel(editorboard* ed)
         } else {
              LoadLevelNumber(ed, currentLevel);
         }
-        
+
     }
 }
 
@@ -2051,16 +2051,16 @@ void editorboard::onMouseUp(int px,int py)
 {
     clicked=false;
     if ( editor::buttons->SelectedObjectType == EDOT_HINT ) {
-        int x = px/sz, y = py/sz; 
+        int x = px/sz, y = py/sz;
         if ( (x<0) || (y<0) || (x>=XYE_HORZ) || (y>=XYE_VERT) ) {
             return ;
         }
-    
-    
+
+
         editor::SavedFile=false;
         boardelement &o=objects[x][y];
         o.type = EDOT_HINT;
-        
+
         if (editor::buttons->SelectedObjectType == EDOT_HINT) {
             editor::askHint(&o);
         }
@@ -2105,7 +2105,7 @@ void editorboard::updateWallMem(int ox, int oy)
     if( (oy>0) && (objects[ox][oy-1].type==EDOT_WALL) ) r9=r7=false;
     if( (oy<XYE_VERT-1) && (objects[ox][oy+1].type==EDOT_WALL) ) r1=r3=false;
 
-    
+
     o.r1mem=(Uint8)(r1);
     o.r7mem=(Uint8)(r7);
     o.r9mem=(Uint8)(r9);
@@ -2121,7 +2121,7 @@ void editorWallColors(Drawer &D, int variation)
     } else {
         D.SetColors( &options::WallColor[variation], 255);
     }
-    
+
 }
 
 void editorboard::drawWallInBoard(SDL_Surface*target,int ox,int oy, int x, int y, int variation, bool round)
@@ -2261,7 +2261,7 @@ void editorboard::drawTeleportInBoard(SDL_Surface*target,int ox,int oy, int x, i
         for (int i=0; i < XYE_HORZ; i++) if (i != ox) {
             boardelement & o = objects[i][oy];
             if ( (o.type == EDOT_TELEPORT) && (o.direction != direction )
-                 && ( o.direction == EDITORDIRECTION_RIGHT || o.direction == EDITORDIRECTION_LEFT) 
+                 && ( o.direction == EDITORDIRECTION_RIGHT || o.direction == EDITORDIRECTION_LEFT)
                ) {
                 variation = 1;
                 break;
@@ -2272,16 +2272,16 @@ void editorboard::drawTeleportInBoard(SDL_Surface*target,int ox,int oy, int x, i
         for (int j=0; j < XYE_VERT; j++) if (j != oy) {
             boardelement & o = objects[ox][j];
             if ( (o.type == EDOT_TELEPORT) && (o.direction != direction )
-                 && ( o.direction == EDITORDIRECTION_UP || o.direction == EDITORDIRECTION_DOWN) 
+                 && ( o.direction == EDITORDIRECTION_UP || o.direction == EDITORDIRECTION_DOWN)
                ) {
                 variation = 1;
                 break;
             }
-        }    
-        break;            
+        }
+        break;
     }
-    
-    
+
+
     Uint8 tx,ty;
     switch(direction) {
         case EDITORDIRECTION_RIGHT: tx=4;break;
@@ -2291,7 +2291,7 @@ void editorboard::drawTeleportInBoard(SDL_Surface*target,int ox,int oy, int x, i
     }
     ty = (variation? 1:  2);
     Drawer D(editor::sprites,tx*sz,ty*sz,sz,sz);
-    D.Draw(target,x,y);    
+    D.Draw(target,x,y);
 }
 
 
@@ -2300,7 +2300,7 @@ void editorboard::draw(SDL_Surface* target)
     int i,j;
     DefaultColorData &cd = colors[EDITOR_COLOR_FLOOR];
     if (cd.useDefault) {
-        SDL_FillRect(target,x,y,w,h,SDL_MapRGB(target->format,options::FloorColor));        
+        SDL_FillRect(target,x,y,w,h,SDL_MapRGB(target->format,options::FloorColor));
     } else {
         SDL_FillRect(target,x,y,w,h,SDL_MapRGB(target->format,cd.color));
     }
@@ -2718,8 +2718,8 @@ void drawLargeBlockByFlags( SDL_Surface * target, int x, int y, editorcolor colo
     Drawer D(editor::sprites, tx*sz,  ty*sz,sz2,sz2);
     Uint8 alpha = 255;
     if( doalpha) alpha = 128;
-    
-    
+
+
 
     if(color!=EDCO_WHITE) {
         D.SetColors(&options::BKColor[color],alpha);
@@ -3036,7 +3036,7 @@ void drawFirePad( SDL_Surface * target, int x, int y)
 void drawError( SDL_Surface * target, int x, int y)
 {
     Uint32          col;
-    if (editor::tic4%2==0) { 
+    if (editor::tic4%2==0) {
         col =SDL_MapRGB(target->format,255,0,0);
     } else {
         col =SDL_MapRGB(target->format,255,255,255);
@@ -3064,11 +3064,11 @@ Uint32 getHiddenWayFlagsByVariationAndDir(int variation, int direction)
     Uint32 flags = 0;
     variation -= 2;
     if (variation == 0) {
-        flags = 15; // 1111       
+        flags = 15; // 1111
     } else if (variation == 1) {
         flags = 14; // 0111 - 1011 - 1101 - 1110
     } else if (variation == 2) {
-        flags = 12; // 0011 - 0110 - 1100 - 1001 
+        flags = 12; // 0011 - 0110 - 1100 - 1001
     } else if (variation == 3) {
         flags = 10; // 0101 - 1010
     } else if (variation == 4) {
@@ -3118,7 +3118,7 @@ void drawOneDir( SDL_Surface * target, int x, int y, int direction, int variatio
             D.SetColors( &options::OneWayDoorColor, 255);
         }
         D.Draw(target,x,y);
-        
+
         Sint16 k = sz/8;
         Uint32 black = SDL_MapRGB(target->format, 0,0,0 );
         Uint32 white = SDL_MapRGB(target->format, 255,255,255 );
@@ -3139,9 +3139,9 @@ void drawOneDir( SDL_Surface * target, int x, int y, int direction, int variatio
             SDL_FillRect(target, x+sz-2*k-1,y+k-1, k+2,sz-2*k+2, white );
             SDL_FillRect(target, x+sz-2*k,y+k,k,sz-2*k, black );
         }
-        
+
     } else if(variation) { //ground arrow
-    
+
         switch(direction)
         {
             case EDITORDIRECTION_DOWN:  tx=9; ty=11; break;
@@ -3169,7 +3169,7 @@ void drawOneDir( SDL_Surface * target, int x, int y, int direction, int variatio
         } else {
             D.SetColors( &options::OneWayDoorColor, 255);
         }
-        
+
         D.Draw(target,x,y);
 
         switch(direction)
@@ -3363,7 +3363,3 @@ void drawObjectBySpecs( SDL_Surface * target, int x, int y, editorobjecttype ot,
         case EDOT_KEYSYSTEM: drawKeySystem(target,x,y,color,variation); break;
     }
 }
-
-
-
-

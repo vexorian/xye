@@ -225,4 +225,3 @@ bool recording::saveInFile(string target,const char* levelfn,unsigned int ln)
 
  return true;
 }
-

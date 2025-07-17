@@ -19,4 +19,3 @@ void SetupBoldFonts(const char* ttf, const int & size);
 
 void Clean();
 }
-
