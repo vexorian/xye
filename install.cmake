@@ -34,6 +34,18 @@ FILES
     res/detailed_L.png
     res/detailed.png
     res/detailed.xml
+    res/classic.xml
+    res/kye.png
+    res/kye_luminosity.png
+    res/classic32.xml
+    res/kye32.png
+    res/kye32_luminosity.png
+    res/xmaskye jr.xml
+    res/XMASKye.png
+    res/XMASKye_luminosity.png
+    res/xmaskye jr32.xml
+    res/XMASKye32.png
+    res/XMASKye_luminosity32.png
     res/fon.bmp
     res/fon_bold.bmp
     res/xye_luminosity.png
