@@ -168,13 +168,13 @@ public:
 
     }
 
-    void onMouseMove(int px,int py){}
-    void onMouseOut() {}
-    void onMouseDown(int px,int py) {}
+    void onMouseMove(int px, int py) override{}
+    void onMouseOut() override {}
+    void onMouseDown(int px, int py) override {}
 
 
-    void onMouseUp(int px,int py) {}
-    void onMouseRightUp(int px,int py) {}
+    void onMouseUp(int px, int py) override {}
+    void onMouseRightUp(int px, int py) override {}
 };
 
 

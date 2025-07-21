@@ -297,11 +297,11 @@ class editorbuttons: public control
 
     void draw(SDL_Surface* target);
     void loop() {}
-    void onMouseMove(int px,int py);
-    void onMouseOut();
-    void onMouseDown(int px,int py);
-    void onMouseUp(int px,int py);
-    inline void onMouseRightUp(int px,int py) {}
+    void onMouseMove(int px, int py) override;
+    void onMouseOut() override;
+    void onMouseDown(int px, int py) override;
+    void onMouseUp(int px, int py) override;
+    inline void onMouseRightUp(int px, int py) override {}
     void drawbutton(SDL_Surface* target,singleobject &o, int x, int y);
 
     void setInfo(const string& msg);
@@ -392,11 +392,11 @@ class editorboard: public control
 
     void draw(SDL_Surface* target);
     void loop() {}
-    void onMouseMove(int px,int py);
-    void onMouseOut();
-    void onMouseDown(int px,int py);
-    void onMouseUp(int px,int py);
-    void onMouseRightUp(int px,int py);
+    void onMouseMove(int px, int py) override;
+    void onMouseOut() override;
+    void onMouseDown(int px, int py) override;
+    void onMouseUp(int px, int py) override;
+    void onMouseRightUp(int px, int py) override;
 
     void makeDefaultLevel();
 
