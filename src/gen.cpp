@@ -165,7 +165,7 @@ string  StripXML(const string s)
     string r="";
 
     int k=0;
-    for (int i=0;i<s.length();i++)
+    for (int i = 0; i < std::ssize(s); i++)
     {
         switch(s[i])
         {
@@ -183,7 +183,7 @@ string  StripXML(const string s)
 
         }
     }
-    if(k<s.length()) r+=s.substr(k,s.length()-k);
+    if(k < std::ssize(s)) r += s.substr(k, s.length() - k);
 
     return r;
 }
