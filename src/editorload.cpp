@@ -498,7 +498,7 @@ bool editor_LoadLargeBlock(TiXmlElement * el)
     Uint8 flags = 0;
 
     const char * dirs = "URDL";
-    for (int i=0; i<v.length(); i++)
+    for (size_t i = 0; i < v.length(); i++)
         for (int j=0; j<4; j++)
             if(dirs[j] == v[i])
                 flags |= (1<<j);
@@ -537,7 +537,7 @@ bool editor_LoadHiddenWay(TiXmlElement * el)
     string v=ptr;
     Uint32 flags = 0;
 
-    for (int i=0; i<v.size(); i++) {
+    for (size_t i=0; i<v.size(); i++) {
         char ch = v[i];
         if ( (ch>='2') && (ch<='8') ) {
             flags |= ( 1 << ( ch-'0') );
@@ -771,13 +771,13 @@ bool editor_LoadFactory(TiXmlElement* el)
 
 bool editor_LoadBlock(TiXmlElement* el)
 {
-    int x = errorPositions.size();
+    int x = std::ssize(errorPositions);
     editorcolor col;
     if( ! editor_LoadGenRC(el,EDOT_BLOCK, 0, &col)) {
         return false;
     }
-    if (x != errorPositions.size() ){
-        errorPositions.resize( std::max<int>(0, (int)errorPositions.size()-1) );
+    if (x != std::ssize(errorPositions) ){
+        errorPositions.resize( std::max<int>(0, std::ssize(errorPositions) - 1) );
         //handle special block above marked area case.
         int x, y;
         if(! getTopElementPosition(el, x , y, true) ) return false;
@@ -813,11 +813,11 @@ bool editor_LoadHint(TiXmlElement* el)
 
 bool editor_LoadWildCardBlock(TiXmlElement* el)
 {
-    int x = errorPositions.size();
+    int x = std::ssize(errorPositions);
     if( ! editor_LoadGenR(el,EDOT_BLOCK,0, EDCO_WILD    ) ) {
         return false;
     }
-    if (x != errorPositions.size() ){
+    if (x != std::ssize(errorPositions) ){
         errorPositions.resize( std::max<int>(0, (int)errorPositions.size()-1) );
         //handle special block above marked aread case.
         int x, y;
@@ -1347,7 +1347,7 @@ bool editor::load_kye()
     editorboard::filetitle = filename;
     editorboard::description = "";
     editorboard::author = "";
-    for (int k=0; k<levels.size(); k++) {
+    for (int k=0; k<std::ssize(levels); k++) {
         editorload_loadKyeLevel(levels[k]);
         editorboard::SaveAtLevelNumber(editor::board, k);
     }
@@ -1527,7 +1527,7 @@ bool editor::appendLevels(const string file)
             }
             if (errorPositions.size() != 0) {
                 errorsWarn = true;
-                for (int i=0; i<errorPositions.size(); i++) {
+                for (size_t i=0; i<errorPositions.size(); i++) {
                     pair<int,int> p = errorPositions[i];
                     editor::board->objects[p.first][XYE_VERT-p.second-1].type = EDOT_ERROR;
                 }
