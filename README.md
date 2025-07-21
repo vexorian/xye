@@ -154,7 +154,9 @@ Visit this address: [http://xye.sourceforge.net/levels.php](http://xye.sourcefor
 
 ## Charity
 
-Kye was a charityware, although Xye targets to be completely free software, it is fair to add these lines to the readme: if you really enjoy this game and want to give me a good reason to continue improving it. Instead of asking for donations I am gonna ask you to donate to any Children Charity. If you do it BECAUSE OF XYE, and feel like making the authors feel better, email me at vexorian@gmail.com to tell me you did it :) (do not include any private information/proof as that is risky, just tell me you donated to charity because you enjoyed Xye). I will admit that after 6 years of development this has not happened yet.
+Kye was a charityware, although Xye targets to be completely free software, it is fair to add these lines to the readme: if you really enjoy this game and want to give me a good reason to continue improving it. Instead of asking for donations I am gonna ask you to donate to any Children Charity. If you do it BECAUSE OF XYE, and feel like making the authors feel better, email me at vexorian@gmail.com to tell me you did it :) (do not include any private information/proof as that is risky, just tell me you donated to charity because you enjoyed Xye).
+
+Much thanks to all the people who have done this over the years!
 
 ## Who is responsible for this mess?
 
