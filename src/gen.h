@@ -1,12 +1,12 @@
-#include <stdio.h>
-#include <string>
+#pragma once
 
+#include <cstdio>
+#include <string>
 
 using std::string;
 
 //Sets random seed
 void Randomize();
-
 
 template<class T>
 T GetRandom(T min, T max);
@@ -37,4 +37,3 @@ bool DoesFileExist(const char* filename);
 bool DoesFileExist( const string filename);
 
 string  StripXML(const string s);
-

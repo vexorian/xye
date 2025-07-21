@@ -1,14 +1,13 @@
+#pragma once
+
 #include "vxsdl.h"
-#ifndef FONTINCLUDED
-   #include "font.h"
-#endif
+#include "font.h"
 #include "levels.h"
 #include "window.h"
-#include <string>
-
 
 #include "gen.h"
 
+#include <string>
 
 #ifndef XYE_HORZ
     #define XYE_HORZ 30
@@ -31,9 +30,7 @@
 #define GEM_EMERALD B_GREEN
 const int XYE_FASTFORWARD_SPEED=3;
 
-
 using std::string;
-
 
 enum edir { D_UP=0,D_DOWN=1,D_LEFT=2,D_RIGHT=3};
 enum blockcolor
@@ -52,9 +49,6 @@ typedef blockcolor gemtype;
 enum groundskin { GROUND_1, GROUND_2 };
 
 enum killtype { KT_KILLXYE /*Kill Xye*/, KT_KILLORGANICS /*Kill Xye and monsters*/, KT_FIRE /*Kill any thing that is not fire resistant, also shows a fire effect*/};
-
-
-
 
 unsigned int BC2Color(blockcolor bc);
 
@@ -271,7 +265,7 @@ class xye : public obj
      unsigned char lives;
      square* checkpoint;
      void OnDeath() { throw "Xye Should not die this way"; }
-     
+
  public:
      Uint8 alpha;
      xye(square* sq);
@@ -293,7 +287,6 @@ class xye : public obj
 
 };
 
-
 /** Robo-xye **/
 class roboxye : public obj
 {
@@ -310,14 +303,11 @@ class roboxye : public obj
      bool HasBlockColor(blockcolor bc);
 };
 
-
-
-
 /** Wall **/
 class wall : public obj
 {
  private:
-     
+
      unsigned int color;
 
      bool round7;
@@ -330,9 +320,9 @@ class wall : public obj
      Uint8 R;
      Uint8 G;
      Uint8 B;
-     
+
      bool containsRoundCorner();
-     
+
  public:
      static SDL_Color DefaultColor[6];
      static const int MAX_VARIATIONS = 6;
@@ -421,8 +411,8 @@ class largeblock : public obj
      Uint8 flags;
      largeblockroot *root;
      void setupBlock();
-     
-     
+
+
      void blockDFS( largeblockroot* root);
      static largeblock* getPart( obj* object, largeblockroot* root);
      bool pushingBlocks(edir dir, int ix, int x0, int x1, int iy, int y0, int y1, int dx ,int dy);
@@ -503,9 +493,6 @@ class wildcard : public obj
      bool HasBlockColor(blockcolor bc);
 };
 
-
-
-
 /** gemblock **/
 class gemblock : public obj
 {
@@ -523,11 +510,6 @@ class gemblock : public obj
      bool Loop(bool* died);
      bool HasBlockColor(blockcolor bc);
 };
-
-
-
-
-
 
 /** magnetic **/
 enum mgtype { T_MAGNET=0, T_ANTIMAGNET=1, T_STICKY =2};
@@ -557,7 +539,6 @@ class magnetic : public obj
      bool HasBlockColor(blockcolor bc);
 };
 
-
 /** Number **/
 class number : public obj
 {
@@ -583,8 +564,6 @@ class number : public obj
      bool HasBlockColor(blockcolor bc);
      void explode();
 };
-
-
 
 /** Impacter **/
 class impacter : public obj
@@ -662,8 +641,6 @@ class factory : public obj
      bool upd;
      void OnDeath() {}
 
-
-
  public:
      factory(square* sq,otype r,blockcolor tc, edir facing, edir switchfacing, bool roundblock,bool nocolor,btype bs);
      unsigned int limit;
@@ -717,7 +694,6 @@ class sniper : public obj
 
 };
 
-
 /** Turner **/
 class turner : public obj
 {
@@ -725,7 +701,6 @@ class turner : public obj
      blockcolor c;
      bool round;
      void OnDeath() {}
-
 
  public:
      bool cwise;
@@ -771,9 +746,7 @@ class surprise : public obj
      void OnDeath() {}
      static unsigned int Pending;
 
-
  public:
-
      surprise(square* sq,blockcolor tc,bool makeround);
      void Draw(unsigned int x, unsigned int y);
      bool trypush(edir dir,obj* pusher);
@@ -809,9 +782,6 @@ class toggle : public obj
      static void Reset();
 };
 
-
-
-
 /** Dangerous .-
    A dangerous is a foe but doesn't have a killing aura, Xye needs to step in to die.
    Robo mines are also instances of dangerous, but they can chase you.
@@ -833,10 +803,8 @@ class dangerous : public obj
      unsigned char mov;
      void OnDeath() {}
      bool disb;
-     
 
  public:
-     
      dangerous(square* sq, otype kind);
      dangerous(square* sq,edir dir,bool d);
      void FireBall(edir dir);
@@ -858,7 +826,6 @@ class dangerous : public obj
 class beast: public obj
 {
  private:
-
      static unsigned int count[BTYPEN];
      void OnDeath() { count[kind]-- ; }
      bool (*AI)(beast* dabeast, edir &r);
@@ -870,7 +837,6 @@ class beast: public obj
     btype kind;
 
  public:
-
     inline bool BelongsToBeastType(btype x) { return (kind==x); }
 
     int AIValue;
@@ -888,14 +854,12 @@ class beast: public obj
     bool HasRoundCorner(roundcorner rnc);
     static unsigned int BeastCount(btype k);
     static void ResetCounts();
-
 };
 
 class rnode;
 
 /** rattler **/
 class rattler: public obj
-
 {
  friend class rnode;
  private:
@@ -909,7 +873,6 @@ class rattler: public obj
      unsigned int grow;
 
  public:
-
     rattler(square* sq, edir inidir, unsigned int G);
     void Node(square* sq);
     void Draw(unsigned int x, unsigned int y);
@@ -923,10 +886,8 @@ class rattler: public obj
 
 };
 
-
 /** rnode **/
 class rnode: public obj
-
 {
  friend class rattler;
  private:
@@ -940,15 +901,12 @@ class rnode: public obj
      bool forgetkill;
     void NewAnim();
  public:
-
-
     void Draw(unsigned int x, unsigned int y);
     bool trypush(edir dir,obj* pusher) { return false;}
     bool HasBlockColor(blockcolor bc) { return false;}
     bool Loop(bool* died) { return false;}
 
     bool HasRoundCorner(roundcorner rnc) { return false;}
-
 };
 
 /** Rattler Food **/
@@ -957,7 +915,6 @@ class rfood : public obj
  private:
      void OnDeath() {}
      bool anim;
-
 
  public:
      rfood(square* sq);
@@ -992,10 +949,6 @@ class teleport : public obj
      bool HasBlockColor(blockcolor bc);
 };
 
-
-
-
-
 /** Earth **/
 class earth : public obj
 {
@@ -1024,7 +977,6 @@ class earth : public obj
 class key : public obj
 {
  private:
-
      void OnDeath() {}
      static unsigned int Got[XYE_OBJECT_COLORS];
 
@@ -1041,14 +993,12 @@ class key : public obj
      static void ResetCounts();
      static bool GotKey(blockcolor ofcolor);
      static bool GetXyesKeys(unsigned int &yl,unsigned int &rd,unsigned int &bl,unsigned int &gr, unsigned int &pr);
-
 };
 
 /** lock **/
 class lock : public obj
 {
  private:
-
      void OnDeath() {}
 
  public:
@@ -1060,10 +1010,7 @@ class lock : public obj
      void ChangeColor(unsigned int c);
      bool Loop(bool* died) { *died=false; return true; }
      bool HasBlockColor(blockcolor bc);
-
 };
-
-
 
 /** Gem **/
 class gem : public obj
@@ -1081,7 +1028,6 @@ class gem : public obj
      bool HasRoundCorner(roundcorner rnc);
      bool Loop(bool* died);
      bool HasBlockColor(blockcolor bc);
-
 
      static bool GotAllGems();
      static bool GotAllGems(blockcolor c);
@@ -1104,7 +1050,6 @@ class star : public obj
      bool HasRoundCorner(roundcorner rnc);
      bool Loop(bool* died);
      bool HasBlockColor(blockcolor bc);
-
 
      static int GetRemaining();
      static int GetAcquired();
@@ -1129,7 +1074,6 @@ class tdoor: public gobj
       Uint8 G;
       Uint8 B;
 
-
     public:
      tdoor(square* sq,tdtype t,bool up, bool right, bool down, bool left);
      void Loop() {}
@@ -1144,7 +1088,6 @@ class tdoor: public gobj
     static void ChangeDefaultColor(Uint8 nR,Uint8 nG,Uint8 nB);
     static void ChangeForceArrowDefaultColor(Uint8 nR,Uint8 nG,Uint8 nB);
 };
-
 
 /** Marked Area**/
 class marked: public gobj
@@ -1171,7 +1114,6 @@ class marked: public gobj
      static void Reset();
      static bool AllActive(blockcolor c);
      static bool AtLeastOneActive(blockcolor c);
-
 };
 
 /** FirePAd **/
@@ -1191,7 +1133,6 @@ class firepad: public gobj
      void OnLeave(obj *entering);
      bool CanEnter(obj *entering, edir dir);
      bool CanLeave(obj *entering, edir dir);
-
 };
 
 /** Pit **/
@@ -1216,7 +1157,6 @@ class pit: public gobj
      bool CanLeave(obj *entering, edir dir);
      static bool IsEnabledInstance(gobj* gobject);
      static bool CanConsume(obj* object);
-
 };
 
 
@@ -1232,7 +1172,6 @@ class blockdoor: public gobj
      bool trap;
      bool IsOpen();
 
-
     public:
 
      blockdoor(square* sq, bool AsTrap, bool startopen, blockcolor bc);
@@ -1245,10 +1184,6 @@ class blockdoor: public gobj
      bool CanEnter(obj *entering, edir dir);
      bool CanLeave(obj *entering, edir dir);
      bool InsideKind(otype o) { return((o==OT_GEM) || (o==OT_KEY) || (o==OT_EARTH)); }
-
-
-
-
 };
 
 /** Hint **/
@@ -1282,10 +1217,6 @@ class hint: public gobj
      static void SetGlobalHint(const char* gl);
      static void SetGlobalHint(string &gl);
      static bool GlobalHintExists();
-
-
-
-
 };
 
 /** Portal **/
@@ -1346,11 +1277,11 @@ class game
     friend class gameboard;
     friend class gamepanel;
  private:
-    
+
     game() {}
-    
+
     static bool IsUndoAllowed();
-    
+
     static void AfterLevelLoad();
     static void ExitCommandYesHandler(bool yesClicked);
     static void ExitCommand( const buttondata*bd = NULL);
@@ -1361,7 +1292,7 @@ class game
     static void HintUpCommand( const buttondata*bd = NULL);
     static void UndoCommand( const buttondata*bd = NULL);
     static void RecordSolutionCommand( const buttondata*bd = NULL);
-    
+
     static void FFUpCommand( const buttondata*bd = NULL);
     static void FFDownCommand( const buttondata*bd = NULL);
     static void BrowseCommand( const buttondata*bd = NULL);
@@ -1421,7 +1352,7 @@ class game
     static bool          PlayingRecording;
     static recordingmode RecordingMode;
     static bool undo;
-    
+
     static void onKeyUp(SDLKey keysim, Uint16 unicode);
     static void onKeyDown(SDLKey keysim, Uint16 unicode);
     static void onExitAttempt();
@@ -1429,23 +1360,23 @@ class game
 
     static string InitLevelFile;
     static int         InitLevelFileN;
-    
+
     static void onMouseMove(int x,int y);
     static void onMouseOut();
     static void onMouseDown(int x,int y);
     static void onMouseUp(int x,int y);
     static bool InitGraphics();
     static void CleanGraphics();
-    
+
     static void loadGame();
     static void saveGame();
-    
+
  public:
     static void RefreshGraphics();
-    
+
     static void PlayLevel( const char* levelfile, int level);
     static void TestLevel( const char* levelfile, int level, bool playsolution=true);
- 
+
     static Font* FontRes;
     static Font* FontRes_White;
     static Font* FontRes_Bold;
@@ -1585,12 +1516,7 @@ class sqMem
     static void reset( bool val);
 };
 
-
-
-
-
 /******************************General Stuff!**********************************/
-
 
 square* RoundAdvance(obj* ToMove,edir dir,char i, char j);
 bool IsXyeAt(square* sq);
@@ -1615,8 +1541,6 @@ bool SpotAffectedByAMagnetic(obj* forObject, char x, char y);
 
 bool AI_RoboMine(obj* foro, edir &r);
 
-
 char FixVert(char vert);
 char FixHorz(char horz);
 void FixCoordinates(char &horz, char &vert);
-

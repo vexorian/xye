@@ -118,7 +118,7 @@
             <wall x='3' y='5' />
             <wall x='9' x2='10' />
             <wall x='21' />
-            
+
             <gemblock x='13' bc="BLUE" />
             <gemblock x='19' bc="BLUE" />
             <arrow x='20' dir="LEFT" bc="BLUE" />
@@ -140,7 +140,7 @@
             <wall x='21' x2='22' y2='10' />
             <wall x='23' y2='14' />
             <gem x='27' bc="YELLOW" />
-            
+
             <block x='5' y='10' bc="YELLOW" />
             <wall x='7' />
             <gem x='8' bc="BLUE" />
@@ -151,30 +151,30 @@
             <wall x='17' round1='1' round7='1' round9='1' />
             <arrow x='18' dir="LEFT" round='1' />
 
-            <gemblock x='21' bc="GREEN" />          
+            <gemblock x='21' bc="GREEN" />
             <magnet x='22' horz='1' kind='1' />
 
             <gem x='26' bc="YELLOW" />
             <wall y2='19' x='29' type='4' />
             <wall y='12' y2='19' x='17' type='4' round1='1' round3='1' />
             <gem x='20' bc="BLUE" />
-            
-            <gemblock x='21' bc="GREEN" />          
+
+            <gemblock x='21' bc="GREEN" />
             <magnet x='22' horz='1' kind='1' />
 
             <gem x='28' bc="RED" />
             <gem x='18' y='13' bc="BLUE" />
-                        
-            <gemblock x='21' bc="GREEN" />          
+
+            <gemblock x='21' bc="GREEN" />
             <magnet x='22' horz='1' kind='1' />
             <wall y='14' x='21' x2='22' />
             <wall y='16' x='18' x2='25' />
-            
+
             <teleport dir="UP" x='26' />
             <teleport dir="UP" x='27' />
             <teleport dir="UP" x='28' />
             <block x='22' y='17' nocolor='1' />
-            
+
             <beast x='18' y='18' dir="RIGHT" kind='6' />
             <wall x='18' x2='28' y='19' />
 

@@ -66,7 +66,7 @@ void savePosition(std::ofstream &file, int x ,int y)
     } else {
         file << "y='"<<y<<"' ";
     }
-    
+
 }
 
 void saveLargeBlock(std::ofstream &file, boardelement &o, int x ,int y)
@@ -81,8 +81,8 @@ void saveLargeBlock(std::ofstream &file, boardelement &o, int x ,int y)
         if(flags&(1<<i))
             file<<dirs[i];
     file<<"' />";
-    
-    
+
+
 }
 
 void saveColorFactory(std::ofstream &file, boardelement &o, int x ,int y)
@@ -96,7 +96,7 @@ void saveColorFactory(std::ofstream &file, boardelement &o, int x ,int y)
         case EDITORDIRECTION_RIGHT: file<<"dir='R' swdir='L' "; break;
         default: file<<"dir='L' swdir='R' "; break;
     }
-    
+
     saveColor(file,o, false);
     saveRound(file,o);
     file<<"kind='";
@@ -106,10 +106,10 @@ void saveColorFactory(std::ofstream &file, boardelement &o, int x ,int y)
         case 3: file<<4; break;
         case 4: file<<8; break;
     }
-    
+
     file<<"' />";
-    
-    
+
+
 }
 
 void saveDangerFactory(std::ofstream &file, boardelement &o, int x ,int y)
@@ -123,7 +123,7 @@ void saveDangerFactory(std::ofstream &file, boardelement &o, int x ,int y)
         case EDITORDIRECTION_RIGHT: file<<"dir='R' swdir='L' "; break;
         default: file<<"dir='L' swdir='R' "; break;
     }
-    
+
     file<<"kind='";
     switch(o.variation)
     {
@@ -137,10 +137,10 @@ void saveDangerFactory(std::ofstream &file, boardelement &o, int x ,int y)
         default:
             file<<5<<"' beastkind='"<<o.variation; break;
     }
-    
+
     file<<"' />";
-    
-    
+
+
 }
 
 int defaultWallVariation = 0;
@@ -202,7 +202,7 @@ void saveNormalObject(std::ofstream &file, boardelement &o, int x, int y)
                 if(o.r9mem) file << "round9='1' ";
             }
 
-            
+
             if(o.variation != defaultWallVariation) file << "type='"<<o.variation<<"' ";
 
             file <<"/>\n";
@@ -305,11 +305,11 @@ void saveNormalObject(std::ofstream &file, boardelement &o, int x, int y)
                 file<<"\t\t<block ";
                 savePosition(file,x,y);
                 saveColor(file,o);
-                file<<"/>\n";                
+                file<<"/>\n";
             } else if (o.variation==7) { //wildcard block on top of area
                 file<<"\t\t<wild ";
                 savePosition(file,x,y);
-                file<<"/>\n";                
+                file<<"/>\n";
             }
             break;
 
@@ -378,7 +378,7 @@ void saveNormalObject(std::ofstream &file, boardelement &o, int x, int y)
             savePosition(file,x,y);
             file << "/>\n";
             break;
-                   
+
         case EDOT_LARGEBLOCK:
             file<<"\t\t";
             saveLargeBlock(file, o, x,y);
@@ -434,7 +434,7 @@ void savePortals(std::ofstream &file, editorboard *board)
 
             }
         }
-            
+
 }
 
 void saveGroundObject(std::ofstream &file,boardelement &o, int x, int y)
@@ -499,7 +499,7 @@ void saveGroundObject(std::ofstream &file,boardelement &o, int x, int y)
             saveColor(file,o);
             file<<"/>\n";
             break;
-            
+
         case EDOT_HINT:
             file << "\t\t<hint ";
             savePosition(file,x,y);
@@ -544,7 +544,7 @@ void saveWallDefault( std::ofstream & file, editorboard*board)
             if (board->objects[i][j].type == EDOT_WALL ) {
                 variationCount[board->objects[i][j].variation].first++;
             }
-        } 
+        }
     }
     defaultWallVariation = max_element(variationCount, variationCount + MAX_WALL_VARIATIONS)->second;
     file<<"        <wall type='"<< defaultWallVariation <<"' ";
@@ -552,7 +552,7 @@ void saveWallDefault( std::ofstream & file, editorboard*board)
     if (! cd.useDefault ) {
         file<<" color='"<<(EDITOR_COLOR_WALLS+1)<<"' ";
     }
-    
+
     file << " />" <<endl;
 
 }
@@ -576,11 +576,11 @@ void saveColorStuff( std::ofstream & file, editorboard*board)
                 file << " blue='"<<(int)cd.color.b<<"'";
                 file << " />"<<endl;
             }
-            
+
         }
         file<<"    </palette>"<<endl;
     }
-        
+
     //now save the defaults...
     file<<"    <default>"<<endl;
 
@@ -591,12 +591,12 @@ void saveColorStuff( std::ofstream & file, editorboard*board)
     saveDefault(file, "force", board, EDITOR_COLOR_FORCE);
 
     file<<"    </default>"<<endl;
-    
+
     if (! board->colors[EDITOR_COLOR_FLOOR].useDefault) {
         file <<"    <floor><area color = '"<<(EDITOR_COLOR_FLOOR+1)<<"' ";
         file << "x1='0' x2='29' y1='0' y2='19' /></floor>"<<endl;
     }
-            
+
 
 }
 bool editor::save(const string &target, bool onlyOneLevel)
@@ -604,7 +604,7 @@ bool editor::save(const string &target, bool onlyOneLevel)
     std::ofstream file;
     file.open (target.c_str(),std::ios::trunc | std::ios::out );
     if (!file.is_open()) return false; //ouch just halt.
-    
+
     int oldcur = editorboard::CurrentLevelNumber();
     int first = 0;
     if (onlyOneLevel) {
@@ -615,12 +615,12 @@ bool editor::save(const string &target, bool onlyOneLevel)
 
     file << "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
     file << "<pack>\n<name>"<< StripXML(editorboard::filetitle) <<"</name><author>"<< StripXML(editorboard::author) <<"</author>\n<description>"<< StripXML(editorboard::description) <<"</description>\n";
-    
+
     for (int i=first; i<editorboard::CountLevels(); i++) {
         editorboard::LoadLevelNumber(board, i);
         file << "\n<level>\n";
         file << "<title>"<< StripXML(board->title) <<"</title>\n";
-        
+
         if(board->hint!="")
         {
             file << "<hint>"<< StripXML(board->hint) <<"</hint>\n";
@@ -629,13 +629,13 @@ bool editor::save(const string &target, bool onlyOneLevel)
         {
             file << "<solution>"<< StripXML(board->solution) <<"</solution>\n";
         }
-    
+
         if(board->bye!="")
         {
             file << "<bye>"<< StripXML(board->bye) <<"</bye>\n";
         }
         saveColorStuff(file, board);
-    
+
         int i_redeclaration,j;
         file << "\t<ground>\n";
         resetSavedPosition();
@@ -648,22 +648,22 @@ bool editor::save(const string &target, bool onlyOneLevel)
             saveNormalObject(file,editor::board->objects[i_redeclaration][j],i_redeclaration,XYE_VERT-j-1);
         }
         savePortals( file, editor::board);
-        
-        
+
+
         file << "\t</objects>\n";
-    
-    
+
+
         if(editor::board->xye_x>=0)
         {
             resetSavedPosition();
             file << "\t<xye x='"<<editor::board->xye_x<<"' y='"<<(XYE_VERT-editor::board->xye_y-1)<<"' lives='"<<(editor::board->objects[editor::board->xye_x][editor::board->xye_y].variation+1)<<"' />\n";
         }
-    
+
         file << "</level>\n";
 
         if (onlyOneLevel) break;
     }
-    
+
     file << "</pack>\n";
     editorboard::LoadLevelNumber(board, oldcur);
 

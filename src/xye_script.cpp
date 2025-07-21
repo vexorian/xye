@@ -217,11 +217,11 @@ bool LevelPack::GetFileData(const char* filename, string &au, string &ds, string
     }
 
     if ((L>4) && (filename[L-4]=='.')
-          && (  (strcmp(filename+L-3,"xsb") == 0) || (strcmp(filename+L-3,"XSB") == 0) 
+          && (  (strcmp(filename+L-3,"xsb") == 0) || (strcmp(filename+L-3,"XSB") == 0)
                 || (strcmp(filename+L-3,"slc") == 0) || (strcmp(filename+L-3,"SLC") == 0)
              )
        )
-       
+
     {
         ti = "";
         const char* err=XsbLevelPack::ReadData(filename,leveln , au, ds, ti);
@@ -245,7 +245,7 @@ bool LevelPack::GetFileData(const char* filename, string &au, string &ds, string
 
             return false;
         }
-        
+
         return true;
     }
 
@@ -295,7 +295,7 @@ return true;*/
                 leveln++;
                 el=el->NextSiblingElement("level");
             }
-            
+
             if( leveln==0) val=false;
 
 
@@ -397,7 +397,7 @@ void LevelPack::Load(const char *filename, unsigned int ln, const string replay)
             if (pack) //It is a replay file!
             {
                 const char * bf=pack->Attribute("levelfile");
-                
+
                 const char* tm=bf;
                 int tmx=1;
                 pack->QueryIntAttribute("leveln",&tmx);
@@ -628,7 +628,7 @@ void Load_Wall(TiXmlElement* el, bool defround)
 
 
     el->QueryIntAttribute("type",&t);
-    
+
 
     if (options::LevelColorsDisabled()) {
         cid = 0;
@@ -799,7 +799,7 @@ void Load_LargeBlock(TiXmlElement* el)
         largeblock* bc=new largeblock(game::SquareN(LastX,LastY),c, up,right,down,left);
         if (colorless) bc->colorless=true;
     }
-    
+
 
 }
 
@@ -1318,7 +1318,7 @@ void Load_Portal(TiXmlElement* el)
     } else if (defcolor >= 5){
         defcolor--;
     }
-    
+
     if( (defcolor>=0) && (defcolor<XYE_OBJECT_COLORS))
     {
             SDL_Color cc = options::BKColor[defcolor];
@@ -1421,7 +1421,7 @@ blockcolor GetElementBlockColor(TiXmlElement* el, blockcolor def)
         case('G'): case('g'): return (B_GREEN);
         case('R'): case('r'): return (B_RED);
         case('Y'): case('y'): return (B_YELLOW);
-        case('P'): case('p'): return (B_PURPLE);            
+        case('P'): case('p'): return (B_PURPLE);
     }
 
     return (def);
@@ -1498,7 +1498,7 @@ otype GetOTFromXmlElement(TiXmlElement* x, unsigned int *extra)
     else if (strcmp(TempCharA,"hiddenway")==0) { *extra=1; return OT_TRICKDOOR; }
     else if (strcmp(TempCharA,"force")==0) { *extra=2; return OT_TRICKDOOR; }
     else if (strcmp(TempCharA,"marked")==0) { *extra=0; return OT_MARKEDAREA; }
-    
+
 
     return OT_GEM; //Default "gem"
 }
@@ -1593,7 +1593,7 @@ void LoadPalette(TiXmlElement* pal)
             palette::SetColor(id,r%256,g%256,b%256, PM_RECOLOR);
         }
 
-        
+
 
 
         pEChild= pEChild->NextSiblingElement("color"); //Next color element
@@ -1646,7 +1646,7 @@ void LoadDefaults_ForceArrow(TiXmlElement* el)
 {
     int cid=0;
     int t=0;
-        
+
 
     if (! options::LevelColorsDisabled()) {
         el->QueryIntAttribute("color",&cid);
@@ -1775,10 +1775,10 @@ void LevelPack::Default(const char* msg)
     Name = "Level File could not be open";
     Author = "Unknown";
     Desc = "An error happened while attempting to load the file";
-    
+
     LevelPack::CurrentLevelTitle= "Xye - Could not open level file";
     SDL_WM_SetCaption(LevelPack::CurrentLevelTitle.c_str(),0);
-    
+
     const char* err[5]=
     {"###.##..##...##..##.",
      "#...#.#.#.#.#..#.#.#",
@@ -1792,21 +1792,21 @@ void LevelPack::Default(const char* msg)
                 block* b =  new block(game::Square(5+j,12-i) , B_RED, false);
             }
         }
-    
-    
-    
-    
-    LevelPack::SetLevelBye("Sorry");
-    hint::SetGlobalHint(Desc.c_str());    
-    LevelPack::Solution="";
-    
-    palette::Clear();
-    if(msg!=NULL) 
-        LevelError = msg;
-    
 
-    
-    
+
+
+
+    LevelPack::SetLevelBye("Sorry");
+    hint::SetGlobalHint(Desc.c_str());
+    LevelPack::Solution="";
+
+    palette::Clear();
+    if(msg!=NULL)
+        LevelError = msg;
+
+
+
+
     game::XYE= new xye(game::Square(0,0));
 }
 
@@ -1978,7 +1978,7 @@ bool LoadKyeFormatTag(TiXmlElement* kf, KyeLevel* out)
 
     const char* tx=kf->GetText();
     if(tx==NULL) tx="";
-    
+
     int offset=0,m;
     kf->QueryIntAttribute("offset",&offset);
 
@@ -2158,19 +2158,3 @@ void palette::GetColor(int id, Uint8 &R, Uint8 &G,Uint8 &B, palette_mode& pm)
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

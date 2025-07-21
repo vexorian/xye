@@ -334,7 +334,7 @@ void Font::WriteWrap(SDL_Surface* Surface, int x, int y, int w, int h,const char
             const char*aux=c;
             int count=0;
             int wordwidth=0;
-            
+
             char tester[2]; tester[1]='\0';
             while(*aux>' ')
             {
@@ -469,17 +469,17 @@ std::vector<std::string> Font::splitByLines(const char* text, int w) const
 
     word[0]='\0';
     wi=autoprint=0;
-    
+
     const char * c=text;
     string line="";
     int spc=CharWidth(' ');
     bool lineended=false;
     bool lastwasspace=false;
-    
+
     while(true)
     {
         int chw = CharWidth(*c);
-        
+
         if((wi>=20) || (lastwasspace&&(*c>' ')) || (*c<=' ')  )
         {
             lastwasspace=false;
@@ -519,7 +519,7 @@ std::vector<std::string> Font::splitByLines(const char* text, int w) const
                     wi=1;
                     tw=spc;
                 }
-                else lineended=false;                    
+                else lineended=false;
             }
         }
         if(*c>' ')
@@ -612,7 +612,7 @@ unsigned int Font::CharWidth(const char c) const
     #endif
     int charoffset = ((int)(c) - 33) * 2 + 1;
     if (c == ' ' || charoffset < 0 || charoffset > MaxPos)  return CharPos[2]-CharPos[1];
-    
+
     return CharPos[charoffset+1] - CharPos[charoffset];
 }
 

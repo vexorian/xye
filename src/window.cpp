@@ -49,7 +49,7 @@ bool window::InitSDL()
     }
     #ifndef NOTRUETYPE
         TTF_Init();
-    #endif   
+    #endif
 
     SDL_QuitSubSystem(SDL_INIT_VIDEO);
     window::SDLactive=true;
@@ -60,12 +60,12 @@ bool window::InitSDL()
 
 void window::QuitSDL()
 {
-    if(!window::SDLactive) return;    
+    if(!window::SDLactive) return;
     window::SDLactive=false;
     #ifndef NOTRUETYPE
         TTF_Quit();
-    #endif    
-    SDL_Quit();    
+    #endif
+    SDL_Quit();
 }
 
 void window::Close()
@@ -84,7 +84,7 @@ void window::endSub()
         for (int i=0;i<controln;i++) controls[i]=subcontrols[sub][i];
         onKeyUp=subOnKeyUp[sub];
         onKeyDown=subOnKeyDown[sub];
-        
+
     }
 }
 
@@ -97,13 +97,13 @@ void window::beginSub()
             subcontrols[sub][i]=controls[i];
         }
         subcontroln[sub]=controln;
-        
+
         subOnKeyUp[sub] = onKeyUp;
         subOnKeyDown[sub] = onKeyDown;
-        
+
         onKeyUp=onKeyEventDoNothing;
         onKeyDown=onKeyEventDoNothing;
-        
+
         controln=0;
         sub++;
 
@@ -119,14 +119,14 @@ void window::init(int width, int height, const char * caption)
     beforeDraw=beforeDrawDoNothing;
     curcontrol=-1;
     mouse_pressed=false;
-    
+
     halt=false;
 
-    
-    
+
+
     controln=0;
     Width=width;
-    
+
     Height=height;
     SDL_Init(SDL_INIT_VIDEO);
     surface=SDL_SetVideoMode(width,height, 32, 0);
@@ -134,7 +134,7 @@ void window::init(int width, int height, const char * caption)
     transition = NULL;
 
     SDL_WM_SetCaption(caption,0);
-   
+
 
 }
 
@@ -159,10 +159,10 @@ void window::SetCaption(const string caption)
 
 window* window::create(int width, int height, const char * caption)
 {
-    //all right, singleton pattern is tricky, only reason this is a 
+    //all right, singleton pattern is tricky, only reason this is a
     // singleton is because SDL does not allow multiple windows yet.
-    
-    
+
+
     if(CurrentInstance!=NULL) return CurrentInstance;
 
     if(!window::SDLactive) {
@@ -170,11 +170,11 @@ window* window::create(int width, int height, const char * caption)
         return NULL;
     }
 
-    
+
     CurrentInstance = new window();
     CurrentInstance->init(width,height,caption);
     return CurrentInstance;
-     
+
 }
 
 
@@ -192,7 +192,7 @@ window::~window()
 {
     CurrentInstance=NULL;
     reset();
-    
+
     SDL_QuitSubSystem(SDL_INIT_VIDEO);
 }
 
@@ -222,7 +222,7 @@ void window::Error(const char* msg)
 
 Uint32 window::timer(Uint32 interval, void *param)
 {
-    
+
     if (!CurrentInstance->TriggeredLoop) {
         SDL_Event event;
         SDL_UserEvent userevent;
@@ -263,7 +263,7 @@ void window::loop(double fps)
     SDL_TimerID tim = SDL_AddTimer( per, window::timer,0);
     while (!done) {
         int t=0;
-        
+
         // message processing loop
         while (SDL_PollEvent(&event) && (!done)) {
             // check for messages
@@ -293,7 +293,7 @@ void window::loop(double fps)
                     window::handleMouseWheel(mouse_x, mouse_y, event.button.button, true);
                 }
                 break;
-            
+
 
             case (SDL_MOUSEBUTTONUP):
                 switch(event.button.button) {
@@ -330,7 +330,7 @@ void window::loop(double fps)
                 //if (
                 break;
 
-                
+
             } // end switch
 
 
@@ -343,9 +343,9 @@ void window::loop(double fps)
         }
 
         if  (!done) SDL_Delay((InActive?1000:10));
-        
-        
-        
+
+
+
         //if (!done) SDL_Delay(1);
     }
 
@@ -409,7 +409,7 @@ void window::handleMouseMove(int x, int y)
         } else {
             mouse_pressed = false;
         }
-        
+
     }
     for (int i=controln-1;i>=0;i--) {
         control* c=controls[i];
@@ -441,8 +441,8 @@ void window::handleMouseDown(int x, int y)
 {
     for (int i=controln-1;i>=0;i--) {
         control* c=controls[i];
-        
-        
+
+
         if (( x>= c->x) && ( x<= c->x+c->w) && ( y>= c->y) && ( y<= c->y+c->h) ) {
             c->onMouseDown(x-c->x,y-c->y);
             return;
@@ -458,7 +458,7 @@ void window::handleMouseUp(int x, int y)
             control * c = controls[curcontrol];
             c->onMouseUp(x - c->x, y - c->y);
         }
-        
+
     }
     handleMouseMove(x,y);
 }
@@ -592,7 +592,7 @@ void button::draw(SDL_Surface* target)
         }
         flashperiod--;
     }
-    
+
 
     if(w>sz) {
         int ty=NormalTextureY;
@@ -607,7 +607,7 @@ void button::draw(SDL_Surface* target)
 
         A.Draw(target,x,y);
 
-        
+
         for (int i=x+sz;i<x+w-sz;i+=sz) {
             A.ChangeRect( (tx+1)*sz,ty*sz, std::min(x+w-sz-i ,sz)   ,sz);
             A.Draw(target,i,y);
@@ -633,13 +633,13 @@ void button::draw(SDL_Surface* target)
 
     if (button::FontResource!=NULL && Enabled) {
         button::FontResource->Write(target,o+x+(w-button::FontResource->TextWidth(text.c_str()))/2 ,o+y+(sz-button::FontResource->Height())/2,text.c_str());
-        
+
         if(mouseInside > 0) {
             mouseInside ++;
         }
-        
+
         if( (mouseInside>=20) && (toolTipControl!=NULL) && (toolTip != "") ) {
-            toolTipControl->enabled = true; 
+            toolTipControl->enabled = true;
             toolTipControl->x = toolx + x;
             toolTipControl->y = tooly + y;
             toolTipControl->text = toolTip;
@@ -688,7 +688,7 @@ void button::onMouseUp(int px,int py)
     if(ToggleButton) {
         return;
     }
-    
+
     if(onRelease!=NULL) {
         onRelease(data);
     }
@@ -737,7 +737,7 @@ void buttontooltip::draw(SDL_Surface* target) {
         y = std::max(y, miny);
         SDL_FillRect(target, x,y,tw,th, SDL_MapRGB(target->format,0,0,0 ) );
         SDL_FillRect(target, x+1,y+1,tw-2,th-2, SDL_MapRGB(target->format, button::ToolTipColor ) );
-        
+
         button::FontResource->Write(target,x+3,y+3,text.c_str());
 
         enabled = false;
