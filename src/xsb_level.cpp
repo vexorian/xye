@@ -155,8 +155,8 @@ int SLC_CountValidLevels(TiXmlElement* levels)
             n++;
         el=el->NextSiblingElement("Level");
     }
-    
-    
+
+
     return n;
 }
 
@@ -164,7 +164,7 @@ string GetSokobanLevelName(const char* filename, int ln)
 {
     string name = GetFileNameNoExtension(filename);
     int len = name.length();
-    
+
     char buf[len+10];
     sprintf(buf, "%s %d", name.c_str(), ln);
     return string(buf);
@@ -183,9 +183,9 @@ void XsbLevelPack::LoadSLC(const char* filename, unsigned int ln)
         {
             el=pack->FirstChildElement("LevelCollection");
             if(el == NULL) {LevelPack::Error("Unable to find a <LevelCollection> tag.");return;}
-            
+
             tn = SLC_CountValidLevels(el);
-            
+
             int temlevel =0 ;
             for ( el= el->FirstChildElement("Level"); el != NULL; el = el->NextSiblingElement("Level") )
             {
@@ -200,7 +200,7 @@ void XsbLevelPack::LoadSLC(const char* filename, unsigned int ln)
                     std::swap(w,h);
                 }
                 if((w<0) || (h<0) || (w>XYE_HORZ) || (h>XYE_VERT) ) continue;
-                
+
                 XsbLevel* cur;
                 if( First == NULL )
                 {
@@ -220,28 +220,28 @@ void XsbLevelPack::LoadSLC(const char* filename, unsigned int ln)
                 for(int i=0; i<XYE_HORZ; i++)
                     for(int j=0; j<XYE_VERT; j++)
                        cur->data[i][j]='#';
-                       
+
                 cur->name = el->Attribute("Id");
                 if(cur->name=="")
                     cur->name = GetSokobanLevelName( filename, temlevel+1);
 
                 for (line = el->FirstChildElement("L"); line != NULL; line = line->NextSiblingElement("L") )
                 {
-                    const char* gt =line->GetText(); 
+                    const char* gt =line->GetText();
                     string row = ( (gt!=NULL) ? gt : "");
-                    
-                    
+
+
                     for(int i=0; i<row.length(); i++)
                         if(swapped)
                             cur->data[linenum][i]= row[i];
                         else
                             cur->data[i][linenum]= row[i];
-                    
+
                     linenum ++;
                 }
                 cur->levelnum = temlevel+1;
                 temlevel++;
-                
+
             }
 
         }
@@ -278,7 +278,7 @@ const char* XsbLevelPack::ReadDataSLC(const char* path,unsigned int &n, string&a
             if( (el != NULL) && (el->GetText()!=NULL) ) url = el->GetText();
             el=pack->FirstChildElement("LevelCollection");
             if(el == NULL) return "Unable to find a <LevelCollection> tag.";
-            
+
             n = SLC_CountValidLevels(el);
             author = el->Attribute("Copyright");
 
@@ -318,10 +318,10 @@ const char* XsbLevelPack::ReadData(const char* path,unsigned int &n, string&auth
 
             title = "Microban";
             return NULL;
-            
+
         }
     }
-    
+
     n=0;
     std::ifstream fl ;
     fl.open(path,std::ios::in | std::ios::binary);
@@ -334,7 +334,7 @@ const char* XsbLevelPack::ReadData(const char* path,unsigned int &n, string&auth
         return ("The file is empty");
     }
     loadFileToLines(fl);
-    
+
     std::string line;
     unsigned int L;
 
@@ -344,7 +344,7 @@ const char* XsbLevelPack::ReadData(const char* path,unsigned int &n, string&auth
         do {
             line = fileLine[lpos++];
         } while (! IsValidXsbLine(line)  && (lpos < fileLineN) );
-        
+
         if (lpos >= fileLineN) break;
 
         cw=0;
@@ -371,7 +371,7 @@ const char* XsbLevelPack::ReadData(const char* path,unsigned int &n, string&auth
         }
     }
     fl.close();
-    
+
     if (n==0) {
         return "Could not find compatible xsb levels.";
     }
@@ -407,16 +407,16 @@ void XsbLevelPack::Load(const char* filename, unsigned int ln)
     {
         return LoadSLC(filename, ln);
     }
-    
+
     std::string line;
     std::ifstream fl ;
     fl.open(filename,std::ios::in | std::ios::binary);
     if (! fl.is_open()) return LevelPack::Error("Unable to load level file (.Xsb) (stream error)");
     if (fl.eof()) return LevelPack::Error("Level File is empty");
-    
+
     loadFileToLines(fl);
-    
-    
+
+
     std::string buf;
     unsigned char ch,cw,i,j;
     unsigned int k,L;
@@ -424,7 +424,7 @@ void XsbLevelPack::Load(const char* filename, unsigned int ln)
     char c;
     tn=0;
     XsbLevel* current;
-    
+
     int lpos = 0;
     while (lpos < fileLineN) {
         //Non-necessary things:
@@ -602,7 +602,7 @@ bool XsbLevelPack::HasLast()
 
 void LoadXsbWall(unsigned  char i, unsigned char j,bool dark=false)
 {
-    wall* wl=new wall(game::Square(i,j));
+    auto wl = new wall(game::Square(i, j));
     if (dark)
     wl->ChangeColor(0,0,0);
 
@@ -610,12 +610,12 @@ void LoadXsbWall(unsigned  char i, unsigned char j,bool dark=false)
 
 void LoadXsbMarked(unsigned char x,unsigned char y,blockcolor bc)
 {
-    marked* g=new marked(game::Square(x,y),bc);
+    auto _ = new marked(game::Square(x, y), bc);
 }
 
 void LoadXsbBlock(unsigned  char x, unsigned char y,blockcolor bc)
 {
-    block* b=new block(game::Square(x,y),bc,false);
+    auto _ = new block(game::Square(x, y), bc, false);
 }
 
 
@@ -691,7 +691,7 @@ bool EnsurePath(unsigned char x,unsigned char y,int*mem,bool nowall,blockcolor b
             }
             wallrep=true;
             object->Kill();
-            blockdoor* g=new blockdoor(sq,false,true,bc);
+            auto _ = new blockdoor(sq, false, true, bc);
 
         }
     }
@@ -775,7 +775,7 @@ bool EnsurePath(unsigned char x,unsigned char y,int*mem,bool nowall,blockcolor b
 
     if (wallrep)
     {
-        wall* wl=new wall(game::Square(x,y),0);
+        auto _ = new wall(game::Square(x, y), 0);
     }
 
 return false;
@@ -799,7 +799,7 @@ bool FromXyeDFS(int* mem, unsigned char x, unsigned char y)
                 FromXyeDFS(mem,nx,ny);
             }
         }
-        
+
     }
     return ( (res==2) ? true: false);
 }
@@ -819,8 +819,8 @@ bool FindAGoodWall(int i, int j,bool rec=true)
             object->Kill();
             XsbLevel::tx=(i<0)?XYE_HORZ-1:(i>=XYE_HORZ)?0:i;
             XsbLevel::ty=(j<0)?XYE_VERT-1:(j>=XYE_VERT)?0:j;
-            blockdoor *bd= new blockdoor(sq,false,true,XsbLevel::bc);
-            gem* gm=new gem(sq,XsbLevel::bc);
+            auto _ = new blockdoor(sq, false, true, XsbLevel::bc);
+            auto __ = new gem(sq, XsbLevel::bc);
             return true;
         }
     }
@@ -932,7 +932,7 @@ $ - box
                 obj* object = sq->object;
                 if(object==NULL)
                 {
-                    wall* wl = new wall(sq);
+                    auto _ = new wall(sq);
                 }
             }
     delete[] mem;
@@ -968,7 +968,7 @@ $ - box
 
             square * sq = game::Square(i,j);
             obj* object = sq->object;
-            
+
         }
 
 
