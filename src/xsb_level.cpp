@@ -155,8 +155,8 @@ int SLC_CountValidLevels(TiXmlElement* levels)
             n++;
         el=el->NextSiblingElement("Level");
     }
-    
-    
+
+
     return n;
 }
 
@@ -164,7 +164,7 @@ string GetSokobanLevelName(const char* filename, int ln)
 {
     string name = GetFileNameNoExtension(filename);
     int len = name.length();
-    
+
     char buf[len+10];
     sprintf(buf, "%s %d", name.c_str(), ln);
     return string(buf);
@@ -183,9 +183,9 @@ void XsbLevelPack::LoadSLC(const char* filename, unsigned int ln)
         {
             el=pack->FirstChildElement("LevelCollection");
             if(el == NULL) {LevelPack::Error("Unable to find a <LevelCollection> tag.");return;}
-            
+
             tn = SLC_CountValidLevels(el);
-            
+
             int temlevel =0 ;
             for ( el= el->FirstChildElement("Level"); el != NULL; el = el->NextSiblingElement("Level") )
             {
@@ -193,14 +193,12 @@ void XsbLevelPack::LoadSLC(const char* filename, unsigned int ln)
                 el->QueryIntAttribute("Width", &w);
                 el->QueryIntAttribute("Height", &h);
                 bool swapped = (h>XYE_VERT);
-                int L= w;
                 if(swapped)
                 {
-                    L = h;
                     std::swap(w,h);
                 }
                 if((w<0) || (h<0) || (w>XYE_HORZ) || (h>XYE_VERT) ) continue;
-                
+
                 XsbLevel* cur;
                 if( First == NULL )
                 {
@@ -220,28 +218,28 @@ void XsbLevelPack::LoadSLC(const char* filename, unsigned int ln)
                 for(int i=0; i<XYE_HORZ; i++)
                     for(int j=0; j<XYE_VERT; j++)
                        cur->data[i][j]='#';
-                       
+
                 cur->name = el->Attribute("Id");
                 if(cur->name=="")
                     cur->name = GetSokobanLevelName( filename, temlevel+1);
 
                 for (line = el->FirstChildElement("L"); line != NULL; line = line->NextSiblingElement("L") )
                 {
-                    const char* gt =line->GetText(); 
+                    const char* gt =line->GetText();
                     string row = ( (gt!=NULL) ? gt : "");
-                    
-                    
+
+
                     for(int i=0; i<row.length(); i++)
                         if(swapped)
                             cur->data[linenum][i]= row[i];
                         else
                             cur->data[i][linenum]= row[i];
-                    
+
                     linenum ++;
                 }
                 cur->levelnum = temlevel+1;
                 temlevel++;
-                
+
             }
 
         }
@@ -278,7 +276,7 @@ const char* XsbLevelPack::ReadDataSLC(const char* path,unsigned int &n, string&a
             if( (el != NULL) && (el->GetText()!=NULL) ) url = el->GetText();
             el=pack->FirstChildElement("LevelCollection");
             if(el == NULL) return "Unable to find a <LevelCollection> tag.";
-            
+
             n = SLC_CountValidLevels(el);
             author = el->Attribute("Copyright");
 
@@ -318,10 +316,10 @@ const char* XsbLevelPack::ReadData(const char* path,unsigned int &n, string&auth
 
             title = "Microban";
             return NULL;
-            
+
         }
     }
-    
+
     n=0;
     std::ifstream fl ;
     fl.open(path,std::ios::in | std::ios::binary);
@@ -334,17 +332,17 @@ const char* XsbLevelPack::ReadData(const char* path,unsigned int &n, string&auth
         return ("The file is empty");
     }
     loadFileToLines(fl);
-    
+
     std::string line;
     unsigned int L;
 
-    unsigned char cw,ch,aux;
+    unsigned char cw,ch;
     int lpos = 0;
     while (lpos < fileLineN) {
         do {
             line = fileLine[lpos++];
         } while (! IsValidXsbLine(line)  && (lpos < fileLineN) );
-        
+
         if (lpos >= fileLineN) break;
 
         cw=0;
@@ -362,7 +360,6 @@ const char* XsbLevelPack::ReadData(const char* path,unsigned int &n, string&auth
         }
         if (cw<ch)
         {
-            aux=ch;
             ch=cw;
             cw=ch;
         }
@@ -371,7 +368,7 @@ const char* XsbLevelPack::ReadData(const char* path,unsigned int &n, string&auth
         }
     }
     fl.close();
-    
+
     if (n==0) {
         return "Could not find compatible xsb levels.";
     }
@@ -407,16 +404,16 @@ void XsbLevelPack::Load(const char* filename, unsigned int ln)
     {
         return LoadSLC(filename, ln);
     }
-    
+
     std::string line;
     std::ifstream fl ;
     fl.open(filename,std::ios::in | std::ios::binary);
     if (! fl.is_open()) return LevelPack::Error("Unable to load level file (.Xsb) (stream error)");
     if (fl.eof()) return LevelPack::Error("Level File is empty");
-    
+
     loadFileToLines(fl);
-    
-    
+
+
     std::string buf;
     unsigned char ch,cw,i,j;
     unsigned int k,L;
@@ -424,7 +421,7 @@ void XsbLevelPack::Load(const char* filename, unsigned int ln)
     char c;
     tn=0;
     XsbLevel* current;
-    
+
     int lpos = 0;
     while (lpos < fileLineN) {
         //Non-necessary things:
@@ -799,7 +796,7 @@ bool FromXyeDFS(int* mem, unsigned char x, unsigned char y)
                 FromXyeDFS(mem,nx,ny);
             }
         }
-        
+
     }
     return ( (res==2) ? true: false);
 }
@@ -854,7 +851,6 @@ blockcolor XsbLevel::bc;
 
 void XsbLevel::SetGameCaption()
 {
-    int L=name.length();
     string title = "Xye - "+name;
     LevelPack::CurrentLevelTitle=title.c_str();
     SDL_WM_SetCaption(title.c_str(),0);
@@ -968,7 +964,7 @@ $ - box
 
             square * sq = game::Square(i,j);
             obj* object = sq->object;
-            
+
         }
 
 

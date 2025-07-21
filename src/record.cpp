@@ -22,7 +22,6 @@ bool recording::undo()
 {
     recentry* r=NULL,*z=NULL,*q=NULL,*p=first;
 
-    int v;
     while (p!=NULL)
     {
         if (p->val)
