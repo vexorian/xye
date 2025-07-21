@@ -1,3 +1,5 @@
+#pragma once
+
 #include "vxsdl.h"
 #include "window.h"
 
@@ -19,4 +21,3 @@ void SetupBoldFonts(const char* ttf, const int & size);
 
 void Clean();
 }
-

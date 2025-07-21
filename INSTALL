@@ -21,7 +21,7 @@ Compiling
 
 * extract the tar.gz .
 
-* From now we'll call the folder where the files were extracted: /xyelocation/ 
+* From now we'll call the folder where the files were extracted: /xyelocation/
 
   cd /xyelocation/ or chdir /xyelocation/
 
@@ -112,7 +112,7 @@ The simplest way to compile this package is:
 
 
   4. You can remove the program binaries and object files from the
-     source code directory by typing `make clean'.  
+     source code directory by typing `make clean'.
 
 Compilers and Options
 =====================
@@ -236,6 +236,3 @@ operates.
      script, and exit.
 
 `configure' also accepts some other, not widely useful, options.
-
-
-

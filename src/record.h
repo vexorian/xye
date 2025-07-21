@@ -1,4 +1,4 @@
-
+#pragma once
 
 struct recentry
 {
@@ -31,4 +31,3 @@ class recording
     static bool get_undo(edir &r, bool& nomove);
     static void clean();
 };
-

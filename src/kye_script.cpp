@@ -57,7 +57,7 @@ void KyeLevelPack::Clean()
 
 void KyeLevelPack::Load(const char* filename, unsigned int ln)
 {
-    string s = LoadService(filename,ln); 
+    string s = LoadService(filename,ln);
     if (s!="") {
         LevelPack::Error(s.c_str());
     }
@@ -150,7 +150,7 @@ string KyeLevelPack::LoadService(const char* filename, unsigned int ln)
 
 string KyeLevelPack::LoadForEditor(const char* filename, vector<KyeLevel> & out)
 {
-    string s = LoadService(filename,1); 
+    string s = LoadService(filename,1);
     if (s != "") {
         return s;
     }
@@ -166,11 +166,11 @@ string KyeLevelPack::LoadForEditor(const char* filename, vector<KyeLevel> & out)
                 o.data[a][b] = x->data[a][b];
             }
         }
-        
+
         x = x->Next;
     }
     return "";
-    
+
 }
 
 const char* KyeLevelPack::ReadData(const char* path,unsigned int &n )
@@ -345,9 +345,9 @@ void LoadXyeMarked(unsigned char x,unsigned char y)
 void LoadKyeBlock(unsigned  char x, unsigned char y,bool round, bool fromxye)
 {
     block* b=new block(game::Square(x,y), /*(fromxye?B_YELLOW: B_GREEN)*/ B_YELLOW,round);
-    
-    
-    
+
+
+
 }
 
 void LoadKyeBeast(unsigned char x, unsigned char y, btype B)

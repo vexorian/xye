@@ -1,12 +1,14 @@
+#!/usr/bin/env xdg-open
+
 [Desktop Entry]
+Encoding=UTF-8
 Exec=xye
 Type=Application
-Categories=Application;Game;
+Categories=Application;Game;PuzzleGame
 Name=Xye
 GenericName=Xye
 Comment=Solve puzzles and action challenges in order to get all the gems in the room.
 Terminal=false
 StartupNotify=false
-Icon=xye
-Keywords=game;puzzle;logic;gems;
+Icon=xye.png
 MimeType=application/xye-xml

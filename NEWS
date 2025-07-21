@@ -45,7 +45,7 @@ Updates to other level files:
 
 New editor features:
 - Slightly more compatibility with level features.
-- 
+-
 
 Bug fixes:
 - Fixed the bug that made .Kye levels in the editor load with black walls, background and earth.
@@ -65,7 +65,7 @@ Updates to the official levels:
 New editor features:
 - Can place ground hints.
 - Undo button is no longer disabled when recording a solution.
-- It is now possible to change wall, earth and floor colors in a level. 
+- It is now possible to change wall, earth and floor colors in a level.
 
 Bug fixes:
 - Fix compatibility with OS/X line breaks in xsb level files.
@@ -73,7 +73,7 @@ Bug fixes:
 - Fixed a bug that was causing random editor crashes.
 - Fixed a bug that could make the game hang if a level was modified and saved data was incompatible.
 - Fixed a crash that could happen when trying to respawn Xye in a full level. If that situation happens, you will lose the game, however.
-- 
+-
 
 There were tweaks and fixes to the skins. A 30x30 of the clean skin was also added.
 
@@ -175,7 +175,7 @@ Version 0.9.0
 - Various bug fixes.
 - "intertia" factories now correctly create the inertia in moving mode.
 - Fixed a small glitch with blue walls turning darker after an undo operation.
-- Firepads now turn the red blocks into fire red blocks, which are not too different to fireballs in gameplay, besides that they still count as red 
+- Firepads now turn the red blocks into fire red blocks, which are not too different to fireballs in gameplay, besides that they still count as red
 blocks. A bug has also been fixed that made these 'fireballs' get ahead by an extra frame, this makes firepads slightly slower than before.
 - The level browser sorts files alphabetically.
 - Clicking clear twice in the editor allows you to clear the layout completely, including the border walls.
@@ -199,14 +199,14 @@ blocks. A bug has also been fixed that made these 'fireballs' get ahead by an ex
 
  Version 0.7.6.2
  ===============
- - This version simply updates the source package to add a configure script, the game itself has no changes so it still counts as 0.7.6 
+ - This version simply updates the source package to add a configure script, the game itself has no changes so it still counts as 0.7.6
 
 
  Version 0.7.6
  =============
  - Added the ability to undo movements.
  - Can now play level files in standard sokoban format.
- - Fixed compile errors in font.cpp 
+ - Fixed compile errors in font.cpp
  - New level: Dilema
  - levels.xye renamed to tutorials.xye and tour.xye renamed to levels.xye . levels.xye is now to be considered an official level pack.
  - Improved the sprites for marked areas and gems.
@@ -224,7 +224,7 @@ blocks. A bug has also been fixed that made these 'fireballs' get ahead by an ex
  - Fixed a timing bug related to the movement of beasts.
  - Remove every randomization factor that could affect gameplay. The rules that used to rely on random numbers are still
    difficult to predict, but if you play the same level twice and do exactly the same moves the outcome is supposed to be
-   the same, namely the AI of monsters and the behaviour of round objects when moving towards other round objects were 
+   the same, namely the AI of monsters and the behaviour of round objects when moving towards other round objects were
    changed
  - The built-in level browser now supports sub folders. Also supports the Page Up and Page Down keys for faster scrolling when there are a lot of level files. It can also check Kye levels for errors.
  - The white font is now easier to read on red/blue background
@@ -353,7 +353,7 @@ blocks. A bug has also been fixed that made these 'fireballs' get ahead by an ex
 
 
 
- Todo: 
+ Todo:
 
  - Make more beasts
  - replace hge with an SDL engine
@@ -365,7 +365,7 @@ blocks. A bug has also been fixed that made these 'fireballs' get ahead by an ex
 
   2nd early alpha version
   =======================
-  
+
   Additions:
   - surprise! blocks
   - arrow blocks
@@ -376,7 +376,7 @@ blocks. A bug has also been fixed that made these 'fireballs' get ahead by an ex
   - timer blocks
   - pushers
   - auto arrow blocks
-  
+
   Todo:
   - make Xye killing a method of xye class
   - fix or at least do something about the way to use the game class
@@ -385,6 +385,3 @@ blocks. A bug has also been fixed that made these 'fireballs' get ahead by an ex
   - monsters
   - replace hge with an SDL engine
   - add interface
-
-
-

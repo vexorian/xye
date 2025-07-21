@@ -2,7 +2,6 @@
 <pack>
 <name>micky/Mic4.xye</name><author>Mc!</author>
 <description>A couple of special levels by Mc.</description>
-
 <level>
 <name>Mic4</name>
 <title>Mic4</title>
@@ -18,12 +17,12 @@
 <blocktrap x='28' y='16' />
 
 </ground>
-    <palette>
+<palette>
 <color id='2' red='255' green='255' blue='200' mode='MULTIPLY' />
-    </palette>
-    <default>
+</palette>
+<default>
    <wall color='2' />
-    </default>
+</default>
 <normal>
 <wall x="0" y="0" y2='16' />
 <wall x="0" y="17" round1="1" round3="1"/>
@@ -431,12 +430,13 @@
 
 <level>
 <title>4cols</title>
-    <palette>
+<palette>
 <color id='2' red='255' green='255' blue='200'  mode='MULTIPLY'/>
-    </palette>
-    <default>
+</palette>
+<default>
    <wall color='2' />
-    </default>
+</default>
+
     <hint>Sometimes you need to slow down the opponent in order to win a race.</hint>
     <solution>
 000060666666680888888606664044420222000040444606666808888666666666604044
@@ -510,32 +510,33 @@
 888840444444
 
     </solution>
-	<ground>
-		<firepad x='0' y='17' />
-		<force dir='D' x='1' y='16' />
-		<blocktrap x='2' y='4' bc='G' />
-		<blocktrap x='3' y='12' bc='Y' />
-		<marked x='4' y='4' bc='B' />
-		<blocktrap x='5' y='3' bc='B' />
-		<blocktrap x='7' y='18' bc='Y' />
+
+    <ground>
+        <firepad x='0' y='17' />
+        <force dir='D' x='1' y='16' />
+        <blocktrap x='2' y='4' bc='G' />
+        <blocktrap x='3' y='12' bc='Y' />
+        <marked x='4' y='4' bc='B' />
+        <blocktrap x='5' y='3' bc='B' />
+        <blocktrap x='7' y='18' bc='Y' />
         <marked x='7' y='1' bc='G' />
-		<blockdoor x='9' y='5' bc='G' />
-		<blocktrap x='10' y='11' bc='R' />
+        <blockdoor x='9' y='5' bc='G' />
+        <blocktrap x='10' y='11' bc='R' />
         <marked x='10' y='4' bc='G' />
         <marked x='10' y='3' bc='G' />
         <marked x='10' y='2' bc='G' />
-		<blockdoor x='13' y='5' bc='G' />
-		<oneway dir='R' x='14' y='15' />
+        <blockdoor x='13' y='5' bc='G' />
+        <oneway dir='R' x='14' y='15' />
         <blockdoor x='14' y='1' bc='G' />
-		<firepad x='20' y='15' />
+        <firepad x='20' y='15' />
         <firepad x='20' y='3' />
-		<firepad x='21' y='4' />
-		<marked x='22' y='6' bc='R' />
-		<firepad x='23' y='6' />
-		<firepad x='25' y='6' />
-		<marked x='28' y='17' bc='Y' />
-	</ground>
-	<objects>
+        <firepad x='21' y='4' />
+        <marked x='22' y='6' bc='R' />
+        <firepad x='23' y='6' />
+        <firepad x='25' y='6' />
+        <marked x='28' y='17' bc='Y' />
+    </ground>
+    <objects>
         <wall x='0' y='19' type='3' />
         <magnet x='0' y='18' horz='1' kind='1' />
         <wall x='0' y='16' type='3' />
@@ -729,7 +730,7 @@
         <wall x='14' y='3' type='3' />
         <wall x='14' y='2' type='3' />
         <wall x='14' y='0' type='3' />
-		<gemblock x='15' y='18' bc='B' />
+        <gemblock x='15' y='18' bc='B' />
         <wall x='15' y='17' type='3' />
         <wall x='15' y='16' type='3' />
         <lock x='15' y='14' bc='B' />
@@ -903,7 +904,7 @@
         <aclocker x='26' y='5' bc='R' />
         <wall x='26' y='4' type='3' />
         <wall x='26' y='0' type='3' />
-		<blacky x='27' y='19' />
+        <blacky x='27' y='19' />
         <wall x='27' y='18' type='3' />
         <wall x='27' y='17' round1='1' round3='1' type='3' />
         <wall x='27' y='15' round9='1' type='3' />
@@ -918,7 +919,7 @@
         <wall x='27' y='4' type='3' />
         <wall x='27' y='2' type='3' />
         <wall x='27' y='0' type='3' />
-		<gem x='28' y='19' bc='Y' />
+        <gem x='28' y='19' bc='Y' />
         <wall x='28' y='11' type='3' />
         <gemblock x='28' y='9' bc='R' />
         <magnet x='28' y='7' kind='0' />
@@ -926,7 +927,7 @@
         <wall x='28' y='5' type='3' />
         <wall x='28' y='4' type='3' />
         <wall x='28' y='0' type='3' />
-		<blacky x='29' y='19' />
+        <blacky x='29' y='19' />
         <window x='29' y='18' bc='Y' />
         <wild x='29' y='17' />
         <wall x='29' y='16' round7='1' round9='1' type='3' />
@@ -945,8 +946,8 @@
         <wall x='29' y='2' type='3' />
         <wall x='29' y='1' type='3' />
         <wall x='29' y='0' round3='1' type='3' />
-	</objects>
-	<xye x='7' y='8' lives='1' />
+    </objects>
+    <xye x='7' y='8' lives='1' />
 </level>
 
 <level>

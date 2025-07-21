@@ -1,4 +1,6 @@
-#include<string>
+#pragma once
+
+#include <string>
 
 class XsbLevel;
 
@@ -10,7 +12,7 @@ class XsbLevelPack
        static XsbLevel* Final;
        static XsbLevel* CurrentLevel;
        static unsigned int tn;
-       
+
        static const char* ReadDataSLC(const char* path,unsigned int &n, string&author, string &description, string & title);
        static void LoadSLC(const char* filename, unsigned int ln=1);
 
@@ -27,5 +29,3 @@ class XsbLevelPack
         static bool HasLast();
 
 };
-
-

@@ -22,7 +22,7 @@
             <default>
                 <wall color='1'/>
             </default>
-    
+
         <ground>
             <marked x='11' y='10' bc='Y' />
             <marked x='11' y='9' bc='Y' />
@@ -4903,7 +4903,7 @@
 <level>
   <title>4</title>
   <hint>Think things through. Red arrows are faster.</hint>
-  
+
   <hiddensolution>
     0000000002000200000000000002000000400008000060002022000602004008088800808880
     0000000000000000000008000000008000020222222220000002000400000008088860888880
@@ -4918,7 +4918,7 @@
     0006080060666666666666660000080040000002002000084044444444444440200000040200
     806080666666666666666202
   </hiddensolution>
- 
+
   <bye>Like defusing a bomb!</bye>
 	<ground>
 		<oneway dir='L' x='7' y='15' />

@@ -15,7 +15,7 @@
     <area x='28' y='12' x2='29' y2='17' color='2' />
     <area x='19' y='18' x2='29' y2='19' color='2' />
 </floor>
-    
+
 
 <objects>
 <oneway x="3" y="10" dir="DOWN"/>
@@ -173,7 +173,7 @@
     <color id='3' red='255' green='255' blue='0' mode="RECOLOR" />
     <color id='4' red='0' green='170' blue='0' mode="RECOLOR" />
     <color id='5' red='0' green='39' blue='238' mode="RECOLOR" />
-    
+
 </palette>
 <floor>
     <area x='24' y='11' color='5' />

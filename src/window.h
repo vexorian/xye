@@ -14,15 +14,11 @@ Permission is granted to anyone to use this software for any purpose, including 
     3. This notice may not be removed or altered from any source distribution.
 
 */
-#ifndef WINDOWINCLUDED
-
+#pragma once
 
 #include "vxsdl.h"
-#ifndef FONTINCLUDED
-   #include "font.h"
-#endif
-#include<string>
-#define WINDOWINCLUDED
+#include "font.h"
+#include <string>
 
 using namespace std;
 
@@ -44,9 +40,9 @@ class control
 
      virtual void draw(SDL_Surface* target)=0;
      virtual void loop()=0;
-     
+
      virtual void onMouseWheel(int x, int y, Uint8 wheel, bool down) {};
-     
+
      virtual ~control() {}
 
 };
@@ -65,20 +61,20 @@ class window
      static bool SDLactive;
      SDL_Surface* surface;
 
-      
-     
-     
+
+
+
      control* controls [MAXCONTROLS];
      int controln;
      int sub;
      control* subcontrols[MAXSUBS][MAXCONTROLS];
      int subcontroln[MAXSUBS];
-     
+
      keysimFunction subOnKeyDown[MAXSUBS];
      keysimFunction subOnKeyUp[MAXSUBS];
-     
+
      int curcontrol;
-     
+
 
      void loop();
      bool mouse_pressed;
@@ -98,14 +94,14 @@ class window
      void drawControls();
      void loopControls();
      void handleMouseWheel(int x, int y, Uint8 wheel, bool down);
-     
-     
+
+
 
      bool halt;
-     
+
      window();
-     
-     
+
+
      void init(int width,int height, const char* caption);
      voidFunction transition;
      void reset();
@@ -126,23 +122,23 @@ class window
     keysimFunction onKeyDown;
     keysimFunction onKeyUp;
     void (*beforeDraw)();
-    
+
     void beginSub();
     void endSub();
     void stop();
-    
-    
+
+
      void deleteControls();
      void addControl(control *c);
-    
-    
+
+
     void loop(double fps);
-    
+
     static bool InitSDL();
     static void QuitSDL();
     void Close();
     void SetTransition( voidFunction tra);
-    
+
 };
 
 class rectangle: public control
@@ -165,10 +161,10 @@ class textblock: public control
 {
  public:
     Font* FontRes;
-    
+
     string text;
     textblock(int sx, int sy, int sw, int sh, Font* fontToUse);
-    
+
 
     void draw(SDL_Surface* target);
     void loop() {}
@@ -190,23 +186,23 @@ class buttontooltip : public control
  public:
     buttontooltip();
     int maxx, maxy, minx, miny;
-    
+
     int tx;
     int ty;
     string text;
     bool enabled;
-    
-    
+
+
     void draw(SDL_Surface* target);
     void onMouseMove(int x,int y) {};
     void onMouseOut() {};
     void onMouseDown(int x,int y) {};
     void onMouseUp(int x,int y) {};
     void onMouseRightUp(int x,int y) {};
-    
+
     void loop() {};
-    
-    
+
+
     bool * drawnSwitch;
 };
 
@@ -220,7 +216,7 @@ class button : public control
 
     public:
         buttondata* data;
-    
+
         string text;
         bool click;
 
@@ -231,24 +227,24 @@ class button : public control
         ~button();
         void draw(SDL_Surface* target);
         void loop() {}
-        
+
         void (*onModeEnd) ();
         void Icon(int ix, int iy);
-        
-        
+
+
         void (*onClick)(const buttondata* data);
         void (*onPress)(const buttondata* data);
         void (*onRelease)(const buttondata* data);
-        
+
         void onMouseMove(int px,int py);
         void onMouseOut();
         void onMouseDown(int px,int py);
         void onMouseUp(int px,int py);
-        void resetToggle();        
+        void resetToggle();
         inline void onMouseRightUp(int px,int py) {}
 
         void flash();
-        
+
         static Font* FontResource;
         static Uint8 Size;
         static SDL_Surface* SourceSurface;
@@ -256,16 +252,12 @@ class button : public control
         static Uint8 NormalTextureY;
         static Uint8 ShortTextureX;
         static Uint8 LongTextureX;
-        
+
         static Sint16 recommendedWidth(const char* s);
         static Sint16 recommendedWidth(const string s) { return recommendedWidth(s.c_str()); }
-        
+
         static SDL_Color ToolTipColor;
-      
+
         string toolTip;
-        buttontooltip* toolTipControl; 
+        buttontooltip* toolTipControl;
 };
-
-
-
-#endif

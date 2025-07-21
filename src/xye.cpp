@@ -27,7 +27,6 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include "xyedit.h"
 #include "skins.h"
 #include <iostream>
-#include <fstream>
 
 #define sz game::GRIDSIZE //typing game::GRIDSIZE is an annoyance
 
@@ -193,7 +192,7 @@ class gamepanel : public control
         {
             x=sx, y=sy, w=sw, h=sh;
         }
-        
+
         void loop() {}
         void draw(SDL_Surface* target)
         {
@@ -214,7 +213,7 @@ class gamepanel : public control
 // Class game methods.
 //
 
-bool game::InitGraphics()
+void game::InitGraphics()
 {
     xye::useDirectionSprites = options::xyeDirectionSprites;
 
@@ -264,7 +263,7 @@ bool game::InitGraphics()
         RecolorCache::savecolor(&options::WallColor[i]);
 
     RecolorCache::savecolor(&PlayerColor);
-     
+
     SDL_Color c;
     SDL_Surface* SS;
     if(options::GetFontSize()) //if not 0 then we want a truetypefont.
@@ -310,7 +309,7 @@ bool game::InitGraphics()
     dialogs::FontResource=game::FontRes;
     dialogs::BackgroundColor = options::LevelMenu_info;
     dialogs::TextBoxColor = options::LevelMenu_menu;
-    
+
     button::FontResource=FontRes;
     button::SourceSurface=sprites.sprites;
     button::LongTextureX=7;
@@ -319,7 +318,7 @@ bool game::InitGraphics()
     button::NormalTextureY=17;
     button::Size=sz;
     button::ToolTipColor = options::HintColor;
-    
+
     editor::FontRes = game::FontRes;
     editor::sprites = game::sprites;
     editor::GRIDSIZE = game::GRIDSIZE;
@@ -375,7 +374,7 @@ int game::Init(const char* levelfile)
     int ix,iy;
     FastForward=false;
     started=false;
-    
+
     Randomize();
 
     //Init SDL;
@@ -406,8 +405,8 @@ int game::Init(const char* levelfile)
     printf("Setting video mode...\n");
     gamewindow=window::create(GameWidth, GameHeight   ,"Xye");
     screen= gamewindow->getDrawingSurface();
-     
-    
+
+
 
     //<window icon> "Ahh, the horror!"
     printf("Initializing window icon...\n");
@@ -440,7 +439,7 @@ int game::Init(const char* levelfile)
         D.Draw(icon,(unsigned int)((32-sz)/2),(unsigned int)((32-sz)/2));
     }
     SDL_WM_SetIcon(icon,NULL)    ;
-    
+
     SDL_FreeSurface(icon);
     //</window icon>
 
@@ -474,11 +473,11 @@ int game::Init(const char* levelfile)
         gamewindow->SetTransition( game::InitGameSection );
 
     }
-       
+
 
     //while (r[0]!='\0')
    // {
-        
+
         //game::start();
         ln = 1;
         if (r!=NULL)
@@ -489,7 +488,7 @@ int game::Init(const char* levelfile)
         ln = 1;
         r= LevelBrowser::GetLevelFile();*/
     //}
-        
+
     gamewindow->loop(XYE_FPS);
 
     printf("Cleaning level data...\n");
@@ -545,7 +544,7 @@ void game::TestLevel( const char *levelfile, int level, bool playsolution)
     xye_fromeditortest = true;
     xye_recordingsolution = false;
     xye_playsolution = playsolution;
-    
+
 
     InitLevelFile = levelfile;
     InitLevelFileN= level;
@@ -765,7 +764,7 @@ void game::RecordSolutionCommand( const buttondata*bd)
 
 void game::BrowseCommand( const buttondata*bd)
 {
-    
+
     if( xye_fromeditortest) {
         gamewindow->SetTransition(editor::ResumeSection);
     } else {
@@ -803,7 +802,7 @@ void game::onKeyDown(SDLKey keysim, Uint16 unicode)
                     case (SDLK_h) :
                         HintDownCommand();
                         break;
-                        
+
                         break;
 
                     case (SDLK_ESCAPE):
@@ -850,7 +849,7 @@ void game::onKeyDown(SDLKey keysim, Uint16 unicode)
                         ShiftPressed=true; break;
 
                 }
-    
+
 }
 void game::onKeyUp(SDLKey keysim, Uint16 unicode)
 {
@@ -947,7 +946,7 @@ void game::onMouseOut()
 }
 void game::onMouseDown(int x,int y)
 {
-    mouse_x=x, mouse_y=y;   
+    mouse_x=x, mouse_y=y;
     if (EvalDirGrid(XYE, mouse_x, mouse_y,DK_DIR))
     {
         DK_PRESSED_FIRST=0;
@@ -978,14 +977,14 @@ void game::InitGameSection(window* wind)
     //button * but = new button(0,0,100,100);
     //but->depth = 100;
     //gamewindow->addControl(but);
-   
+
     rectangle* rc = new rectangle(0,oy, wind->Width, game::GRIDSIZE, options::LevelMenu_info );
     wind->addControl(rc);
-    
+
     //fun with buttons
-    
+
     const char* cap;
-    
+
     Button_ToolTipWasDrawn = false;
     //*** button tooltip
     buttontooltip* btt = new buttontooltip();
@@ -996,8 +995,8 @@ void game::InitGameSection(window* wind)
     btt->miny = 0;
     btt->maxy = game::GRIDSIZE*2;
     btt->drawnSwitch = &Button_ToolTipWasDrawn;
-    
-    
+
+
     //*** Browse button:
     cap = "Browse";
     button* bt  = new button(1,oy, sz32, game::GRIDSIZE);
@@ -1008,7 +1007,7 @@ void game::InitGameSection(window* wind)
     bt->toolTipControl = btt;
     bt->toolTip = "[Backspace] Level browser";
     wind->addControl(bt);
-    
+
 
     //*** Restart button:
     cap = "Restart";
@@ -1032,9 +1031,9 @@ void game::InitGameSection(window* wind)
     bt->toolTip = "[P] Previous level";
     wind->addControl(bt);
     Button_PrevLevel = bt;
-    
+
     ;
-    
+
     //*** Next button:
     cap = "+";
     bt  = new button(bt->x + bt->w + 1,oy, sz32, game::GRIDSIZE);
@@ -1114,41 +1113,41 @@ void game::InitGameSection(window* wind)
     //*** Quit button:
     cap = "Quit";
     bt  = new button( wind->Width - button::recommendedWidth(cap) -1,oy, button::recommendedWidth(cap), game::GRIDSIZE);
-    bt->text = cap; 
+    bt->text = cap;
     bt->depth=1;
     bt->onClick = ExitCommand;
     bt->toolTipControl = btt;
     wind->addControl(bt);
 
-    
-    rc = new rectangle(0, game::GRIDSIZE+oy, wind->Width, XYE_XTRA_Y, 0,0,0); 
+
+    rc = new rectangle(0, game::GRIDSIZE+oy, wind->Width, XYE_XTRA_Y, 0,0,0);
     wind->addControl(rc);
-    
+
     Sint16 cx=0, cy = oy+XYE_XTRA_Y + game::GRIDSIZE;
-    
+
     TheGameBoard = new gameboard(XYE_XTRA_X,cy, game::GRIDSIZE*XYE_HORZ, game::GRIDSIZE*XYE_VERT);
     wind->addControl(TheGameBoard);
 
-    rc = new rectangle(0, TheGameBoard->y, XYE_XTRA_X, TheGameBoard->h, 0,0,0); 
+    rc = new rectangle(0, TheGameBoard->y, XYE_XTRA_X, TheGameBoard->h, 0,0,0);
     wind->addControl(rc);
-    rc = new rectangle(TheGameBoard->x+TheGameBoard->w, TheGameBoard->y, wind->Width-(TheGameBoard->x+TheGameBoard->w), TheGameBoard->h, 0,0,0); 
+    rc = new rectangle(TheGameBoard->x+TheGameBoard->w, TheGameBoard->y, wind->Width-(TheGameBoard->x+TheGameBoard->w), TheGameBoard->h, 0,0,0);
     wind->addControl(rc);
 
 
-    
+
     wind->onKeyDown = game::onKeyDown;
     wind->onKeyUp = game::onKeyUp;
     wind->onExitAttempt = game::onExitAttempt;
 
-    rc = new rectangle(0, TheGameBoard->y + TheGameBoard->h, wind->Width, XYE_XTRA_Y, 0,0,0); 
+    rc = new rectangle(0, TheGameBoard->y + TheGameBoard->h, wind->Width, XYE_XTRA_Y, 0,0,0);
     wind->addControl(rc);
 
-    
+
     gamepanel* gp = new gamepanel(XYE_XTRA_X, rc->y + rc->h, wind->Width- 2*XYE_XTRA_X, wind->Height - (rc->y + rc->h) - XYE_XTRA_Y  );
     gp->depth = 2;
     gamewindow->addControl(gp);
 
-    rc = new rectangle(0, gp->y, wind->Width, gp->h+XYE_XTRA_Y, 0,0,0); 
+    rc = new rectangle(0, gp->y, wind->Width, gp->h+XYE_XTRA_Y, 0,0,0);
     rc->depth = 0;
     wind->addControl(rc);
 
@@ -1158,17 +1157,17 @@ void game::InitGameSection(window* wind)
     game::start();
     if(game::InitLevelFile!="")
         game::InitLevelFileN = options::GetLevelNumber(game::InitLevelFile.c_str());
-    
+
     LevelPack::FromEditor = xye_fromeditortest;
     LevelPack::Load( game::InitLevelFile.c_str(), game::InitLevelFileN);
     AfterLevelLoad();
-    
+
     if(xye_playsolution)
     {
         xye_playsolution = false;
         game::SolutionCommand(NULL);
     }
-   
+
 }
 
 //Starts the game.
@@ -1217,9 +1216,9 @@ void game::start(bool undotime)
     hint::Reset();
     HintMarquee=HintRead=0;
     //game::InitControls();
-    
-    
-    
+
+
+
 
 
     LastXyeDir=D_DOWN; //Default last dir is down
@@ -1297,7 +1296,7 @@ void game::loop_gameplay()
 }
 void game::loop()
 {
-    if (FinishedLevel) 
+    if (FinishedLevel)
     {
         incCounters();
         //Just draw;
@@ -1491,13 +1490,13 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
             DrawPanelInfo(D, cx,cy, 6, 4, rd,dif, options::BKColor[B_RED] );
         if (pr)
             DrawPanelInfo(D, cx,cy, 6, 4, pr,dif, options::BKColor[B_PURPLE] );
-        
+
         if(star::GetAcquired()) {
             DrawPanelInfo(D, cx,cy, 9, 12, star::GetAcquired() ,dif);
         }
 
     }
-    
+
     /*if (hint::GlobalHintExists())
     {
         cx+=3;
@@ -1545,7 +1544,7 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
 
         static int marqueeloop  = 0;
         marqueeloop ++;
-        
+
         int fc = ( FastForward ? ( (marqueeloop%10==0) ? 100 : 0 ) : 1 );
         if ((cx+TW>Aw) && (HintRead>=MARQUEETICS)) {
             HintMarquee -= fc;
@@ -1586,7 +1585,7 @@ void game::draw(Sint16 px, Sint16 py)
 {
     game::screen = gamewindow->getDrawingSurface();
     if(undo) return;
-    
+
     int i,j;
 
     Uint32 black=SDL_MapRGB(screen->format, 0, 0, 0);
@@ -1596,7 +1595,7 @@ void game::draw(Sint16 px, Sint16 py)
     //SDL_FillRect(screen, px,py+XYE_GAMEY, XYE_GAMEX, Ah, black);
     //SDL_FillRect(screen, px,py+XYE_GAMEY+Ah, Aw, XYE_XTRA_Y, black);
     //SDL_FillRect(screen, px+Aw-XYE_XTRA_X, py+XYE_GAMEY, XYE_XTRA_X, Ah, black);
-    
+
     //DrawPanel(0,XYE_GAMEY+XYE_XTRA_Y+Ah-1);
 
 
@@ -1881,7 +1880,7 @@ void game::MoveXye()
     if (GameOver) {
         return;
     }
-    
+
     if ( (LastXyeMove+1) < counter)
     {
         if (PlayingRecording && (RecordingMode != RECORDING_MODE_BACKGROUND) )  {
@@ -1891,7 +1890,7 @@ void game::MoveXye()
                 game::TerminateGame(false);
                 PlayingRecording = false;
             }
-            
+
             if (!nm) {
                 if (TryMoveXye(DK_DIR)) {
                     LastXyeMove = counter;
@@ -1902,9 +1901,9 @@ void game::MoveXye()
         }
         if (undo) {
             bool nm;
-            
+
             if (! recording::get_undo(DK_DIR,nm)) {
-                
+
                 cameraon=true;
                 PlayingRecording = false;
                 undo=false;
@@ -2302,7 +2301,7 @@ void game::TerminateGame(bool good)
                 delete[]tm;
                 BrowseCommand();
 
-            } else { 
+            } else {
                 SDL_WM_SetCaption("Xye - YOU WIN!",0);
             }
         } else {
@@ -2317,13 +2316,13 @@ void game::TerminateGame(bool good)
    //{
    //    BrowseCommand();
    //}
-   
+
    if(xye_recordingsolution) {
        xye_recordingsolution=false;
    }
     //counter=counter2=counter3=counter4=counter5=counter7=counter8=counter9=1;
     GameOver=true;
-    
+
 
 }
 
@@ -3044,7 +3043,7 @@ void xye::Draw(unsigned int x, unsigned int y)
     if (lives>0)
     {
         Uint8 tx=0,ty=0;
-        
+
         if(moved && xye::useDirectionSprites) switch(lastdir)
         {
             case D_UP: tx=9,ty=19; break;
@@ -3052,8 +3051,8 @@ void xye::Draw(unsigned int x, unsigned int y)
             case D_LEFT: tx=8,ty=19; break;
             case D_RIGHT: tx=6,ty=19; break;
         }
-        
-        
+
+
         Drawer D(game::sprites,tx*sz,ty*sz,sz,sz);
 
         D.SetColors( &game::PlayerColor,alpha);
@@ -3113,12 +3112,12 @@ void xye::Kill()
                 game::deathsq1=game::Square(x,y);
                 lives=0;
                 game::TerminateGame();
-    
+
                 square* sq=game::Square(x,y);
                 gobj *gobject = sq->gobject;
                 if (gobject!=NULL) gobject->OnLeave(this);
                 sq->object=NULL;
-    
+
                 recycle::add(this);
 
                 dialogs::makeMessageDialog(gamewindow, "No space left to spawn Xye.", "Ok" , onDialogClickDoNothing);
@@ -3181,7 +3180,7 @@ bool roboxye::Loop(bool* died)
 
     //unsigned int ClockTic=GM->Counter();
     if (game::AllowRoboXyeMovement()) {
-        
+
         anim = (anim+GetRandomInt(1,2)) % 3;
 
         edir D[4]= { D_UP, D_DOWN, D_LEFT, D_RIGHT };
@@ -3330,7 +3329,7 @@ void wall_multiplyColor(Uint8 a, Uint8 b, Uint8 &c)
     int t = a;
     t = (t*b/ 255.0 );
     c=(unsigned char)(t);
-    
+
 }
 
 void wall_convertColor(Uint8 sprite, Uint8 wanted, Uint8 &c)
@@ -3442,14 +3441,14 @@ void wall::Draw(unsigned int x, unsigned int y)
     Sint16 ty;
     ty=sz*(kind);
     D.SetColors(R,G,B,255);
-    
+
     char px=this->x, py=this->y;
     char rx=px+1, lx=px-1, uy=py+1, dy=py-1;
     if(rx>=XYE_HORZ) rx=0;
     if(uy>=XYE_VERT) uy=0;
     if(lx<0) lx=XYE_HORZ-1;
     if(dy<0) dy=XYE_VERT-1;
-    
+
     bool up =   (find( px, uy, kind)!=NULL);
     bool down = (find( px, dy, kind)!=NULL);
     bool left = (find( lx, py, kind)!=NULL);
@@ -3461,23 +3460,23 @@ void wall::Draw(unsigned int x, unsigned int y)
     bool downleft = find(lx,dy,kind);
 
 
-    
+
     up = up && !round7 && !round9;
     down = down && !round1 && !round3;
     right = right && !round9 && !round3;
     left = left && !round7 && !round1;
-    
+
     bool inborder = (!left||!up||!right||!down);
     if( !inborder && (!upright || !upleft || !downright ||!downleft) )
     {
-        /*inborder = !(   find( px, uy, kind)->containsRoundCorner() 
+        /*inborder = !(   find( px, uy, kind)->containsRoundCorner()
                     || find( px, dy, kind)->containsRoundCorner()
                     || find( lx, py, kind)->containsRoundCorner()
                     || find( rx, py, kind)->containsRoundCorner() );*/
         inborder=true;
 
     }
-    
+
 
     if (round7)
         D.ChangeRect(10*sz,ty,sz2,sz2);
@@ -3493,7 +3492,7 @@ void wall::Draw(unsigned int x, unsigned int y)
         D.ChangeRect(11*sz,ty,sz2,sz2);
     else
         D.ChangeRect(9*sz,ty,sz2,sz2);
-    
+
 
     D.Draw(game::screen,x,y);
 
@@ -3531,7 +3530,7 @@ void wall::Draw(unsigned int x, unsigned int y)
     else
         D.ChangeRect(9*sz,ty+sz2,sz2,sz2);
 
-    
+
     D.Draw(game::screen,x,y+sz2);
 
     if (round3)
@@ -3809,29 +3808,29 @@ void largeblock::Draw(unsigned int x, unsigned int y)
     Uint8 tx,ty;
     Uint8 sz2 = sz>>1;
     //flags = 0b1101;
-    
-    
+
+
     Uint8 up = (flags>>1)&1;
     Uint8 right = (flags>>3)&1;
     Uint8 down = (flags>>5)&1;
     Uint8 left = (flags>>7)&1;
-    
+
     Uint8 upleft = (flags>>0)&1;
     Uint8 upright = (flags>>2)&1;
     Uint8 downright = (flags>>4)&1;
     Uint8 downleft = (flags>>6)&1;
-    
-    //top left corner:   
+
+    //top left corner:
     Uint8 var = 0;
     if( up&&left&&upleft) var=4;
     else if( up&&left) var = 3;
     else if(up) var = 2;
     else if(left) var = 1;
-    
+
     tx = 10;
     ty = var + 15;
     Drawer D(game::sprites, tx*sz,  ty*sz,sz2,sz2);
-    Uint8 alpha = 255;   
+    Uint8 alpha = 255;
     if(! colorless) {
         D.SetColors(&options::BKColor[(int)(c)],alpha);
     } else {
@@ -3839,7 +3838,7 @@ void largeblock::Draw(unsigned int x, unsigned int y)
     }
     D.Draw(game::screen,x,y);
 
-    //top right corner:   
+    //top right corner:
     var = 0;
     if( up&&right&&upright) var=4;
     else if( up&&right) var = 3;
@@ -3851,19 +3850,19 @@ void largeblock::Draw(unsigned int x, unsigned int y)
     D.ChangeRect(tx*sz+sz2, ty*sz, sz2,sz2);
     D.Draw(game::screen,x+sz2,y);
 
-    //bottom left corner:   
+    //bottom left corner:
     var = 0;
     if( down&&left&&downleft) var=4;
     else if( down&&left) var = 3;
     else if(down) var = 2;
     else if(left) var = 1;
-    
+
     tx = 10;
     ty = var + 15;
     D.ChangeRect(tx*sz,  ty*sz + sz2,sz2,sz2);
     D.Draw(game::screen,x,y+sz2);
 
-    //bottom right corner:   
+    //bottom right corner:
     var = 0;
     if( down&&right&& downright) var=4;
     else if( down&&right) var = 3;
@@ -3887,7 +3886,7 @@ std::queue<largeblock* > foundLargeBlocks;
 
 void largeblock::blockDFS( largeblockroot* aroot)
 {
-    
+
     if( root != NULL) return;
     root = aroot;
     root->children ++;
@@ -3913,7 +3912,7 @@ void largeblock::blockDFS( largeblockroot* aroot)
         {
             lb->blockDFS(root);
         }
-        
+
     }
 }
 void largeblock::setupBlock()
@@ -3924,7 +3923,7 @@ void largeblock::setupBlock()
     while( !foundLargeBlocks.empty() )
     {
         largeblock* lb = foundLargeBlocks.front();
-        
+
         foundLargeBlocks.pop();
         int x= lb->x, y=lb->y;
         game::Square(x,y)->Update=true;
@@ -3944,12 +3943,12 @@ void largeblock::setupBlock()
                 continue;
             largeblock* lb2 = static_cast<largeblock*>(ob);
             if( (lb->root == lb2->root) && ( (lb2->colorless==lb->colorless) && (lb->c == lb2->c) )  )
-            {               
+            {
                 lb->flags |= (1<<i);
             }
-            
+
         }
-        
+
     }
 }
 
@@ -3957,7 +3956,7 @@ bool largeblock::Loop(bool* died)
 {
     if(root == NULL)
     {
-        setupBlock();       
+        setupBlock();
     }
 
     if( !game::Mod5() || !game::Mod2() ) return false;
@@ -3977,7 +3976,7 @@ largeblock* largeblock::getPart( obj* object, largeblockroot* root)
     largeblock* lb = static_cast<largeblock*>(object);
     if (lb->root == root) return lb;
     return NULL;
-    
+
 }
 
 bool largeblock::pushingBlocks(edir dir, int ix, int x0, int x1, int iy, int y0, int y1, int dx ,int dy)
@@ -3990,10 +3989,10 @@ bool largeblock::pushingBlocks(edir dir, int ix, int x0, int x1, int iy, int y0,
             if(lb==NULL) continue;
             gobj* gobject = game::Square(i,j)->gobject;
             if( (gobject!=NULL) && (! gobject->CanLeave(lb, dir)) ) doable=false;
-            
+
             if(lb->tic == game::Counter())
                 doable=false;
-           
+
             Sint8 nx = lb->x + dx, ny = lb->y + dy;
             /*if(nx<0) nx=XYE_HORZ-1;
             if(ny<0) ny=XYE_VERT-1;
@@ -4008,7 +4007,7 @@ bool largeblock::pushingBlocks(edir dir, int ix, int x0, int x1, int iy, int y0,
 
             if( (object!=NULL) && (getPart(object,root)==NULL) )
                 doable=false;
-                
+
             gobject = game::Square(nx,ny)->gobject;
             if( (gobject!=NULL) && (! gobject->CanEnter(lb, dir)) ) doable=false;
 
@@ -4023,7 +4022,7 @@ bool largeblock::pushingBlocks(edir dir, int ix, int x0, int x1, int iy, int y0,
             if(lb==NULL) continue;
             if(lb->tic == game::Counter() ) continue;
             Sint8 nx = lb->x + dx, ny = lb->y + dy;
-            
+
             if(nx<0) nx=XYE_HORZ-1;
             if(ny<0) ny=XYE_VERT-1;
             if(nx>=XYE_HORZ) nx = 0;
@@ -4032,9 +4031,9 @@ bool largeblock::pushingBlocks(edir dir, int ix, int x0, int x1, int iy, int y0,
             lb->move(nx,ny);
             lb->tic = game::Counter() ;
         }
-    
+
     return true;
-    
+
 }
 
 largeblock* largeblock_pushgroup[XYE_HORZ*XYE_VERT];
@@ -4072,7 +4071,7 @@ void largeblock::getPushGroup()
             }
         }
     }
-    
+
 }
 
 void largeblock::doPush(edir dir, int dx, int dy)
@@ -4144,8 +4143,8 @@ void largeblock::doPush(edir dir, int dx, int dy)
                 lb->move(nx,ny);
                 checked[nx][ny] = 1;
                 checked[x][y]=1;
-            }             
-        } 
+            }
+        }
     }
 
 }
@@ -4201,7 +4200,7 @@ bool largeblock::canPush(edir dir, int dx, int dy)
                     }
                 }
             }
-        } 
+        }
     }
     return true;
 
@@ -4210,7 +4209,7 @@ bool largeblock::canPush(edir dir, int dx, int dy)
 bool largeblock::pushingBlocks2(edir dir, int dx, int dy)
 {
     if(tic==game::Counter()) return false;
-    getPushGroup();   
+    getPushGroup();
     if(canPush(dir,dx,dy))
     {
         doPush(dir,dx,dy);
@@ -4222,17 +4221,17 @@ bool largeblock::pushingBlocks2(edir dir, int dx, int dy)
 bool largeblock::isReallyASmallBlock()
 {
     if(root == NULL) setupBlock();
-    
+
     return (root->children == 1);
-    
+
 }
 
 bool largeblock::trypush(edir dir,obj* pusher)
 {
     if(root == NULL) setupBlock();
-    
+
     if(root->children == 1) return trypush_common(dir,pusher, false,NULL);
-    
+
     switch(dir)
     {
 /*        case D_RIGHT: return pushingBlocks(dir,-1, XYE_HORZ-1, 0, 1,0,XYE_VERT-1, 1,0);
@@ -4244,7 +4243,7 @@ bool largeblock::trypush(edir dir,obj* pusher)
         case D_UP: return pushingBlocks2(dir,0,1);
         case D_DOWN: return pushingBlocks2(dir,0,-1);
 
-            
+
     }
     return false;
 }
@@ -4260,7 +4259,7 @@ void largeblock::OnDeath()
                 if(lb != NULL) lb->root = NULL;
             }
         delete lbr;
-        
+
     }
 }
 
@@ -4465,7 +4464,7 @@ void gemblock::Draw(unsigned int x, unsigned int y)
         movable = ( star::GetRemaining() == 0 );
     } else {
         movable = gem::GotAllGems(c);
-    } 
+    }
     tx=(movable?7:6);
     Drawer D(game::sprites,sz*tx,sz*ty,sz,sz);
     D.SetColors(options::BKColor[c],255);
@@ -4484,7 +4483,7 @@ bool gemblock::trypush(edir dir,obj* pusher) {
         movable = ( star::GetRemaining() == 0 );
     } else {
         movable = gem::GotAllGems(c);
-    } 
+    }
     return ( movable && trypush_common(dir,pusher, false,NULL));
 }
 
@@ -4498,7 +4497,7 @@ bool gemblock::Loop(bool* died)
         movable = ( star::GetRemaining() == 0 );
     } else {
         movable = gem::GotAllGems(c);
-    } 
+    }
 
     if (! movable) return false;
 
@@ -4601,7 +4600,7 @@ bool magnetic::TryMagneticMove(char ox, char oy, char xx, char xy, edir godir, b
     MovedTic=game::Counter();
     LastPushDir=godir;
     if (mt!=T_STICKY) return true;
-    
+
     sq=game::SquareN(sx,sy);
     obj* object=sq->object;
 
@@ -5746,19 +5745,19 @@ void surprise::Transform()
                      *b1= wall::find(ox-1,oy-1);
                 // After the addition of special borders to the skin capabilities, it is necessary
                 // to update the walls in the corners as well:
-                
+
                 //wl->ChangeColor(BC.r+(options::WallColor[0].r-BC.r)/2,BC.g+(options::WallColor[0].g-BC.g)/2,BC.b+(options::WallColor[0].b-BC.b)/2, false);
                 int r = BC.r;
                 int g = BC.g;
                 int b = BC.b;
                 int v = wall::GetDefaultVariationVulnerableToFire();
-                
+
                 r = (r+wall::DefaultColor[v].r)/2;
                 g = (g+wall::DefaultColor[v].g)/2;
                 b = (b+wall::DefaultColor[v].b)/2;
                 wl->ChangeColor(r,g,b, false);
                 wl->ChangeKind(v);
- 
+
                 if(b7) b7->UpdateSquare();
                 if(b9) b9->UpdateSquare();
                 if(b3) b3->UpdateSquare();
@@ -5849,7 +5848,7 @@ void surprise::Draw(unsigned int x, unsigned int y)
                     if(b1) b1->UpdateSquare();
 
                 int v = wall::GetDefaultVariationVulnerableToFire();
-                
+
                 int r = SprColor.r;
                 int g = SprColor.g;
                 int b = SprColor.b;
@@ -6311,7 +6310,7 @@ void dangerous::Draw(unsigned int x, unsigned int y)
         /*
         ty=6;
         tx=11+anim;
-        
+
         anim=(anim==3)?0:anim+1;
         D.ChangeRect(tx*sz,ty*sz,sz,sz);
         D.Draw(game::screen,x,y);*/
@@ -6320,7 +6319,7 @@ void dangerous::Draw(unsigned int x, unsigned int y)
         D.ChangeRect(0*sz,8*sz,sz,sz);
         D.SetColors(options::BFColor[B_RED], 255);
         D.Draw(game::screen,x,y); /**/
-        
+
     }
     else
     {
@@ -6440,7 +6439,7 @@ bool dangerous::Loop(bool* died)
             //new explosion(game::Square(x,y),1);
             disb=true;
             if (trypush(D,this))
-                
+
                 return true;
             else
             {
@@ -7170,7 +7169,7 @@ bool beast::Loop_Sub(bool* died)
 bool beast::Loop(bool* died)
 {
     bool OnTime=false;
-    
+
     switch(kind)
     {
         case BT_SPINNER: case BT_ASPINNER:
@@ -7181,12 +7180,12 @@ bool beast::Loop(bool* died)
             if( AIValue || (game::counter7==0) )
                 NewAnim();
             break;
-                
+
         default:
             if(game::counter7==0)
-                 NewAnim(); 
+                 NewAnim();
     };
-    
+
     switch(kind)
     {
         case(BT_PATIENCE): case(BT_TIGER): case(BT_DARD): case(BT_RANGER): OnTime=true; break;
@@ -7485,7 +7484,7 @@ void rnode::OnDeath()
     {
         prev->next=NULL;
         prev->UpdateSquare();
-        
+
     }
     if ( head->last == this ) {
         head->last = prev;
@@ -8129,7 +8128,7 @@ bool tdoor::CanLeave(obj *entering, edir dir) { return true; }
 
 void tdoor::ResetDefaults()
 {
-    DefColor = options::OneWayDoorColor; 
+    DefColor = options::OneWayDoorColor;
     ForceArrowDefColor = options::ForceArrowColor;
 }
 
@@ -8403,7 +8402,7 @@ void pit::Loop()
     if (dis || !end) {
         return;
     }
-    
+
     if (alpha>=31) {
         if (! dec) {
             alpha-=31;
@@ -8581,7 +8580,7 @@ const char* hint::GetActiveText()
     string res;
     if (active==(hint*)(1))
         res = globaltext;
-    else if (active) 
+    else if (active)
         res=active->text;
 
     return res.c_str();
@@ -8685,7 +8684,7 @@ void portal::OnEnter(obj *entering)
         xyealpha=game::XYE->alpha;
         game::XYE->alpha=32;
         game::FlashXyePosition();
-        
+
         game::XYE->move(rx,ry);
 
         ignore=false;
@@ -9358,4 +9357,3 @@ void recycle::add(obj* o)
 }
 
 /** end class recycle **/
-
