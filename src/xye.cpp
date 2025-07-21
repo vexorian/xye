@@ -27,6 +27,7 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include "xyedit.h"
 #include "skins.h"
 #include <iostream>
+#include <fstream>
 
 #define sz game::GRIDSIZE //typing game::GRIDSIZE is an annoyance
 
@@ -213,7 +214,7 @@ class gamepanel : public control
 // Class game methods.
 //
 
-void game::InitGraphics()
+bool game::InitGraphics()
 {
     xye::useDirectionSprites = options::xyeDirectionSprites;
 

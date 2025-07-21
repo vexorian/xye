@@ -1365,7 +1365,7 @@ class game
     static void onMouseOut();
     static void onMouseDown(int x,int y);
     static void onMouseUp(int x,int y);
-    static void InitGraphics();
+    static bool InitGraphics();
     static void CleanGraphics();
 
     static void loadGame();
