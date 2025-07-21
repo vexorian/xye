@@ -4712,7 +4712,7 @@ void number::Draw(unsigned int x, unsigned int y)
 void number::explode()
 {
     deathqueue::add(x,y,KT_FIRE);
-    explosion *ex = new explosion(game::SquareN(x,y),1);
+    auto _ = new explosion(game::SquareN(x, y), 1);
 }
 
 bool number::trypush(edir dir,obj* pusher) {
@@ -5935,10 +5935,7 @@ void surprise::FinalExplode()
         for (j=-1;j<=1;j++)
             game::SmallBoom(game::SquareN(x+i,y+j), false, i,-j );
 
-    explosion* ex=new explosion(game::Square(x,y));;
-
-
-
+    auto _ = new explosion(game::Square(x, y));
 }
 
 /**End Class Surprise**/
@@ -6399,7 +6396,7 @@ inline bool dangerous::HasRoundCorner(roundcorner rnc) { return false; }
 inline void dangerous::Eat() {
     if (mine || fire)
     {
-        explosion* ex=new explosion(game::SquareN(x,y),1);
+        auto _ = new explosion(game::SquareN(x, y), 1);
         Kill();
     }
     else
