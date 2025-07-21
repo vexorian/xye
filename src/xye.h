@@ -1253,11 +1253,11 @@ class gameboard : public control
         ~gameboard();
         void loop();
         void draw(SDL_Surface* target);
-        void onMouseMove(int px,int py);
-        void onMouseOut();
-        void onMouseDown(int px,int py);
-        void onMouseUp(int px,int py);
-        inline void onMouseRightUp(int px,int py) {}
+        void onMouseMove(int px, int py) override;
+        void onMouseOut() override;
+        void onMouseDown(int px, int py) override;
+        void onMouseUp(int px, int py) override;
+        inline void onMouseRightUp(int px, int py) override {}
 
 
 };
