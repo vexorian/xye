@@ -92,8 +92,7 @@ void LevelPack::LoadNthLevel(unsigned int n)
 
     CurrentLevel=FirstLevel=pack->FirstChildElement("level");
     if (! FirstLevel) { LevelPack::Error("can't find any level"); return; }
-    TiXmlElement* tm=FirstLevel;
-    int i=1;
+    unsigned int i = 1;
     while ((i<n) && (CurrentLevel))
     {
         CurrentLevel=CurrentLevel->NextSiblingElement("level");

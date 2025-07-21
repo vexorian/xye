@@ -156,7 +156,7 @@ string KyeLevelPack::LoadForEditor(const char* filename, vector<KyeLevel> & out)
     }
     out.resize(tn);
     KyeLevel* x = First;
-    for (int i=0; i<tn; i++) {
+    for (unsigned int i = 0; i < tn; i++) {
         KyeLevel & o = out[i];
         o.name = x->name;
         o.lhint = x->lhint;

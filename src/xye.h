@@ -1434,13 +1434,13 @@ class game
     static bool Mod8();
     static bool Mod9();
 
-    static bool Mod2(unsigned int m);
-    static bool Mod3(unsigned int m);
-    static bool Mod4(unsigned int m);
-    static bool Mod5(unsigned int m);
-    static bool Mod7(unsigned int m);
-    static bool Mod8(unsigned int m);
-    static bool Mod9(unsigned int m);
+    static bool Mod2(int8_t m);
+    static bool Mod3(int8_t m);
+    static bool Mod4(int8_t m);
+    static bool Mod5(int8_t m);
+    static bool Mod7(int8_t m);
+    static bool Mod8(int8_t m);
+    static bool Mod9(int8_t m);
 
 
 
