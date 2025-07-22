@@ -23,7 +23,9 @@ Permission is granted to anyone to use this software for any purpose, including 
 #include "xsb_level.h"
 #include "gen.h"
 #include "tinyxml/xye_tinyxml.h"
-#include<string>
+
+#include <iostream>
+#include <string>
 
 
 /** Class LevelPack begin**/
@@ -141,8 +143,6 @@ bool LevelPack::HasSolution()
 void  LevelPack::LoadInformation()
 {
     LevelError = "";
-    int a,b,c;
-    a=0;
 
     //Number of levels (count)
     TiXmlElement* pEChild=pack->FirstChildElement("level");
@@ -249,13 +249,6 @@ bool LevelPack::GetFileData(const char* filename, string &au, string &ds, string
         return true;
     }
 
-
-
-    char* tm,*tm2;
-/*   au="!!";
-   ds="...";
-   ti="!!!";
-return true;*/
     //TiXmlDocument fil(tm2);
     TiXmlDocument  fil(filename);
 
@@ -715,10 +708,8 @@ void Load_Number(TiXmlElement* el)
 /* Load Robot*/
 void Load_Robot(TiXmlElement* el)
 {
-    int v=0;
-    unsigned char cv;
-        el->QueryIntAttribute("x",&LastX);
-        el->QueryIntAttribute("y",&LastY);
+    el->QueryIntAttribute("x",&LastX);
+    el->QueryIntAttribute("y",&LastY);
 
     roboxye* rb=new roboxye(game::SquareN(LastX,LastY));
 }
@@ -1139,11 +1130,9 @@ void Load_ScrollBlock(TiXmlElement* el)
 /* Load Teleport*/
 void Load_Teleport(TiXmlElement* el)
 {
-    int round=0;
-
-        el->QueryIntAttribute("x",&LastX);
-        el->QueryIntAttribute("y",&LastY);
-        edir d=GetElementDir(el, D_DOWN );
+    el->QueryIntAttribute("x", &LastX);
+    el->QueryIntAttribute("y", &LastY);
+    edir d = GetElementDir(el, D_DOWN );
 
 
     teleport* tp=new teleport(game::SquareN(LastX,LastY),d);
@@ -1281,10 +1270,10 @@ void Load_Pit(TiXmlElement* el)
 /* Load Hint */
 void Load_Hint(TiXmlElement* el, bool warn)
 {
-    int c1=0,c2;
-        el->QueryIntAttribute("x",&LastX);
-        el->QueryIntAttribute("y",&LastY);
-        /*el->QueryIntAttribute("color",&c1);*/
+    //int c1=0,c2;
+    el->QueryIntAttribute("x", &LastX);
+    el->QueryIntAttribute("y", &LastY);
+    //el->QueryIntAttribute("color", &c1);
     const char* tx = el->GetText ();
     string text = ( (tx!=NULL) ? tx : "") ;
     hint* hn=new hint(game::SquareN(LastX,LastY), text, warn);
@@ -1294,7 +1283,6 @@ void Load_Hint(TiXmlElement* el, bool warn)
         hn->ChangeColor(palette::GetColor(c1),palette::GetColor(c2));
     }*/
 }
-#include<iostream>
 
 /* Load Portal */
 void Load_Portal(TiXmlElement* el)
@@ -1628,7 +1616,7 @@ void LoadDefaults_Wall(TiXmlElement* el)
 void LoadDefaults_Tdoor(TiXmlElement* el)
 {
     int cid=0;
-    int t=0;
+
     if (! options::LevelColorsDisabled()) {
         el->QueryIntAttribute("color",&cid);
         if (cid)
@@ -1645,8 +1633,6 @@ void LoadDefaults_Tdoor(TiXmlElement* el)
 void LoadDefaults_ForceArrow(TiXmlElement* el)
 {
     int cid=0;
-    int t=0;
-
 
     if (! options::LevelColorsDisabled()) {
         el->QueryIntAttribute("color",&cid);

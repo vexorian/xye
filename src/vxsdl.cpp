@@ -105,11 +105,11 @@ SDL_Surface * RecolorPartOfSurface(SDL_Surface *src, Sint16 sx, Sint16 sy, Uint1
 
 
 
-   Uint32 tm=0,tm2=0;
+   Uint32 tm=0;
    Uint32* src_pix= (Uint32*)(src->pixels);
    Uint32* r_pix= (Uint32*)(r->pixels);
 
-   Uint8 rd=0,g=0,b=0,a=0,aux=0;
+   Uint8 rd=0,g=0,b=0,a=0;
 
    Uint32 i,j;
 

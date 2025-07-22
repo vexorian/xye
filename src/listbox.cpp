@@ -140,7 +140,6 @@ namespace listbox_private
         {
             int cy = y;
             int fh = NormalFont->Height();
-            int i = 0;
             maxLines = 0;
             while ( cy + fh < y + h) {
                 maxLines++;

@@ -579,8 +579,6 @@ void KyeLevel::Load()
             ky=j;
     }
 
-    char rx,ry;
-
     if (FoundKye || ! FromXyeLevel) {
         if (kx == 30) {
             kx = ky = 0;

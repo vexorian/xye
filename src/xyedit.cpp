@@ -524,7 +524,6 @@ void editor::ResumeSection(window* wind)
 
 
 
-    SDL_Color c;
     //Setup widgets settings:
 
 
@@ -753,7 +752,6 @@ void editor::ResumeSection(window* wind)
 void editor::StartSection(window* wind)
 {
     ResumeSection(wind);
-    bool trytest = true;
     if (!load())
     {
         editorboard::ResetLevels();

@@ -95,7 +95,6 @@ void Font::fontinit(SDL_Surface* surface, Uint8 R,  Uint8 G, Uint8 B)
     ttf=NULL;
 
     int x = 0, i = 0, j;
-    Uint32 pixel;
     Uint32 pink;
     if (surface==NULL)
     {
@@ -125,16 +124,13 @@ void Font::fontinit(SDL_Surface* surface, Uint8 R,  Uint8 G, Uint8 B)
         x++;
     }
     MaxPos = x-1;
-    Uint8 rd=0,g=0,b=0,a=0;
+    Uint8 rd = 0, b = 0;
     FixedRGBA c;
     c.r=R;
     c.g=G;
     c.b=B;
     c.a=175;
     Uint32* c_Uint32 = (Uint32*)(&c);
-
-    FixedRGBA* X;
-
 
     Uint8* Calpha= &(c.a);
 
@@ -306,9 +302,7 @@ void Font::WriteWrap(SDL_Surface* Surface, int x, int y, int w, int h,const char
     if(ttf)
     {
         const char* c=text;
-        int th,tw;
         int cx=x;
-        int wor=0;
         int spcwidth;
         TTF_SizeUTF8(ttf," ",&spcwidth,NULL);
         while(y<=sh)
@@ -458,12 +452,10 @@ std::vector<std::string> Font::splitByLines(const char* text, int w) const
     std::vector<std::string> r;
     char word[25];
     int wi,autoprint;
-    int charoffset;
 
     if(text == NULL) return r;
 
 
-    int cw=0;
     int tw=0;
     int lw=0;
 

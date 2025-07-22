@@ -85,22 +85,16 @@ public:
     {
         Uint32 back=SDL_MapRGB(target->format, options::LevelMenu_info);
         SDL_FillRect(target, x,y,w,h,    back);
-        Sint16 sh = h;
 
         Sint16 fh=options::GetGridSize();//  game::FontRes->Height();
-        int fof=0;
         int fohei=InfoFont->Height();
 
         if(fh<fohei)
         {
             fh=InfoFont->Height()+2;
-            fof=1;
         }
-        else fof=(fh-fohei)/2;
-
 
         Sint16 cy=y+h/8,cx=x+2;
-
 
         cx+=5;
         Sint16 nw = cx+InfoFont->TextWidth("        ");;
@@ -465,8 +459,6 @@ void Show()
 
     LoadActiveFileInfo();
 
-
-    bool loop=true;
 
     //
     //delete[] FoundFile;

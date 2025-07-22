@@ -101,13 +101,11 @@ const char* Folder::NextFileOfType(const char* ext)
     dirent *ent;
     DIR* tm;
     const char * r;
-    int L=strlen(dirname),L2;
     char realpath[FILENAME_MAX];
     while (ent=readdir(D))
     {
         r=ent->d_name;
         errno=0;
-        L2=strlen(r);
         strcpy(realpath,dirname);
         strcat(realpath,r);
 
@@ -127,13 +125,11 @@ const char* Folder::NextFileMatching(  bool (*cond)(const char*)    )
     dirent *ent;
     DIR* tm;
     const char * r;
-    int L=strlen(dirname),L2;
     char realpath[FILENAME_MAX];
     while (ent=readdir(D))
     {
         r=ent->d_name;
         errno=0;
-        L2=strlen(r);
         strcpy(realpath,dirname);
         strcat(realpath,r);
 
@@ -152,7 +148,6 @@ const char* Folder::NextSubFolder()
     dirent *ent;
     DIR* tm;
     const char * r;
-    int L=strlen(dirname),L2;
     char realpath[FILENAME_MAX];
     while (ent=readdir(D))
     {
@@ -164,7 +159,6 @@ const char* Folder::NextSubFolder()
             continue;
 
         errno=0;
-        L2=strlen(r);
         strcpy(realpath,dirname);
         strcat(realpath,r);
 
