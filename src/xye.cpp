@@ -232,13 +232,13 @@ bool game::InitGraphics()
     SKIN = tm;
     ifstream f(tm);
     if (! f.good()) {
-        printf("File does not exist: %s\n", tm); 
+        printf("File does not exist: %s\n", tm);
         f.close();
         return false;
     } else {
         f.close();
     }
-    
+
     printf("Loading %s\n",tm);
     sprites.sprites=IMG_Load(tm);
     {
@@ -401,7 +401,7 @@ int game::Init(const char* levelfile)
     if (! game::InitGraphics() ) {
         return 1;
     }
-    
+
     if (!window::InitSDL()) return 0;
     printf("Setting video mode...\n");
     gamewindow=window::create(GameWidth, GameHeight   ,"Xye");
@@ -1414,7 +1414,7 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
 
     else if (hint::Active())
     {
-        hintx = "Hint - "+string(hint::GetActiveText() );
+        hintx = "Hint - " + hint::GetActiveText();
     }
     else if (LevelPack::LevelError != "")
     {
@@ -8576,7 +8576,8 @@ bool hint::Active()
 {
     return (active!=NULL);
 }
-const char* hint::GetActiveText()
+
+std::string hint::GetActiveText()
 {
     string res;
     if (active==(hint*)(1))
@@ -8584,7 +8585,7 @@ const char* hint::GetActiveText()
     else if (active)
         res=active->text;
 
-    return res.c_str();
+    return res;
 }
 
 void hint::SetGlobalHint(const char* gl)
