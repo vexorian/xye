@@ -232,13 +232,13 @@ bool game::InitGraphics()
     SKIN = tm;
     ifstream f(tm);
     if (! f.good()) {
-        printf("File does not exist: %s\n", tm); 
+        printf("File does not exist: %s\n", tm);
         f.close();
         return false;
     } else {
         f.close();
     }
-    
+
     printf("Loading %s\n",tm);
     sprites.sprites=IMG_Load(tm);
     {
@@ -397,7 +397,7 @@ int game::Init(const char* levelfile)
     if (! game::InitGraphics() ) {
         return 1;
     }
-    
+
     if (!window::InitSDL()) return 0;
     printf("Setting video mode...\n");
     gamewindow=window::create(GameWidth, GameHeight   ,"Xye");
@@ -3160,8 +3160,6 @@ bool roboxye::Loop(bool* died)
 {
     UpdateSquare(); //One of the few objects that are always drawn
     *died=false;
-    //bool Moved = false;
-
 
     bool pushed=false;
     bool go=false;
@@ -3180,7 +3178,6 @@ bool roboxye::Loop(bool* died)
         while (PickDirectDir(fac,D,DN,x,y,XYEx,XYEy,true,prihorz))
         {
             go=false;
-            //if  (DoMagnetism(true,true,&Moved)) return Moved;
             char dx=x,dy=y;
             switch(fac)
             {

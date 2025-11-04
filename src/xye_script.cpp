@@ -1270,18 +1270,11 @@ void Load_Pit(TiXmlElement* el)
 /* Load Hint */
 void Load_Hint(TiXmlElement* el, bool warn)
 {
-    //int c1=0,c2;
     el->QueryIntAttribute("x", &LastX);
     el->QueryIntAttribute("y", &LastY);
-    //el->QueryIntAttribute("color", &c1);
     const char* tx = el->GetText ();
     string text = ( (tx!=NULL) ? tx : "") ;
     hint* hn=new hint(game::SquareN(LastX,LastY), text, warn);
-    /*if (c1!=0)
-    {
-        el->QueryIntAttribute("markcolor",&c2);
-        hn->ChangeColor(palette::GetColor(c1),palette::GetColor(c2));
-    }*/
 }
 
 /* Load Portal */
