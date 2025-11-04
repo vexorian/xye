@@ -253,7 +253,6 @@ void window::SetTransition( voidFunction tra )
 void window::loop(double fps)
 {
     bool &done=halt;
-    bool browse=false;
     Uint32 per=(Uint32)((1.0 / fps)*1000); //calculates period of time based on FPS;
 
     SDL_Event event;
@@ -262,8 +261,6 @@ void window::loop(double fps)
     TriggeredLoop=InActive=false;
     SDL_TimerID tim = SDL_AddTimer( per, window::timer,0);
     while (!done) {
-        int t=0;
-
         // message processing loop
         while (SDL_PollEvent(&event) && (!done)) {
             // check for messages

@@ -225,7 +225,6 @@ bool editor_LoadStar(TiXmlElement* el)
 
 bool editor_LoadGenRC(TiXmlElement* el,editorobjecttype type, int variation=0, editorcolor* oldcolor=NULL)
 {
-    int t= errorPositions.size();
     int x,y;
 
     if (isObjectTypeTop(type)) {
