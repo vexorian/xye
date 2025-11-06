@@ -95,11 +95,11 @@ class inputtextblock: public control
 
     void draw(SDL_Surface* target);
     void loop() {}
-    inline void onMouseMove(int px,int py){}
-    inline void onMouseOut() {}
-    inline void onMouseDown(int px,int py) {}
-    inline void onMouseUp(int px,int py) {}
-    inline void onMouseRightUp(int px,int py) {}
+    inline void onMouseMove(int px, int py) override {}
+    inline void onMouseOut() override {}
+    inline void onMouseDown(int px, int py) override {}
+    inline void onMouseUp(int px, int py) override {}
+    inline void onMouseRightUp(int px, int py) override {}
 };
 
 inputtextblock::inputtextblock(int sx, int sy, int sw, int slines)

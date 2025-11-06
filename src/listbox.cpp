@@ -230,7 +230,7 @@ namespace listbox_private
             }
         }
 
-        void onMouseMove(int mousex, int mousey)
+        void onMouseMove(int mousex, int mousey) override
         {
             verifyBarClick(mousex, mousey);
         }

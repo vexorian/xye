@@ -150,11 +150,11 @@ class rectangle: public control
 
     void draw(SDL_Surface* target);
     void loop() {}
-    inline void onMouseMove(int px,int py){}
-    inline void onMouseOut() {}
-    inline void onMouseDown(int px,int py) {}
-    inline void onMouseUp(int px,int py) {}
-    inline void onMouseRightUp(int px,int py) {}
+    inline void onMouseMove(int px, int py) override {}
+    inline void onMouseOut() override {}
+    inline void onMouseDown(int px, int py) override {}
+    inline void onMouseUp(int px, int py) override {}
+    inline void onMouseRightUp(int px, int py) override {}
 };
 
 class textblock: public control
@@ -168,11 +168,11 @@ class textblock: public control
 
     void draw(SDL_Surface* target);
     void loop() {}
-    inline void onMouseMove(int px,int py){}
-    inline void onMouseOut() {}
-    inline void onMouseDown(int px,int py) {}
-    inline void onMouseUp(int px,int py) {}
-    inline void onMouseRightUp(int px,int py) {}
+    inline void onMouseMove(int px, int py) override {}
+    inline void onMouseOut() override {}
+    inline void onMouseDown(int px, int py) override {}
+    inline void onMouseUp(int px, int py) override {}
+    inline void onMouseRightUp(int px, int py) override {}
 };
 
 class buttondata
@@ -194,11 +194,11 @@ class buttontooltip : public control
 
 
     void draw(SDL_Surface* target);
-    void onMouseMove(int x,int y) {};
-    void onMouseOut() {};
-    void onMouseDown(int x,int y) {};
-    void onMouseUp(int x,int y) {};
-    void onMouseRightUp(int x,int y) {};
+    void onMouseMove(int x, int y) override {};
+    void onMouseOut() override {};
+    void onMouseDown(int x, int y) override {};
+    void onMouseUp(int x, int y) override {};
+    void onMouseRightUp(int x, int y) override {};
 
     void loop() {};
 
@@ -236,12 +236,12 @@ class button : public control
         void (*onPress)(const buttondata* data);
         void (*onRelease)(const buttondata* data);
 
-        void onMouseMove(int px,int py);
-        void onMouseOut();
-        void onMouseDown(int px,int py);
-        void onMouseUp(int px,int py);
+        void onMouseMove(int px, int py) override;
+        void onMouseOut() override;
+        void onMouseDown(int px, int py) override;
+        void onMouseUp(int px, int py) override;
         void resetToggle();
-        inline void onMouseRightUp(int px,int py) {}
+        inline void onMouseRightUp(int px, int py) override {}
 
         void flash();
 
