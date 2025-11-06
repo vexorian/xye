@@ -1217,7 +1217,7 @@ class hint: public gobj
      void SetHint(string hint);
 
      static bool Active();
-     static const char* GetActiveText();
+     static std::string GetActiveText();
      static void Reset();
      static void GlobalHint(bool enb);
      static void SetGlobalHint(const char* gl);

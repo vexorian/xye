@@ -1404,7 +1404,7 @@ void game::DrawPanel(SDL_Surface* target, Sint16 x, Sint16 y, Sint16 w, Sint16 h
 
     else if (hint::Active())
     {
-        hintx = "Hint - "+string(hint::GetActiveText() );
+        hintx = "Hint - " + hint::GetActiveText();
     }
     else if (LevelPack::LevelError != "")
     {
@@ -8536,7 +8536,8 @@ bool hint::Active()
 {
     return (active!=NULL);
 }
-const char* hint::GetActiveText()
+
+std::string hint::GetActiveText()
 {
     string res;
     if (active==(hint*)(1))
@@ -8544,7 +8545,7 @@ const char* hint::GetActiveText()
     else if (active)
         res=active->text;
 
-    return res.c_str();
+    return res;
 }
 
 void hint::SetGlobalHint(const char* gl)
