@@ -141,6 +141,8 @@ class ent
      otype type;
 
    public:
+     virtual ~ent() = default;
+
      virtual void move(char px,char py)=0;
      virtual void Draw(unsigned int x, unsigned int y)=0;
      char X();
@@ -163,6 +165,8 @@ class obj: public ent
      bool Magnetism(char ox, char oy, char mx, char my, bool rSticky, bool rHorz, edir godir);
 
     public:
+     virtual ~obj() = default;
+
      bool GoFindXye(edir res[], int &resn, bool &foundpath, bool ignoreloopingedge, bool ignoreSp, bool considerTeleports, bool considerStickies, unsigned int range, bool Randomize=true );
      bool GoFindASquare(bool (*cond)(square* sq), edir res[], int &resn, bool &foundpath, bool ignoreloopingedge, bool ignoreSp, bool considerTeleports, bool considerStickies, unsigned int range, bool Randomize=true );
      unsigned int tic;
@@ -196,6 +200,8 @@ class gobj: public ent
 
 
     public:
+     virtual ~gobj() = default;
+
      char X();
      char Y();
 
