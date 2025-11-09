@@ -302,120 +302,116 @@ void LoadKyeWall(char t, unsigned  char i, unsigned char j)
 
 void LoadXyeWall_R(unsigned char i, unsigned  char j)
 {
-    wall* wl=new wall(game::Square(i,j),4);
+    auto _ = new wall(game::Square(i,j),4);
 }
 
 void LoadKyeTimer(unsigned  char x, unsigned char y,unsigned char tm)
 {
-    number* t=new number(game::Square(x,y),B_YELLOW,tm,false);
+    auto _ = new number(game::Square(x,y),B_YELLOW,tm,false);
 }
 
 void LoadKyeEarth(unsigned  char x, unsigned char y)
 {
-    earth* e=new earth(game::Square(x,y));
+    auto _ = new earth(game::Square(x,y));
 }
 
 void LoadKyeGem(unsigned char x,unsigned char y)
 {
-    gem* g=new gem(game::Square(x,y),B_BLUE);
+    auto _ = new gem(game::Square(x,y),B_BLUE);
 }
 
 void LoadXyeEmerald(unsigned char x,unsigned char y)
 {
-    gem* g=new gem(game::Square(x,y),B_GREEN);
+    auto _ = new gem(game::Square(x,y),B_GREEN);
 }
 
 void LoadXyeGemBlock(unsigned char x,unsigned char y)
 {
-    gemblock* g=new gemblock(game::Square(x,y),B_GREEN);
+    auto _ = new gemblock(game::Square(x,y),B_GREEN);
 }
 
 void LoadXyeBlockDoor(unsigned char x,unsigned char y,bool trap)
 {
-    blockdoor* g=new blockdoor(game::Square(x,y),trap,true,B_YELLOW);
+    auto _ = new blockdoor(game::Square(x,y),trap,true,B_YELLOW);
 }
 
 
 void LoadXyeMarked(unsigned char x,unsigned char y)
 {
-    marked* g=new marked(game::Square(x,y),B_YELLOW);
+    auto _ = new marked(game::Square(x,y),B_YELLOW);
 }
 
 
 void LoadKyeBlock(unsigned  char x, unsigned char y,bool round, bool fromxye)
 {
-    block* b=new block(game::Square(x,y), /*(fromxye?B_YELLOW: B_GREEN)*/ B_YELLOW,round);
-
-
-
+    auto _ = new block(game::Square(x,y), /*(fromxye?B_YELLOW: B_GREEN)*/ B_YELLOW,round);
 }
 
 void LoadKyeBeast(unsigned char x, unsigned char y, btype B)
 {
-    beast* b=new beast(game::Square(x,y),B,D_UP);
+    auto _ = new beast(game::Square(x,y),B,D_UP);
 }
 
 void LoadKyeSticky(unsigned char x, unsigned char y, bool horz)
 {
-    magnetic* m=new magnetic(game::Square(x,y),T_MAGNET,horz);
+    auto _ = new magnetic(game::Square(x,y),T_MAGNET,horz);
 }
 
 void LoadSKyeSticky(unsigned char x, unsigned char y, bool horz)
 {
-    magnetic* m=new magnetic(game::Square(x,y),T_STICKY,horz);
+    auto _ = new magnetic(game::Square(x,y),T_STICKY,horz);
 }
 
 void LoadXyeAntiMagnet(unsigned char x, unsigned char y, bool horz)
 {
-    magnetic* m=new magnetic(game::Square(x,y),T_ANTIMAGNET,horz);
+    auto _ = new magnetic(game::Square(x,y),T_ANTIMAGNET,horz);
 }
 
 void LoadSKyeBomb(unsigned char x, unsigned char y)
 {
-    surprise* m=new surprise(game::Square(x,y),B_RED,false);
+    auto _ = new surprise(game::Square(x,y),B_RED,false);
 }
 
 void LoadSKyePit(unsigned char x, unsigned char y)
 {
-    pit* m=new pit(game::Square(x,y));
+    auto _ = new pit(game::Square(x,y));
 }
 
 void LoadKyeBlacky(unsigned char x, unsigned char y)
 {
-    dangerous* b=new dangerous(game::Square(x,y),OT_BLACKHOLE);
+    auto _ = new dangerous(game::Square(x,y),OT_BLACKHOLE);
 }
 
 void LoadXyeMine(unsigned char x, unsigned char y)
 {
-    dangerous* b=new dangerous(game::Square(x,y),OT_MINE);
+    auto _ = new dangerous(game::Square(x,y),OT_MINE);
 }
 
 
 void LoadKyeArrow(unsigned char x, unsigned char y, bool round, edir d)
 {
-    arrow *a=new arrow(game::Square(x,y),B_YELLOW,d,round);
+    auto _ = new arrow(game::Square(x,y),B_YELLOW,d,round);
 }
 
 void LoadKye3Teleport(unsigned char x, unsigned char y, edir d)
 {
-    teleport *a=new teleport(game::Square(x,y),d);
+    auto _ = new teleport(game::Square(x,y),d);
 }
 
 
 void LoadKyeBouncer(unsigned char x, unsigned char y, edir d)
 {
-    impacter *i=new impacter(game::Square(x,y),B_YELLOW,d);
+    auto _ = new impacter(game::Square(x,y),B_YELLOW,d);
 }
 
 void LoadKyeClockerAclocker(unsigned char x, unsigned char y,bool clockwise)
 {
-    turner *t=new turner(game::Square(x,y),B_YELLOW,clockwise,false);
+    auto _ = new turner(game::Square(x,y),B_YELLOW,clockwise,false);
 }
 
 void LoadKyeAuto(unsigned char x, unsigned char y,bool round)
 {
-    autoarrow* bc=new autoarrow(game::SquareN(x,y),B_YELLOW,autoarrow::GetDefaultEdirByColumn(x),round);
-
+    auto _ = new autoarrow(game::SquareN(x,y),B_YELLOW,autoarrow::GetDefaultEdirByColumn(x),round);
 }
 
 void LoadKyeOneWay(unsigned char x, unsigned char y,edir dr)
@@ -429,34 +425,32 @@ void LoadKyeOneWay(unsigned char x, unsigned char y,edir dr)
         default: u=true;
    }
 
-   tdoor* td= new tdoor(game::SquareN(x,y), (l || r)? td_HORZ:td_VERT  ,u,r,d,l);
-
+   auto _ = new tdoor(game::SquareN(x,y), (l || r)? td_HORZ:td_VERT  ,u,r,d,l);
 }
 
 void LoadXyeDotBlock(unsigned char x, unsigned char y,bool round)
 {
-    lowdensity* l=new lowdensity(game::SquareN(x,y),B_YELLOW,round);
+    auto _ = new lowdensity(game::SquareN(x,y),B_YELLOW,round);
 }
 
 void LoadXyeSurprise(unsigned char x, unsigned char y,bool round)
 {
-    surprise* l=new surprise(game::SquareN(x,y),B_BLUE,round);
+    auto _ = new surprise(game::SquareN(x,y),B_BLUE,round);
 }
 
 void LoadXyeToggle(unsigned char x, unsigned char y,bool plus)
 {
-    toggle* l=new toggle(game::SquareN(x,y),B_YELLOW,false,! plus);
+    auto _ = new toggle(game::SquareN(x,y),B_YELLOW,false,! plus);
 }
 
 void LoadXyeBot(unsigned char x, unsigned char y)
 {
-    roboxye* l=new roboxye(game::SquareN(x,y));
+    auto _ = new roboxye(game::SquareN(x,y));
 }
 
 /** Class KyeLevel start **/
 void KyeLevel::SetGameCaption()
 {
-    int L=name.length();
     string title = "Xye - "+name;
     LevelPack::CurrentLevelTitle=title.c_str();
     SDL_WM_SetCaption(title.c_str(),0);

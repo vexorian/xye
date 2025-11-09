@@ -598,7 +598,7 @@ bool XsbLevelPack::HasLast()
 
 void LoadXsbWall(unsigned  char i, unsigned char j,bool dark=false)
 {
-    wall* wl=new wall(game::Square(i,j));
+    auto wl = new wall(game::Square(i, j));
     if (dark)
     wl->ChangeColor(0,0,0);
 
@@ -606,12 +606,12 @@ void LoadXsbWall(unsigned  char i, unsigned char j,bool dark=false)
 
 void LoadXsbMarked(unsigned char x,unsigned char y,blockcolor bc)
 {
-    marked* g=new marked(game::Square(x,y),bc);
+    auto _ = new marked(game::Square(x, y), bc);
 }
 
 void LoadXsbBlock(unsigned  char x, unsigned char y,blockcolor bc)
 {
-    block* b=new block(game::Square(x,y),bc,false);
+    auto _ = new block(game::Square(x, y), bc, false);
 }
 
 
@@ -687,7 +687,7 @@ bool EnsurePath(unsigned char x,unsigned char y,int*mem,bool nowall,blockcolor b
             }
             wallrep=true;
             object->Kill();
-            blockdoor* g=new blockdoor(sq,false,true,bc);
+            auto _ = new blockdoor(sq, false, true, bc);
 
         }
     }
@@ -771,7 +771,7 @@ bool EnsurePath(unsigned char x,unsigned char y,int*mem,bool nowall,blockcolor b
 
     if (wallrep)
     {
-        wall* wl=new wall(game::Square(x,y),0);
+        auto _ = new wall(game::Square(x, y), 0);
     }
 
 return false;
@@ -815,8 +815,8 @@ bool FindAGoodWall(int i, int j,bool rec=true)
             object->Kill();
             XsbLevel::tx=(i<0)?XYE_HORZ-1:(i>=XYE_HORZ)?0:i;
             XsbLevel::ty=(j<0)?XYE_VERT-1:(j>=XYE_VERT)?0:j;
-            blockdoor *bd= new blockdoor(sq,false,true,XsbLevel::bc);
-            gem* gm=new gem(sq,XsbLevel::bc);
+            auto _ = new blockdoor(sq, false, true, XsbLevel::bc);
+            auto __ = new gem(sq, XsbLevel::bc);
             return true;
         }
     }
@@ -927,7 +927,7 @@ $ - box
                 obj* object = sq->object;
                 if(object==NULL)
                 {
-                    wall* wl = new wall(sq);
+                    auto _ = new wall(sq);
                 }
             }
     delete[] mem;

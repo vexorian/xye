@@ -672,8 +672,7 @@ void Load_Gem(TiXmlElement* el)
         el->QueryIntAttribute("y",&LastY);
         blockcolor c=GetElementBlockColor(el,B_BLUE);
 
-    gem* gm=new gem(game::SquareN(LastX,LastY),c);
-
+    auto _ = new gem(game::SquareN(LastX,LastY),c);
 }
 
 /* Load Star*/
@@ -682,7 +681,7 @@ void Load_Star(TiXmlElement* el)
         el->QueryIntAttribute("x",&LastX);
         el->QueryIntAttribute("y",&LastY);
 
-    star* gm=new star(game::SquareN(LastX,LastY) );
+    auto _ = new star(game::SquareN(LastX,LastY) );
 
 }
 
@@ -700,7 +699,7 @@ void Load_Number(TiXmlElement* el)
         blockcolor c=GetElementBlockColor(el,B_YELLOW);
         el->QueryIntAttribute("round",&round);
 
-    number* gm=new number(game::SquareN(LastX,LastY),c,cv,round);
+    auto _ = new number(game::SquareN(LastX,LastY),c,cv,round);
 }
 
 
@@ -710,7 +709,7 @@ void Load_Robot(TiXmlElement* el)
     el->QueryIntAttribute("x",&LastX);
     el->QueryIntAttribute("y",&LastY);
 
-    roboxye* rb=new roboxye(game::SquareN(LastX,LastY));
+    auto _ = new roboxye(game::SquareN(LastX,LastY));
 }
 
 
@@ -726,7 +725,7 @@ void Load_Blackhole(TiXmlElement* el)
         el->QueryIntAttribute("y",&LastY);
 
 
-    dangerous* dn=new dangerous(game::SquareN(LastX,LastY),OT_BLACKHOLE);
+    auto _ = new dangerous(game::SquareN(LastX,LastY),OT_BLACKHOLE);
 
 }
 
@@ -737,7 +736,7 @@ void Load_Mine(TiXmlElement* el)
         el->QueryIntAttribute("y",&LastY);
 
 
-    dangerous* dn=new dangerous(game::SquareN(LastX,LastY),OT_MINE);
+    auto _ = new dangerous(game::SquareN(LastX,LastY),OT_MINE);
 
 }
 
@@ -753,7 +752,7 @@ void Load_Block(TiXmlElement* el)
         el->QueryIntAttribute("nocolor",&colorless);
         el->QueryIntAttribute("round",&round);
 
-    block* dn=new block(game::SquareN(LastX,LastY),c, round);
+    auto dn = new block(game::SquareN(LastX,LastY),c, round);
     if (colorless) dn->colorless=true;
 
 }
@@ -781,12 +780,12 @@ void Load_LargeBlock(TiXmlElement* el)
     }
     if( !(up|down|left|right))
     {  //don't bother
-       block* dn=new block(game::SquareN(LastX,LastY),c, false);
+       auto dn = new block(game::SquareN(LastX,LastY),c, false);
        if (colorless) dn->colorless=true;
     }
     else
     {
-        largeblock* bc=new largeblock(game::SquareN(LastX,LastY),c, up,right,down,left);
+        auto bc = new largeblock(game::SquareN(LastX,LastY),c, up,right,down,left);
         if (colorless) bc->colorless=true;
     }
 
@@ -801,7 +800,7 @@ void Load_WindowBlock(TiXmlElement* el)
         el->QueryIntAttribute("y",&LastY);
         blockcolor c=GetElementBlockColor(el);
 
-    windowblock* bc=new windowblock(game::SquareN(LastX,LastY),c);
+    auto _ = new windowblock(game::SquareN(LastX,LastY),c);
 
 
 }
@@ -814,7 +813,7 @@ void Load_RFood(TiXmlElement* el)
         el->QueryIntAttribute("x",&LastX);
         el->QueryIntAttribute("y",&LastY);
 
-    rfood* rf=new rfood(game::SquareN(LastX,LastY));
+    auto _ = new rfood(game::SquareN(LastX,LastY));
 
 
 }
@@ -830,7 +829,7 @@ void Load_Rattler(TiXmlElement* el)
         el->QueryIntAttribute("grow",&grow);
         edir d=GetElementDir(el, D_DOWN );
 
-    rattler* rt=new rattler(game::SquareN(LastX,LastY),d,grow);
+    auto rt = new rattler(game::SquareN(LastX, LastY), d, grow);
     TiXmlElement* nd=el->FirstChildElement("body");
     while (nd)
     {
@@ -849,7 +848,7 @@ void Load_Lock(TiXmlElement* el)
         el->QueryIntAttribute("x",&LastX);
         el->QueryIntAttribute("y",&LastY);
         blockcolor c=GetElementBlockColor(el);
-    lock* bc=new lock(game::SquareN(LastX,LastY),c);
+    auto _ = new lock(game::SquareN(LastX,LastY),c);
 }
 
 /* Load Key*/
@@ -858,7 +857,7 @@ void Load_Key(TiXmlElement* el)
         el->QueryIntAttribute("x",&LastX);
         el->QueryIntAttribute("y",&LastY);
         blockcolor c=GetElementBlockColor(el);
-    key* bc=new key(game::SquareN(LastX,LastY),c);
+    auto _ = new key(game::SquareN(LastX,LastY),c);
 }
 
 
@@ -874,7 +873,7 @@ void Load_LowDensity(TiXmlElement* el)
         el->QueryIntAttribute("y",&LastY);
         blockcolor c=GetElementBlockColor(el);
         el->QueryIntAttribute("round",&round);
-    lowdensity* bc=new lowdensity(game::SquareN(LastX,LastY),c,round);
+    auto bc = new lowdensity(game::SquareN(LastX,LastY),c,round);
     if (el->Attribute("active") ) bc->Activate(GetElementDir(el,D_DOWN,"active"));
 }
 
@@ -889,7 +888,7 @@ void Load_Surprise(TiXmlElement* el)
         blockcolor c=GetElementBlockColor(el);
         el->QueryIntAttribute("round",&round);
 
-    surprise* bc=new surprise(game::SquareN(LastX,LastY),c,round);
+    auto _ = new surprise(game::SquareN(LastX,LastY),c,round);
 
 
 }
@@ -906,7 +905,7 @@ void Load_Turner(TiXmlElement* el,unsigned int aclock)
         el->QueryIntAttribute("nocolor",&colorless);
         el->QueryIntAttribute("round",&round);
 
-    turner* bc=new turner(game::SquareN(LastX,LastY),c,!(aclock),round);
+    auto bc = new turner(game::SquareN(LastX,LastY),c,!(aclock),round);
     if (colorless) bc->colorless=true;
 
 
@@ -921,7 +920,7 @@ void Load_GemBlock(TiXmlElement* el)
         el->QueryIntAttribute("y",&LastY);
         blockcolor c=GetElementBlockColor(el);
 
-    gemblock* bc=new gemblock(game::SquareN(LastX,LastY),c);
+    auto _ = new gemblock(game::SquareN(LastX,LastY),c);
 
 
 }
@@ -935,7 +934,7 @@ void Load_WildCard(TiXmlElement* el)
         int r=0;
         el->QueryIntAttribute("round",&r);
 
-    wildcard* wd=new wildcard(game::SquareN(LastX,LastY),(bool)(r) );
+    auto _ = new wildcard(game::SquareN(LastX,LastY),(bool)(r) );
 
 
 }
@@ -949,7 +948,7 @@ void Load_MetalBlock(TiXmlElement* el)
         int r=0;
         el->QueryIntAttribute("round",&r);
 
-    metalblock* mb=new metalblock(game::SquareN(LastX,LastY),(bool)(r) );
+    auto _ = new metalblock(game::SquareN(LastX,LastY),(bool)(r) );
 
 
 }
@@ -965,7 +964,7 @@ void Load_Earth(TiXmlElement* el)
         el->QueryIntAttribute("y",&LastY);
         el->QueryIntAttribute("round",&r);
 
-    earth* et=new earth(game::SquareN(LastX,LastY));
+    auto et = new earth(game::SquareN(LastX,LastY));
     if (! options::LevelColorsDisabled()) {
         el->QueryIntAttribute("color",&c);
         if (c) {
@@ -992,7 +991,7 @@ void Load_Auto(TiXmlElement* el)
 
         el->QueryIntAttribute("round",&round);
 
-    autoarrow* bc=new autoarrow(game::SquareN(LastX,LastY),c,d,round);
+    auto _ = new autoarrow(game::SquareN(LastX,LastY),c,d,round);
 
 
 
@@ -1042,7 +1041,7 @@ void Load_Factory(TiXmlElement* el)
              rs=OT_BLOCK;
         }
 
-    factory* f=new factory(game::SquareN(LastX,LastY),rs,c,d,sd,round,colorless,(btype)(ib%BEASTN));
+    auto f = new factory(game::SquareN(LastX,LastY),rs,c,d,sd,round,colorless,(btype)(ib%BEASTN));
     f->limit=limit;
 
 
@@ -1062,7 +1061,7 @@ void Load_Filler(TiXmlElement* el)
 
         el->QueryIntAttribute("round",&round);
 
-    filler* bc=new filler(game::SquareN(LastX,LastY),c,d,round);
+    auto _ = new filler(game::SquareN(LastX,LastY),c,d,round);
 
 
 
@@ -1079,7 +1078,7 @@ void Load_Sniper(TiXmlElement* el)
 
         el->QueryIntAttribute("round",&round);
 
-    sniper* bc=new sniper(game::SquareN(LastX,LastY),c,round);
+    auto _ = new sniper(game::SquareN(LastX,LastY),c,round);
 
 
 
@@ -1098,7 +1097,7 @@ void Load_Arrow(TiXmlElement* el)
 
         el->QueryIntAttribute("round",&round);
 
-    arrow* bc=new arrow(game::SquareN(LastX,LastY),c,d,round);
+    auto _ = new arrow(game::SquareN(LastX,LastY),c,d,round);
 
 
 
@@ -1118,7 +1117,7 @@ void Load_ScrollBlock(TiXmlElement* el)
         el->QueryIntAttribute("nocolor",&nocolor);
 
 
-    scrollblock* bc=new scrollblock(game::SquareN(LastX,LastY),c,round,d);
+    auto bc = new scrollblock(game::SquareN(LastX,LastY),c,round,d);
     bc->colorless=nocolor;
 
 
@@ -1133,11 +1132,7 @@ void Load_Teleport(TiXmlElement* el)
     el->QueryIntAttribute("y", &LastY);
     edir d = GetElementDir(el, D_DOWN );
 
-
-    teleport* tp=new teleport(game::SquareN(LastX,LastY),d);
-
-
-
+    auto _ = new teleport(game::SquareN(LastX,LastY),d);
 }
 
 
@@ -1160,7 +1155,7 @@ void Load_Toggle(TiXmlElement* el)
 
         el->QueryIntAttribute("round",&round);
 
-    toggle* bc=new toggle(game::SquareN(LastX,LastY),c,round, ! off);
+    auto _ = new toggle(game::SquareN(LastX,LastY),c,round, ! off);
 
 
 
@@ -1177,7 +1172,7 @@ void Load_Pusher(TiXmlElement* el)
         el->QueryIntAttribute("y",&LastY);
         blockcolor c=GetElementBlockColor(el);
         edir d=GetElementDir(el, D_DOWN );
-    impacter* bc=new impacter(game::SquareN(LastX,LastY), c,d);
+    auto _ = new impacter(game::SquareN(LastX,LastY), c,d);
 
 
 
@@ -1194,7 +1189,7 @@ void Load_Beast(TiXmlElement* el)
         el->QueryIntAttribute("kind",&ib);
 
         edir d=GetElementDir(el, D_DOWN );
-    beast* bc=new beast(game::SquareN(LastX,LastY), btype(ib),d);
+    auto _ = new beast(game::SquareN(LastX,LastY), btype(ib),d);
 
 
 
@@ -1216,7 +1211,7 @@ void Load_Magnet(TiXmlElement* el)
 
 
 
-    magnetic* mg=new magnetic(game::SquareN(LastX,LastY), (mgtype)(kind), horz  );
+    auto _ = new magnetic(game::SquareN(LastX,LastY), (mgtype)(kind), horz  );
 
 
 
@@ -1227,14 +1222,14 @@ void Load_Magnet(TiXmlElement* el)
 /* Load BlockDoor */
 void Load_BlockDoor(TiXmlElement* el, unsigned int AsTrap)
 {
-    int open=0,round=0;
+    int open=0;
 
         el->QueryIntAttribute("x",&LastX);
         el->QueryIntAttribute("y",&LastY);
         blockcolor c=GetElementBlockColor(el);
         el->QueryIntAttribute("open",&open);
 
-    blockdoor* bc=new blockdoor(game::SquareN(LastX,LastY),(AsTrap!=0), (! open),c);
+    auto _ = new blockdoor(game::SquareN(LastX,LastY),(AsTrap!=0), (! open),c);
 }
 
 /* Load Marked Area */
@@ -1244,7 +1239,7 @@ void Load_Marked(TiXmlElement* el)
         el->QueryIntAttribute("y",&LastY);
         blockcolor c=GetElementBlockColor(el);
 
-    marked* bc=new marked(game::SquareN(LastX,LastY), c);
+    auto _ = new marked(game::SquareN(LastX,LastY), c);
 }
 
 /* Load Fire Pad*/
@@ -1253,7 +1248,7 @@ void Load_FirePad(TiXmlElement* el)
         el->QueryIntAttribute("x",&LastX);
         el->QueryIntAttribute("y",&LastY);
 
-    firepad* fp=new firepad(game::SquareN(LastX,LastY));
+    auto _ = new firepad(game::SquareN(LastX,LastY));
 }
 
 /* Load Pit*/
@@ -1262,7 +1257,7 @@ void Load_Pit(TiXmlElement* el)
         el->QueryIntAttribute("x",&LastX);
         el->QueryIntAttribute("y",&LastY);
 
-    pit* fp=new pit(game::SquareN(LastX,LastY));
+    auto _ = new pit(game::SquareN(LastX,LastY));
 }
 
 
@@ -1273,7 +1268,7 @@ void Load_Hint(TiXmlElement* el, bool warn)
     el->QueryIntAttribute("y", &LastY);
     const char* tx = el->GetText ();
     string text = ( (tx!=NULL) ? tx : "") ;
-    hint* hn=new hint(game::SquareN(LastX,LastY), text, warn);
+    auto _ = new hint(game::SquareN(LastX,LastY), text, warn);
 }
 
 /* Load Portal */
@@ -1310,7 +1305,7 @@ void Load_Portal(TiXmlElement* el)
         palette::GetColor(c,R,G,B);
     }
 
-    portal* pt= new portal(game::SquareN(LastX,LastY),R,G,B,tx,ty);
+    auto _ = new portal(game::SquareN(LastX,LastY),R,G,B,tx,ty);
 }
 
 /* Load TrickDoor */
@@ -1371,7 +1366,7 @@ void Load_TrickDoor(TiXmlElement* el, int opt)
 
    }
 
-   tdoor* td= new tdoor(game::SquareN(LastX,LastY),tt,u,r,d,l);
+   auto td = new tdoor(game::SquareN(LastX, LastY), tt, u, r, d, l);
    Uint8 red,green,blue;
 
 
@@ -1767,7 +1762,7 @@ void LevelPack::Default(const char* msg)
         for (int j=0;j<20; j++)
         {
             if(err[i][j]=='#') {
-                block* b =  new block(game::Square(5+j,12-i) , B_RED, false);
+                auto _ = new block(game::Square(5+j,12-i) , B_RED, false);
             }
         }
 
