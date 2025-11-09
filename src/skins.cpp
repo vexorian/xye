@@ -364,7 +364,7 @@ void FillArrayWithFilenames()
     Active    =0;
     //Finally find the value of res and if someone has it, make sure Active points to it
     string tm = options::GetSkinFile();
-    for (i=0;i<c;i++) {
+    for (unsigned int i = 0; i < c; i++) {
         if (FoundFile[i]==tm) {
             Active=i;
         }
@@ -450,7 +450,7 @@ void Show()
     FillArrayWithFilenames();
 
     string sk = options::GetSkinFile(false);
-    for (int i=0; i<FileN; i++) {
+    for (unsigned int i = 0; i < FileN; i++) {
         if (FoundFile[i] == sk) {
             skinlistbox->selectItem(i);
         }

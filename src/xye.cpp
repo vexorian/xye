@@ -1994,13 +1994,13 @@ inline bool game::Mod7() { return (counter7==0);}
 inline bool game::Mod8() { return (counter8==0);}
 inline bool game::Mod9() { return (counter9==0);}
 
-inline bool game::Mod2(unsigned int m) { return (counter2==m);}
-inline bool game::Mod3(unsigned int m) { return (counter3==m);}
-inline bool game::Mod4(unsigned int m) { return (counter4==m);}
-inline bool game::Mod5(unsigned int m) { return (counter5==m);}
-inline bool game::Mod7(unsigned int m) { return (counter7==m);}
-inline bool game::Mod8(unsigned int m) { return (counter8==m);}
-inline bool game::Mod9(unsigned int m) { return (counter9==m);}
+inline bool game::Mod2(int8_t m) { return (counter2==m);}
+inline bool game::Mod3(int8_t m) { return (counter3==m);}
+inline bool game::Mod4(int8_t m) { return (counter4==m);}
+inline bool game::Mod5(int8_t m) { return (counter5==m);}
+inline bool game::Mod7(int8_t m) { return (counter7==m);}
+inline bool game::Mod8(int8_t m) { return (counter8==m);}
+inline bool game::Mod9(int8_t m) { return (counter9==m);}
 
 
 

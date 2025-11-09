@@ -437,7 +437,7 @@ void editor::updateCountRelated()
     sprintf(y,"%d", t );
 
     string mylevels = options::GetMyLevelsFolder();
-    int i=0;
+    size_t i = 0;
     while ( i < filename.length() && i < mylevels.length() && (filename[i]==mylevels[i]) ) {
         i++;
     }
@@ -1881,7 +1881,7 @@ void editorboard::DeleteLevel(editorboard* ed)
             levelList[i] = levelList[i+1];
         }
         levelList.resize(x-1);
-        if (currentLevel >= levelList.size() ) {
+        if (currentLevel >= std::ssize(levelList) ) {
              LoadLevelNumber(ed, levelList.size()-1);
         } else {
              LoadLevelNumber(ed, currentLevel);
@@ -1892,7 +1892,7 @@ void editorboard::DeleteLevel(editorboard* ed)
 
 void editorboard::SaveAtLevelNumber(editorboard* ed, int num)
 {
-    if( num >= levelList.size() ) {
+    if(num >= std::ssize(levelList)) {
         levelList.resize(num+1);
     }
     levelList[num].assign(ed);
@@ -1923,7 +1923,7 @@ int editorboard::CurrentLevelNumber()
 
 void editorboard::LoadLevelNumber(editorboard* ed, int num)
 {
-    if( num >= levelList.size() ) {
+    if(num >= std::ssize(levelList)) {
         if ( levelList.size() == 0 ) {
             num = 0;
             levelList.resize(1);

@@ -128,15 +128,15 @@ void inputtextblock::draw(SDL_Surface* target)
 
 
     int begi=0,endi=lines;
-    if(lines<textsplit.size())
+    if(lines < std::ssize(textsplit))
     {
-        begi=textsplit.size()-lines;
-        endi=textsplit.size();
+        begi = std::ssize(textsplit) - lines;
+        endi = std::ssize(textsplit);
     }
 
-    if (lines>textsplit.size())
+    if (lines > std::ssize(textsplit))
     {
-        endi=textsplit.size();
+        endi = std::ssize(textsplit);
     }
 
     int fh=dialogs::FontResource->Height();

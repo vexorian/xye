@@ -113,7 +113,7 @@ namespace listbox_private
         }
         void selectItem(int index) {
             int old = selectedIndex;
-            if (index >= tags.size() ) {
+            if (index >= std::ssize(tags) ) {
                 selectedIndex = -1;
             } else {
                 selectedIndex = index;
@@ -124,7 +124,7 @@ namespace listbox_private
         }
         void selectItem(string value) {
             int old = selectedIndex;
-            for (selectedIndex = 0; selectedIndex < tags.size(); selectedIndex++) {
+            for (selectedIndex = 0; selectedIndex < std::ssize(tags); selectedIndex++) {
                 if (values[selectedIndex]==value) {
                     handleSelectEvent( old == -1 );
                     return;
@@ -158,13 +158,13 @@ namespace listbox_private
             int i = 0;
 
             int bh = barWidth;
-            if ( tags.size() <= maxLines ) {
+            if (std::ssize(tags) <= maxLines) {
                 bh = 0;
             }
             maxLines = 0;
             while ( cy + fh < y + h)
             {
-                if (viewIndex + i < tags.size() ) {
+                if (viewIndex + i < std::ssize(tags) ) {
 
                     if ( viewIndex + i == selectedIndex) {
                         Uint32 col;
@@ -211,7 +211,7 @@ namespace listbox_private
 
         bool insideBar(int px, int py)
         {
-            if ( tags.size() > maxLines ) {
+            if (std::ssize(tags) > maxLines) {
                 return px >= w - barWidth;
             }
             return false;
@@ -219,9 +219,9 @@ namespace listbox_private
 
         void verifyBarClick(int mousex, int mousey)
         {
-            if ( barClicked && ( tags.size() > maxLines ) ) {
+            if (barClicked && (std::ssize(tags) > maxLines)) {
                 int p = (mousey*tags.size()) / h;
-                if (p <= tags.size() - maxLines) {
+                if (p <= std::ssize(tags) - maxLines) {
                     viewIndex = p;
                 } else {
                     //v + maxLines == tags.size()
@@ -254,11 +254,11 @@ namespace listbox_private
                 return ;
             }
             clicked = false;
-            if ( (tags.size() <= maxLines) || (mousex < w - barWidth) ) {
+            if ((std::ssize(tags) <= maxLines) || (mousex < w - barWidth)) {
                 //item click.
                 int old = selectedIndex;
                 int p = mousey/ NormalFont->Height();
-                if ( (p < maxLines) && (p + viewIndex < tags.size() ) ) {
+                if ((p < maxLines) && (p + viewIndex < std::ssize(tags))) {
                     selectedIndex = viewIndex + p;
                     if (old == selectedIndex) {
                         if ( onItemDoubleClick != NULL) {
